@@ -6,7 +6,10 @@ export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
   // 1. 301 Permanent Redirect from kinderesl.vercel.app to kinderesl.com
-  if (host === 'kinderesl.vercel.app') {
+  // ONLY active when the custom domain is registered and connected (ENABLE_CANONICAL_REDIRECT=true)
+  // This prevents site outage / DNS NXDOMAIN errors before domain purchase/propagation.
+  const enableCanonicalRedirect = process.env.ENABLE_CANONICAL_REDIRECT === 'true';
+  if (enableCanonicalRedirect && (host === 'kinderesl.vercel.app' || host.endsWith('.vercel.app'))) {
     const destination = new URL(`https://kinderesl.com${pathname}${search}`);
     return NextResponse.redirect(destination, { status: 301 });
   }
