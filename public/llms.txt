@@ -1,6 +1,6 @@
 # KinderESL: Free Printable Educational Resources for Preschool & Kindergarten Teachers
 
-> [KinderESL](https://kinderesl.com) is a collection of free printable PDF worksheets, phonics packs, thematic early learning activities, and instructional guides designed for early childhood educators, preschool teachers, kindergarten instructors, and homeschooling parents across the United States, Canada, and the United Kingdom.
+> [KinderESL](https://kinderesl.com) is a collection of free printable PDF worksheets, phonics packs, thematic early learning activities, and instructional guides designed for early childhood educators, preschool teachers, kindergarten instructors, and homeschooling parents across the United States, Canada, the United Kingdom, and internationally.
 
 ## Pedagogical Philosophy & Positioning
 KinderESL is an instructional and curricular resource platform for adults—teachers, educators, curriculum coordinators, and parents. The content adheres to early childhood developmental standards, emphasizing phonemic awareness, fine-motor pencil control, one-to-one number correspondence, visual discrimination, and foundational English language acquisition (ESL/ELL).
@@ -9,19 +9,31 @@ KinderESL is an instructional and curricular resource platform for adults—teac
 - Editorial Focus: Early Childhood ESL and Kindergarten Educational Printables
 - Access: 100% Free downloadable high-resolution PDF printables for non-commercial classroom and home use.
 
-## Core Content Categories
-- [Literacy & Phonics](https://kinderesl.com/worksheets/literacy): Letter tracing, letter of the week curriculum, phonics initial sound association, uppercase and lowercase handwriting formation.
-- [Early Math & Numbers](https://kinderesl.com/worksheets/math): Number recognition, counting 1 to 10, one-to-one correspondence, number tracing.
+## Core Learning Subjects
+- [Alphabet & Letters](https://kinderesl.com/worksheets/alphabet): Letter tracing, Letter of the Week curriculum, starting dot stroke guides, uppercase and lowercase handwriting formation.
+- [Phonics & Sounds](https://kinderesl.com/worksheets/phonics): Phonemic awareness, initial sounds, rhyming words, and early decoding printables.
+- [Numbers & Counting](https://kinderesl.com/worksheets/numbers-counting): Number recognition, counting 1 to 10, one-to-one correspondence, numeral tracing.
+- [Shapes & Colors](https://kinderesl.com/worksheets/shapes-colors): Geometric shape tracing, color-by-code activities, and pre-writing motor control.
+- [ESL Vocabulary](https://kinderesl.com/worksheets/vocabulary): Thematic English word cards, sight words, animal sounds, classroom objects.
 - [Thinking Skills & Logic](https://kinderesl.com/worksheets/thinking-skills): Visual discrimination, odd-one-out categorizing, seasonal attribute comparisons.
-- [ESL & Vocabulary Sets](https://kinderesl.com/worksheets/esl-vocabulary): Thematic English word cards, sight words, animal sounds, classroom objects.
 
 ## Featured Printables
-- [Letter A Tracing & Phonics: Andy the Ant Loves Apples](https://kinderesl.com/worksheets/literacy/letter-a-tracing-and-phonics): 2-page alphabet tracing and apple hunt counting activity.
-- [Lily the Ladybug's Party: Count & Trace Numbers 1 to 5](https://kinderesl.com/worksheets/math/counting-1-to-5-ladybug-party): 1-page number recognition, counting, and numeral tracing sheet.
-- [Penny Packs for a Snowy Day: Winter Odd-One-Out](https://kinderesl.com/worksheets/thinking-skills/winter-odd-one-out-visual-discrimination): 1-page seasonal visual discrimination and word tracing printable.
-- [Farm Animals Matching & Cut-and-Paste: Good Morning, Farm!](https://kinderesl.com/worksheets/esl-vocabulary/farm-animals-esl-vocabulary-and-tracing): 2-page animal name matching and sound cut-and-paste activity.
+- [Letter A Tracing & Phonics: Andy the Ant Loves Apples](https://kinderesl.com/worksheets/letter-a-tracing-and-phonics): 2-page alphabet tracing and apple hunt counting activity.
+- [Lily the Ladybug's Party: Count & Trace Numbers 1 to 5](https://kinderesl.com/worksheets/counting-1-to-5-ladybug-party): 1-page number recognition, counting, and numeral tracing sheet.
+- [Penny Packs for a Snowy Day: Winter Odd-One-Out](https://kinderesl.com/worksheets/winter-odd-one-out-visual-discrimination): 1-page seasonal visual discrimination and word tracing printable.
+- [Farm Animals Matching & Cut-and-Paste: Good Morning, Farm!](https://kinderesl.com/worksheets/farm-animals-esl-vocabulary-and-tracing): 2-page animal name matching and sound cut-and-paste activity.
+
+## Türkçe Bölüm / Turkish Edition
+KinderESL, Türkiye'deki okul öncesi ve anaokulu İngilizce öğretmenleri ile çocuklarına evde İngilizce öğreten veliler için ücretsiz çalışma kağıtları sunar:
+- [KinderESL Türkçe Ana Sayfa](https://kinderesl.com/tr): Okul öncesi İngilizce eğitim kaynakları ve öğretmen rehberleri.
+- [Tüm Çalışma Sayfaları (Türkçe)](https://kinderesl.com/tr/calisma-sayfalari): Konu, yaş ve etkinlik tipine göre filtrelenebilir ücretsiz İngilizce çalışma kağıtları arşivi.
+- [İngilizce A Harfi Yazma Etkinliği](https://kinderesl.com/tr/calisma-sayfalari/ingilizce-a-harfi-yazma-etkinligi): Andy the Ant ile 2 sayfalık A harfi çizgi ve fonetik çalışması.
+- [1-5 Sayma Etkinliği: Uğur Böceği Lily](https://kinderesl.com/tr/calisma-sayfalari/1-5-sayma-etkinligi-ugurbocegi-lily): 1-5 arası sayma ve rakam yazma kağıdı.
+- [Kış Mevsimi Farklı Olanı Bul](https://kinderesl.com/tr/calisma-sayfalari/kis-mevsimi-farkli-olani-bul-etkinligi): Penguen Penny ile görsel ayırt etme ve kış kelimeleri.
+- [Çiftlik Hayvanları Eşleştirme ve Kes-Yapıştır](https://kinderesl.com/tr/calisma-sayfalari/ciftlik-hayvanlari-eslestirme-ve-kes-yapistir): 2 sayfalık çiftlik hayvanları ve sesleri etkinliği.
+- [Okul Öncesi İngilizce Yıllık Plan](https://kinderesl.com/tr/okul-oncesi-ingilizce-yillik-plan): 12 aylık mevsimsel okul öncesi İngilizce tema planı.
 
 ## Inquiries & Feedback
 - Website: [KinderESL](https://kinderesl.com)
-- Inquiries: [Contact KinderESL](https://kinderesl.com/contact)
+- Inquiries: [Contact KinderESL](https://kinderesl.com/contact) / [Türkçe İletişim](https://kinderesl.com/tr/iletisim)
 - Terms of Use: [Terms of Use](https://kinderesl.com/terms) (Free for home and classroom non-commercial educational use)

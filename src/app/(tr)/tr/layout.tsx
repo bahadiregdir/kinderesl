@@ -34,9 +34,9 @@ export default function TurkishRootLayout({
   return (
     <html lang="tr" className="h-full scroll-smooth">
       <body className="min-h-full flex flex-col bg-white text-slate-800 antialiased selection:bg-[#2E6B6B] selection:text-white">
-        <Navbar />
+        <Navbar locale="tr" />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer locale="tr" />
       </body>
     </html>
   );

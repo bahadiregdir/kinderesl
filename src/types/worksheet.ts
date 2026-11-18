@@ -1,15 +1,32 @@
-export type WorksheetCategory =
-  | 'literacy'
-  | 'math'
-  | 'thinking-skills'
-  | 'esl-vocabulary'
-  | 'shapes-colors';
+export type WorksheetSubject =
+  | 'alphabet'
+  | 'phonics'
+  | 'numbers-counting'
+  | 'shapes-colors'
+  | 'vocabulary'
+  | 'thinking-skills';
+
+export type ActivityType =
+  | 'tracing'
+  | 'coloring'
+  | 'cut-and-paste'
+  | 'matching'
+  | 'counting'
+  | 'odd-one-out'
+  | 'flashcards'
+  | 'dot-to-dot'
+  | 'maze';
+
+export type AgeBand = '3-4' | '4-5' | '5-6';
+
+export type EslLevel = 'beginner' | 'early-reader';
 
 export interface TeacherNote {
   skillFocus: string;
   learningGoal: string;
   teachingTip: string;
   extensionActivity: string;
+  steps?: string[];
 }
 
 export interface FAQItem {
@@ -17,59 +34,110 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface WorksheetTurkishI18n {
+  slug: string;
+  title: string;
+  description: string;
+  quickSummary: string;
+  teacherNote: {
+    skillFocus: string;
+    learningGoal: string;
+    teachingTip: string;
+    extensionActivity: string;
+    steps?: string[];
+  };
+  whatsInside: string[];
+  vocabularyWithTranslations: { en: string; tr: string }[];
+  faqs: FAQItem[];
+  keywords: string[];
+  reviewed: boolean;
+}
+
 export interface Worksheet {
   id: string;
   title: string;
   slug: string;
-  category: WorksheetCategory;
-  categoryName: string;
+  subject: WorksheetSubject;
+  subjectName: string;
+  topics: string[];
+  activityTypes: ActivityType[];
+  ageBands: AgeBand[];
+  eslLevel?: EslLevel;
   ages: string;
   gradeLevel: string;
   skill: string;
   pages: number;
   description: string;
-  quickSummary: string; // 2-3 sentences for GEO/AI at top of page
+  quickSummary: string;
   teacherNote: TeacherNote;
+  whatsInside: string[];
   pdfPath: string;
   pdfFileSize: string;
   previewImages: string[];
   pinterestPinImage: string;
-  keywords: string[];
-  theme: string;
-  themeName: string;
-  monthTheme?: string;
+  vocabulary: string[];
+  series?: {
+    id: string;
+    name: string;
+    order: number;
+    total?: number;
+    nextSlug?: string;
+    prevSlug?: string;
+  };
+  months?: number[];
   relatedSlugs: string[];
   faqs: FAQItem[];
+  keywords: string[];
   datePublished: string;
   dateModified: string;
+  i18n?: {
+    tr?: WorksheetTurkishI18n;
+  };
+
+  // Backwards compatibility aliases
+  category?: string;
+  categoryName?: string;
+  theme?: string;
+  themeName?: string;
 }
 
-export interface CategoryMeta {
-  slug: WorksheetCategory;
+export interface SubjectMeta {
+  slug: WorksheetSubject;
   title: string;
   shortTitle: string;
   description: string;
-  pedagogicalFocus: string;
   targetAges: string;
   iconName: string;
   faqs: FAQItem[];
+  plannedTitles: string[];
 }
 
-export interface ThemeMeta {
+export interface TopicMeta {
   slug: string;
   title: string;
   description: string;
-  bestMonths: string[];
-  skillsCovered: string[];
+  iconName: string;
+  curriculumMonths: number[];
   faqs: FAQItem[];
+  plannedTitles: string[];
 }
 
 export interface MonthMeta {
+  monthNumber: number;
   slug: string;
   name: string;
   season: 'Winter' | 'Spring' | 'Summer' | 'Fall';
-  curriculumThemes: string[];
+  topicSlugs: string[];
   description: string;
-  learningMilestones: string[];
   faqs: FAQItem[];
+  plannedTitles: string[];
+}
+
+/**
+ * Central indexation rule:
+ * Subject, topic, and monthly theme collections require >= 6 worksheets to be indexed
+ * and included in sitemap.xml. Otherwise they remain noindex, follow.
+ */
+export function isIndexableCollection(count: number): boolean {
+  return count >= 6;
 }

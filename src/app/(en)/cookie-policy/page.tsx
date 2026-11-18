@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: `Cookie Policy for ${siteConfig.name}. Explains the types of cookies we use and how teachers and parents can control preferences.`,
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      tr: `${siteUrl}/tr/cerez-politikasi`,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     title: `Cookie Policy | ${siteConfig.name}`,

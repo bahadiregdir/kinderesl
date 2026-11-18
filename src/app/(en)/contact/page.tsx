@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     'Have a suggestion for a preschool or kindergarten worksheet? Contact the KinderESL team directly via email for teacher resource requests and feedback.',
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      tr: `${siteUrl}/tr/iletisim`,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     title: 'Contact Us & Educator Resource Requests | KinderESL',

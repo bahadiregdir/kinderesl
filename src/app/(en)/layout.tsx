@@ -30,7 +30,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: siteUrl,
-    // hreflang removed as requested (Item 9)
+    languages: {
+      en: siteUrl,
+      tr: `${siteUrl}/tr`,
+      'x-default': siteUrl,
+    },
   },
   openGraph: {
     type: 'website',
@@ -133,9 +137,9 @@ export default function RootLayout({
         )}
       </head>
       <body className="min-h-full flex flex-col bg-white text-slate-800 antialiased selection:bg-[#2E6B6B] selection:text-white">
-        <Navbar />
+        <Navbar locale="en" />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer locale="en" />
       </body>
     </html>
   );

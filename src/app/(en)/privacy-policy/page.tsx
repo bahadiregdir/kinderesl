@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: `Privacy Policy for ${siteConfig.name}. Explains our data collection practices, adult teacher/parent target audience, COPPA compliance, and AdSense disclosures.`,
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      tr: `${siteUrl}/tr/gizlilik-politikasi`,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     title: `Privacy Policy | ${siteConfig.name}`,

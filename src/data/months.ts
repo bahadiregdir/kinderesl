@@ -1,203 +1,240 @@
 import { MonthMeta } from '@/types/worksheet';
+import { topics } from './topics';
 
-export const months: MonthMeta[] = [
+const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
   {
+    monthNumber: 1,
     slug: 'january',
     name: 'January',
     season: 'Winter',
-    curriculumThemes: ['Winter Weather', 'Snow & Ice', 'Arctic Animals', 'Mittens & Coats'],
-    description:
-      'January preschool theme printables focusing on cold climates, winter apparel categorization, snowman counting, and sensory winter vocabulary.',
-    learningMilestones: [
-      'Identifying winter clothing versus summer clothing',
-      'Tracing cold weather vocabulary (snow, ice, cold)',
-      'Counting snowflakes and winter objects 1–10',
+    description: 'Winter weather, arctic animals, cold-weather clothing, and cozy indoor learning printables.',
+    plannedTitles: [
+      'January Morning Calendar & Weather Wheel',
+      'Arctic Animals Cut-and-Paste Habitat Mat',
+      'Winter Mittens Color Matching Activity',
     ],
     faqs: [
       {
-        question: 'What is the most popular preschool theme in January?',
-        answer:
-          'Winter weather and cold-climate animals (penguins, polar bears) are standard January focus units, offering rich opportunities for visual discrimination and sensory science vocabulary.',
+        question: 'What are the core preschool themes for January?',
+        answer: 'January focuses on winter exploration, penguins, polar bears, snow experiments, and winter gear vocabulary.',
       },
     ],
   },
   {
+    monthNumber: 2,
     slug: 'february',
     name: 'February',
     season: 'Winter',
-    curriculumThemes: ['Friendship & Kindness', 'Dental Health', 'Community Helpers', 'Shadows'],
-    description:
-      'February learning resources centered on kindness, community roles, basic geometry through heart shapes, and healthy habits.',
-    learningMilestones: ['Recognizing community helper tools', 'Heart shape tracing', 'Color sorting'],
+    description: 'Friendship, kindness, community helpers, dental health, and groundhog winter predictions.',
+    plannedTitles: [
+      'Friendship Heart Counting & Tracing 1–10',
+      'Dental Health Smile & Teeth Brushing Chart',
+      'Community Helpers Matching Mats: Doctor, Firefighter, Teacher',
+    ],
     faqs: [
       {
-        question: 'How to introduce community helpers to preschool ESL students?',
-        answer:
-          'Pair visual cards showing firefighters, doctors, and teachers with simple sentence stems: "A teacher helps us learn."',
+        question: 'Which themes work best for February in ESL kindergarten?',
+        answer: 'February is ideal for social-emotional vocabulary (sharing, kindness, feelings) and health routines.',
       },
     ],
   },
   {
+    monthNumber: 3,
     slug: 'march',
     name: 'March',
     season: 'Spring',
-    curriculumThemes: ['Spring Weather & Wind', 'Kites', 'Rainbows & Colors', 'Plant Growth'],
-    description:
-      'March curricular printables celebrating the transition to spring, wind science, color mixing, and seed sprouting.',
-    learningMilestones: ['Color name identification', 'Tracing straight & windy lines', 'Weather graphing'],
+    description: 'Windy weather, kites, early spring renewal, green plants, and farm introduction.',
+    plannedTitles: [
+      'Windy Day Kite Number Tracing 1 to 10',
+      'Spring Seed Sprout Observation Log',
+      'Farm Animals First Words Picture Cards',
+    ],
     faqs: [
       {
-        question: 'What fine motor activities suit March weather themes?',
-        answer:
-          'Tracing spiraling wind gusts and raindrop lines strengthens the wrist control required for curved letter formation.',
+        question: 'How to transition curriculum from winter to spring in March?',
+        answer: 'Introduce weather observations comparing cold blizzards to windy, rainy spring days and initial garden vocabulary.',
       },
     ],
   },
   {
+    monthNumber: 4,
     slug: 'april',
     name: 'April',
     season: 'Spring',
-    curriculumThemes: ['Farm Animals', 'Rain & Clouds', 'Earth Day & Recycling', 'Baby Animals'],
-    description:
-      'April early learning activities highlighting barnyard animals, mother and baby animal vocabulary, and spring growth.',
-    learningMilestones: ['Farm animal vocabulary & sounds', 'Counting eggs 1–10', 'Sorting natural materials'],
+    description: 'Spring rain showers, growing gardens, blooming flowers, insects, and Earth Day awareness.',
+    plannedTitles: [
+      'Raindrop Number Tracing: Count the Showers',
+      'Earth Day Recycling Sort: Paper, Plastic, Can',
+      'Ladybug Spot Counting & Math Ten-Frames',
+    ],
     faqs: [
       {
-        question: 'Why are farm animal units optimal in April?',
-        answer:
-          'Spring is the traditional season to introduce baby animal terminology (calf, lamb, chick) and reinforce onomatopoeia phonics.',
+        question: 'What fine-motor spring activities are recommended in April?',
+        answer: 'Cut-and-paste flower petals, raindrop vertical line tracing, and garden planting sequence sheets.',
       },
     ],
   },
   {
+    monthNumber: 5,
     slug: 'may',
     name: 'May',
     season: 'Spring',
-    curriculumThemes: ['Insects & Bugs', 'Flowers & Gardens', 'Butterflies', 'Mother’s Day'],
-    description:
-      'May preschool worksheets emphasizing creepy crawlies, ladybug spot counting, butterfly life cycles, and vibrant floral art.',
-    learningMilestones: ['Counting objects 1–5 on insects', 'Tracing symmetrical butterfly wings', 'Nature vocabulary'],
+    description: 'Butterflies, garden bugs, Mother’s Day cards, transportation, and family themes.',
+    plannedTitles: [
+      'Mother’s Day Handprint Poem & Flower Tracing',
+      'Butterfly Life Cycle Ordering Worksheet',
+      'Vehicles on the Go: Cars, Buses, Bikes Match',
+    ],
     faqs: [
       {
-        question: 'How do bug themes improve subitizing?',
-        answer:
-          'Counting 2 to 5 dots on ladybug wings trains children to rapidly recognize set sizes without counting one-by-one.',
+        question: 'Why are insect and bug themes emphasized in May?',
+        answer: 'Warmer weather enables outdoor recess bug hunts, providing immediate physical anchors for insect vocabulary.',
       },
     ],
   },
   {
+    monthNumber: 6,
     slug: 'june',
     name: 'June',
     season: 'Summer',
-    curriculumThemes: ['Ocean & Marine Life', 'Sun & Beach Safety', 'Summer Fruits', 'Camping'],
-    description:
-      'June themes exploring underwater sea creatures, beach safety vocabulary, watermelon seed counting, and summer transitions.',
-    learningMilestones: ['Ocean vocabulary (fish, whale, crab)', 'Patterning with beach gear', 'Gross motor summer games'],
+    description: 'Summer season welcome, beach trips, ocean marine life, picnics, and warm weather.',
+    plannedTitles: [
+      'Ocean Marine Animals Vocabulary Tracing',
+      'Beach Bag Packing: Circle the Summer Items',
+      'Sun Safety Words & Hat Tracing Sheet',
+    ],
     faqs: [
       {
-        question: 'How to maintain phonics retention over summer breaks?',
-        answer:
-          'Consistent, low-pressure 5-minute daily letter tracing sheets keep finger musculature and sound-symbol recognition active.',
+        question: 'How to keep preschool skills active during June transitions?',
+        answer: 'Engage children with lightweight color-and-trace sheets celebrating ocean and beach topics.',
       },
     ],
   },
   {
+    monthNumber: 7,
     slug: 'july',
     name: 'July',
     season: 'Summer',
-    curriculumThemes: ['Picnics & Summer Foods', 'Space & Stars', 'Water Play', 'Colors of the Sun'],
-    description: 'Summer fun learning printables focusing on picnic food vocabulary, counting, and creative outdoor observation.',
-    learningMilestones: ['Healthy food sorting', 'Color recognition', 'Spatial prepositions (under, on, beside)'],
+    description: 'Sunshine, camping, picnics, fireworks, water play, and ice cream counting.',
+    plannedTitles: [
+      'Ice Cream Cone Scoop Counting 1–5',
+      'Camping Tent & Forest Animal Tracing',
+      'Summer Fruit Salad Pattern Cards',
+    ],
     faqs: [
       {
-        question: 'Are printable worksheets effective during summer camps?',
-        answer:
-          'Yes, teachers frequently use single-page coloring and discrimination sheets as quiet rest-time transitions.',
+        question: 'Are July worksheets designed for homeschool and camp settings?',
+        answer: 'Yes, quick 10-minute printable exercises provide structured learning without screen fatigue.',
       },
     ],
   },
   {
+    monthNumber: 8,
     slug: 'august',
     name: 'August',
     season: 'Summer',
-    curriculumThemes: ['All About Me', 'Senses (Taste, Touch, Sight)', 'Back-to-School Readiness', 'Family'],
-    description:
-      'August preschool units introducing body parts, classroom routines, name writing preparation, and emotional expression.',
-    learningMilestones: ['Self-portrait drawing & tracing', 'Five senses vocabulary', 'Pencil grip reinforcement'],
+    description: 'Back-to-school preparation, classroom routines, friendship rules, and pencil grip practice.',
+    plannedTitles: [
+      'School Backpack Essentials Tracing & Match',
+      'Classroom Rules & Sharing Manners Picture Cards',
+      'Pencil Control Lines: Back to School Pre-Writing',
+    ],
     faqs: [
       {
-        question: 'What readiness skills are crucial in August?',
-        answer:
-          'Following one-step pictorial directions, holding a triangular crayon properly, and recognizing one’s first initial.',
+        question: 'What preschool skills should be reinforced in late August?',
+        answer: 'Fine-motor pencil grasp, listening to simple teacher instructions, and recognizing personal cubby names.',
       },
     ],
   },
   {
+    monthNumber: 9,
     slug: 'september',
     name: 'September',
     season: 'Fall',
-    curriculumThemes: ['Alphabet Kickoff (Letter of the Week)', 'School Tools & Classroom Rules', 'Apples', 'Autumn Leaves'],
-    description:
-      'September foundational curriculum featuring Letter Aa tracing (Andy the Ant & Apples), counting school supplies, and classroom orientation.',
-    learningMilestones: ['Letter Aa recognition & strokes', 'Initial sound /a/ isolation', 'Apple counting to 5'],
+    description: 'Letter of the Week launch, apple harvest, school routines, and farm animals.',
+    plannedTitles: [
+      'Apple Tree Counting & Color by Number',
+      'Meet the Teacher Introduction & All About Me Mat',
+      'School Bus Shape & Path Tracing Practice',
+    ],
     faqs: [
       {
-        question: 'Why start the formal alphabet curriculum in September?',
-        answer:
-          'September aligns with the start of the academic year, setting a steady weekly rhythm (Letter of the Week) across 26 weeks.',
+        question: 'Why start the formal Letter of the Week series in September?',
+        answer: 'September aligns with the official school year launch across US, UK, and Canadian preschool curriculums.',
       },
     ],
   },
   {
+    monthNumber: 10,
     slug: 'october',
     name: 'October',
     season: 'Fall',
-    curriculumThemes: ['Pumpkins & Squash', 'Harvest & Orchard', 'Fall Leaves & Trees', 'Spiders'],
-    description:
-      'October learning resources focusing on orange color exploration, pumpkin size comparison (big vs. small), and fall vocabulary.',
-    learningMilestones: ['Size ordering (small, medium, large)', 'Orange & brown color recognition', 'Leaf tracing'],
+    description: 'Autumn leaves, pumpkins, nocturnal animals (owls, bats), and harvest celebrations.',
+    plannedTitles: [
+      'Pumpkin Patch Number Tracing 1 to 10',
+      'Nocturnal Forest Animals Flashcards',
+      'Autumn Leaf Color Sorting Activity',
+    ],
     faqs: [
       {
-        question: 'How to incorporate math into pumpkin themes?',
-        answer:
-          'Have students count pumpkin seeds, trace numerals inside pumpkin outlines, and measure height with non-standard units.',
+        question: 'How do autumn sensory themes benefit ESL vocabulary building?',
+        answer: 'Sensory words like crunchy leaves, orange pumpkins, and cool winds anchor rich adjective usage.',
       },
     ],
   },
   {
+    monthNumber: 11,
     slug: 'november',
     name: 'November',
     season: 'Fall',
-    curriculumThemes: ['Gratitude & Family', 'Harvest Vegetables', 'Forest Animals & Hibernation', 'Turkeys'],
-    description:
-      'November units exploring forest habitats, thankful language prompts, nutrition vocabulary, and woodland animal tracking.',
-    learningMilestones: ['Woodland animal recognition (bear, squirrel, owl)', 'Counting acorns', 'Family vocabulary'],
+    description: 'Gratitude, family meals, turkey themes, squirrels, acorns, and food appreciation.',
+    plannedTitles: [
+      'Thankful Feathers Writing & Drawing Sheet',
+      'Squirrel & Acorn Pre-Math Maze 1–10',
+      'Healthy Feast Food Classification Mats',
+    ],
     faqs: [
       {
-        question: 'How does hibernation teach science to preschoolers?',
-        answer:
-          'It connects temperature drops with animal behavior, introducing concepts like shelter, sleep cycles, and food storage.',
+        question: 'What values are emphasized in November preschool units?',
+        answer: 'Gratitude, table manners, recognizing healthy family foods, and seasonal wildlife preparation.',
       },
     ],
   },
   {
+    monthNumber: 12,
     slug: 'december',
     name: 'December',
     season: 'Winter',
-    curriculumThemes: ['Gingerbread & Baking', 'Evergreen Trees & Pinecones', 'Winter Celebrations', 'Mittens'],
-    description:
-      'December preschool activities focused on gingerbread man symmetry, evergreen counting, festive patterns, and cozy sensory play.',
-    learningMilestones: ['Gingerbread button counting', 'Symmetrical decorating', 'Holiday vocabulary'],
+    description: 'Winter solstice, gingerbread, gift sharing, bells, snowflakes, and festive celebrations.',
+    plannedTitles: [
+      'Gingerbread Person Button Counting & Match',
+      'Snowflake Symmetry & Dot Tracing Sheet',
+      'Holiday Gift Box Geometric Shape Match',
+    ],
     faqs: [
       {
-        question: 'How do baking themes support early math?',
-        answer:
-          'Sequencing recipe steps (first, next, last) and one-to-one counting of gingerbread decorations solidify logical order.',
+        question: 'How do December activities support inclusive multicultural classrooms?',
+        answer: 'They emphasize seasonal cheer, kindness, gifting, and universal winter wonder.',
       },
     ],
   },
 ];
 
+export const months: MonthMeta[] = monthData.map((m) => {
+  const matchingTopicSlugs = topics
+    .filter((t) => t.curriculumMonths.includes(m.monthNumber))
+    .map((t) => t.slug);
+
+  return {
+    ...m,
+    topicSlugs: matchingTopicSlugs,
+  };
+});
+
 export function getMonthBySlug(slug: string): MonthMeta | undefined {
   return months.find((m) => m.slug.toLowerCase() === slug.toLowerCase());
+}
+
+export function getMonthByNumber(num: number): MonthMeta | undefined {
+  return months.find((m) => m.monthNumber === num);
 }

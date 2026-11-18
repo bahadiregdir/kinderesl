@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: `Terms of Use for ${siteConfig.name}. Free license terms for teachers, classrooms, and homeschooling families. Commercial resale restrictions.`,
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      tr: `${siteUrl}/tr/kullanim-kosullari`,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     title: `Terms of Use | ${siteConfig.name}`,

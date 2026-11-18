@@ -1,0 +1,101 @@
+export const en = {
+  nav: {
+    announcement: 'Free Printable Educational Resources for Preschool, Kindergarten & ESL Educators',
+    tagline: 'Teacher & Parent Resource',
+    worksheets: 'Worksheets',
+    topics: 'Topics',
+    seasonsAndMonths: 'Seasons & Months',
+    games: 'Games',
+    about: 'About',
+    search: 'Search',
+    searchPlaceholder: 'Search worksheets (e.g. Letter A, counting, winter)...',
+    megaMenu: {
+      bySubject: 'By Subject',
+      byAge: 'By Age',
+      byActivity: 'By Activity Type',
+      viewAll: 'Browse All Worksheets →',
+    },
+  },
+  hero: {
+    badge: 'Free Printables for Teachers & Homeschooling Parents',
+    title: 'Printable Worksheets for Early Learners',
+    description:
+      'High-contrast, stroke-guided PDF printables designed for preschool, kindergarten, and ESL classrooms. Always 100% free with no account required.',
+    searchPlaceholder: 'Search by letter, skill, or theme (e.g. Letter A, counting 1-5, farm animals)...',
+    browseButton: 'Browse worksheets',
+    topicsStripTitle: 'Popular subjects:',
+  },
+  home: {
+    browseBySubjectTitle: 'Browse by subject',
+    browseBySubjectDesc: 'Foundational learning areas designed for preschool, kindergarten, and ESL instruction.',
+    monthlyThemesTitle: 'Monthly Themes',
+    monthlyThemesDesc: 'Seasonal themes and vocabulary collections organized for preschool calendar units.',
+    newAdditionsTitle: 'New & Featured Worksheets',
+    newAdditionsDesc: 'Ready-to-print resources formatted in standard US Letter size for crisp classroom printing.',
+    viewAllWorksheets: 'View all worksheets →',
+    viewAllTopics: 'Explore all topics →',
+    viewAllMonths: 'View 12-month calendar →',
+    authorHeading: 'Created by Educators for Early Learners',
+    authorSubheading:
+      'KinderESL printables are crafted with high-contrast lines, directional stroke guides, and clear pictorial anchors for preschool and ESL classrooms.',
+  },
+  detail: {
+    downloadFreePdf: 'Download free PDF',
+    print: 'Print',
+    saveToPinterest: 'Save to Pinterest',
+    trustLine: 'Free for classroom & home use · no sign-up',
+    whatsInside: "What's inside",
+    howToUse: 'How to use this worksheet',
+    teacherNotes: 'Teacher & Parent Notes',
+    vocabularyTitle: 'English words in this worksheet',
+    seriesNext: 'Next in this series',
+    seriesMore: 'More in this topic',
+    faqsTitle: 'Frequently Asked Questions',
+    relatedTitle: 'Related Worksheets',
+    pinSectionTitle: 'Save this printable for later',
+    pinSectionDesc: 'Pin this worksheet to your preschool or kindergarten teaching board on Pinterest.',
+    pinButton: 'Pin to Pinterest',
+    specs: {
+      ages: 'Ages',
+      pages: 'Pages',
+      format: 'Format',
+      subject: 'Subject',
+      topic: 'Topic',
+      letterSize: 'US Letter (8.5×11")',
+    },
+    stickyBar: {
+      download: 'Download free PDF',
+    },
+  },
+  collection: {
+    comingNext: 'Coming next in this topic',
+    comingNextDesc: 'New worksheets currently being created for this collection:',
+    relatedWorksheets: 'Related learning worksheets',
+  },
+  filter: {
+    allSubjects: 'All Subjects',
+    allTopics: 'All Topics',
+    allActivities: 'All Activities',
+    allAges: 'All Ages',
+    filterBy: 'Filter Worksheets',
+    clearFilters: 'Clear filters',
+    resultsCount: '{count} worksheets found',
+  },
+  footer: {
+    audienceNotice: 'Audience Notice',
+    audienceNoticeText:
+      'KinderESL.com is an educational publishing resource designed exclusively for adult educators, school teachers, curriculum coordinators, and parents. This website does not target or knowingly collect data from children under the age of 13 in compliance with COPPA, GDPR, and Google publisher policies.',
+    copyrightNotice:
+      'All PDF learning printables are copyrighted by KinderESL.com and provided free of charge for personal homeschooling and classroom instructional use. Commercial resale or redistribution is prohibited.',
+    copyright: '© 2026 KinderESL.com. All rights reserved.',
+    tagline: 'Designed for early childhood educators worldwide',
+    headers: {
+      featured: 'Featured Printables',
+      subjects: 'Subjects',
+      topics: 'Popular Topics',
+      legal: 'About & Policies',
+    },
+  },
+};
+
+export type Dictionary = typeof en;

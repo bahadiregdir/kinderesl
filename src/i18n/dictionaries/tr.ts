@@ -1,0 +1,101 @@
+import { Dictionary } from './en';
+
+export const tr: Dictionary = {
+  nav: {
+    announcement: 'Okul Öncesi, Anaokulu ve ESL Öğretmenleri İçin Ücretsiz İngilizce Eğitim Kaynakları',
+    tagline: 'Öğretmen ve Veli Kaynağı',
+    worksheets: 'Çalışma Sayfaları',
+    topics: 'Konular',
+    seasonsAndMonths: 'Mevsimler ve Aylar',
+    games: 'Oyunlar',
+    about: 'Hakkımızda',
+    search: 'Ara',
+    searchPlaceholder: 'Etkinlik ara (ör. A harfi, sayılar, kış)...',
+    megaMenu: {
+      bySubject: 'Konuya Göre',
+      byAge: 'Yaşa Göre',
+      byActivity: 'Etkinlik Tipine Göre',
+      viewAll: 'Tüm Çalışma Kağıtlarını Gör →',
+    },
+  },
+  hero: {
+    badge: 'Öğretmenler ve Veliler İçin Ücretsiz İngilizce Materyaller',
+    title: 'Okul Öncesi İngilizce Çalışma Sayfaları',
+    description:
+      'Okul öncesi, anaokulu ve erken İngilizce (ESL) sınıfları için net çizgili, yön okları olan ücretsiz PDF çalışma kağıtları. Üyelik veya kayıt gerektirmez.',
+    searchPlaceholder: 'Harf, beceri veya tema ara (ör. A harfi, 1-5 sayma, çiftlik hayvanları)...',
+    browseButton: 'Çalışma kağıtlarını incele',
+    topicsStripTitle: 'Popüler konular:',
+  },
+  home: {
+    browseBySubjectTitle: 'Konulara Göre İnceleyin',
+    browseBySubjectDesc: 'Okul öncesi İngilizce eğitiminde temel gelişim alanlarına göre ayrılmış çalışma kağıtları.',
+    monthlyThemesTitle: 'Aylık Temalar',
+    monthlyThemesDesc: 'Okul öncesi yıllık müfredatına ve mevsimlere göre düzenlenen aylık İngilizce tema planları.',
+    newAdditionsTitle: 'Öne Çıkan Çalışma Kağıtları',
+    newAdditionsDesc: 'Yazıcı dostu, standart boyutta yüksek çözünürlüklü ücretsiz PDF çıktıları.',
+    viewAllWorksheets: 'Tüm çalışma kağıtları →',
+    viewAllTopics: 'Tüm konuları inceleyin →',
+    viewAllMonths: '12 aylık takvimi görün →',
+    authorHeading: 'Eğitimciler Tarafından Erken Öğrenenler İçin Hazırlandı',
+    authorSubheading:
+      'KinderESL materyalleri, yüksek kontrastlı siyah-beyaz çizgiler ve net görsel sembollerle okul öncesi sınıflar için özel olarak tasarlanır.',
+  },
+  detail: {
+    downloadFreePdf: 'Ücretsiz PDF İndir',
+    print: 'Yazdır',
+    saveToPinterest: "Pinterest'e Kaydet",
+    trustLine: 'Sınıfta ve evde ücretsiz kullanım · Kayıt gerekmez',
+    whatsInside: 'İçerikte Neler Var?',
+    howToUse: 'Nasıl Kullanılır?',
+    teacherNotes: 'Öğretmen ve Veli Notları',
+    vocabularyTitle: 'Bu Çalışma Sayfasındaki İngilizce Kelimeler',
+    seriesNext: 'Bu Serideki Sıradaki Etkinlik',
+    seriesMore: 'Bu Konudaki Diğer Etkinlikler',
+    faqsTitle: 'Sıkça Sorulan Sorular',
+    relatedTitle: 'İlgili Çalışma Kağıtları',
+    pinSectionTitle: 'Daha Sonra Kullanmak İçin Kaydedin',
+    pinSectionDesc: "Bu etkinliği Pinterest panonuza kaydederek sınıf planlarınıza ekleyin.",
+    pinButton: "Pinterest'e Ekle",
+    specs: {
+      ages: 'Yaş',
+      pages: 'Sayfa',
+      format: 'Format',
+      subject: 'Konu',
+      topic: 'Tema',
+      letterSize: 'Standart US Letter (A4 Uyumlu)',
+    },
+    stickyBar: {
+      download: 'Ücretsiz PDF İndir',
+    },
+  },
+  collection: {
+    comingNext: 'Bu Konuda Yakında Eklenecek Etkinlikler',
+    comingNextDesc: 'Bu arşiv için şu anda hazırlanmakta olan yeni çalışma kağıtları:',
+    relatedWorksheets: 'İlgili Konulardan Çalışma Kağıtları',
+  },
+  filter: {
+    allSubjects: 'Tüm Konular',
+    allTopics: 'Tüm Temalar',
+    allActivities: 'Tüm Etkinlik Tipleri',
+    allAges: 'Tüm Yaşlar',
+    filterBy: 'Filtrele',
+    clearFilters: 'Filtreleri temizle',
+    resultsCount: '{count} çalışma sayfası bulundu',
+  },
+  footer: {
+    audienceNotice: 'Ziyaretçi Bildirimi',
+    audienceNoticeText:
+      'KinderESL.com, yalnızca yetişkin eğitimciler, öğretmenler ve ebeveynlere yönelik bir eğitim yayınıdır. Sitemiz 13 yaşından küçük çocukları hedeflemez ve COPPA ile GDPR yönergelerine tam uyumludur.',
+    copyrightNotice:
+      'Tüm PDF eğitim materyalleri KinderESL.com telif hakkı kapsamındadır; kişisel, evde eğitim ve sınıf içi kullanım için ücretsizdir. Ticari satışı veya izinsiz dağıtımı yasaktır.',
+    copyright: '© 2026 KinderESL.com. Tüm hakları saklıdır.',
+    tagline: 'Dünya çapındaki okul öncesi eğitimcileri için tasarlandı',
+    headers: {
+      featured: 'Öne Çıkanlar',
+      subjects: 'Temel Konular',
+      topics: 'Popüler Temalar',
+      legal: 'Hakkımızda & Politikalar',
+    },
+  },
+};

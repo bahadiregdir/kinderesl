@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   description: `Learn about ${siteConfig.name}'s mission to provide free, high-quality printable worksheets for preschool and kindergarten teachers and parents.`,
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      tr: `${siteUrl}/tr/hakkimizda`,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     title: `About & Pedagogical Mission | ${siteConfig.name}`,

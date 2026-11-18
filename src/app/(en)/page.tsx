@@ -1,8 +1,10 @@
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllWorksheets } from '@/data/worksheets';
-import { categories } from '@/data/categories';
-import { themes } from '@/data/themes';
-import { siteConfig, getSiteUrl } from '@/config/site';
+import { subjects } from '@/data/subjects';
+import { topics } from '@/data/topics';
+import { months } from '@/data/months';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
@@ -13,32 +15,36 @@ import {
   Brain,
   Languages,
   Shapes,
-  CheckCircle2,
-  FileDown,
   Sparkles,
   ArrowRight,
+  Search,
+  CheckCircle2,
   Calendar,
   Layers,
-  GraduationCap,
+  FileDown,
 } from 'lucide-react';
 
 export default function HomePage() {
   const worksheets = getAllWorksheets();
-  // Filter out shapes-colors (Item 7)
-  const activeCategories = categories.filter((c) => c.slug !== 'shapes-colors');
+  const featuredWorksheets = worksheets.slice(0, 4);
+  const popularTopics = topics.slice(0, 6);
 
-  const getCategoryIcon = (slug: string) => {
+  const getSubjectIcon = (slug: string) => {
     switch (slug) {
-      case 'literacy':
-        return <BookOpen className="w-6 h-6 text-[#2E6B6B]" />;
-      case 'math':
-        return <Calculator className="w-6 h-6 text-[#2E6B6B]" />;
+      case 'alphabet':
+        return <BookOpen className="w-5 h-5 text-[#2E6B6B]" />;
+      case 'phonics':
+        return <Languages className="w-5 h-5 text-[#2E6B6B]" />;
+      case 'numbers-counting':
+        return <Calculator className="w-5 h-5 text-[#2E6B6B]" />;
+      case 'shapes-colors':
+        return <Shapes className="w-5 h-5 text-[#2E6B6B]" />;
+      case 'vocabulary':
+        return <Languages className="w-5 h-5 text-[#2E6B6B]" />;
       case 'thinking-skills':
-        return <Brain className="w-6 h-6 text-[#2E6B6B]" />;
-      case 'esl-vocabulary':
-        return <Languages className="w-6 h-6 text-[#2E6B6B]" />;
+        return <Brain className="w-5 h-5 text-[#2E6B6B]" />;
       default:
-        return <Layers className="w-6 h-6 text-[#2E6B6B]" />;
+        return <Layers className="w-5 h-5 text-[#2E6B6B]" />;
     }
   };
 
@@ -49,9 +55,9 @@ export default function HomePage() {
         'Yes, 100% free. Every printable PDF can be downloaded directly without membership fees, email opt-ins, or subscriptions. They are licensed for personal home and school classroom instructional use.',
     },
     {
-      question: 'What formats are provided for the worksheets?',
+      question: 'What format are the worksheets provided in?',
       answer:
-        'Every worksheet is provided as a standard 8.5×11" US Letter vector PDF (which also prints cleanly on A4 paper). High-contrast black line art ensures clear results on standard black-and-white classroom copy machines.',
+        'Every worksheet is provided as a standard 8.5×11" US Letter PDF (which also prints cleanly on A4 paper). High-contrast black line art ensures crisp results on standard black-and-white classroom copy machines.',
     },
     {
       question: 'How do these printables support ESL / ELL students?',
@@ -66,208 +72,313 @@ export default function HomePage() {
   ];
 
   return (
-    <div>
+    <div className="space-y-16 lg:space-y-24">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#F0F7F7] via-[#F8FAFC] to-white border-b border-slate-200 py-16 sm:py-20 lg:py-24">
+      <section className="bg-gradient-to-b from-[#F0F7F7] via-[#F8FAFC] to-white border-b border-slate-200/80 pt-12 pb-16 lg:pt-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            {/* Audience Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white text-[#2E6B6B] border border-[#d0e3e3] shadow-xs mb-6">
-              <GraduationCap className="w-3.5 h-3.5" />
-              <span>Dedicated Resource for Preschool, Kindergarten &amp; ESL Educators</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Content Column (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white text-[#2E6B6B] border border-[#d0e3e3] shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#F2B544]" />
+                <span>Free Printables for Teachers &amp; Parents</span>
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-heading">
+                Printable Worksheets for{' '}
+                <span className="text-[#2E6B6B]">Early Learners</span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl font-normal">
+                High-contrast, stroke-guided PDF printables designed for preschool, kindergarten, and early ESL classrooms. Always 100% free with no sign-up or paywalls.
+              </p>
+
+              {/* Search Box */}
+              <form action="/worksheets" method="GET" className="max-w-lg">
+                <div className="relative flex items-center">
+                  <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
+                  <input
+                    type="text"
+                    name="q"
+                    placeholder="Search by letter, skill, or theme (e.g. Letter A, counting 1-5, farm animals)..."
+                    className="w-full pl-11 pr-28 py-3.5 text-sm bg-white border border-slate-300 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B] focus:border-[#2E6B6B] shadow-xs text-slate-800"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-2 px-4 py-2 text-xs font-bold bg-[#2E6B6B] hover:bg-[#225151] text-white rounded-lg transition-colors shadow-xs"
+                  >
+                    Search
+                  </button>
+                </div>
+              </form>
+
+              {/* Direct Link Button */}
+              <div className="flex flex-wrap items-center gap-4 pt-1">
+                <Link
+                  href="/worksheets"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2E6B6B] hover:bg-[#225151] text-white font-bold text-sm shadow-sm transition-all"
+                >
+                  <FileDown className="w-4 h-4" />
+                  <span>Browse worksheets</span>
+                </Link>
+                <Link
+                  href="/topics"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-200 shadow-2xs transition-colors"
+                >
+                  <span>Explore topics</span>
+                  <ArrowRight className="w-4 h-4 text-slate-400" />
+                </Link>
+              </div>
+
+              {/* Key Trust Signals */}
+              <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-500 font-medium pt-2">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>100% Free PDF downloads</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>Standard 8.5×11&quot; US Letter</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>No login or account needed</span>
+                </span>
+              </div>
             </div>
 
-            {/* H1 Value Proposition */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-6">
-              Printable Learning Resources for{' '}
-              <span className="text-[#2E6B6B] underline decoration-[#2E6B6B]/30 decoration-wavy">
-                Teachers &amp; Parents
+            {/* Right Collage Column (5 cols) - 3 tilted printable paper preview sheets */}
+            <div className="lg:col-span-5 relative flex items-center justify-center pt-6 lg:pt-0">
+              <div className="relative w-[300px] sm:w-[360px] h-[400px] sm:h-[460px]">
+                {/* Sheet 1 (back left, rotated -6deg) */}
+                <div className="absolute top-4 left-0 w-[210px] sm:w-[250px] aspect-[1224/1584] rounded-xl overflow-hidden shadow-lg border border-slate-200/90 -rotate-6 transition-transform hover:rotate-0 duration-300 bg-white">
+                  <Image
+                    src="/worksheets/counting-1-to-5-ladybug-party/preview-page-1.png"
+                    alt="Counting 1 to 5 Lily Ladybug worksheet preview"
+                    fill
+                    sizes="(max-width: 640px) 210px, 250px"
+                    className="object-contain p-2"
+                    priority
+                  />
+                </div>
+
+                {/* Sheet 2 (back right, rotated +5deg) */}
+                <div className="absolute top-6 right-0 w-[210px] sm:w-[250px] aspect-[1224/1584] rounded-xl overflow-hidden shadow-lg border border-slate-200/90 rotate-6 transition-transform hover:rotate-0 duration-300 bg-white">
+                  <Image
+                    src="/worksheets/farm-animals-esl-vocabulary-and-tracing/preview-page-1.png"
+                    alt="Farm animals match and cut-paste worksheet preview"
+                    fill
+                    sizes="(max-width: 640px) 210px, 250px"
+                    className="object-contain p-2"
+                    priority
+                  />
+                </div>
+
+                {/* Sheet 3 (front center, subtle shadow-2xl, centered) */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] sm:w-[260px] aspect-[1224/1584] rounded-xl overflow-hidden shadow-2xl border-2 border-slate-300/80 bg-white z-10 transition-transform hover:scale-105 duration-300">
+                  <Image
+                    src="/worksheets/letter-a-tracing-and-phonics/preview-page-1.png"
+                    alt="Letter A Andy the Ant tracing worksheet preview"
+                    fill
+                    sizes="(max-width: 640px) 220px, 260px"
+                    className="object-contain p-2"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Popular Subjects Horizontal Strip */}
+          <div className="mt-14 pt-8 border-t border-slate-200/70">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-bold text-slate-700 font-heading">
+                Popular subjects:
               </span>
-            </h1>
-
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto font-normal">
-              High-resolution printable PDF worksheets for preschool and kindergarten. Clean, purposeful designs that build phonics awareness, handwriting readiness, and early number sense without visual clutter.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-10">
               <Link
                 href="/worksheets"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#2E6B6B] hover:bg-[#225151] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all"
+                className="text-xs font-semibold text-[#2E6B6B] hover:underline"
               >
-                <FileDown className="w-4 h-4" />
-                <span>Browse All Worksheets</span>
-              </Link>
-              <Link
-                href="/themes"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-300 shadow-xs transition-colors"
-              >
-                <Sparkles className="w-4 h-4 text-[#2E6B6B]" />
-                <span>Explore Thematic Units</span>
+                All subjects →
               </Link>
             </div>
 
-            {/* Feature points */}
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs text-slate-600 pt-6 border-t border-slate-200/60 font-medium">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>100% Free PDF Downloads</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Standard 8.5×11&quot; US Letter</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Clean High-Contrast Layouts</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>No Paywalls or Login</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Curriculum Resource Hubs (Categories) */}
-      <section className="py-16 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-                Core Domains
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Curriculum Resource Hubs
-              </h2>
-            </div>
-            <Link
-              href="/worksheets"
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:text-[#225151]"
-            >
-              <span>View all categories</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {activeCategories.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/worksheets/${cat.slug}`}
-                className="group p-6 rounded-xl border border-slate-200 hover:border-[#2E6B6B] hover:shadow-sm transition-all bg-white flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-lg bg-[#F0F7F7] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                    {getCategoryIcon(cat.slug)}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              {subjects.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/worksheets/${s.slug}`}
+                  className="group flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200/90 hover:border-[#2E6B6B] hover:shadow-xs transition-all"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#F0F7F7] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    {getSubjectIcon(s.slug)}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors mb-2">
-                    {cat.shortTitle}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                    {cat.description}
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
-                  <span>{cat.targetAges}</span>
-                  <span className="text-[#2E6B6B] font-bold group-hover:translate-x-0.5 transition-transform">
-                    Explore Hub →
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-[#2E6B6B] transition-colors truncate">
+                    {s.shortTitle}
                   </span>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured / Newly Added Worksheets */}
-      <section className="py-16 bg-slate-50 border-b border-slate-200">
+      {/* Browse by Subject Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+              Browse by subject
+            </h2>
+            <p className="text-sm text-slate-600 mt-1">
+              Foundational learning areas designed for preschool, kindergarten, and ESL instruction.
+            </p>
+          </div>
+          <Link
+            href="/worksheets"
+            className="text-xs font-bold text-[#2E6B6B] hover:underline inline-flex items-center gap-1"
+          >
+            <span>View all subjects</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {subjects.map((sub) => (
+            <Link
+              key={sub.slug}
+              href={`/worksheets/${sub.slug}`}
+              className="group p-6 rounded-2xl border border-slate-200/90 hover:border-[#2E6B6B] hover:shadow-md transition-all bg-white flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-[#F0F7F7] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  {getSubjectIcon(sub.slug)}
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors mb-2 font-heading">
+                  {sub.title}
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                  {sub.description}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                <span>{sub.targetAges}</span>
+                <span className="text-[#2E6B6B] font-bold group-hover:translate-x-0.5 transition-transform">
+                  Explore →
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Featured Worksheets Grid */}
+      <section className="bg-slate-50 border-y border-slate-200/80 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-                Printables
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
                 Featured Worksheets
               </h2>
+              <p className="text-sm text-slate-600 mt-1">
+                Ready-to-print resources formatted in standard US Letter size for crisp classroom printing.
+              </p>
             </div>
             <Link
               href="/worksheets"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E6B6B] hover:text-[#225151]"
+              className="text-xs font-bold text-[#2E6B6B] hover:underline inline-flex items-center gap-1"
             >
-              <span>See full printables catalog</span>
+              <span>See full catalog</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {worksheets.map((ws) => (
+            {featuredWorksheets.map((ws) => (
               <WorksheetCard key={ws.slug} worksheet={ws} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mid-Page Isolated Ad Unit (Returns null until AdSense is configured) */}
+      {/* Isolated AdSlot Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AdUnit slotType="in-content" />
       </div>
 
-      {/* Popular Thematic Units & Seasonal Hubs */}
-      <section className="py-16 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-              Curricular Units
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
-              Popular Preschool Learning Themes
+      {/* Monthly Themes Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+              Monthly Themes
             </h2>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Explore thematic printables that connect phonics, counting, and seasonal vocabulary.
+            <p className="text-sm text-slate-600 mt-1">
+              Seasonal themes and vocabulary collections organized for preschool calendar units.
             </p>
           </div>
+          <Link
+            href="/preschool-themes"
+            className="text-xs font-bold text-[#2E6B6B] hover:underline inline-flex items-center gap-1"
+          >
+            <span>View 12-month calendar</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {themes.map((theme) => (
-              <Link
-                key={theme.slug}
-                href={`/themes/${theme.slug}`}
-                className="group p-5 rounded-xl border border-slate-200 hover:border-[#2E6B6B] hover:shadow-sm transition-all bg-white"
-              >
-                <span className="text-[11px] font-bold text-[#2E6B6B] uppercase tracking-wider block mb-1">
-                  {theme.bestMonths[0]} Unit
-                </span>
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors mb-2">
-                  {theme.title}
+        {/* 12 Months Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+          {months.map((m) => (
+            <Link
+              key={m.slug}
+              href={`/preschool-themes/${m.slug}`}
+              className="p-3.5 rounded-xl border border-slate-200/80 hover:border-[#2E6B6B] hover:bg-[#F0F7F7]/50 bg-white transition-all text-center group"
+            >
+              <div className="text-[11px] font-bold text-[#2E6B6B] uppercase tracking-wider mb-0.5">
+                {m.season}
+              </div>
+              <div className="text-sm font-bold text-slate-900 group-hover:text-[#2E6B6B] font-heading">
+                {m.name}
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Popular Topics Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {popularTopics.map((t) => (
+            <Link
+              key={t.slug}
+              href={`/topics/${t.slug}`}
+              className="group p-5 rounded-xl border border-slate-200 hover:border-[#2E6B6B] hover:shadow-sm transition-all bg-white flex flex-col justify-between"
+            >
+              <div>
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors mb-1.5 font-heading">
+                  {t.title}
                 </h3>
-                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
-                  {theme.description}
+                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  {t.description}
                 </p>
-                <span className="text-xs font-bold text-[#2E6B6B] inline-flex items-center gap-1">
-                  <span>View Printables</span>
-                  <ArrowRight className="w-3 h-3" />
-                </span>
-              </Link>
-            ))}
-          </div>
+              </div>
+              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs text-[#2E6B6B] font-bold">
+                <span>View Printables</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
       {/* Author & Mission Section */}
-      <section className="py-16 bg-slate-50 border-b border-slate-200">
+      <section className="bg-slate-50 border-t border-slate-200/80 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-              Curriculum Background
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Created for Early Childhood Educators
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+              Created by Educators for Early Learners
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-2">
-              Every resource on KinderESL is designed to support foundational learning with clean, print-friendly materials.
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-xl mx-auto">
+              KinderESL printables are crafted with high-contrast lines, directional stroke guides, and clear pictorial anchors for preschool and ESL classrooms.
             </p>
           </div>
 
@@ -275,11 +386,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Educator FAQ / GEO Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FAQAccordion items={homeFaqs} title="Preschool &amp; Kindergarten Curriculum FAQ" />
-        </div>
+      {/* Educator FAQ Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <FAQAccordion items={homeFaqs} title="Preschool &amp; Kindergarten Curriculum FAQ" />
       </section>
     </div>
   );

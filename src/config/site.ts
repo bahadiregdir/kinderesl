@@ -11,6 +11,10 @@ export function getSiteUrl(): string {
   if (envUrl && envUrl.trim() !== '') {
     return envUrl.replace(/\/+$/, '');
   }
+  const vercelProdUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercelProdUrl && vercelProdUrl.trim() !== '') {
+    return `https://${vercelProdUrl.replace(/\/+$/, '')}`;
+  }
   return 'https://kinderesl.com';
 }
 
