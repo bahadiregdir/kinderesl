@@ -7,14 +7,14 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/contact`;
 
 export const metadata: Metadata = {
-  title: 'Contact Us & Educator Resource Requests | KinderESL',
+  title: 'Contact Us & Educator Resource Requests',
   description:
     'Have a suggestion for a preschool or kindergarten worksheet? Contact the KinderESL team directly via email for teacher resource requests and feedback.',
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: 'Contact Us & Educator Resource Requests | KinderESL',
+    title: 'Contact Us & Educator Resource Requests',
     description:
       'Contact the KinderESL curriculum team directly via email for early childhood printable suggestions and inquiries.',
     url: pageUrl,

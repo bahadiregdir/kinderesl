@@ -8,13 +8,13 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/about`;
 
 export const metadata: Metadata = {
-  title: `About & Pedagogical Mission | ${siteConfig.name}`,
+  title: 'About & Pedagogical Mission',
   description: `Learn about ${siteConfig.name}'s mission to provide free, high-quality printable worksheets for preschool and kindergarten teachers and parents.`,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: `About & Pedagogical Mission | ${siteConfig.name}`,
+    title: 'About & Pedagogical Mission',
     description: `Learn about ${siteConfig.name}'s mission and printable design principles.`,
     url: pageUrl,
     type: 'website',

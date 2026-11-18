@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isIndexable = isIndexableCollection(topicWorksheets.length);
 
   return {
-    title: `${t.title} Worksheets for Preschool & Kindergarten | KinderESL`,
+    title: `${t.title} Worksheets for Preschool & Kindergarten`,
     description: t.description,
     alternates: {
       canonical: pageUrl,
@@ -88,7 +88,7 @@ export default async function TopicDetailPage({ params }: Props) {
         <div className="max-w-3xl space-y-3">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0F7F7] text-[#2E6B6B] border border-[#d0e3e3]">
             <Sparkles className="w-3.5 h-3.5 text-[#F2B544]" />
-            <span>Preschool &amp; Kindergarten Topic</span>
+            <span>Preschool & Kindergarten Topic</span>
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
             {t.title} Worksheets
@@ -108,7 +108,13 @@ export default async function TopicDetailPage({ params }: Props) {
           </div>
 
           {worksheets.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className={`grid gap-6 ${
+              worksheets.length === 1
+                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-2xl'
+                : worksheets.length === 2
+                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-3xl'
+                : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            }`}>
               {worksheets.map((ws) => (
                 <WorksheetCard key={ws.slug} worksheet={ws} />
               ))}
@@ -116,30 +122,22 @@ export default async function TopicDetailPage({ params }: Props) {
           )}
         </div>
 
-        {/* Sparse Content Fallback (< 6 worksheets): Planned Titles & Related Worksheets */}
+        {/* Sparse Content Fallback (< 6 worksheets): Upcoming Notice & Related Worksheets */}
         {worksheets.length < 6 && (
           <div className="space-y-8 pt-4">
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#F0F7F7]/60 border border-[#d0e3e3] space-y-4">
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#2E6B6B]" />
-                <h3 className="text-base font-bold text-slate-900 font-heading">
-                  Coming next in this topic
-                </h3>
+            <div className="p-6 rounded-2xl bg-[#F0F7F7]/60 border border-[#d0e3e3] flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-[#2E6B6B] shrink-0" />
+                <p className="text-sm text-slate-700 font-medium">
+                  More worksheets for this topic are on the way.
+                </p>
               </div>
-              <p className="text-xs text-slate-600">
-                Our teaching team is illustrating the next set of activities for this topic:
-              </p>
-              <ul className="space-y-2 text-xs text-slate-700 font-medium">
-                {t.plannedTitles.map((planned, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-slate-600">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2E6B6B]" />
-                    <span>{planned}</span>
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">
-                      (In Development)
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <Link
+                href="/worksheets"
+                className="text-xs font-bold text-[#2E6B6B] hover:underline"
+              >
+                Browse all subjects →
+              </Link>
             </div>
 
             {otherWorksheets.length > 0 && (
@@ -162,7 +160,7 @@ export default async function TopicDetailPage({ params }: Props) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {otherWorksheets.map((ws) => (
+                  {otherWorksheets.slice(0, 4).map((ws) => (
                     <WorksheetCard key={ws.slug} worksheet={ws} />
                   ))}
                 </div>

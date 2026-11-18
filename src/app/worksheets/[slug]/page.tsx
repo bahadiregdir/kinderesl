@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const isIndexable = isIndexableCollection(subjectWorksheets.length);
     const pageUrl = `${siteUrl}/worksheets/${subject.slug}`;
     return {
-      title: `${subject.title} | KinderESL`,
+      title: subject.title,
       description: subject.description,
       alternates: {
         canonical: pageUrl,
@@ -132,7 +132,7 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
             <Breadcrumbs
               items={[
                 { label: 'Worksheets', href: '/worksheets' },
-                { label: subject.title },
+                { label: subject.shortTitle },
               ]}
             />
           </div>
@@ -158,32 +158,21 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
             <div className="p-6 rounded-2xl bg-white border border-slate-200/90 space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 font-heading">
-                  Letter of the Week A–Z Selector
+                  Letter of the Week Series
                 </h3>
-                <span className="text-xs text-slate-500">26 Letters Series</span>
+                <span className="text-xs text-slate-500">A–Z Alphabet</span>
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {alphabetLetters.map((letter) => {
-                  const hasWorksheet = letter === 'A';
-                  return hasWorksheet ? (
-                    <Link
-                      key={letter}
-                      href="/worksheets/letter-a-tracing-and-phonics"
-                      className="w-9 h-9 rounded-lg bg-[#2E6B6B] text-white text-sm font-bold flex items-center justify-center shadow-xs transition-transform hover:scale-105"
-                      title={`Letter ${letter} Tracing Worksheet`}
-                    >
-                      {letter}
-                    </Link>
-                  ) : (
-                    <span
-                      key={letter}
-                      className="w-9 h-9 rounded-lg bg-slate-100 text-slate-400 text-sm font-bold flex items-center justify-center cursor-not-allowed select-none"
-                      title={`Letter ${letter} coming soon`}
-                    >
-                      {letter}
-                    </span>
-                  );
-                })}
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/worksheets/letter-a-tracing-and-phonics"
+                  className="w-10 h-10 rounded-lg bg-[#2E6B6B] text-white text-base font-bold flex items-center justify-center shadow-xs transition-transform hover:scale-105"
+                  title="Letter A Tracing Worksheet"
+                >
+                  A
+                </Link>
+                <span className="text-xs text-slate-500 font-medium italic">
+                  More letters coming soon (B through Z)
+                </span>
               </div>
             </div>
           )}
@@ -197,41 +186,37 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
               <span className="text-xs text-slate-500">Free PDF Downloads</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className={`grid gap-6 ${
+              subjectWorksheets.length === 1
+                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-2xl'
+                : subjectWorksheets.length === 2
+                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-3xl'
+                : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            }`}>
               {subjectWorksheets.map((ws) => (
                 <WorksheetCard key={ws.slug} worksheet={ws} />
               ))}
             </div>
           </div>
 
-          {/* Sparse Content Fallback (< 6 worksheets): Planned Titles & Related Worksheets */}
+          {/* Sparse Content Fallback (< 6 worksheets): Upcoming Notice & Related Worksheets */}
           {subjectWorksheets.length < 6 && (
             <div className="space-y-8 pt-4">
-              {/* Coming next in this topic */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-[#F0F7F7]/60 border border-[#d0e3e3] space-y-4">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#2E6B6B]" />
-                  <h3 className="text-base font-bold text-slate-900 font-heading">
-                    Coming next in this topic
-                  </h3>
+              <div className="p-6 rounded-2xl bg-[#F0F7F7]/60 border border-[#d0e3e3] flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5 text-[#2E6B6B] shrink-0" />
+                  <p className="text-sm text-slate-700 font-medium">
+                    More worksheets for this topic are on the way.
+                  </p>
                 </div>
-                <p className="text-xs text-slate-600">
-                  Our teaching team is currently illustrating the next resources for this collection:
-                </p>
-                <ul className="space-y-2 text-xs text-slate-700 font-medium">
-                  {subject.plannedTitles.map((planned, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-slate-600">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2E6B6B]" />
-                      <span>{planned}</span>
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold">
-                        (In Development)
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                <Link
+                  href="/worksheets"
+                  className="text-xs font-bold text-[#2E6B6B] hover:underline"
+                >
+                  Browse all subjects →
+                </Link>
               </div>
 
-              {/* Related worksheets from nearby subjects */}
               {otherWorksheets.length > 0 && (
                 <div className="space-y-6 pt-2">
                   <div className="flex items-center justify-between">
@@ -252,7 +237,7 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {otherWorksheets.map((ws) => (
+                    {otherWorksheets.slice(0, 4).map((ws) => (
                       <WorksheetCard key={ws.slug} worksheet={ws} />
                     ))}
                   </div>
@@ -266,7 +251,7 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
             <div className="max-w-3xl pt-6">
               <FAQAccordion
                 items={subject.faqs}
-                title={`${subject.shortTitle} Curriculum &amp; Instruction FAQ`}
+                title={`${subject.shortTitle} Curriculum & Instruction FAQ`}
               />
             </div>
           )}

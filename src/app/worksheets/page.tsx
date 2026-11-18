@@ -10,7 +10,7 @@ const siteUrl = getSiteUrl();
 const canonicalUrl = `${siteUrl}/worksheets`;
 
 export const metadata: Metadata = {
-  title: 'Free Printable Worksheets for Preschool & Kindergarten | KinderESL',
+  title: 'Free Printable Worksheets for Preschool & Kindergarten',
   description:
     'Browse our complete library of free educational PDF worksheets for early childhood educators and parents. Filter by subject, theme, activity type, and age.',
   alternates: {

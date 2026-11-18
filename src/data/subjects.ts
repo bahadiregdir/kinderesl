@@ -3,17 +3,13 @@ import { SubjectMeta, WorksheetSubject } from '@/types/worksheet';
 export const subjects: SubjectMeta[] = [
   {
     slug: 'alphabet',
-    title: 'Alphabet & Letter Formation Worksheets',
+    title: 'Alphabet & Letter Worksheets',
     shortTitle: 'Alphabet',
     description:
       'Printable letter tracing, uppercase and lowercase recognition, starting dot stroke guides, and Letter of the Week activity packs for preschool and kindergarten learners.',
     targetAges: 'Ages 3–5 (Pre-K & Kindergarten)',
     iconName: 'Type',
-    plannedTitles: [
-      'Letter B Tracing & Phonics: Barnaby Bear',
-      'Letter C Tracing & Phonics: Cleo the Cat',
-      'Letter D Tracing & Phonics: Danny the Dinosaur',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How do these alphabet worksheets teach stroke directionality?',
@@ -40,11 +36,7 @@ export const subjects: SubjectMeta[] = [
       'Foundational phonemic awareness activities, initial sound identification, rhyming pairs, and CVC word family blending sheets designed for early readers.',
     targetAges: 'Ages 4–6 (Kindergarten & ESL Early Readers)',
     iconName: 'Volume2',
-    plannedTitles: [
-      'Short Vowel /a/ Word Family Sorting Mats',
-      'Initial Sound Match & Color: B, M, S, T',
-      'Rhyming Pairs Picture Match Worksheet',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How do beginning sound activities build reading readiness?',
@@ -66,11 +58,7 @@ export const subjects: SubjectMeta[] = [
       'Early math printables developing one-to-one correspondence, number recognition, touch counting, and numeral handwriting formation from 1 to 20.',
     targetAges: 'Ages 3–6 (Preschool & Kindergarten)',
     iconName: 'Hash',
-    plannedTitles: [
-      'Counting 6 to 10: Forest Animals Count & Graph',
-      'Ten-Frame Counting & Numeral Matching Mats',
-      'Number Tracing & Count-the-Dots 1 to 10',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'What is one-to-one correspondence and why is it important?',
@@ -92,11 +80,7 @@ export const subjects: SubjectMeta[] = [
       'Geometric attribute recognition, color identification, pattern completion, and fine-motor tracing activities designed for young learners.',
     targetAges: 'Ages 3–5 (Toddlers & Preschoolers)',
     iconName: 'Shapes',
-    plannedTitles: [
-      'Basic Shapes Tracing: Circle, Square, Triangle & Rectangle',
-      'Color Hunt & Color-by-Code Activity Mats',
-      'Shape Pattern Sequences: AB & AABB Matching',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How do shape tracing worksheets prepare children for writing?',
@@ -107,17 +91,13 @@ export const subjects: SubjectMeta[] = [
   },
   {
     slug: 'vocabulary',
-    title: 'ESL Thematic Vocabulary Worksheets',
+    title: 'ESL Vocabulary Worksheets',
     shortTitle: 'Vocabulary',
     description:
       'High-frequency thematic word sets, match-and-paste cutouts, sound chants, and oral vocabulary printables curated for preschool and ESL classrooms.',
     targetAges: 'Ages 3–6 (Pre-K, Kindergarten & Early ESL)',
     iconName: 'Languages',
-    plannedTitles: [
-      'Wild Animals Vocabulary & Habitat Matching',
-      'My Family & Home Words Match-and-Paste',
-      'Classroom Objects & Action Verbs Word Cards',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How are vocabulary words selected for ESL preschool printables?',
@@ -133,17 +113,13 @@ export const subjects: SubjectMeta[] = [
   },
   {
     slug: 'thinking-skills',
-    title: 'Critical Thinking & Visual Logic Worksheets',
+    title: 'Thinking Skills Worksheets',
     shortTitle: 'Thinking Skills',
     description:
       'Odd-one-out discrimination, categorization, seasonal sorting, shadow matching, and visual reasoning printables.',
     targetAges: 'Ages 4–6 (Pre-K to 1st Grade)',
     iconName: 'Brain',
-    plannedTitles: [
-      'Summer vs. Winter Sorting & Cut-and-Paste',
-      'Big and Small Size Comparison Mats',
-      'What Belongs Together? Association Worksheets',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How do visual discrimination activities build problem solving?',

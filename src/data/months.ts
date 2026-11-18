@@ -8,11 +8,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'January',
     season: 'Winter',
     description: 'Winter weather, arctic animals, cold-weather clothing, and cozy indoor learning printables.',
-    plannedTitles: [
-      'January Morning Calendar & Weather Wheel',
-      'Arctic Animals Cut-and-Paste Habitat Mat',
-      'Winter Mittens Color Matching Activity',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'What are the core preschool themes for January?',
@@ -26,11 +22,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'February',
     season: 'Winter',
     description: 'Friendship, kindness, community helpers, dental health, and groundhog winter predictions.',
-    plannedTitles: [
-      'Friendship Heart Counting & Tracing 1–10',
-      'Dental Health Smile & Teeth Brushing Chart',
-      'Community Helpers Matching Mats: Doctor, Firefighter, Teacher',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'Which themes work best for February in ESL kindergarten?',
@@ -44,11 +36,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'March',
     season: 'Spring',
     description: 'Windy weather, kites, early spring renewal, green plants, and farm introduction.',
-    plannedTitles: [
-      'Windy Day Kite Number Tracing 1 to 10',
-      'Spring Seed Sprout Observation Log',
-      'Farm Animals First Words Picture Cards',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How to transition curriculum from winter to spring in March?',
@@ -62,11 +50,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'April',
     season: 'Spring',
     description: 'Spring rain showers, growing gardens, blooming flowers, insects, and Earth Day awareness.',
-    plannedTitles: [
-      'Raindrop Number Tracing: Count the Showers',
-      'Earth Day Recycling Sort: Paper, Plastic, Can',
-      'Ladybug Spot Counting & Math Ten-Frames',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'What fine-motor spring activities are recommended in April?',
@@ -80,11 +64,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'May',
     season: 'Spring',
     description: 'Butterflies, garden bugs, Mother’s Day cards, transportation, and family themes.',
-    plannedTitles: [
-      'Mother’s Day Handprint Poem & Flower Tracing',
-      'Butterfly Life Cycle Ordering Worksheet',
-      'Vehicles on the Go: Cars, Buses, Bikes Match',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'Why are insect and bug themes emphasized in May?',
@@ -98,11 +78,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'June',
     season: 'Summer',
     description: 'Summer season welcome, beach trips, ocean marine life, picnics, and warm weather.',
-    plannedTitles: [
-      'Ocean Marine Animals Vocabulary Tracing',
-      'Beach Bag Packing: Circle the Summer Items',
-      'Sun Safety Words & Hat Tracing Sheet',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How to keep preschool skills active during June transitions?',
@@ -116,11 +92,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'July',
     season: 'Summer',
     description: 'Sunshine, camping, picnics, fireworks, water play, and ice cream counting.',
-    plannedTitles: [
-      'Ice Cream Cone Scoop Counting 1–5',
-      'Camping Tent & Forest Animal Tracing',
-      'Summer Fruit Salad Pattern Cards',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'Are July worksheets designed for homeschool and camp settings?',
@@ -134,11 +106,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'August',
     season: 'Summer',
     description: 'Back-to-school preparation, classroom routines, friendship rules, and pencil grip practice.',
-    plannedTitles: [
-      'School Backpack Essentials Tracing & Match',
-      'Classroom Rules & Sharing Manners Picture Cards',
-      'Pencil Control Lines: Back to School Pre-Writing',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'What preschool skills should be reinforced in late August?',
@@ -152,11 +120,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'September',
     season: 'Fall',
     description: 'Letter of the Week launch, apple harvest, school routines, and farm animals.',
-    plannedTitles: [
-      'Apple Tree Counting & Color by Number',
-      'Meet the Teacher Introduction & All About Me Mat',
-      'School Bus Shape & Path Tracing Practice',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'Why start the formal Letter of the Week series in September?',
@@ -170,11 +134,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'October',
     season: 'Fall',
     description: 'Autumn leaves, pumpkins, nocturnal animals (owls, bats), and harvest celebrations.',
-    plannedTitles: [
-      'Pumpkin Patch Number Tracing 1 to 10',
-      'Nocturnal Forest Animals Flashcards',
-      'Autumn Leaf Color Sorting Activity',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How do autumn sensory themes benefit ESL vocabulary building?',
@@ -188,11 +148,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'November',
     season: 'Fall',
     description: 'Gratitude, family meals, turkey themes, squirrels, acorns, and food appreciation.',
-    plannedTitles: [
-      'Thankful Feathers Writing & Drawing Sheet',
-      'Squirrel & Acorn Pre-Math Maze 1–10',
-      'Healthy Feast Food Classification Mats',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'What values are emphasized in November preschool units?',
@@ -206,11 +162,7 @@ const monthData: Omit<MonthMeta, 'topicSlugs'>[] = [
     name: 'December',
     season: 'Winter',
     description: 'Winter solstice, gingerbread, gift sharing, bells, snowflakes, and festive celebrations.',
-    plannedTitles: [
-      'Gingerbread Person Button Counting & Match',
-      'Snowflake Symmetry & Dot Tracing Sheet',
-      'Holiday Gift Box Geometric Shape Match',
-    ],
+    plannedTitles: [],
     faqs: [
       {
         question: 'How do December activities support inclusive multicultural classrooms?',

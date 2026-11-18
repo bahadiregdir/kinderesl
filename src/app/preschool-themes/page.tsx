@@ -8,7 +8,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Sparkles, Calendar, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Preschool Themes by Month (12-Month Curriculum) | KinderESL',
+  title: 'Preschool Themes by Month (12-Month Curriculum)',
   description:
     'Plan your preschool and kindergarten calendar with our 12-month thematic curriculum guide. Free printable PDF worksheets for each seasonal month.',
   robots: {

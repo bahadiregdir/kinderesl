@@ -7,13 +7,13 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/privacy-policy`;
 
 export const metadata: Metadata = {
-  title: `Privacy Policy | ${siteConfig.name}`,
+  title: 'Privacy Policy',
   description: `Privacy Policy for ${siteConfig.name}. Explains our data collection practices, adult teacher/parent target audience, COPPA compliance, and AdSense disclosures.`,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: `Privacy Policy | ${siteConfig.name}`,
+    title: 'Privacy Policy',
     description: `Privacy Policy for ${siteConfig.name}. Explains data practices and COPPA compliance.`,
     url: pageUrl,
     type: 'website',

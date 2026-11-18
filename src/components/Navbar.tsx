@@ -48,11 +48,11 @@ export function Navbar() {
   ];
 
   const subjectsList = [
-    { title: 'Alphabet & Letters', href: '/worksheets/alphabet' },
-    { title: 'Phonics & Sounds', href: '/worksheets/phonics' },
+    { title: 'Alphabet', href: '/worksheets/alphabet' },
+    { title: 'Phonics', href: '/worksheets/phonics' },
     { title: 'Numbers & Counting', href: '/worksheets/numbers-counting' },
     { title: 'Shapes & Colors', href: '/worksheets/shapes-colors' },
-    { title: 'Vocabulary & Words', href: '/worksheets/vocabulary' },
+    { title: 'Vocabulary', href: '/worksheets/vocabulary' },
     { title: 'Thinking Skills', href: '/worksheets/thinking-skills' },
   ];
 

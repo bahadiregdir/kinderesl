@@ -87,7 +87,7 @@ export interface SubjectMeta {
   targetAges: string;
   iconName: string;
   faqs: FAQItem[];
-  plannedTitles: string[];
+  plannedTitles?: string[];
 }
 
 export interface TopicMeta {
@@ -97,7 +97,7 @@ export interface TopicMeta {
   iconName: string;
   curriculumMonths: number[];
   faqs: FAQItem[];
-  plannedTitles: string[];
+  plannedTitles?: string[];
 }
 
 export interface MonthMeta {
@@ -108,7 +108,7 @@ export interface MonthMeta {
   topicSlugs: string[];
   description: string;
   faqs: FAQItem[];
-  plannedTitles: string[];
+  plannedTitles?: string[];
 }
 
 /**

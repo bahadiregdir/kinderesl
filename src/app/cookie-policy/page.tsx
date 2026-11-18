@@ -7,13 +7,13 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/cookie-policy`;
 
 export const metadata: Metadata = {
-  title: `Cookie Policy | ${siteConfig.name}`,
+  title: 'Cookie Policy',
   description: `Cookie Policy for ${siteConfig.name}. Explains the types of cookies we use and how teachers and parents can control preferences.`,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: `Cookie Policy | ${siteConfig.name}`,
+    title: 'Cookie Policy',
     description: `Cookie Policy for ${siteConfig.name}. Explains cookie usage and controls.`,
     url: pageUrl,
     type: 'website',

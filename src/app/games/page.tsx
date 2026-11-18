@@ -7,14 +7,14 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/games`;
 
 export const metadata: Metadata = {
-  title: 'Classroom Smartboard Educational Games | KinderESL',
+  title: 'Classroom Smartboard Educational Games',
   description:
     'Distraction-free, ad-free interactive HTML5 educational games designed for preschool and kindergarten interactive whiteboards and circle time instruction.',
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: 'Classroom Smartboard Educational Games | KinderESL',
+    title: 'Classroom Smartboard Educational Games',
     description:
       'Ad-free interactive classroom smartboard learning games for early childhood educators.',
     url: pageUrl,

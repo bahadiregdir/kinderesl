@@ -8,7 +8,7 @@ import { getSiteUrl } from '@/config/site';
 import { Sparkles, ArrowRight, BookOpen } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Preschool & Kindergarten Learning Topics | KinderESL',
+  title: 'Preschool & Kindergarten Learning Topics',
   description:
     'Explore free printable worksheets organized by theme and vocabulary topic: farm animals, winter, food, insects, weather, and more.',
   robots: {

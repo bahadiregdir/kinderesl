@@ -7,13 +7,13 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/terms`;
 
 export const metadata: Metadata = {
-  title: `Terms of Use | ${siteConfig.name}`,
+  title: 'Terms of Use',
   description: `Terms of Use for ${siteConfig.name}. Free license terms for teachers, classrooms, and homeschooling families. Commercial resale restrictions.`,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: `Terms of Use | ${siteConfig.name}`,
+    title: 'Terms of Use',
     description: `Terms of Use for ${siteConfig.name}. Free license terms for classrooms and homes.`,
     url: pageUrl,
     type: 'website',

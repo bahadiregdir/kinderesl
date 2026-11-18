@@ -11,11 +11,11 @@ export function Footer() {
   ];
 
   const subjects = [
-    { title: 'Alphabet & Phonics', href: '/worksheets/alphabet' },
-    { title: 'Phonics & Sounds', href: '/worksheets/phonics' },
+    { title: 'Alphabet', href: '/worksheets/alphabet' },
+    { title: 'Phonics', href: '/worksheets/phonics' },
     { title: 'Numbers & Counting', href: '/worksheets/numbers-counting' },
     { title: 'Shapes & Colors', href: '/worksheets/shapes-colors' },
-    { title: 'ESL Vocabulary', href: '/worksheets/vocabulary' },
+    { title: 'Vocabulary', href: '/worksheets/vocabulary' },
     { title: 'Thinking Skills', href: '/worksheets/thinking-skills' },
   ];
 

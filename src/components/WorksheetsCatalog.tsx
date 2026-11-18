@@ -182,7 +182,7 @@ export function WorksheetsCatalog({
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  {sub.title}
+                  {sub.shortTitle}
                 </button>
               );
             })}

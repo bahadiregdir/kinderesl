@@ -255,7 +255,7 @@ export default function HomePage() {
                   {getSubjectIcon(sub.slug)}
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors mb-2 font-heading">
-                  {sub.title}
+                  {sub.shortTitle}
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed mb-4">
                   {sub.description}
@@ -388,7 +388,7 @@ export default function HomePage() {
 
       {/* Educator FAQ Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <FAQAccordion items={homeFaqs} title="Preschool &amp; Kindergarten Curriculum FAQ" />
+        <FAQAccordion items={homeFaqs} title="Preschool & Kindergarten Curriculum FAQ" />
       </section>
     </div>
   );
