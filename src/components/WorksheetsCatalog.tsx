@@ -4,25 +4,21 @@ import React, { useState, useMemo, useTransition } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Worksheet, SubjectMeta } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
-import { Search, X, SlidersHorizontal, BookOpen, Sparkles } from 'lucide-react';
+import { Search, X, SlidersHorizontal, BookOpen } from 'lucide-react';
 
 interface WorksheetsCatalogProps {
   worksheets: Worksheet[];
   subjects: SubjectMeta[];
-  locale?: 'en' | 'tr';
 }
 
 export function WorksheetsCatalog({
   worksheets,
   subjects,
-  locale = 'en',
 }: WorksheetsCatalogProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [, startTransition] = useTransition();
-
-  const isTr = locale === 'tr';
 
   const initialQ = searchParams?.get('q') || '';
   const initialSubject = searchParams?.get('subject') || '';
@@ -80,36 +76,18 @@ export function WorksheetsCatalog({
     });
   };
 
-  const subjectLabelsTr: Record<string, string> = {
-    alphabet: 'Alfabe (A–Z)',
-    phonics: 'Fonetik & Sesler',
-    'numbers-counting': 'Sayılar & Sayma',
-    'shapes-colors': 'Şekiller & Renkler',
-    vocabulary: 'İngilizce Kelimeler',
-    'thinking-skills': 'Düşünme Becerileri',
-  };
-
   const filteredWorksheets = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
 
     return worksheets.filter((w) => {
       if (q) {
-        const isTrAndHasTr = isTr && Boolean(w.i18n?.tr);
-        const title = isTrAndHasTr ? w.i18n!.tr!.title : w.title;
-        const desc = isTrAndHasTr ? w.i18n!.tr!.description : w.description;
-        const titleMatch = title.toLowerCase().includes(q);
-        const descMatch = desc.toLowerCase().includes(q);
+        const titleMatch = w.title.toLowerCase().includes(q);
+        const descMatch = w.description.toLowerCase().includes(q);
         const skillMatch = w.skill.toLowerCase().includes(q);
         const vocabMatch = w.vocabulary?.some((v) => v.toLowerCase().includes(q));
-        const trVocabMatch = w.i18n?.tr?.vocabularyWithTranslations?.some(
-          (vt: { en: string; tr: string }) =>
-            vt.en.toLowerCase().includes(q) || vt.tr.toLowerCase().includes(q)
-        );
-        const kwMatch = (isTrAndHasTr ? w.i18n!.tr!.keywords : w.keywords)?.some((k) =>
-          k.toLowerCase().includes(q)
-        );
+        const kwMatch = w.keywords?.some((k) => k.toLowerCase().includes(q));
 
-        if (!titleMatch && !descMatch && !skillMatch && !vocabMatch && !trVocabMatch && !kwMatch) {
+        if (!titleMatch && !descMatch && !skillMatch && !vocabMatch && !kwMatch) {
           return false;
         }
       }
@@ -128,25 +106,25 @@ export function WorksheetsCatalog({
 
       return true;
     });
-  }, [worksheets, searchQuery, selectedSubject, selectedActivity, selectedAge, isTr]);
+  }, [worksheets, searchQuery, selectedSubject, selectedActivity, selectedAge]);
 
   const hasActiveFilters = Boolean(
     searchQuery || selectedSubject || selectedActivity || selectedAge
   );
 
   const activityOptions = [
-    { value: 'tracing', labelEn: 'Tracing', labelTr: 'Çizgi Çalışması' },
-    { value: 'coloring', labelEn: 'Coloring', labelTr: 'Boyama' },
-    { value: 'cut-and-paste', labelEn: 'Cut & Paste', labelTr: 'Kes-Yapıştır' },
-    { value: 'counting', labelEn: 'Counting', labelTr: 'Sayma' },
-    { value: 'matching', labelEn: 'Matching', labelTr: 'Eşleştirme' },
-    { value: 'odd-one-out', labelEn: 'Odd One Out', labelTr: 'Farklı Olanı Bul' },
+    { value: 'tracing', label: 'Tracing' },
+    { value: 'coloring', label: 'Coloring' },
+    { value: 'cut-and-paste', label: 'Cut & Paste' },
+    { value: 'counting', label: 'Counting' },
+    { value: 'matching', label: 'Matching' },
+    { value: 'odd-one-out', label: 'Odd One Out' },
   ];
 
   const ageOptions = [
-    { value: '3-4', labelEn: 'Ages 3–4', labelTr: '3–4 Yaş' },
-    { value: '4-5', labelEn: 'Ages 4–5', labelTr: '4–5 Yaş' },
-    { value: '5-6', labelEn: 'Ages 5–6', labelTr: '5–6 Yaş' },
+    { value: '3-4', label: 'Ages 3–4' },
+    { value: '4-5', label: 'Ages 4–5' },
+    { value: '5-6', label: 'Ages 5–6' },
   ];
 
   return (
@@ -160,11 +138,7 @@ export function WorksheetsCatalog({
             type="text"
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            placeholder={
-              isTr
-                ? 'Etkinlik ara (örn. A harfi, 1-5 sayma, çiftlik hayvanları)...'
-                : 'Search worksheets by letter, number, theme, or skill (e.g. Letter A, counting)...'
-            }
+            placeholder="Search worksheets by letter, number, theme, or skill (e.g. Letter A, counting)..."
             className="w-full pl-11 pr-10 py-3 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B] focus:border-[#2E6B6B] text-slate-800 placeholder-slate-400 transition-colors"
           />
           {searchQuery && (
@@ -184,7 +158,7 @@ export function WorksheetsCatalog({
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-semibold text-slate-500 mr-1 flex items-center gap-1">
               <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>{isTr ? 'Konu:' : 'Subject:'}</span>
+              <span>Subject:</span>
             </span>
             <button
               onClick={() => handleSubjectChange('')}
@@ -194,7 +168,7 @@ export function WorksheetsCatalog({
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              {isTr ? 'Tümü' : 'All Subjects'}
+              All Subjects
             </button>
             {subjects.map((sub) => {
               const active = selectedSubject === sub.slug;
@@ -208,7 +182,7 @@ export function WorksheetsCatalog({
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  {isTr ? (subjectLabelsTr[sub.slug] || sub.title) : sub.title}
+                  {sub.title}
                 </button>
               );
             })}
@@ -217,9 +191,7 @@ export function WorksheetsCatalog({
           {/* Activity Types & Age Bands */}
           <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="font-semibold text-slate-500 mr-1">
-                {isTr ? 'Format:' : 'Activity:'}
-              </span>
+              <span className="font-semibold text-slate-500 mr-1">Activity:</span>
               {activityOptions.map((act) => {
                 const active = selectedActivity === act.value;
                 return (
@@ -232,16 +204,14 @@ export function WorksheetsCatalog({
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >
-                    {isTr ? act.labelTr : act.labelEn}
+                    {act.label}
                   </button>
                 );
               })}
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="font-semibold text-slate-500 mr-1">
-                {isTr ? 'Yaş:' : 'Age:'}
-              </span>
+              <span className="font-semibold text-slate-500 mr-1">Age:</span>
               {ageOptions.map((age) => {
                 const active = selectedAge === age.value;
                 return (
@@ -254,7 +224,7 @@ export function WorksheetsCatalog({
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >
-                    {isTr ? age.labelTr : age.labelEn}
+                    {age.label}
                   </button>
                 );
               })}
@@ -266,7 +236,7 @@ export function WorksheetsCatalog({
                 className="inline-flex items-center gap-1 text-[#2E6B6B] hover:text-[#235353] font-semibold underline underline-offset-2 ml-auto"
               >
                 <X className="w-3.5 h-3.5" />
-                <span>{isTr ? 'Filtreleri Temizle' : 'Reset Filters'}</span>
+                <span>Reset Filters</span>
               </button>
             )}
           </div>
@@ -276,15 +246,7 @@ export function WorksheetsCatalog({
       {/* Results Count Bar */}
       <div className="flex items-center justify-between text-sm text-slate-600 px-1">
         <div>
-          {isTr ? (
-            <span>
-              Toplam <strong>{filteredWorksheets.length}</strong> çalışma kağıdı listeleniyor
-            </span>
-          ) : (
-            <span>
-              Showing <strong>{filteredWorksheets.length}</strong> printable worksheets
-            </span>
-          )}
+          Showing <strong>{filteredWorksheets.length}</strong> printable worksheets
         </div>
       </div>
 
@@ -292,25 +254,23 @@ export function WorksheetsCatalog({
       {filteredWorksheets.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredWorksheets.map((ws) => (
-            <WorksheetCard key={ws.slug} worksheet={ws} locale={locale} />
+            <WorksheetCard key={ws.slug} worksheet={ws} />
           ))}
         </div>
       ) : (
         <div className="text-center py-16 px-4 bg-white border border-dashed border-slate-300 rounded-2xl max-w-2xl mx-auto space-y-4">
           <BookOpen className="w-12 h-12 text-slate-300 mx-auto" />
           <h3 className="text-lg font-bold text-slate-900">
-            {isTr ? 'Aramanızla eşleşen materyal bulunamadı' : 'No worksheets found matching your filters'}
+            No worksheets found matching your filters
           </h3>
           <p className="text-sm text-slate-600">
-            {isTr
-              ? 'Farklı bir arama terimi deneyebilir veya filtreleri sıfırlayabilirsiniz.'
-              : 'Try adjusting your search terms or clearing one or more active filters.'}
+            Try adjusting your search terms or clearing one or more active filters.
           </p>
           <button
             onClick={handleClearAll}
             className="inline-flex items-center justify-center px-4 py-2 bg-[#2E6B6B] hover:bg-[#255757] text-white text-sm font-semibold rounded-lg transition-colors shadow-xs"
           >
-            {isTr ? 'Filtreleri Sıfırla' : 'Reset All Filters'}
+            Reset All Filters
           </button>
         </div>
       )}

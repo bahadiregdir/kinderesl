@@ -88,61 +88,6 @@ export const worksheets: Worksheet[] = [
     datePublished: '2026-11-18',
     dateModified: '2026-11-18',
 
-    // Turkish localization (Faz 5)
-    i18n: {
-      tr: {
-        slug: 'ingilizce-a-harfi-yazma-etkinligi',
-        title: 'Okul Öncesi İngilizce A Harfi Yazma ve Fonetik Etkinliği: Andy the Ant',
-        description:
-          'Okul öncesi ve anaokulu öğrencileri için ücretsiz indirilebilir İngilizce A harfi çizgi çalışması, büyük/küçük harf tanıma ve fonetik başlangıç sesi /a/ çalışma kağıdı.',
-        quickSummary:
-          'Okul öncesi ve anaokulu çocukları için 2 sayfalık ücretsiz İngilizce A harfi çalışma kağıdı. Yönlendirmeli başlangıç noktalarıyla büyük A ve küçük a çizgi çalışması, "Andy the Ant" ile fonetik ses tekrarı ve elma bulmaca sayma oyunu içerir.',
-        teacherNote: {
-          skillFocus: 'Büyük ve küçük A harfi yazımı; İngilizce /a/ fonetik başlangıç sesi.',
-          learningGoal: 'Çocuk büyük A ve küçük a harflerini doğru çizgi yönüyle yazar, /a/ sesiyle başlayan İngilizce kelimeleri söyler.',
-          teachingTip:
-            'Çizgileri çizerken sesli yönerge verin: "aşağı kay, aşağı kay, ortadan birleştir." /a/ sesiyle başlayan diğer kelimeleri sorun (alligator, astronaut, apple).',
-          extensionActivity:
-            '2. sayfadaki elma avında büyük A harfli elmaları kırmızıya, küçük a harfli elmaları yeşile boyatarak harf ayrımını pekiştirin ve toplam 7 elmayı saydırın.',
-          steps: [
-            'Andy the Ant karakterini tanıtın ve fonetik tekerlemeyi tekrarlatın: "/a/ /a/ apple".',
-            'Yeşil başlangıç noktasından başlayarak büyük A harfini 1, 2 ve 3 numaralı çizgilerle yazdırın.',
-            'Küçük a harfinin dairesel çizgisini ve iniş çizgisini tamamlatın.',
-            'İkinci sayfadaki Elma Avı etkinliğine geçerek saklanan 7 A harfini bulup saydırın.',
-          ],
-        },
-        whatsInside: [
-          'Sayfa 1: Yön okları ve başlangıç noktalarıyla büyük A ve küçük a harf çizgi alıştırmaları.',
-          'Sayfa 2: Elma Avı görsel harf bulmacası (7 gizli elmayı bul ve say) ile serbest yazma satırları.',
-        ],
-        vocabularyWithTranslations: [
-          { en: 'ant', tr: 'karınca' },
-          { en: 'apple', tr: 'elma' },
-        ],
-        keywords: [
-          'okul öncesi ingilizce etkinlik',
-          'okul öncesi ingilizce etkinlik pdf',
-          'ingilizce a harfi yazma etkinliği',
-          'anaokulu ingilizce etkinlikleri',
-          'ingilizce harf boyama',
-          'ingilizce fonetik çalışma kağıdı',
-        ],
-        faqs: [
-          {
-            question: 'Çalışma kağıdındaki PDF hangi dildedir?',
-            answer:
-              'Çalışma sayfasındaki PDF uluslararası okul öncesi standartlarında İngilizce olarak hazırlanmıştır. Sayfadaki öğretmen ve veli yönergeleri ise Türkçedir.',
-          },
-          {
-            question: 'İkinci sayfadaki Elma Avı bulmacasında kaç elma gizlidir?',
-            answer:
-              'Toplam 7 adet A harfli elma gizlidir (4 büyük A, 3 küçük a). Bu etkinlik görsel dikkat ve sayma becerisini destekler.',
-          },
-        ],
-        reviewed: true,
-      },
-    },
-
     // Backwards compatibility
     category: 'alphabet',
     categoryName: 'Alphabet & Phonics',
@@ -218,58 +163,6 @@ export const worksheets: Worksheet[] = [
     ],
     datePublished: '2026-11-18',
     dateModified: '2026-11-18',
-
-    // Turkish localization (Faz 5)
-    i18n: {
-      tr: {
-        slug: '1-5-sayma-etkinligi-ugurbocegi-lily',
-        title: "Uğur Böceği Lily'nin Partisi: 1'den 5'e Sayma ve Sayı Çizgi Çalışması",
-        description:
-          "Okul öncesi ve anaokulu için 1'den 5'e kadar İngilizce sayma, birebir eşleme, doğru sayıyı bulma ve rakam yazma çalışma kağıdı.",
-        quickSummary:
-          "Erken çocukluk dönemi için 1-5 arası temel İngilizce matematik ve sayma etkinliği. Parti nesnelerini sayma, seçenekler arasından doğru rakamı işaretleme ve başlangıç noktalı rakam yazma satırları içerir.",
-        teacherNote: {
-          skillFocus: "1–5 arası nesne sayma, birebir eşleme, rakam tanıma ve yazma.",
-          learningGoal: "Çocuk nesne kümesini 5'e kadar sayar, doğru rakamla eşleştirir ve rakamı çizer.",
-          teachingTip:
-            'Birebir eşlemeyi sağlamlaştırmak için çocuğun her nesneye parmağıyla dokunarak İngilizce saymasını (one, two, three...) sağlayın.',
-          extensionActivity:
-            'Her sıranın yanına 1 nesne daha çizdirerek tekrar saydırın; böylece toplama (+1) mantığına erken adım atın.',
-          steps: [
-            'Sayıları birlikte İngilizce sayın: one, two, three, four, five.',
-            'Çocuğun her parti nesnesine parmağıyla dokunarak saymasını sağlayın.',
-            'Üç seçenek arasından doğru rakamı daire içine aldırın.',
-            'Kılavuz noktadan başlayarak kesik çizgili rakamların üzerinden geçtirin.',
-          ],
-        },
-        whatsInside: [
-          '5 farklı sayma sırası: 1 güneş, 2 balon, 3 balık, 4 yıldız, 5 uğur böceği.',
-          'Çoktan seçmeli rakam eşleştirme ve başlangıç noktalı rakam yazma satırları.',
-        ],
-        vocabularyWithTranslations: [
-          { en: 'sun', tr: 'güneş' },
-          { en: 'balloon', tr: 'balon' },
-          { en: 'fish', tr: 'balık' },
-          { en: 'star', tr: 'yıldız' },
-          { en: 'ladybug', tr: 'uğur böceği' },
-        ],
-        keywords: [
-          'okul öncesi ingilizce etkinlik',
-          'okul öncesi ingilizce sayılar',
-          'anaokulu ingilizce etkinlikleri',
-          '1-5 sayma etkinliği ingilizce',
-          'ingilizce rakam yazma çalışma kağıdı',
-        ],
-        faqs: [
-          {
-            question: 'PDF dosyasında hangi dil kullanılmıştır?',
-            answer:
-              'PDF materyalimiz İngilizce sınıf kullanımına uygundur. Sayfadaki veli ve öğretmen kılavuz notları Türkçe olarak sunulmuştur.',
-          },
-        ],
-        reviewed: true,
-      },
-    },
 
     // Backwards compatibility
     category: 'numbers-counting',
@@ -361,67 +254,6 @@ export const worksheets: Worksheet[] = [
     ],
     datePublished: '2026-11-18',
     dateModified: '2026-11-18',
-
-    // Turkish localization (Faz 5)
-    i18n: {
-      tr: {
-        slug: 'kis-mevsimi-farkli-olani-bul-etkinligi',
-        title: 'Penguen Penny Kış Çantası: Kış Mevsimi Farklı Olanı Bul ve Kelime Yazma',
-        description:
-          'Okul öncesi ve anaokulu öğrencileri için kış mevsimi görsel ayırt etme, mevsime uymayanı bulma (odd-one-out) ve İngilizce kelime yazma etkinliği.',
-        quickSummary:
-          'Kış ve yaz kavramlarını karşılaştıran görsel mantık ve ayırt etme çalışma kağıdı. Her sıradaki 4 nesneden kışa ait olmayanı bulma, boyama ve "snow", "cold" kelimelerini yazma alıştırması sunar.',
-        teacherNote: {
-          skillFocus: 'Görsel ayırt etme, mevsimsel sınıflandırma (kış vs. yaz), mevsim kelimeleri.',
-          learningGoal: 'Çocuk her sıradaki kışa ait olmayan nesneyi bulur ve neden ait olmadığını sözlü olarak ifade eder.',
-          teachingTip:
-            'Açık uçlu soru sorun: "Karpuz neden kış çantasına konmaz? Biz karpuzu hangi mevsimde yeriz?"',
-          extensionActivity:
-            'Çocuğa sayfanın arkasına kendi seçtiği bir kış giysisini (ör. mont veya kulaklık) çizdirin.',
-          steps: [
-            'Penguen Penny ile tanışın: "Her sırada bir eşya kışa ait değil!"',
-            '1. sırayı inceleyin (kardan adam, eldiven, karpuz, sıcak kakao) ve kışa uymayanı bulun.',
-            '2. sırada güneş gözlüğünü, 3. sırada plaj topunu işaretletin.',
-            'Alt kısımdaki kılavuz satırlarda "snow" (kar) ve "cold" (soğuk) kelimelerini yazdırın.',
-          ],
-        },
-        whatsInside: [
-          '3 sıra görsel mantık: 12 farklı çizim (kardan adam, eldiven, kızak, paten, kar tanesi vb.).',
-          '"snow" ve "cold" İngilizce kış kelimeleri için satır kılavuzlu yazma alanı.',
-        ],
-        vocabularyWithTranslations: [
-          { en: 'snowman', tr: 'kardan adam' },
-          { en: 'mitten', tr: 'eldiven' },
-          { en: 'watermelon', tr: 'karpuz' },
-          { en: 'hot cocoa', tr: 'sıcak kakao' },
-          { en: 'sunglasses', tr: 'güneş gözlüğü' },
-          { en: 'hat', tr: 'bere/şapka' },
-          { en: 'sled', tr: 'kızak' },
-          { en: 'ice skate', tr: 'buz pateni' },
-          { en: 'scarf', tr: 'atkı' },
-          { en: 'snowflake', tr: 'kar tanesi' },
-          { en: 'boot', tr: 'bot/çizme' },
-          { en: 'beach ball', tr: 'plaj topu' },
-          { en: 'snow', tr: 'kar' },
-          { en: 'cold', tr: 'soğuk' },
-        ],
-        keywords: [
-          'okul öncesi ingilizce etkinlik',
-          'okul öncesi ingilizce kış etkinlikleri',
-          'farklı olanı bul ingilizce',
-          'ingilizce boyama sayfası',
-          'anaokulu görsel dikkat etkinlikleri',
-        ],
-        faqs: [
-          {
-            question: 'Bu çalışma sayfasının cevap anahtarı nedir?',
-            answer:
-              '1. Sıra: Karpuz (yaz meyvesi). 2. Sıra: Güneş gözlüğü (yaz aksesuarı). 3. Sıra: Plaj topu (yaz/deniz oyuncağı).',
-          },
-        ],
-        reviewed: true,
-      },
-    },
 
     // Backwards compatibility
     category: 'thinking-skills',
@@ -515,65 +347,6 @@ export const worksheets: Worksheet[] = [
     datePublished: '2026-11-18',
     dateModified: '2026-11-18',
 
-    // Turkish localization (Faz 5)
-    i18n: {
-      tr: {
-        slug: 'ciftlik-hayvanlari-eslestirme-ve-kes-yapistir',
-        title: 'Çiftlik Hayvanları Eşleştirme ve Kes-Yapıştır Etkinliği: Good Morning, Farm!',
-        description:
-          'Okul öncesi ve anaokulu için 2 sayfalık İngilizce çiftlik hayvanları ve sesleri eşleştirme, boyama ve makas becerisi kes-yapıştır çalışma kağıdı.',
-        quickSummary:
-          'Okul öncesi İngilizce çiftlik ünitesi için 2 sayfalık eğitici materyal. 1. Sayfa hayvan-ses eşleştirmesi, 2. Sayfa ise makasla konuşma balonlarını kesip çiftlik hayvanlarının yanına yapıştırma etkinliği sunar.',
-        teacherNote: {
-          skillFocus: 'Çiftlik hayvanları (cow, pig, sheep, chicken, horse, duck) ve hayvan sesleri (moo, oink, baa, cluck).',
-          learningGoal: 'Çocuk çiftlik hayvanlarını İngilizce adlandırır, seslerini taklit eder ve doğru hayvanla eşleştirir.',
-          teachingTip:
-            'Tüm Vücut Tepkisi (TPR) yöntemini kullanın: "cluck" derken tavuk gibi kanat çırpın, "neigh" derken at gibi yürüyün.',
-          extensionActivity:
-            '"Old MacDonald Had a Farm" şarkısını söylerken çocuğun sayfadaki ilgili hayvana parmağıyla dokunmasını isteyin.',
-          steps: [
-            'Çiftlik hayvanlarını birlikte İngilizce tekrarlayın: cow, sheep, pig, chicken, horse, duck.',
-            'Hayvanların İngilizce seslerini çıkarın (moo, baa, oink, cluck).',
-            '1. Sayfadaki çizgiyle eşleştirme bölümünü tamamlatın.',
-            '2. Sayfada güvenli makasla konuşma balonlarını kestirip doğru hayvanın yanına yapıştırın.',
-          ],
-        },
-        whatsInside: [
-          'Sayfa 1: "Good Morning, Farm!" – Hayvanları seslerine çizgiyle bağlama ve kelime tanıma.',
-          'Sayfa 2: "Who Says That?" – Makasla kesip çiftliğe yapıştırma ses balonu etkinliği.',
-        ],
-        vocabularyWithTranslations: [
-          { en: 'cow', tr: 'inek' },
-          { en: 'pig', tr: 'domuz' },
-          { en: 'sheep', tr: 'koyun' },
-          { en: 'chicken', tr: 'tavuk' },
-          { en: 'horse', tr: 'at' },
-          { en: 'duck', tr: 'ördek' },
-          { en: 'moo', tr: 'möö' },
-          { en: 'oink', tr: 'vak/homurtu' },
-          { en: 'baa', tr: 'meee' },
-          { en: 'cluck', tr: 'gıdak' },
-          { en: 'neigh', tr: 'kişneme' },
-          { en: 'quack', tr: 'vak vak' },
-        ],
-        keywords: [
-          'okul öncesi ingilizce etkinlik',
-          'okul öncesi ingilizce hayvanlar boyama',
-          'çiftlik hayvanları ingilizce etkinlik',
-          'ingilizce kes yapıştır okul öncesi',
-          'anaokulu ingilizce etkinlikleri',
-        ],
-        faqs: [
-          {
-            question: 'Bu çalışma kağıdı için makas ve yapıştırıcı gerekli midir?',
-            answer:
-              '1. sayfa sadece boya kalemi veya kurşun kalem gerektirir. 2. sayfa ise çocuk dostu küt uçlu makas ve yapıştırıcı ile ince motor becerilerini geliştirmek için tasarlanmıştır.',
-          },
-        ],
-        reviewed: true,
-      },
-    },
-
     // Backwards compatibility
     category: 'vocabulary',
     categoryName: 'ESL Vocabulary',
@@ -588,10 +361,6 @@ export function getAllWorksheets(): Worksheet[] {
 
 export function getWorksheetBySlug(slug: string): Worksheet | undefined {
   return worksheets.find((w) => w.slug === slug);
-}
-
-export function getWorksheetByTurkishSlug(trSlug: string): Worksheet | undefined {
-  return worksheets.find((w) => w.i18n?.tr?.slug === trSlug);
 }
 
 export function getWorksheetsBySubject(subject: WorksheetSubject): Worksheet[] {

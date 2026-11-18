@@ -34,25 +34,6 @@ export interface FAQItem {
   answer: string;
 }
 
-export interface WorksheetTurkishI18n {
-  slug: string;
-  title: string;
-  description: string;
-  quickSummary: string;
-  teacherNote: {
-    skillFocus: string;
-    learningGoal: string;
-    teachingTip: string;
-    extensionActivity: string;
-    steps?: string[];
-  };
-  whatsInside: string[];
-  vocabularyWithTranslations: { en: string; tr: string }[];
-  faqs: FAQItem[];
-  keywords: string[];
-  reviewed: boolean;
-}
-
 export interface Worksheet {
   id: string;
   title: string;
@@ -90,9 +71,6 @@ export interface Worksheet {
   keywords: string[];
   datePublished: string;
   dateModified: string;
-  i18n?: {
-    tr?: WorksheetTurkishI18n;
-  };
 
   // Backwards compatibility aliases
   category?: string;

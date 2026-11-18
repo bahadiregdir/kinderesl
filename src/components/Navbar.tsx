@@ -3,25 +3,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getDictionary } from '@/i18n/get-dictionary';
-import { getOppositeLocalePath } from '@/i18n/routes';
 import {
   Menu,
   X,
   BookOpen,
   Sparkles,
-  Globe,
   Search,
   ChevronDown,
   Layers,
   Sparkle,
 } from 'lucide-react';
 
-interface NavbarProps {
-  locale?: 'en' | 'tr';
-}
-
-export function Navbar({ locale = 'en' }: NavbarProps) {
+export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -29,11 +22,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
   const pathname = usePathname();
   const megaMenuRef = useRef<HTMLDivElement>(null);
 
-  const isTr = locale === 'tr' || pathname.startsWith('/tr');
-  const dict = getDictionary(isTr ? 'tr' : 'en');
-  const oppositeHref = getOppositeLocalePath(pathname);
-
-  // Close mega menu on outside click or route change
+  // Close menus on outside click or route change
   useEffect(() => {
     setMegaMenuOpen(false);
     setMobileOpen(false);
@@ -50,73 +39,37 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 5 Nav links configuration
-  const navItems = isTr
-    ? [
-        { title: dict.nav.worksheets, href: '/tr/calisma-sayfalari', isMega: true },
-        { title: dict.nav.topics, href: '/tr/konular' },
-        { title: dict.nav.seasonsAndMonths, href: '/tr/aylik-temalar' },
-        { title: dict.nav.games, href: '/tr/oyunlar' },
-        { title: dict.nav.about, href: '/tr/hakkimizda' },
-      ]
-    : [
-        { title: dict.nav.worksheets, href: '/worksheets', isMega: true },
-        { title: dict.nav.topics, href: '/topics' },
-        { title: dict.nav.seasonsAndMonths, href: '/preschool-themes' },
-        { title: dict.nav.games, href: '/games' },
-        { title: dict.nav.about, href: '/about' },
-      ];
+  const navItems = [
+    { title: 'Worksheets', href: '/worksheets', isMega: true },
+    { title: 'Topics', href: '/topics' },
+    { title: 'Seasons & Months', href: '/preschool-themes' },
+    { title: 'Games', href: '/games' },
+    { title: 'About', href: '/about' },
+  ];
 
-  const subjectsList = isTr
-    ? [
-        { title: 'Alfabe & Harfler', href: '/tr/calisma-sayfalari/alfabe' },
-        { title: 'Sesler & Fonetik', href: '/tr/calisma-sayfalari/sesler-fonetik' },
-        { title: 'Sayılar & Sayma', href: '/tr/calisma-sayfalari/sayilar-sayma' },
-        { title: 'Şekiller & Renkler', href: '/tr/calisma-sayfalari/sekiller-renkler' },
-        { title: 'ESL Kelimeler', href: '/tr/calisma-sayfalari/kelimeler' },
-        { title: 'Düşünme Becerileri', href: '/tr/calisma-sayfalari/dusunme-becerileri' },
-      ]
-    : [
-        { title: 'Alphabet & Letters', href: '/worksheets/alphabet' },
-        { title: 'Phonics & Sounds', href: '/worksheets/phonics' },
-        { title: 'Numbers & Counting', href: '/worksheets/numbers-counting' },
-        { title: 'Shapes & Colors', href: '/worksheets/shapes-colors' },
-        { title: 'Vocabulary & Words', href: '/worksheets/vocabulary' },
-        { title: 'Thinking Skills', href: '/worksheets/thinking-skills' },
-      ];
+  const subjectsList = [
+    { title: 'Alphabet & Letters', href: '/worksheets/alphabet' },
+    { title: 'Phonics & Sounds', href: '/worksheets/phonics' },
+    { title: 'Numbers & Counting', href: '/worksheets/numbers-counting' },
+    { title: 'Shapes & Colors', href: '/worksheets/shapes-colors' },
+    { title: 'Vocabulary & Words', href: '/worksheets/vocabulary' },
+    { title: 'Thinking Skills', href: '/worksheets/thinking-skills' },
+  ];
 
-  const agesList = isTr
-    ? [
-        { title: '3–4 Yaş (Kreş)', href: '/tr/calisma-sayfalari?age=3-4' },
-        { title: '4–5 Yaş (Anaokulu)', href: '/tr/calisma-sayfalari?age=4-5' },
-        { title: '5–6 Yaş (İlkokul Öncesi)', href: '/tr/calisma-sayfalari?age=5-6' },
-      ]
-    : [
-        { title: 'Ages 3–4 (Preschool)', href: '/worksheets?age=3-4' },
-        { title: 'Ages 4–5 (Pre-K)', href: '/worksheets?age=4-5' },
-        { title: 'Ages 5–6 (Kindergarten)', href: '/worksheets?age=5-6' },
-      ];
+  const agesList = [
+    { title: 'Ages 3–4 (Preschool)', href: '/worksheets?age=3-4' },
+    { title: 'Ages 4–5 (Pre-K)', href: '/worksheets?age=4-5' },
+    { title: 'Ages 5–6 (Kindergarten)', href: '/worksheets?age=5-6' },
+  ];
 
-  const activitiesList = isTr
-    ? [
-        { title: 'Çizgi Çalışması (Tracing)', href: '/tr/calisma-sayfalari?activity=tracing' },
-        { title: 'Boyama (Coloring)', href: '/tr/calisma-sayfalari?activity=coloring' },
-        { title: 'Kes-Yapıştır (Cut & Paste)', href: '/tr/calisma-sayfalari?activity=cut-and-paste' },
-        { title: 'Eşleştirme (Matching)', href: '/tr/calisma-sayfalari?activity=matching' },
-        { title: 'Sayma (Counting)', href: '/tr/calisma-sayfalari?activity=counting' },
-        { title: 'Farklı Olanı Bul (Odd-One-Out)', href: '/tr/calisma-sayfalari?activity=odd-one-out' },
-      ]
-    : [
-        { title: 'Letter & Line Tracing', href: '/worksheets?activity=tracing' },
-        { title: 'Coloring Pages', href: '/worksheets?activity=coloring' },
-        { title: 'Cut & Paste Worksheets', href: '/worksheets?activity=cut-and-paste' },
-        { title: 'Matching Activities', href: '/worksheets?activity=matching' },
-        { title: 'Counting Worksheets', href: '/worksheets?activity=counting' },
-        { title: 'Odd One Out Logic', href: '/worksheets?activity=odd-one-out' },
-      ];
-
-  const homeHref = isTr ? '/tr' : '/';
-  const worksheetsBaseHref = isTr ? '/tr/calisma-sayfalari' : '/worksheets';
+  const activitiesList = [
+    { title: 'Letter & Line Tracing', href: '/worksheets?activity=tracing' },
+    { title: 'Coloring Pages', href: '/worksheets?activity=coloring' },
+    { title: 'Cut & Paste Worksheets', href: '/worksheets?activity=cut-and-paste' },
+    { title: 'Matching Activities', href: '/worksheets?activity=matching' },
+    { title: 'Counting Worksheets', href: '/worksheets?activity=counting' },
+    { title: 'Odd One Out Logic', href: '/worksheets?activity=odd-one-out' },
+  ];
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
@@ -124,14 +77,14 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
       <div className="bg-[#2E6B6B] text-white text-xs py-1.5 px-4 text-center font-medium tracking-wide">
         <span className="inline-flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-[#F2B544]" />
-          <span>{dict.nav.announcement}</span>
+          <span>Free Printable Educational Resources for Preschool, Kindergarten &amp; ESL Educators</span>
         </span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
-          <Link href={homeHref} className="flex items-center gap-2.5 group shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <div className="w-9 h-9 rounded-xl bg-[#2E6B6B] flex items-center justify-center text-white shadow-xs transition-transform group-hover:scale-105">
               <BookOpen className="w-4 h-4 text-white" />
             </div>
@@ -140,7 +93,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                 Kinder<span className="text-[#2E6B6B]">ESL</span>
               </span>
               <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 leading-none">
-                {dict.nav.tagline}
+                Teacher &amp; Parent Resource
               </span>
             </div>
           </Link>
@@ -177,7 +130,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                         <div className="space-y-3">
                           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-1.5 flex items-center gap-1.5">
                             <BookOpen className="w-3.5 h-3.5 text-[#2E6B6B]" />
-                            <span>{dict.nav.megaMenu.bySubject}</span>
+                            <span>By Subject</span>
                           </h4>
                           <ul className="space-y-1.5 text-xs">
                             {subjectsList.map((s) => (
@@ -197,7 +150,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                         <div className="space-y-3">
                           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-1.5 flex items-center gap-1.5">
                             <Layers className="w-3.5 h-3.5 text-[#F2B544]" />
-                            <span>{dict.nav.megaMenu.byAge}</span>
+                            <span>By Age Band</span>
                           </h4>
                           <ul className="space-y-1.5 text-xs">
                             {agesList.map((a) => (
@@ -217,7 +170,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                         <div className="space-y-3">
                           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-1.5 flex items-center gap-1.5">
                             <Sparkle className="w-3.5 h-3.5 text-[#2E6B6B]" />
-                            <span>{dict.nav.megaMenu.byActivity}</span>
+                            <span>By Activity Type</span>
                           </h4>
                           <ul className="space-y-1.5 text-xs">
                             {activitiesList.map((act) => (
@@ -236,15 +189,13 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                         {/* Mega Menu Footer */}
                         <div className="col-span-3 pt-3 border-t border-slate-100 flex items-center justify-between">
                           <span className="text-xs text-slate-500">
-                            {isTr
-                              ? 'Tüm materyaller yazdırılabilir PDF formatındadır.'
-                              : 'All learning resources in standard printable PDF.'}
+                            All early childhood learning resources in standard printable PDF.
                           </span>
                           <Link
-                            href={worksheetsBaseHref}
+                            href="/worksheets"
                             className="text-xs font-bold text-[#2E6B6B] hover:underline"
                           >
-                            {dict.nav.megaMenu.viewAll}
+                            View all printable worksheets →
                           </Link>
                         </div>
                       </div>
@@ -253,7 +204,6 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                 );
               }
 
-              // Normal nav item active check: only active on exact match or appropriate sub-route
               const isActive = pathname === item.href;
 
               return (
@@ -272,7 +222,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action Icons: Search & Language Switcher */}
+          {/* Right Action Icons: Search & Mobile Menu Button */}
           <div className="flex items-center gap-2">
             {/* Quick search button */}
             <div className="relative">
@@ -280,15 +230,15 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                 type="button"
                 onClick={() => setSearchOpen(!searchOpen)}
                 className="p-2 rounded-lg text-slate-600 hover:text-[#2E6B6B] hover:bg-slate-100 transition-colors"
-                aria-label={dict.nav.search}
-                title={dict.nav.search}
+                aria-label="Search worksheets"
+                title="Search worksheets"
               >
                 <Search className="w-4 h-4" />
               </button>
 
               {searchOpen && (
                 <form
-                  action={worksheetsBaseHref}
+                  action="/worksheets"
                   method="GET"
                   className="absolute right-0 top-12 w-72 sm:w-80 bg-white rounded-xl shadow-xl border border-slate-200 p-2 z-50 flex items-center gap-2"
                 >
@@ -298,7 +248,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                     name="q"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={dict.nav.searchPlaceholder}
+                    placeholder="Search printables (e.g., Letter A, counting)..."
                     autoFocus
                     className="w-full text-xs py-1.5 px-1 bg-transparent focus:outline-hidden text-slate-800"
                   />
@@ -306,21 +256,11 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
                     type="submit"
                     className="px-3 py-1 bg-[#2E6B6B] text-white rounded-md text-xs font-bold hover:bg-[#225151]"
                   >
-                    {dict.nav.search}
+                    Search
                   </button>
                 </form>
               )}
             </div>
-
-            {/* Language Switcher (EN / TR bidirectional link) */}
-            <Link
-              href={oppositeHref}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-slate-200 text-slate-700 hover:border-[#2E6B6B] hover:text-[#2E6B6B] hover:bg-[#F0F7F7] transition-all"
-              title={isTr ? 'Switch to English' : 'Türkçe sürüme geç'}
-            >
-              <Globe className="w-3.5 h-3.5 text-[#2E6B6B]" />
-              <span>{isTr ? 'EN' : 'TR'}</span>
-            </Link>
 
             {/* Mobile menu toggle button */}
             <button
@@ -339,12 +279,12 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
       {mobileOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 max-h-[80vh] overflow-y-auto">
           {/* Mobile search bar */}
-          <form action={worksheetsBaseHref} method="GET" className="relative mb-2">
+          <form action="/worksheets" method="GET" className="relative mb-2">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
             <input
               type="text"
               name="q"
-              placeholder={dict.nav.searchPlaceholder}
+              placeholder="Search printables..."
               className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-[#2E6B6B]"
             />
           </form>
@@ -369,7 +309,7 @@ export function Navbar({ locale = 'en' }: NavbarProps) {
           {/* Quick Subject Links in Mobile */}
           <div className="pt-3 border-t border-slate-100">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3">
-              {dict.nav.megaMenu.bySubject}
+              Browse by Subject
             </span>
             <div className="grid grid-cols-2 gap-1.5 mt-2">
               {subjectsList.map((s) => (
