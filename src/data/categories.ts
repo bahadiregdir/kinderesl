@@ -6,7 +6,7 @@ export const categories: CategoryMeta[] = [
     title: 'Literacy & Phonics Worksheets',
     shortTitle: 'Literacy',
     description:
-      'Classroom-tested printable activities for early letter recognition, uppercase and lowercase handwriting formation, initial sound phonemic awareness, and foundational pre-reading fluency.',
+      'Printable activities for early letter recognition, uppercase and lowercase handwriting formation, initial sound phonemic awareness, and foundational pre-reading fluency.',
     pedagogicalFocus:
       'Multi-sensory stroke formation, phonics letter-sound mapping, and fine-motor pencil grip development for preschool and kindergarten learners.',
     targetAges: 'Ages 3–6 (Pre-K to Kindergarten)',

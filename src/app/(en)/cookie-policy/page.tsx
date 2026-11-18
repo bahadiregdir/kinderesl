@@ -81,7 +81,7 @@ export default function CookiePolicyPage() {
                   C. Advertising &amp; Sponsor Cookies (Google AdSense)
                 </h3>
                 <p className="text-xs text-slate-600">
-                  These cookies may be set by Google AdSense to deliver non-intrusive advertisements that support our free educational printable model. Google’s certified CMP handles consent choices.
+                  These cookies may be set by Google AdSense to deliver non-intrusive advertisements that support our free educational printable model. When advertising is enabled, consent will be collected through a Google-certified Consent Management Platform.
                 </p>
               </div>
             </div>

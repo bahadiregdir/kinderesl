@@ -10,7 +10,6 @@ export function WorksheetCard({ worksheet }: { worksheet: Worksheet }) {
       {/* Thumbnail container */}
       <Link
         href={`/worksheets/${worksheet.category}/${worksheet.slug}`}
-        aria-label={`View ${worksheet.title} printable worksheet`}
         className="relative block aspect-[1224/1584] bg-slate-50 overflow-hidden border-b border-slate-100"
       >
         <Image
@@ -63,7 +62,6 @@ export function WorksheetCard({ worksheet }: { worksheet: Worksheet }) {
 
           <Link
             href={`/worksheets/${worksheet.category}/${worksheet.slug}`}
-            aria-label={`Get printable PDF for ${worksheet.title}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-[#F0F7F7] text-[#2E6B6B] hover:bg-[#2E6B6B] hover:text-white transition-colors"
           >
             <FileDown className="w-3.5 h-3.5" />

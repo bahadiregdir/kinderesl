@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
               <strong>Google AdSense &amp; Third-Party Vendors:</strong> Google, as a third-party vendor, uses cookies to serve ads on our site. Google’s use of advertising cookies enables it and its partners to serve ads to our adult users based on their visit to our site and/or other sites on the Internet.
             </p>
             <p>
-              We integrate Google’s certified Consent Management Platform (CMP) to collect consent in accordance with GDPR and Google publisher policies before serving personalized ads. You may manage your ad preferences via Google Ad Settings (<a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-[#2E6B6B] underline">adssettings.google.com</a>).
+              When advertising is enabled, consent will be collected through a Google-certified Consent Management Platform in accordance with GDPR and Google publisher policies before serving personalized ads. You may manage your ad preferences via Google Ad Settings (<a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-[#2E6B6B] underline">adssettings.google.com</a>).
             </p>
           </section>
 
@@ -106,8 +106,8 @@ export default function PrivacyPolicyPage() {
             </p>
             <p className="font-semibold text-slate-900">
               KinderESL Educational Resources<br />
-              Email: contact@kinderesl.com<br />
-              Website: <a href="https://kinderesl.com/contact" className="text-[#2E6B6B] underline">kinderesl.com/contact</a>
+              Email: {siteConfig.contactEmail}<br />
+              Website: <a href={`${siteUrl}/contact`} className="text-[#2E6B6B] underline">{siteConfig.domain}/contact</a>
             </p>
           </section>
         </div>

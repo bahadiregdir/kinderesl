@@ -31,20 +31,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const worksheets = getWorksheetsByCategory(cat.slug);
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/worksheets/${cat.slug}`;
   const metaTitle = `Free ${cat.title} for Preschool & Kindergarten`;
   const metaDesc = `Download free printable ${cat.title.toLowerCase()}. Curated for preschool, kindergarten, and early ESL teachers. High-resolution PDF downloads.`;
 
-  // Item 7: If category has < 3 worksheets (e.g. shapes-colors has 0), noindex it
-  const isNoIndex = cat.slug === 'shapes-colors';
+  // Item 6: Categories with < 3 worksheets are noindex, follow until content reaches 3+
+  const isLowContent = worksheets.length < 3;
 
   return {
     title: metaTitle,
     description: metaDesc,
     alternates: {
       canonical: pageUrl,
-      // hreflang removed as requested (Item 9)
     },
     openGraph: {
       title: metaTitle,
@@ -52,14 +52,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: pageUrl,
       type: 'website',
     },
-    ...(isNoIndex
+    robots: isLowContent
       ? {
-          robots: {
-            index: false,
-            follow: false,
-          },
+          index: false,
+          follow: true,
         }
-      : {}),
+      : {
+          index: true,
+          follow: true,
+        },
   };
 }
 

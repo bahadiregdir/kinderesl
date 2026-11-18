@@ -32,13 +32,6 @@ export const metadata: Metadata = {
 export default function TurkishLandingPage() {
   return (
     <>
-      {/* Item 9: Set lang to tr for this page */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `if(typeof document !== 'undefined') { document.documentElement.lang = 'tr'; }`,
-        }}
-      />
-
       <div className="bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs items={[{ label: 'Türkçe Sürüm' }]} />

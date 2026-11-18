@@ -1,3 +1,11 @@
+export function getContactEmail(): string {
+  const envEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+  if (envEmail && envEmail.trim() !== '') {
+    return envEmail.trim();
+  }
+  return '[BURAYA GERÇEK E-POSTA]';
+}
+
 export function getSiteUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
   if (envUrl && envUrl.trim() !== '') {
@@ -12,6 +20,9 @@ export const siteConfig = {
   domain: "kinderesl.com",
   get url() {
     return getSiteUrl();
+  },
+  get contactEmail() {
+    return getContactEmail();
   },
   tagline: "Free Printable Resources for Preschool, Kindergarten & ESL Educators",
   description:

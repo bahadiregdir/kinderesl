@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { getSiteUrl } from '@/config/site';
+import { siteConfig, getSiteUrl } from '@/config/site';
 import { Mail, MessageSquare, Clock, ShieldCheck, Heart } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
@@ -52,16 +52,16 @@ export default function ContactPage() {
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#2E6B6B]">
                 Direct Educator Inbox
               </span>
-              <h2 className="text-xl font-bold text-slate-900">
-                contact@kinderesl.com
+              <h2 className="text-xl font-bold text-slate-900 break-all">
+                {siteConfig.contactEmail}
               </h2>
               <p className="text-xs text-slate-600">
                 For printable requests, bug reports, and copyright inquiries.
               </p>
             </div>
             <a
-              href="mailto:contact@kinderesl.com?subject=KinderESL%20Teacher%20Inquiry"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-xs font-bold shadow-xs transition-colors"
+              href={`mailto:${siteConfig.contactEmail}?subject=KinderESL%20Teacher%20Inquiry`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-xs font-bold shadow-xs transition-colors shrink-0"
             >
               <Mail className="w-4 h-4" />
               <span>Send Email</span>

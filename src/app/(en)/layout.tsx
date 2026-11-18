@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import './globals.css';
+import '@/app/globals.css';
 import { siteConfig, getSiteUrl } from '@/config/site';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';

@@ -1,12 +1,13 @@
 import { MetadataRoute } from 'next';
-import { getAllWorksheets } from '@/data/worksheets';
+import { getAllWorksheets, getWorksheetsByCategory } from '@/data/worksheets';
+import { categories } from '@/data/categories';
 import { getSiteUrl } from '@/config/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getSiteUrl();
   const lastModDate = new Date('2026-11-18');
 
-  // Only indexable pages with full content (Item 7: hubs with <3 items, /tr, /games excluded)
+  // Core indexable static routes (hub pages with < 3 items, /tr, and /games excluded until populated)
   const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -19,30 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastModDate,
       changeFrequency: 'daily',
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/worksheets/literacy`,
-      lastModified: lastModDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/worksheets/math`,
-      lastModified: lastModDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/worksheets/thinking-skills`,
-      lastModified: lastModDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/worksheets/esl-vocabulary`,
-      lastModified: lastModDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/about`,
@@ -75,6 +52,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  // Category hub pages: automatically enter sitemap when worksheet count reaches >= 3 (Item 6)
+  for (const cat of categories) {
+    const wsCount = getWorksheetsByCategory(cat.slug).length;
+    if (wsCount >= 3) {
+      routes.push({
+        url: `${baseUrl}/worksheets/${cat.slug}`,
+        lastModified: lastModDate,
+        changeFrequency: 'weekly',
+        priority: 0.8,
+      });
+    }
+  }
 
   // Individual worksheet pages (Core Content)
   for (const ws of getAllWorksheets()) {
