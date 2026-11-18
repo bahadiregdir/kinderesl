@@ -1,0 +1,35 @@
+# KinderESL: Free Printable Educational Resources for Preschool & Kindergarten Teachers
+
+> KinderESL (https://kinderesl.com) is a curated repository of free, classroom-tested printable PDF worksheets, ESL flashcards, thematic early learning activities, and instructional guides designed for early childhood educators, preschool teachers, kindergarten instructors, and homeschooling parents across the United States, Canada, and the United Kingdom.
+
+## Pedagogical Philosophy & Positioning
+KinderESL is an instructional and curricular resource platform for adults—teachers, educators, curriculum coordinators, and parents. The content adheres to early childhood developmental standards, emphasizing phonemic awareness, fine-motor pencil control, one-to-one number correspondence, visual discrimination, and foundational English language acquisition (ESL/ELL).
+
+- Primary Domain: https://kinderesl.com
+- Author & Curriculum Lead: Early Childhood ESL Curriculum Specialist (M.Ed. Early Childhood Education)
+- Access: 100% Free downloadable high-resolution PDF printables for non-commercial classroom and home use.
+
+## Core Content Categories
+- **Literacy & Alphabet** (/worksheets/literacy): Letter tracing, letter of the week curriculum, phonics / initial sound association, uppercase and lowercase handwriting formation.
+- **Early Math & Numbers** (/worksheets/math): Number recognition, counting 1 to 10, one-to-one correspondence, number tracing, basic geometry and shapes.
+- **Thinking Skills & Logic** (/worksheets/thinking-skills): Visual discrimination, odd-one-out categorizing, pattern completion, spatial reasoning, comparative concepts.
+- **ESL & Vocabulary Sets** (/worksheets/esl-vocabulary): Thematic English word cards, sight words, animal sounds, classroom objects, conversational language scaffolding.
+- **Shapes & Colors** (/worksheets/shapes-colors): Geometric shape tracing, color identification, color-by-number, fine motor coloring exercises.
+
+## Thematic Units & Seasonal Hubs
+- **Themes** (/themes): Winter (/themes/winter), Farm Animals (/themes/farm-animals), Insects & Bugs (/themes/insects-bugs), Alphabet (/themes/alphabet), Spring, Autumn.
+- **Monthly Themes Calendar** (/preschool-themes): Curated monthly preschool curricular plans from January through December.
+
+## Key Resources
+- Andy the Ant Loves Apples! (Letter A Tracing & Phonics): https://kinderesl.com/worksheets/literacy/letter-a-tracing-and-phonics
+- Lily the Ladybug's Party (Numbers 1-5 Counting & Tracing): https://kinderesl.com/worksheets/math/counting-1-to-5-ladybug-party
+- Penny Packs for a Snowy Day (Winter Odd-One-Out Discrimination): https://kinderesl.com/worksheets/thinking-skills/winter-odd-one-out-visual-discrimination
+- Barnyard Buddies! Farm Animals ESL Vocabulary & Tracing: https://kinderesl.com/worksheets/esl-vocabulary/farm-animals-esl-vocabulary-and-tracing
+
+## Educational Games & Smartboard Tools
+- Classroom Interactive Games (/games): Distraction-free, ad-free interactive HTML5 educational games designed for preschool interactive whiteboards and classroom projectors.
+
+## Contact & Teacher Submissions
+- Website: https://kinderesl.com
+- Inquiries & Resource Requests: https://kinderesl.com/contact
+- Terms of Use: Free for home and classroom non-commercial educational use.
