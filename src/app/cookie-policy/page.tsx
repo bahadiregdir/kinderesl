@@ -1,13 +1,22 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig } from '@/config/site';
-import { Cookie, ShieldCheck } from 'lucide-react';
+import { siteConfig, getSiteUrl } from '@/config/site';
+import { Cookie } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/cookie-policy`;
 
 export const metadata: Metadata = {
   title: `Cookie Policy | ${siteConfig.name}`,
-  description: `Cookie Policy for ${siteConfig.name}. Explains the types of cookies we use, their educational purpose, and how teachers and parents can control preferences.`,
+  description: `Cookie Policy for ${siteConfig.name}. Explains the types of cookies we use and how teachers and parents can control preferences.`,
   alternates: {
-    canonical: `${siteConfig.url}/cookie-policy`,
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `Cookie Policy | ${siteConfig.name}`,
+    description: `Cookie Policy for ${siteConfig.name}. Explains cookie usage and controls.`,
+    url: pageUrl,
+    type: 'website',
   },
 };
 
@@ -29,14 +38,14 @@ export default function CookiePolicyPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
             Cookie Policy
           </h1>
-          <p className="text-xs text-slate-500">
-            Last Updated: February 2025
+          <p className="text-xs text-slate-600">
+            Last Updated: November 2026
           </p>
         </header>
 
         <div className="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
           <p>
-            This Cookie Policy explains how KinderESL (&quot;we&quot;, &quot;us&quot;, and &quot;our&quot;) uses cookies and similar tracking technologies when you visit our website at <a href="https://kinderesl.com" className="text-[#2E6B6B] underline">kinderesl.com</a>.
+            This Cookie Policy explains how KinderESL (&quot;we&quot;, &quot;us&quot;, and &quot;our&quot;) uses cookies and similar technologies when you visit our website at <a href="https://kinderesl.com" className="text-[#2E6B6B] underline">kinderesl.com</a>.
           </p>
 
           <section>
@@ -54,7 +63,7 @@ export default function CookiePolicyPage() {
                   A. Strictly Necessary / Essential Cookies
                 </h3>
                 <p className="text-xs text-slate-600">
-                  These cookies are essential for you to browse the website and download PDF documents securely. They include preferences such as your cookie consent choices (<code className="bg-slate-100 px-1 py-0.5 rounded">kinderesl_cookie_consent</code>).
+                  These cookies are essential for you to browse the website and download PDF documents securely.
                 </p>
               </div>
 
@@ -72,7 +81,7 @@ export default function CookiePolicyPage() {
                   C. Advertising &amp; Sponsor Cookies (Google AdSense)
                 </h3>
                 <p className="text-xs text-slate-600">
-                  These cookies may be set through our site by advertising partners like Google to deliver relevant advertisements to adult visitors that support our free printable model. You can opt out of these cookies via our Cookie Consent banner or your browser controls.
+                  These cookies may be set by Google AdSense to deliver non-intrusive advertisements that support our free educational printable model. Google’s certified CMP handles consent choices.
                 </p>
               </div>
             </div>
@@ -81,7 +90,7 @@ export default function CookiePolicyPage() {
           <section>
             <h2 className="text-xl font-bold text-slate-900">3. How Can You Control Cookies?</h2>
             <p>
-              You have the right to decide whether to accept or decline non-essential cookies. You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject cookies, you may still use our website and download PDF files without restriction.
+              You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject cookies, you may still use our website and download PDF files without restriction.
             </p>
           </section>
         </div>

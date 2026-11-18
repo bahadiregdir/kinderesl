@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { siteConfig } from '@/config/site';
+import { siteConfig, getSiteUrl } from '@/config/site';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { CookieConsent } from '@/components/CookieConsent';
 
 export const viewport: Viewport = {
   themeColor: '#2E6B6B',
@@ -11,15 +10,17 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteConfig.name} - Free Printable Educational Resources for Teachers & Parents`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  authors: [{ name: siteConfig.author.name, url: `${siteConfig.url}/about` }],
+  authors: [{ name: siteConfig.author.name, url: `${siteUrl}/about` }],
   creator: siteConfig.author.name,
   publisher: siteConfig.legalName,
   formatDetection: {
@@ -28,18 +29,13 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: siteConfig.url,
-    languages: {
-      'en-US': `${siteConfig.url}`,
-      'en-GB': `${siteConfig.url}`,
-      'en-CA': `${siteConfig.url}`,
-      'tr-TR': `${siteConfig.url}/tr`,
-    },
+    canonical: siteUrl,
+    // hreflang removed as requested (Item 9)
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: siteConfig.url,
+    url: siteUrl,
     siteName: siteConfig.name,
     title: `${siteConfig.name} - Free Printable Worksheets for Teachers & Parents`,
     description: siteConfig.description,
@@ -59,7 +55,10 @@ export const metadata: Metadata = {
     images: ['/images/og-default.jpg'],
   },
   other: {
-    'p:domain_verify': siteConfig.pinterest.verificationToken,
+    // Only include p:domain_verify if a real token is provided (Item 12)
+    ...(siteConfig.pinterest.verificationToken && siteConfig.pinterest.verificationToken.trim() !== ''
+      ? { 'p:domain_verify': siteConfig.pinterest.verificationToken }
+      : {}),
     'pinterest-rich-pin': 'true',
   },
   robots: {
@@ -80,31 +79,38 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const orgSchema = {
+  const currentSiteUrl = getSiteUrl();
+
+  const orgSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: siteConfig.legalName,
-    url: siteConfig.url,
-    logo: `${siteConfig.url}/images/og-default.jpg`,
-    sameAs: [siteConfig.pinterest.url],
-    founder: {
-      '@type': 'Person',
-      name: siteConfig.author.name,
-      jobTitle: siteConfig.author.role,
-    },
+    url: currentSiteUrl,
+    logo: `${currentSiteUrl}/images/og-default.jpg`,
   };
+
+  // Only add sameAs if Pinterest url is configured (Item 12)
+  if (siteConfig.pinterest.url && siteConfig.pinterest.url.trim() !== '') {
+    orgSchema.sameAs = [siteConfig.pinterest.url];
+  }
 
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteConfig.name,
-    url: siteConfig.url,
+    url: currentSiteUrl,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${siteConfig.url}/worksheets?q={search_term_string}`,
+      target: `${currentSiteUrl}/worksheets?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
+
+  const isRealAdSense =
+    siteConfig.adsense.enabled &&
+    siteConfig.adsense.client &&
+    !siteConfig.adsense.client.startsWith('ca-pub-XXX') &&
+    siteConfig.adsense.client.trim() !== '';
 
   return (
     <html lang="en" className="h-full scroll-smooth">
@@ -117,7 +123,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {siteConfig.adsense.enabled && (
+        {/* Google AdSense CMP Script - only loaded when real AdSense client ID is active (Item 11) */}
+        {isRealAdSense && (
           <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsense.client}`}
@@ -129,7 +136,6 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <CookieConsent />
       </body>
     </html>
   );

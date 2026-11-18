@@ -1,35 +1,27 @@
 # KinderESL: Free Printable Educational Resources for Preschool & Kindergarten Teachers
 
-> KinderESL (https://kinderesl.com) is a curated repository of free, classroom-tested printable PDF worksheets, ESL flashcards, thematic early learning activities, and instructional guides designed for early childhood educators, preschool teachers, kindergarten instructors, and homeschooling parents across the United States, Canada, and the United Kingdom.
+> [KinderESL](https://kinderesl.com) is a collection of free printable PDF worksheets, phonics packs, thematic early learning activities, and instructional guides designed for early childhood educators, preschool teachers, kindergarten instructors, and homeschooling parents across the United States, Canada, and the United Kingdom.
 
 ## Pedagogical Philosophy & Positioning
 KinderESL is an instructional and curricular resource platform for adults—teachers, educators, curriculum coordinators, and parents. The content adheres to early childhood developmental standards, emphasizing phonemic awareness, fine-motor pencil control, one-to-one number correspondence, visual discrimination, and foundational English language acquisition (ESL/ELL).
 
-- Primary Domain: https://kinderesl.com
-- Author & Curriculum Lead: Early Childhood ESL Curriculum Specialist (M.Ed. Early Childhood Education)
+- Primary Domain: [KinderESL.com](https://kinderesl.com)
+- Editorial Focus: Early Childhood ESL and Kindergarten Educational Printables
 - Access: 100% Free downloadable high-resolution PDF printables for non-commercial classroom and home use.
 
 ## Core Content Categories
-- **Literacy & Alphabet** (/worksheets/literacy): Letter tracing, letter of the week curriculum, phonics / initial sound association, uppercase and lowercase handwriting formation.
-- **Early Math & Numbers** (/worksheets/math): Number recognition, counting 1 to 10, one-to-one correspondence, number tracing, basic geometry and shapes.
-- **Thinking Skills & Logic** (/worksheets/thinking-skills): Visual discrimination, odd-one-out categorizing, pattern completion, spatial reasoning, comparative concepts.
-- **ESL & Vocabulary Sets** (/worksheets/esl-vocabulary): Thematic English word cards, sight words, animal sounds, classroom objects, conversational language scaffolding.
-- **Shapes & Colors** (/worksheets/shapes-colors): Geometric shape tracing, color identification, color-by-number, fine motor coloring exercises.
+- [Literacy & Phonics](https://kinderesl.com/worksheets/literacy): Letter tracing, letter of the week curriculum, phonics initial sound association, uppercase and lowercase handwriting formation.
+- [Early Math & Numbers](https://kinderesl.com/worksheets/math): Number recognition, counting 1 to 10, one-to-one correspondence, number tracing.
+- [Thinking Skills & Logic](https://kinderesl.com/worksheets/thinking-skills): Visual discrimination, odd-one-out categorizing, seasonal attribute comparisons.
+- [ESL & Vocabulary Sets](https://kinderesl.com/worksheets/esl-vocabulary): Thematic English word cards, sight words, animal sounds, classroom objects.
 
-## Thematic Units & Seasonal Hubs
-- **Themes** (/themes): Winter (/themes/winter), Farm Animals (/themes/farm-animals), Insects & Bugs (/themes/insects-bugs), Alphabet (/themes/alphabet), Spring, Autumn.
-- **Monthly Themes Calendar** (/preschool-themes): Curated monthly preschool curricular plans from January through December.
+## Featured Printables
+- [Letter A Tracing & Phonics: Andy the Ant Loves Apples](https://kinderesl.com/worksheets/literacy/letter-a-tracing-and-phonics): 2-page alphabet tracing and apple hunt counting activity.
+- [Lily the Ladybug's Party: Count & Trace Numbers 1 to 5](https://kinderesl.com/worksheets/math/counting-1-to-5-ladybug-party): 1-page number recognition, counting, and numeral tracing sheet.
+- [Penny Packs for a Snowy Day: Winter Odd-One-Out](https://kinderesl.com/worksheets/thinking-skills/winter-odd-one-out-visual-discrimination): 1-page seasonal visual discrimination and word tracing printable.
+- [Farm Animals Matching & Cut-and-Paste: Good Morning, Farm!](https://kinderesl.com/worksheets/esl-vocabulary/farm-animals-esl-vocabulary-and-tracing): 2-page animal name matching and sound cut-and-paste activity.
 
-## Key Resources
-- Andy the Ant Loves Apples! (Letter A Tracing & Phonics): https://kinderesl.com/worksheets/literacy/letter-a-tracing-and-phonics
-- Lily the Ladybug's Party (Numbers 1-5 Counting & Tracing): https://kinderesl.com/worksheets/math/counting-1-to-5-ladybug-party
-- Penny Packs for a Snowy Day (Winter Odd-One-Out Discrimination): https://kinderesl.com/worksheets/thinking-skills/winter-odd-one-out-visual-discrimination
-- Barnyard Buddies! Farm Animals ESL Vocabulary & Tracing: https://kinderesl.com/worksheets/esl-vocabulary/farm-animals-esl-vocabulary-and-tracing
-
-## Educational Games & Smartboard Tools
-- Classroom Interactive Games (/games): Distraction-free, ad-free interactive HTML5 educational games designed for preschool interactive whiteboards and classroom projectors.
-
-## Contact & Teacher Submissions
-- Website: https://kinderesl.com
-- Inquiries & Resource Requests: https://kinderesl.com/contact
-- Terms of Use: Free for home and classroom non-commercial educational use.
+## Inquiries & Feedback
+- Website: [KinderESL](https://kinderesl.com)
+- Inquiries: [Contact KinderESL](https://kinderesl.com/contact)
+- Terms of Use: [Terms of Use](https://kinderesl.com/terms) (Free for home and classroom non-commercial educational use)

@@ -1,62 +1,59 @@
+export function getSiteUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (envUrl && envUrl.trim() !== '') {
+    return envUrl.replace(/\/+$/, '');
+  }
+  return 'https://kinderesl.com';
+}
+
 export const siteConfig = {
   name: "KinderESL",
   legalName: "KinderESL Educational Resources",
   domain: "kinderesl.com",
-  url: "https://kinderesl.com",
+  get url() {
+    return getSiteUrl();
+  },
   tagline: "Free Printable Resources for Preschool, Kindergarten & ESL Educators",
   description:
-    "A research-backed curriculum resource hub for early childhood educators, preschool & kindergarten teachers, and homeschooling parents. Download free, classroom-tested printable PDF worksheets, phonics packs, and ESL vocabulary sets.",
-  
-  // E-E-A-T Author Profile
-  // NOTE: You can change the author name and bio here to your spouse's name!
+    "A printable educational resource hub for early childhood educators, preschool & kindergarten teachers, and homeschooling parents. Download free printable PDF worksheets, phonics packs, and ESL vocabulary sets.",
+
+  // Author Profile Template (E-E-A-T)
+  // Fill in real credentials and name when ready
   author: {
-    name: "Elena Ross, M.Ed.", // <-- Change this to your spouse's name
-    slug: "elena-ross",
-    role: "Early Childhood ESL Educator & Curriculum Specialist",
+    name: "KinderESL Teaching Team",
+    slug: "kinderesl-team",
+    role: "Early Childhood Educator & Content Creator",
     shortBio:
-      "Preschool & Kindergarten ESL educator with over 10 years of classroom experience across international early childhood programs. Specializes in early literacy, phonemic awareness, and fine-motor handwriting development.",
+      "Educational materials created for preschool, kindergarten, and early ESL classrooms with a focus on handwriting readiness, phonics, and early math.",
     fullBio:
-      "Elena Ross holds a Master of Education (M.Ed.) in Early Childhood Curriculum & Instruction. For over a decade, she has guided multilingual early learners across preschool and kindergarten classrooms in the United States and international schools. She designs pedagogical resources centered on joyful, low-anxiety language acquisition, sensory-rich handwriting strokes, and concrete mathematical foundations. Every worksheet published on KinderESL is classroom-tested with real young learners before release.",
+      "KinderESL resources are created for early childhood teachers and homeschooling parents. The worksheets focus on simple, high-contrast layouts, handwriting stroke directionality, and clear learning milestones for young learners.",
     credentials: [
-      "M.Ed. in Early Childhood Curriculum & Instruction",
-      "Certified ESL/ELL Early Years Specialist",
-      "10+ Years Kindergarten & Preschool Classroom Teaching",
-      "Author of Phonics-First Pre-K Learning Pathways",
+      "Early Childhood ESL Education Focus",
+      "Preschool & Kindergarten Learning Printables",
     ],
     avatar: "/images/author-avatar.jpg",
   },
 
-  // Pinterest & Social
+  // Pinterest settings
   pinterest: {
-    handle: "kinderesl",
-    url: "https://pinterest.com/kinderesl",
-    // Paste your Pinterest HTML tag verification code here:
-    verificationToken: "pinterest-site-verification-code-placeholder",
+    handle: "",
+    url: "", // Leave empty until real account is configured
+    verificationToken: "", // Leave empty until real verification token is provided
   },
 
   // AdSense & Monetization settings
   adsense: {
-    client: "ca-pub-XXXXXXXXXXXXXXXX", // Replace with your AdSense publisher ID
-    enabled: false, // Set to true once your AdSense account is approved
+    client: "", // Real AdSense publisher ID (e.g. ca-pub-1234567890123456)
+    enabled: false,
     slots: {
-      inContent: "1234567890",
-      sidebar: "2345678901",
-      preDownload: "3456789012",
+      inContent: "",
+      sidebar: "",
+      preDownload: "",
     },
-    // AdSense Offerwall / Rewarded Ad Gate (prepared for future activation)
     rewardedAdEnabled: false,
   },
 
-  // Multilingual & i18n roadmap
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "tr"],
-    localeNames: {
-      en: "English",
-      tr: "Türkçe (Yakında)",
-    },
-  },
-
+  // Navigation: shapes-colors removed as requested (item 7)
   mainNav: [
     { title: "All Worksheets", href: "/worksheets" },
     { title: "Literacy & Phonics", href: "/worksheets/literacy" },
@@ -65,7 +62,6 @@ export const siteConfig = {
     { title: "ESL Vocabulary", href: "/worksheets/esl-vocabulary" },
     { title: "Themes", href: "/themes" },
     { title: "Monthly Curriculums", href: "/preschool-themes" },
-    { title: "Classroom Games", href: "/games" },
   ],
 
   footerNav: {
@@ -73,14 +69,13 @@ export const siteConfig = {
       { title: "Letter A Tracing & Phonics", href: "/worksheets/literacy/letter-a-tracing-and-phonics" },
       { title: "Numbers 1 to 5 Counting", href: "/worksheets/math/counting-1-to-5-ladybug-party" },
       { title: "Winter Discrimination", href: "/worksheets/thinking-skills/winter-odd-one-out-visual-discrimination" },
-      { title: "Farm Animals Vocabulary", href: "/worksheets/esl-vocabulary/farm-animals-esl-vocabulary-and-tracing" },
+      { title: "Farm Animals Match & Cut-Paste", href: "/worksheets/esl-vocabulary/farm-animals-esl-vocabulary-and-tracing" },
     ],
     categories: [
-      { title: "Literacy & Letters", href: "/worksheets/literacy" },
-      { title: "Numbers & Math", href: "/worksheets/math" },
-      { title: "Logic & Discrimination", href: "/worksheets/thinking-skills" },
-      { title: "ESL Vocabulary Sets", href: "/worksheets/esl-vocabulary" },
-      { title: "Shapes & Colors", href: "/worksheets/shapes-colors" },
+      { title: "Literacy & Phonics", href: "/worksheets/literacy" },
+      { title: "Early Math", href: "/worksheets/math" },
+      { title: "Thinking Skills", href: "/worksheets/thinking-skills" },
+      { title: "ESL Vocabulary", href: "/worksheets/esl-vocabulary" },
     ],
     themes: [
       { title: "Winter Theme", href: "/themes/winter" },
@@ -89,7 +84,7 @@ export const siteConfig = {
       { title: "Alphabet Themes", href: "/themes/alphabet" },
     ],
     company: [
-      { title: "About Elena & Mission", href: "/about" },
+      { title: "About & Pedagogy", href: "/about" },
       { title: "Contact & Teacher Requests", href: "/contact" },
       { title: "Terms of Use", href: "/terms" },
       { title: "Privacy Policy", href: "/privacy-policy" },

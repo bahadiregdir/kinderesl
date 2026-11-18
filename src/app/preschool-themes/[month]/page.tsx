@@ -6,7 +6,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
-import { siteConfig } from '@/config/site';
+import { getSiteUrl } from '@/config/site';
 import { Calendar, CheckCircle2, Target, Sparkles } from 'lucide-react';
 
 interface Props {
@@ -31,7 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const pageUrl = `${siteConfig.url}/preschool-themes/${m.slug}`;
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/preschool-themes/${m.slug}`;
   const metaTitle = `${m.name} Preschool Themes & Printable Worksheets`;
   const metaDesc = `Free ${m.name} preschool curriculum resources, lesson plan ideas, and printable worksheets. Focus on ${m.curriculumThemes.join(', ')}.`;
 
@@ -45,6 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: metaTitle,
       description: metaDesc,
       url: pageUrl,
+      type: 'website',
+    },
+    // Item 7: Noindex until monthly curriculums have >= 3 worksheets
+    robots: {
+      index: false,
+      follow: false,
     },
   };
 }
@@ -126,9 +133,9 @@ export default async function MonthDetailPage({ params }: Props) {
         <section className="mb-14">
           <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-200">
             <h2 className="text-xl font-bold text-slate-900">
-              Printables Recommended for {m.name} ({worksheets.length})
+              Printables for {m.name} ({worksheets.length})
             </h2>
-            <span className="text-xs text-slate-500">Free PDF Downloads</span>
+            <span className="text-xs text-slate-600">Free PDF Downloads</span>
           </div>
 
           {worksheets.length > 0 ? (
@@ -139,7 +146,7 @@ export default async function MonthDetailPage({ params }: Props) {
             </div>
           ) : (
             <div className="bg-slate-50 rounded-xl p-8 text-center text-slate-600 text-sm">
-              Explore our core categories or check back as we add new {m.name} seasonal units.
+              More {m.name} printables will be added here soon.
             </div>
           )}
         </section>

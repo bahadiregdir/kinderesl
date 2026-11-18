@@ -3,15 +3,29 @@ import Link from 'next/link';
 import { months } from '@/data/months';
 import { getWorksheetsByMonth } from '@/data/worksheets';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig } from '@/config/site';
+import { getSiteUrl } from '@/config/site';
 import { Calendar, ArrowRight, Sun, Snowflake, CloudRain, Leaf } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/preschool-themes`;
 
 export const metadata: Metadata = {
   title: 'Monthly Preschool & Kindergarten Curriculum Calendar (Jan–Dec)',
   description:
     'A full year of preschool themes and printable lesson plans organized month-by-month from January to December.',
   alternates: {
-    canonical: `${siteConfig.url}/preschool-themes`,
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: 'Monthly Preschool & Kindergarten Curriculum Calendar (Jan–Dec)',
+    description: 'A full year of preschool themes organized month-by-month.',
+    url: pageUrl,
+    type: 'website',
+  },
+  // Item 7: Noindex until monthly themes are fully populated
+  robots: {
+    index: false,
+    follow: false,
   },
 };
 
@@ -49,7 +63,7 @@ export default function MonthlyThemesIndexPage() {
             Preschool Monthly Themes &amp; Lesson Calendars
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Plan your classroom curriculum month-by-month. Each month provides developmentally appropriate focus topics, seasonal vocabulary, and matching printable worksheets.
+            Plan your classroom curriculum month-by-month. Each month provides focus topics, seasonal vocabulary, and matching printable worksheets.
           </p>
         </div>
 
@@ -85,7 +99,7 @@ export default function MonthlyThemesIndexPage() {
                   </p>
 
                   <div className="space-y-1 mb-4">
-                    <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 block">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-slate-500 block">
                       Curriculum Topics:
                     </span>
                     <p className="text-xs text-slate-700 font-medium">

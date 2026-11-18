@@ -1,119 +1,88 @@
 import { MetadataRoute } from 'next';
 import { getAllWorksheets } from '@/data/worksheets';
-import { categories } from '@/data/categories';
-import { themes } from '@/data/themes';
-import { months } from '@/data/months';
+import { getSiteUrl } from '@/config/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://kinderesl.com';
-  const now = new Date();
+  const baseUrl = getSiteUrl();
+  const lastModDate = new Date('2026-11-18');
 
+  // Only indexable pages with full content (Item 7: hubs with <3 items, /tr, /games excluded)
   const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: now,
-      changeFrequency: 'daily',
+      lastModified: lastModDate,
+      changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/worksheets`,
-      lastModified: now,
+      lastModified: lastModDate,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/themes`,
-      lastModified: now,
+      url: `${baseUrl}/worksheets/literacy`,
+      lastModified: lastModDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/preschool-themes`,
-      lastModified: now,
+      url: `${baseUrl}/worksheets/math`,
+      lastModified: lastModDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/games`,
-      lastModified: now,
+      url: `${baseUrl}/worksheets/thinking-skills`,
+      lastModified: lastModDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/worksheets/esl-vocabulary`,
+      lastModified: lastModDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: now,
+      lastModified: lastModDate,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: now,
+      url: `${baseUrl}/contact`,
+      lastModified: lastModDate,
       changeFrequency: 'monthly',
-      priority: 0.4,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: lastModDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
     {
       url: `${baseUrl}/cookie-policy`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.4,
+      lastModified: lastModDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.4,
-    },
-    {
-      url: `${baseUrl}/tr`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
+      lastModified: lastModDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
 
-  // Category pages
-  for (const cat of categories) {
-    routes.push({
-      url: `${baseUrl}/worksheets/${cat.slug}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    });
-  }
-
-  // Individual worksheet pages: /worksheets/[category]/[slug]
+  // Individual worksheet pages (Core Content)
   for (const ws of getAllWorksheets()) {
     routes.push({
       url: `${baseUrl}/worksheets/${ws.category}/${ws.slug}`,
-      lastModified: new Date(ws.dateModified || ws.datePublished),
+      lastModified: new Date(ws.dateModified || '2026-11-18'),
       changeFrequency: 'weekly',
       priority: 0.9,
-    });
-  }
-
-  // Theme pages: /themes/[theme]
-  for (const th of themes) {
-    routes.push({
-      url: `${baseUrl}/themes/${th.slug}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    });
-  }
-
-  // Monthly theme pages: /preschool-themes/[month]
-  for (const mo of months) {
-    routes.push({
-      url: `${baseUrl}/preschool-themes/${mo.slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.75,
     });
   }
 

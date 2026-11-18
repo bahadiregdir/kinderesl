@@ -3,15 +3,29 @@ import Link from 'next/link';
 import { themes } from '@/data/themes';
 import { getWorksheetsByTheme } from '@/data/worksheets';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig } from '@/config/site';
+import { getSiteUrl } from '@/config/site';
 import { Sparkles, Calendar, ArrowRight } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/themes`;
 
 export const metadata: Metadata = {
   title: 'Preschool & Kindergarten Thematic Units and Learning Themes',
   description:
     'Explore thematic preschool printables: Winter, Farm Animals, Insects & Bugs, Alphabet, and Seasonal units designed for early childhood classrooms.',
   alternates: {
-    canonical: `${siteConfig.url}/themes`,
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: 'Preschool & Kindergarten Thematic Units and Learning Themes',
+    description: 'Explore thematic preschool printables and seasonal units.',
+    url: pageUrl,
+    type: 'website',
+  },
+  // Item 7: Noindex until themes contain >= 3 worksheets each
+  robots: {
+    index: false,
+    follow: false,
   },
 };
 
@@ -47,9 +61,9 @@ export default function ThemesIndexPage() {
                 className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs hover:border-[#2E6B6B] hover:shadow-sm transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
+                  <div className="flex items-center justify-between text-xs text-slate-600 mb-2">
                     <span className="inline-flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                      <Calendar className="w-3.5 h-3.5 text-slate-500" />
                       <span>Best Months: {theme.bestMonths.join(', ')}</span>
                     </span>
                     <span className="font-semibold text-[#2E6B6B]">{count} Printables</span>

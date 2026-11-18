@@ -24,13 +24,11 @@ export function DownloadButton({
     // If AdSense Offerwall / Rewarded Ad is enabled in future:
     if (siteConfig.adsense.rewardedAdEnabled) {
       console.log('AdSense Rewarded Ad / Offerwall hook trigger point');
-      // Here you will hook: window.adsbygoogle.push({ ... }) or Google Offerwall API
     }
 
     setDownloading(true);
 
     try {
-      // Trigger download
       const link = document.createElement('a');
       link.href = pdfUrl;
       link.download = `${pdfTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.pdf`;
@@ -48,7 +46,6 @@ export function DownloadButton({
   };
 
   const handlePrint = () => {
-    // Open PDF in new tab and prompt print
     const printWindow = window.open(pdfUrl, '_blank');
     if (printWindow) {
       printWindow.focus();
@@ -65,13 +62,13 @@ export function DownloadButton({
               <Sparkles className="w-3.5 h-3.5" />
               <span>High-Resolution Printable</span>
             </span>
-            <span className="text-xs text-slate-500 font-medium">({pdfSize} · {pageCount} {pageCount > 1 ? 'pages' : 'page'})</span>
+            <span className="text-xs text-slate-600 font-medium">({pdfSize} · {pageCount} {pageCount > 1 ? 'pages' : 'page'})</span>
           </div>
           <h4 className="text-sm font-bold text-slate-800">
-            Free Download for Teachers & Parents
+            Free Download for Teachers &amp; Parents
           </h4>
           <p className="text-xs text-slate-600">
-            Standard 8.5x11&quot; US Letter format. Ready to print in black &amp; white or full color.
+            Standard 8.5×11&quot; US Letter format. Ready to print in black &amp; white or full color.
           </p>
         </div>
 
@@ -81,8 +78,8 @@ export function DownloadButton({
             type="button"
             onClick={handleDownload}
             disabled={downloading}
-            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-sm font-bold shadow-sm transition-all duration-150 disabled:opacity-50 active:scale-95"
-            aria-label="Download free printable PDF"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-sm font-bold shadow-xs transition-all duration-150 disabled:opacity-50 active:scale-95"
+            aria-label={downloaded ? 'Downloaded' : downloading ? 'Preparing PDF' : 'Download PDF Free'}
           >
             {downloaded ? (
               <>
@@ -104,7 +101,7 @@ export function DownloadButton({
             onClick={handlePrint}
             className="inline-flex items-center justify-center gap-1.5 px-3.5 py-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold transition-colors"
             title="Open printable PDF in new tab"
-            aria-label="Open printable PDF"
+            aria-label="Print worksheet PDF"
           >
             <Printer className="w-4 h-4 text-slate-600" />
             <span className="hidden sm:inline">Print</span>

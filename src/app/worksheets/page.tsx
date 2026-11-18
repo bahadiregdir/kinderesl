@@ -5,20 +5,32 @@ import { categories } from '@/data/categories';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { AdUnit } from '@/components/AdUnit';
-import { siteConfig } from '@/config/site';
-import { BookOpen, Layers, Sparkles, Filter } from 'lucide-react';
+import { getSiteUrl } from '@/config/site';
+import { Layers, Filter } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/worksheets`;
 
 export const metadata: Metadata = {
   title: 'Free Printable Worksheets Library for Preschool & Kindergarten',
   description:
     'Browse our complete directory of free printable PDF worksheets for preschool, kindergarten, and early ESL classrooms. Phonics, math, logic, and vocabulary sets.',
   alternates: {
-    canonical: `${siteConfig.url}/worksheets`,
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: 'Free Printable Worksheets Library for Preschool & Kindergarten',
+    description:
+      'Browse our complete directory of free printable PDF worksheets for early childhood classrooms.',
+    url: pageUrl,
+    type: 'website',
   },
 };
 
 export default function AllWorksheetsPage() {
   const worksheets = getAllWorksheets();
+  // Filter out shapes-colors (Item 7)
+  const activeCategories = categories.filter((c) => c.slug !== 'shapes-colors');
 
   return (
     <>
@@ -39,13 +51,13 @@ export default function AllWorksheetsPage() {
             Printable Worksheets for Preschool &amp; Kindergarten
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Every worksheet is thoughtfully formatted for standard 8.5×11&quot; US Letter paper, optimized for black &amp; white or full-color printing, and designed to support foundational milestones without overstimulating visual clutter.
+            Every worksheet is formatted for standard 8.5×11&quot; US Letter paper, optimized for black &amp; white or full-color printing, and designed to support foundational learning milestones without overstimulating visual clutter.
           </p>
         </div>
 
-        {/* Category Filter Pills */}
+        {/* Category Filter Pills (shapes-colors excluded) */}
         <div className="flex flex-wrap items-center gap-2 mb-8 pb-4 border-b border-slate-200">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1 mr-2">
+          <span className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1 mr-2">
             <Filter className="w-3 h-3" />
             <span>Hubs:</span>
           </span>
@@ -55,7 +67,7 @@ export default function AllWorksheetsPage() {
           >
             All Resources ({worksheets.length})
           </Link>
-          {categories.map((c) => (
+          {activeCategories.map((c) => (
             <Link
               key={c.slug}
               href={`/worksheets/${c.slug}`}

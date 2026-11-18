@@ -1,13 +1,22 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig } from '@/config/site';
-import { ShieldCheck, Lock, Eye, FileText } from 'lucide-react';
+import { siteConfig, getSiteUrl } from '@/config/site';
+import { ShieldCheck, Lock } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/privacy-policy`;
 
 export const metadata: Metadata = {
   title: `Privacy Policy | ${siteConfig.name}`,
   description: `Privacy Policy for ${siteConfig.name}. Explains our data collection practices, adult teacher/parent target audience, COPPA compliance, and AdSense disclosures.`,
   alternates: {
-    canonical: `${siteConfig.url}/privacy-policy`,
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `Privacy Policy | ${siteConfig.name}`,
+    description: `Privacy Policy for ${siteConfig.name}. Explains data practices and COPPA compliance.`,
+    url: pageUrl,
+    type: 'website',
   },
 };
 
@@ -29,8 +38,8 @@ export default function PrivacyPolicyPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
             Privacy Policy
           </h1>
-          <p className="text-xs text-slate-500">
-            Last Updated: February 2025 · Effective Date: January 1, 2025
+          <p className="text-xs text-slate-600">
+            Last Updated: November 2026 · Effective Date: November 18, 2026
           </p>
         </header>
 
@@ -54,7 +63,7 @@ export default function PrivacyPolicyPage() {
               <li>Browser type, device specifications, operating system, and screen resolution.</li>
               <li>Referral URLs, pages visited, time spent on pages, and PDF download interactions.</li>
               <li>Internet Protocol (IP) addresses anonymized for general diagnostic and geographical analytics.</li>
-              <li>Information you voluntarily submit via our Contact Form (such as name, email address, and teacher message).</li>
+              <li>Information you voluntarily submit if you email us (such as your name and message).</li>
             </ul>
           </section>
 
@@ -67,14 +76,14 @@ export default function PrivacyPolicyPage() {
               <strong>Google AdSense &amp; Third-Party Vendors:</strong> Google, as a third-party vendor, uses cookies to serve ads on our site. Google’s use of advertising cookies enables it and its partners to serve ads to our adult users based on their visit to our site and/or other sites on the Internet.
             </p>
             <p>
-              Users in the European Economic Area (EEA), United Kingdom (UK), and California may manage their consent preferences via our Cookie Consent banner at any time. You may also opt out of personalized advertising by visiting Google Ads Settings (<a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-[#2E6B6B] underline">adssettings.google.com</a>) or www.aboutads.info.
+              We integrate Google’s certified Consent Management Platform (CMP) to collect consent in accordance with GDPR and Google publisher policies before serving personalized ads. You may manage your ad preferences via Google Ad Settings (<a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-[#2E6B6B] underline">adssettings.google.com</a>).
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-slate-900">3. Analytics and Performance</h2>
             <p>
-              We may utilize privacy-conscious web analytics tools to analyze aggregate website traffic, optimize Core Web Vitals, and assess popular curriculum themes. These tools do not profile individual children or link analytical data to personal identities.
+              We may utilize privacy-conscious web analytics tools to analyze aggregate website traffic and optimize Core Web Vitals. These tools do not profile individual children or link analytical data to personal identities.
             </p>
           </section>
 
@@ -86,8 +95,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>Right to Access:</strong> Request copies of any personal data we hold about you.</li>
               <li><strong>Right to Rectification:</strong> Request correction of inaccurate information.</li>
-              <li><strong>Right to Erasure:</strong> Request deletion of your contact form messages or stored records.</li>
-              <li><strong>Right to Opt-Out:</strong> Decline non-essential cookies via our consent management tool.</li>
+              <li><strong>Right to Erasure:</strong> Request deletion of your messages or stored records.</li>
             </ul>
           </section>
 
@@ -98,7 +106,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <p className="font-semibold text-slate-900">
               KinderESL Educational Resources<br />
-              Email: privacy@kinderesl.com<br />
+              Email: contact@kinderesl.com<br />
               Website: <a href="https://kinderesl.com/contact" className="text-[#2E6B6B] underline">kinderesl.com/contact</a>
             </p>
           </section>

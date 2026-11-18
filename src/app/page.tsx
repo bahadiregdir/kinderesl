@@ -2,8 +2,7 @@ import Link from 'next/link';
 import { getAllWorksheets } from '@/data/worksheets';
 import { categories } from '@/data/categories';
 import { themes } from '@/data/themes';
-import { months } from '@/data/months';
-import { siteConfig } from '@/config/site';
+import { siteConfig, getSiteUrl } from '@/config/site';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
@@ -18,7 +17,6 @@ import {
   FileDown,
   Sparkles,
   ArrowRight,
-  ShieldCheck,
   Calendar,
   Layers,
   GraduationCap,
@@ -26,6 +24,8 @@ import {
 
 export default function HomePage() {
   const worksheets = getAllWorksheets();
+  // Filter out shapes-colors (Item 7)
+  const activeCategories = categories.filter((c) => c.slug !== 'shapes-colors');
 
   const getCategoryIcon = (slug: string) => {
     switch (slug) {
@@ -37,8 +37,6 @@ export default function HomePage() {
         return <Brain className="w-6 h-6 text-[#2E6B6B]" />;
       case 'esl-vocabulary':
         return <Languages className="w-6 h-6 text-[#2E6B6B]" />;
-      case 'shapes-colors':
-        return <Shapes className="w-6 h-6 text-[#2E6B6B]" />;
       default:
         return <Layers className="w-6 h-6 text-[#2E6B6B]" />;
     }
@@ -51,19 +49,19 @@ export default function HomePage() {
         'Yes, 100% free. Every printable PDF can be downloaded directly without membership fees, email opt-ins, or subscriptions. They are licensed for personal home and school classroom instructional use.',
     },
     {
-      question: 'Who creates and reviews the learning printables?',
+      question: 'What formats are provided for the worksheets?',
       answer:
-        `All materials are designed and vetted by ${siteConfig.author.name}, a veteran Early Childhood ESL educator holding a Master of Education (M.Ed.) with over 10 years of classroom teaching experience.`,
+        'Every worksheet is provided as a standard 8.5×11" US Letter vector PDF (which also prints cleanly on A4 paper). High-contrast black line art ensures clear results on standard black-and-white classroom copy machines.',
     },
     {
-      question: 'How are these printables formatted for printing?',
+      question: 'How do these printables support ESL / ELL students?',
       answer:
-        'Every worksheet is crafted in standard 8.5×11" US Letter format (which also prints seamlessly on standard A4 paper). High-contrast black line art ensures clear printing on standard classroom black-and-white copy machines.',
+        'Visual anchors, clear illustrations, animal sound associations, and simple sentence frames help early English learners build vocabulary and phonetic confidence in low-anxiety contexts.',
     },
     {
-      question: 'Are the resources appropriate for multilingual and ESL learners?',
+      question: 'Can I print these worksheets for all the students in my classroom?',
       answer:
-        'Yes. In addition to native English curriculum pacing, our worksheets incorporate explicit visual anchors, initial sound phoneme chants, and Total Physical Response (TPR) cues specifically designed for early English language learners.',
+        'Yes. You are fully permitted to print as many copies as needed for your classroom students, tutoring sessions, or homeschooling children.',
     },
   ];
 
@@ -81,14 +79,14 @@ export default function HomePage() {
 
             {/* H1 Value Proposition */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-6">
-              Classroom-Tested Printable Resources for{' '}
+              Printable Learning Resources for{' '}
               <span className="text-[#2E6B6B] underline decoration-[#2E6B6B]/30 decoration-wavy">
-                Early Childhood Educators
+                Teachers &amp; Parents
               </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto font-normal">
-              High-resolution printable PDF worksheets crafted by certified early childhood educators. Clean, purposeful designs that build phonics fluency, handwriting muscle memory, and early number sense without visual clutter.
+              High-resolution printable PDF worksheets for preschool and kindergarten. Clean, purposeful designs that build phonics awareness, handwriting readiness, and early number sense without visual clutter.
             </p>
 
             {/* CTA Buttons */}
@@ -121,7 +119,7 @@ export default function HomePage() {
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Classroom-Tested Pedagogy</span>
+                <span>Clean High-Contrast Layouts</span>
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -153,8 +151,8 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((cat) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {activeCategories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/worksheets/${cat.slug}`}
@@ -171,7 +169,7 @@ export default function HomePage() {
                     {cat.description}
                   </p>
                 </div>
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
                   <span>{cat.targetAges}</span>
                   <span className="text-[#2E6B6B] font-bold group-hover:translate-x-0.5 transition-transform">
                     Explore Hub →
@@ -179,31 +177,6 @@ export default function HomePage() {
                 </div>
               </Link>
             ))}
-
-            {/* Smartboard Games Hub Card */}
-            <Link
-              href="/games"
-              className="group p-6 rounded-xl border-2 border-dashed border-[#2E6B6B]/40 bg-[#F0F7F7]/50 hover:bg-[#F0F7F7] hover:border-[#2E6B6B] transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-12 h-12 rounded-lg bg-[#2E6B6B] text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <div className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded mb-2">
-                  <span>Ad-Free Screen</span>
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors mb-2">
-                  Classroom Smartboard Games
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                  Interactive HTML5 educational games designed for preschool smartboards and classroom projectors with zero distracting ads.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-teal-100 flex items-center justify-between text-xs text-slate-500 font-medium">
-                <span>Circle Time / Projector</span>
-                <span className="text-[#2E6B6B] font-bold">Launch Games →</span>
-              </div>
-            </Link>
           </div>
         </div>
       </section>
@@ -214,10 +187,10 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-                Teacher Favorites
+                Printables
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Featured &amp; Newly Released Worksheets
+                Featured Worksheets
               </h2>
             </div>
             <Link
@@ -237,7 +210,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Mid-Page Isolated Ad Unit */}
+      {/* Mid-Page Isolated Ad Unit (Returns null until AdSense is configured) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AdUnit slotType="in-content" />
       </div>
@@ -253,7 +226,7 @@ export default function HomePage() {
               Popular Preschool Learning Themes
             </h2>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Explore interconnected themes that weave phonics, counting, and science together across your monthly classroom calendar.
+              Explore thematic printables that connect phonics, counting, and seasonal vocabulary.
             </p>
           </div>
 
@@ -280,43 +253,21 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
-
-          {/* Monthly Curriculums Banner */}
-          <div className="mt-10 bg-[#F0F7F7] border border-[#d0e3e3] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="space-y-1 text-center sm:text-left">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] flex items-center justify-center sm:justify-start gap-1">
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Annual Teaching Calendar</span>
-              </span>
-              <h3 className="text-lg font-bold text-slate-900">
-                12-Month Preschool Theme Curriculum Guide
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-                Access curated monthly plans from January through December with milestone checklists and thematic printables.
-              </p>
-            </div>
-            <Link
-              href="/preschool-themes"
-              className="shrink-0 px-5 py-3 rounded-xl bg-[#2E6B6B] hover:bg-[#225151] text-white font-bold text-xs shadow-xs transition-colors"
-            >
-              Browse 12-Month Calendar →
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Author & E-E-A-T Section */}
+      {/* Author & Mission Section */}
       <section className="py-16 bg-slate-50 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-              Curriculum Pedagogy
+              Curriculum Background
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Created by Early Childhood Educators
+              Created for Early Childhood Educators
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
-              Every resource on KinderESL is designed with developmental intentionality and tested with real learners.
+              Every resource on KinderESL is designed to support foundational learning with clean, print-friendly materials.
             </p>
           </div>
 

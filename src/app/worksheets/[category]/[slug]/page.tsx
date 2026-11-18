@@ -9,7 +9,7 @@ import { AdUnit } from '@/components/AdUnit';
 import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { WorksheetCard } from '@/components/WorksheetCard';
-import { siteConfig } from '@/config/site';
+import { siteConfig, getSiteUrl } from '@/config/site';
 import {
   Sparkles,
   BookOpen,
@@ -28,7 +28,6 @@ interface Props {
   }>;
 }
 
-// Generate static params for all worksheets (SSG)
 export async function generateStaticParams() {
   const worksheets = getAllWorksheets();
   return worksheets.map((w) => ({
@@ -37,7 +36,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate rich SEO metadata for each worksheet
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const worksheet = getWorksheetBySlug(slug);
@@ -48,7 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const pageUrl = `${siteConfig.url}/worksheets/${worksheet.category}/${worksheet.slug}`;
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/worksheets/${worksheet.category}/${worksheet.slug}`;
   const metaTitle = `Free ${worksheet.title} Printable (${worksheet.ages})`;
   const metaDesc = `${worksheet.quickSummary} Free PDF download for teachers and parents.`;
 
@@ -58,10 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: worksheet.keywords,
     alternates: {
       canonical: pageUrl,
-      languages: {
-        'en-US': pageUrl,
-        'tr-TR': `${siteConfig.url}/tr`,
-      },
+      // Item 9: hreflang removed
     },
     openGraph: {
       title: metaTitle,
@@ -70,17 +66,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       publishedTime: worksheet.datePublished,
       modifiedTime: worksheet.dateModified,
-      authors: [`${siteConfig.url}/about`],
+      authors: [`${siteUrl}/about`],
       images: [
         {
-          url: worksheet.previewImages[0],
-          width: 800,
-          height: 1035,
+          url: `${siteUrl}${worksheet.previewImages[0]}`,
+          width: 1224, // Item 12: Real dimensions 1224x1584
+          height: 1584,
           alt: `${worksheet.title} free printable worksheet preview`,
         },
         {
-          url: worksheet.pinterestPinImage,
-          width: 1000,
+          url: `${siteUrl}${worksheet.pinterestPinImage}`,
+          width: 1000, // Item 12: Real dimensions 1000x1500
           height: 1500,
           alt: `${worksheet.title} Pinterest Pin`,
         },
@@ -90,7 +86,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: metaTitle,
       description: metaDesc,
-      images: [worksheet.previewImages[0]],
+      images: [`${siteUrl}${worksheet.previewImages[0]}`],
     },
   };
 }
@@ -103,8 +99,9 @@ export default async function WorksheetDetailPage({ params }: Props) {
     notFound();
   }
 
+  const siteUrl = getSiteUrl();
   const related = getRelatedWorksheets(worksheet.slug, 3);
-  const pageUrl = `${siteConfig.url}/worksheets/${worksheet.category}/${worksheet.slug}`;
+  const pageUrl = `${siteUrl}/worksheets/${worksheet.category}/${worksheet.slug}`;
 
   // Schema.org LearningResource & CreativeWork JSON-LD
   const learningResourceSchema = {
@@ -120,20 +117,20 @@ export default async function WorksheetDetailPage({ params }: Props) {
     },
     teaches: worksheet.skill,
     author: {
-      '@type': 'Person',
-      name: siteConfig.author.name,
-      jobTitle: siteConfig.author.role,
+      '@type': 'Organization',
+      name: siteConfig.legalName,
+      url: siteUrl,
     },
     publisher: {
       '@type': 'Organization',
       name: siteConfig.legalName,
-      url: siteConfig.url,
+      url: siteUrl,
     },
     isAccessibleForFree: true,
     inLanguage: 'en-US',
     datePublished: worksheet.datePublished,
     dateModified: worksheet.dateModified,
-    image: `${siteConfig.url}${worksheet.previewImages[0]}`,
+    image: `${siteUrl}${worksheet.previewImages[0]}`,
     url: pageUrl,
   };
 
@@ -163,7 +160,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
             {/* GEO 2-3 sentence overview card at top */}
             <div className="bg-[#F0F7F7] border-l-4 border-[#2E6B6B] p-4 sm:p-5 rounded-r-xl mb-6 shadow-xs">
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#2E6B6B] block mb-1">
-                Pedagogical Overview for Teachers &amp; Parents
+                Resource Summary for Teachers &amp; Parents
               </span>
               <p className="text-sm text-slate-700 leading-relaxed font-medium">
                 {worksheet.quickSummary}
@@ -182,8 +179,8 @@ export default async function WorksheetDetailPage({ params }: Props) {
                 <span className="inline-flex items-center px-2.5 py-1 rounded text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                   {worksheet.gradeLevel}
                 </span>
-                <span className="inline-flex items-center gap-1 text-xs text-slate-500 ml-auto">
-                  <Calendar className="w-3.5 h-3.5" />
+                <span className="inline-flex items-center gap-1 text-xs text-slate-600 ml-auto font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
                   <span>Updated: {worksheet.dateModified}</span>
                 </span>
               </div>
@@ -211,24 +208,24 @@ export default async function WorksheetDetailPage({ params }: Props) {
                     Printable Preview ({worksheet.pages} {worksheet.pages > 1 ? 'Pages' : 'Page'})
                   </span>
                 </h2>
-                <span className="text-xs text-slate-500 font-medium">Standard 8.5&quot; × 11&quot; US Letter</span>
+                <span className="text-xs text-slate-600 font-medium">Standard 8.5&quot; × 11&quot; US Letter</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className={`grid gap-4 ${worksheet.previewImages.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 max-w-lg mx-auto'}`}>
                 {worksheet.previewImages.map((imgSrc, idx) => (
                   <div
                     key={idx}
                     className="relative bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   >
-                    <div className="p-2 border-b border-slate-100 bg-slate-50 text-center text-xs font-semibold text-slate-600">
+                    <div className="p-2 border-b border-slate-100 bg-slate-50 text-center text-xs font-semibold text-slate-700">
                       Page {idx + 1} of {worksheet.pages}
                     </div>
-                    <div className="relative aspect-[3/4] p-4 bg-white flex items-center justify-center">
+                    <div className="relative aspect-[1224/1584] p-3 bg-white flex items-center justify-center">
                       <Image
                         src={imgSrc}
                         alt={`${worksheet.title} - Printable Page ${idx + 1}`}
                         fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
                         className="object-contain p-2"
                         priority={idx === 0}
                       />
@@ -238,7 +235,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
               </div>
             </section>
 
-            {/* In-Content Ad Slot 1 (Compliant & Isolated) */}
+            {/* In-Content Ad Slot 1 (Compliant & Isolated - returns null if not configured) */}
             <AdUnit slotType="in-content" />
 
             {/* Detailed Description */}
@@ -249,7 +246,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
               </p>
             </section>
 
-            {/* Dedicated Teacher's Note (E-E-A-T Pedagogical Guidance) */}
+            {/* Dedicated Teacher's Note Guidance */}
             <section className="bg-slate-50 border border-slate-200 rounded-xl p-6 sm:p-7 my-8 shadow-xs">
               <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-slate-200">
                 <GraduationCap className="w-5 h-5 text-[#2E6B6B]" />
@@ -282,7 +279,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
                 <div>
                   <dt className="font-bold text-slate-900 mb-0.5 flex items-center gap-1.5">
                     <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Educator Teaching Tip:</span>
+                    <span>Teaching Tip:</span>
                   </dt>
                   <dd className="text-slate-700 leading-relaxed pl-5">
                     {worksheet.teacherNote.teachingTip}
@@ -301,7 +298,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
               </dl>
             </section>
 
-            {/* Pre-Download Ad Slot (Separated from download button as specified) */}
+            {/* Pre-Download Ad Slot (Returns null until AdSense is configured) */}
             <AdUnit slotType="pre-download" />
 
             {/* Download Button Component */}
@@ -312,7 +309,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
               pageCount={worksheet.pages}
             />
 
-            {/* Author Box (E-E-A-T) */}
+            {/* Author Box */}
             <AuthorBox isCompact={true} />
 
             {/* Educator Q&A FAQ */}
@@ -330,32 +327,32 @@ export default async function WorksheetDetailPage({ params }: Props) {
 
               <div className="space-y-2.5 text-xs">
                 <div className="flex justify-between py-1 border-b border-slate-50">
-                  <span className="text-slate-500">Category:</span>
+                  <span className="text-slate-600">Category:</span>
                   <span className="font-semibold text-slate-900">{worksheet.categoryName}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-50">
-                  <span className="text-slate-500">Target Ages:</span>
+                  <span className="text-slate-600">Target Ages:</span>
                   <span className="font-semibold text-slate-900">{worksheet.ages}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-50">
-                  <span className="text-slate-500">Grade Level:</span>
+                  <span className="text-slate-600">Grade Level:</span>
                   <span className="font-semibold text-slate-900">{worksheet.gradeLevel}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-50">
-                  <span className="text-slate-500">Page Count:</span>
-                  <span className="font-semibold text-slate-900">{worksheet.pages} Pages</span>
+                  <span className="text-slate-600">Page Count:</span>
+                  <span className="font-semibold text-slate-900">{worksheet.pages} {worksheet.pages > 1 ? 'Pages' : 'Page'}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-50">
-                  <span className="text-slate-500">File Type:</span>
-                  <span className="font-semibold text-slate-900">Printable PDF</span>
+                  <span className="text-slate-600">File Type:</span>
+                  <span className="font-semibold text-slate-900">Printable Vector PDF</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-50">
-                  <span className="text-slate-500">File Size:</span>
+                  <span className="text-slate-600">File Size:</span>
                   <span className="font-semibold text-slate-900">{worksheet.pdfFileSize}</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-500">Licensing:</span>
-                  <span className="font-semibold text-emerald-700">Free for Classroom Use</span>
+                  <span className="text-slate-600">Licensing:</span>
+                  <span className="font-semibold text-emerald-700">Free for Classroom &amp; Home</span>
                 </div>
               </div>
             </div>
@@ -368,7 +365,7 @@ export default async function WorksheetDetailPage({ params }: Props) {
               title={worksheet.title}
             />
 
-            {/* Sidebar Ad Slot (Cleanly isolated) */}
+            {/* Sidebar Ad Slot (Returns null until AdSense is configured) */}
             <AdUnit slotType="sidebar" />
           </aside>
         </div>

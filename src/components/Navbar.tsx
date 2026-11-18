@@ -18,7 +18,7 @@ export function Navbar() {
       <div className="bg-[#2E6B6B] text-white text-xs py-1.5 px-4 text-center font-medium tracking-wide">
         <span className="inline-flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-teal-200" />
-          <span>Classroom-tested printable resources for Preschool, Kindergarten & ESL Educators</span>
+          <span>Free Printable Educational Resources for Preschool, Kindergarten &amp; ESL Educators</span>
         </span>
       </div>
 
@@ -26,7 +26,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-[#2E6B6B] flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-105">
+            <div className="w-10 h-10 rounded-lg bg-[#2E6B6B] flex items-center justify-center text-white shadow-xs transition-transform group-hover:scale-105">
               <BookOpen className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
@@ -34,7 +34,7 @@ export function Navbar() {
                 Kinder<span className="text-[#2E6B6B]">ESL</span>
               </span>
               <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
-                Teacher & Parent Resource
+                Teacher &amp; Parent Resource
               </span>
             </div>
           </Link>
@@ -74,7 +74,7 @@ export function Navbar() {
               href="/about"
               className="text-xs font-semibold px-3.5 py-2 rounded-lg bg-[#F0F7F7] text-[#2E6B6B] hover:bg-[#E2EFEF] transition-colors"
             >
-              Meet the Teacher
+              About KinderESL
             </Link>
           </div>
 
@@ -118,7 +118,7 @@ export function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="block px-3 py-2 text-sm font-semibold text-[#2E6B6B] bg-[#F0F7F7] rounded-md text-center"
             >
-              Meet the Teacher (E-E-A-T)
+              About KinderESL
             </Link>
           </div>
         </div>

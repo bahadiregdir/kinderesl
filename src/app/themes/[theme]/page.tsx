@@ -6,7 +6,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
-import { siteConfig } from '@/config/site';
+import { getSiteUrl } from '@/config/site';
 import { Sparkles, Calendar, Target } from 'lucide-react';
 
 interface Props {
@@ -31,7 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const pageUrl = `${siteConfig.url}/themes/${th.slug}`;
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/themes/${th.slug}`;
   const metaTitle = `Free ${th.title} Worksheets & Activities`;
   const metaDesc = `${th.description} Free printable PDF educational resources for preschool and kindergarten.`;
 
@@ -45,6 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: metaTitle,
       description: metaDesc,
       url: pageUrl,
+      type: 'website',
+    },
+    // Item 7: Noindex until this theme has >= 3 worksheets
+    robots: {
+      index: false,
+      follow: false,
     },
   };
 }
@@ -79,7 +86,7 @@ export default async function ThemeDetailPage({ params }: Props) {
               <Sparkles className="w-3.5 h-3.5" />
               <span>Thematic Teaching Unit</span>
             </span>
-            <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
+            <span className="text-xs text-slate-600 font-medium flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5" />
               <span>Recommended Months: {th.bestMonths.join(', ')}</span>
             </span>
@@ -94,7 +101,7 @@ export default async function ThemeDetailPage({ params }: Props) {
           </p>
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1">
               <Target className="w-3 h-3 text-[#2E6B6B]" />
               <span>Target Skills:</span>
             </span>
@@ -115,7 +122,7 @@ export default async function ThemeDetailPage({ params }: Props) {
             <h2 className="text-xl font-bold text-slate-900">
               Thematic Printables ({worksheets.length})
             </h2>
-            <span className="text-xs text-slate-500">Free PDF Downloads</span>
+            <span className="text-xs text-slate-600">Free PDF Downloads</span>
           </div>
 
           {worksheets.length > 0 ? (
@@ -126,7 +133,7 @@ export default async function ThemeDetailPage({ params }: Props) {
             </div>
           ) : (
             <div className="bg-slate-50 rounded-xl p-8 text-center text-slate-600 text-sm">
-              More {th.title} printables are being crafted by our educators.
+              More {th.title} printables will be added here soon.
             </div>
           )}
         </section>

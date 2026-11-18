@@ -6,8 +6,8 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
-import { siteConfig } from '@/config/site';
-import { BookOpen, Sparkles, Target, Users } from 'lucide-react';
+import { getSiteUrl } from '@/config/site';
+import { BookOpen, Target } from 'lucide-react';
 
 interface Props {
   params: Promise<{
@@ -31,19 +31,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const pageUrl = `${siteConfig.url}/worksheets/${cat.slug}`;
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/worksheets/${cat.slug}`;
   const metaTitle = `Free ${cat.title} for Preschool & Kindergarten`;
   const metaDesc = `Download free printable ${cat.title.toLowerCase()}. Curated for preschool, kindergarten, and early ESL teachers. High-resolution PDF downloads.`;
+
+  // Item 7: If category has < 3 worksheets (e.g. shapes-colors has 0), noindex it
+  const isNoIndex = cat.slug === 'shapes-colors';
 
   return {
     title: metaTitle,
     description: metaDesc,
     alternates: {
       canonical: pageUrl,
-      languages: {
-        'en-US': pageUrl,
-        'tr-TR': `${siteConfig.url}/tr`,
-      },
+      // hreflang removed as requested (Item 9)
     },
     openGraph: {
       title: metaTitle,
@@ -51,6 +52,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: pageUrl,
       type: 'website',
     },
+    ...(isNoIndex
+      ? {
+          robots: {
+            index: false,
+            follow: false,
+          },
+        }
+      : {}),
   };
 }
 
@@ -85,7 +94,7 @@ export default async function CategoryPage({ params }: Props) {
               <BookOpen className="w-3.5 h-3.5" />
               <span>Curriculum Resource Hub</span>
             </span>
-            <span className="text-xs text-slate-500 font-medium">
+            <span className="text-xs text-slate-600 font-medium">
               {cat.targetAges}
             </span>
           </div>
@@ -113,7 +122,7 @@ export default async function CategoryPage({ params }: Props) {
             <h2 className="text-xl font-bold text-slate-900">
               Available Printables ({worksheets.length})
             </h2>
-            <span className="text-xs text-slate-500">100% Free PDF Downloads</span>
+            <span className="text-xs text-slate-600">100% Free PDF Downloads</span>
           </div>
 
           {worksheets.length > 0 ? (
@@ -124,7 +133,7 @@ export default async function CategoryPage({ params }: Props) {
             </div>
           ) : (
             <div className="bg-slate-50 rounded-xl p-8 text-center text-slate-600 text-sm">
-              New printables are being added to this category weekly! Check back soon or request a custom worksheet.
+              New printables are being prepared for this category. Check back soon!
             </div>
           )}
         </section>

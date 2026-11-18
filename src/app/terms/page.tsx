@@ -1,13 +1,22 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig } from '@/config/site';
+import { siteConfig, getSiteUrl } from '@/config/site';
 import { FileText, CheckCircle2, AlertCircle } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/terms`;
 
 export const metadata: Metadata = {
   title: `Terms of Use | ${siteConfig.name}`,
   description: `Terms of Use for ${siteConfig.name}. Free license terms for teachers, classrooms, and homeschooling families. Commercial resale restrictions.`,
   alternates: {
-    canonical: `${siteConfig.url}/terms`,
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `Terms of Use | ${siteConfig.name}`,
+    description: `Terms of Use for ${siteConfig.name}. Free license terms for classrooms and homes.`,
+    url: pageUrl,
+    type: 'website',
   },
 };
 
@@ -29,8 +38,8 @@ export default function TermsPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
             Terms of Use &amp; Educational Licensing
           </h1>
-          <p className="text-xs text-slate-500">
-            Last Updated: February 2025
+          <p className="text-xs text-slate-600">
+            Last Updated: November 2026
           </p>
         </header>
 
@@ -73,7 +82,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-bold text-slate-900">3. Disclaimer of Warranties</h2>
             <p>
-              KinderESL materials are provided &quot;as is&quot; for educational enrichment. While every worksheet is reviewed by certified educators, we do not guarantee specific academic test outcomes.
+              KinderESL materials are provided &quot;as is&quot; for educational enrichment. We do not guarantee specific academic test outcomes.
             </p>
           </section>
         </div>

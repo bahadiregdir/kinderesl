@@ -1,25 +1,44 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig } from '@/config/site';
+import { getSiteUrl } from '@/config/site';
 import { Globe, BookOpen, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
+
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/tr`;
 
 export const metadata: Metadata = {
   title: 'KinderESL Türkçe - Okul Öncesi İngilizce Öğretmen & Ebeveyn Kaynakları',
   description:
     'Okul öncesi ve anaokulu öğretmenleri ile ebeveynler için ücretsiz indirilebilir İngilizce çalışma sayfaları, fonetik materyalleri ve tema planları.',
   alternates: {
-    canonical: `${siteConfig.url}/tr`,
-    languages: {
-      'en-US': siteConfig.url,
-      'tr-TR': `${siteConfig.url}/tr`,
-    },
+    canonical: pageUrl,
+    // Item 9: hreflang removed until translations are fully completed
+  },
+  openGraph: {
+    title: 'KinderESL Türkçe - Okul Öncesi İngilizce Öğretmen & Ebeveyn Kaynakları',
+    description:
+      'Okul öncesi İngilizce öğretmenleri ve ebeveynler için ücretsiz yazdırılabilir PDF eğitim materyalleri.',
+    url: pageUrl,
+    type: 'website',
+  },
+  // Item 7: Noindex until Turkish content library is populated
+  robots: {
+    index: false,
+    follow: false,
   },
 };
 
 export default function TurkishLandingPage() {
   return (
     <>
+      {/* Item 9: Set lang to tr for this page */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `if(typeof document !== 'undefined') { document.documentElement.lang = 'tr'; }`,
+        }}
+      />
+
       <div className="bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs items={[{ label: 'Türkçe Sürüm' }]} />
@@ -39,7 +58,7 @@ export default function TurkishLandingPage() {
           </h1>
 
           <p className="text-base text-slate-600 leading-relaxed">
-            KinderESL, erken çocukluk döneminde İngilizce öğrenen minikler için pedagojik olarak test edilmiş, yüksek çözünürlüklü ve ücretsiz PDF çalışma kağıtları sunar. Sitemizdeki tüm içerikler doğrudan İngilizce olarak sınıfta ve evde kullanıma hazırdır.
+            KinderESL, erken çocukluk döneminde İngilizce öğrenen minikler için yüksek çözünürlüklü ve ücretsiz PDF çalışma kağıtları sunar. Sitemizdeki tüm içerikler doğrudan İngilizce olarak sınıfta ve evde kullanıma hazırdır.
           </p>
         </div>
 
@@ -65,11 +84,11 @@ export default function TurkishLandingPage() {
             </div>
             <div className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-[#2E6B6B] shrink-0 mt-0.5" />
-              <span><strong>ESL Kelime Setleri:</strong> Çiftlik hayvanları, renkler, şekiller ve ses taklitleri.</span>
+              <span><strong>ESL Kelime Setleri:</strong> Çiftlik hayvanları, renkler, şekiller ve ses eşleştirmeleri.</span>
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100 text-xs text-slate-500 leading-relaxed">
+          <div className="pt-4 border-t border-slate-100 text-xs text-slate-600 leading-relaxed">
             * Tüm PDF materyallerimiz uluslararası standartlarda hazırlanmış olup, hem anadili İngilizce olan hem de İngilizceyi ikinci dil olarak edinen okul öncesi sınıflarda ve evde eğitime uygundur.
           </div>
         </div>
