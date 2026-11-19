@@ -183,6 +183,21 @@ export const topics: TopicMeta[] = [
       },
     ],
   },
+  {
+    slug: 'community-helpers',
+    title: 'Community Helpers',
+    description: 'Job names, tools, and matching printables for doctors, firefighters, teachers, cooks, and bus drivers.',
+    iconName: 'HardHat',
+    curriculumMonths: [5, 9],
+    plannedTitles: [],
+    faqs: [
+      {
+        question: 'How do community helper units support early ESL?',
+        answer: 'Job names are concrete, easy to mime, and connect quickly to everyday people children already know.',
+      },
+    ],
+  },
+
 ];
 
 export function getTopicBySlug(slug: string): TopicMeta | undefined {

@@ -102,10 +102,10 @@ export function WorksheetDetailView({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
-        {/* MOBILE ONLY: Top Header & Immediate Download CTA (Item 2: top < 844px on 390x844) */}
-        <div className="lg:hidden space-y-3.5 mb-6">
-          {/* Badges strip */}
-          <div className="flex flex-wrap items-center gap-2">
+        {/* MOBILE ONLY badges + shared H1 (one per page) + mobile CTA */}
+        <div className="space-y-3.5 mb-6">
+          {/* Badges strip (mobile); desktop badges stay in the sidebar */}
+          <div className="flex flex-wrap items-center gap-2 lg:hidden">
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F0F7F7] text-[#2E6B6B] border border-[#d0e3e3]">
               {worksheet.subjectName}
             </span>
@@ -120,16 +120,16 @@ export function WorksheetDetailView({
             </span>
           </div>
 
-          {/* Title & 1-sentence summary */}
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight font-heading leading-tight">
+          {/* Single H1 for all breakpoints */}
+          <h1 className="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight font-heading leading-tight">
             {title}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed font-normal lg:max-w-3xl">
             {quickSummary || description}
           </p>
 
           {/* Mobile Download CTA Button */}
-          <div className="pt-1">
+          <div className="pt-1 lg:hidden">
             <button
               id="mobile-download-btn"
               type="button"
@@ -250,13 +250,7 @@ export function WorksheetDetailView({
                 </span>
               </div>
 
-              {/* Title & 1-sentence summary */}
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading leading-tight mb-3">
-                {title}
-              </h1>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                {quickSummary || description}
-              </p>
+              {/* Title lives in the shared H1 above the grid; avoid a second H1 */}
             </div>
 
             {/* CTA Action Box */}

@@ -5,9 +5,19 @@
     "slug": "letter-a-tracing-and-phonics",
     "subject": "alphabet",
     "subjectName": "Alphabet",
-    "topics": ["food", "insects"],
-    "activityTypes": ["tracing", "coloring", "counting"],
-    "ageBands": ["3-4", "4-5"],
+    "topics": [
+      "food",
+      "insects"
+    ],
+    "activityTypes": [
+      "tracing",
+      "coloring",
+      "counting"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
     "eslLevel": "beginner",
     "ages": "Ages 3–5",
     "gradeLevel": "Pre-K & Kindergarten",
@@ -38,14 +48,21 @@
       "/worksheets/letter-a-tracing-and-phonics/preview-page-2.png"
     ],
     "pinterestPinImage": "/worksheets/letter-a-tracing-and-phonics/pinterest-pin.jpg",
-    "vocabulary": ["ant", "apple", "alligator", "astronaut"],
+    "vocabulary": [
+      "ant",
+      "apple",
+      "alligator",
+      "astronaut"
+    ],
     "series": {
       "id": "letter-of-the-week",
       "name": "Letter of the Week",
       "order": 1,
       "total": 26
     },
-    "months": [9],
+    "months": [
+      9
+    ],
     "keywords": [
       "letter a tracing worksheet",
       "letter of the week pre-k",
@@ -56,9 +73,9 @@
       "esl phonics letter a"
     ],
     "relatedSlugs": [
-      "counting-1-to-5-ladybug-party",
-      "winter-odd-one-out-visual-discrimination",
-      "farm-animals-esl-vocabulary-and-tracing"
+      "letter-tracing-worksheets-a-to-z",
+      "beginning-sounds-clip-cards",
+      "uppercase-lowercase-letter-match"
     ],
     "faqs": [
       {
@@ -75,7 +92,7 @@
       }
     ],
     "datePublished": "2026-11-18",
-    "dateModified": "2026-11-18",
+    "dateModified": "2026-11-19",
     "category": "alphabet",
     "categoryName": "Alphabet & Phonics",
     "theme": "alphabet",
@@ -87,9 +104,19 @@
     "slug": "counting-1-to-5-ladybug-party",
     "subject": "numbers-counting",
     "subjectName": "Numbers & Counting",
-    "topics": ["insects"],
-    "activityTypes": ["counting", "matching", "tracing", "coloring"],
-    "ageBands": ["3-4", "4-5"],
+    "topics": [
+      "insects"
+    ],
+    "activityTypes": [
+      "counting",
+      "matching",
+      "tracing",
+      "coloring"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
     "eslLevel": "beginner",
     "ages": "Ages 3–5",
     "gradeLevel": "Preschool & Pre-K",
@@ -119,8 +146,17 @@
       "/worksheets/counting-1-to-5-ladybug-party/preview-page-1.png"
     ],
     "pinterestPinImage": "/worksheets/counting-1-to-5-ladybug-party/pinterest-pin.jpg",
-    "vocabulary": ["sun", "balloon", "fish", "star", "ladybug"],
-    "months": [4, 5],
+    "vocabulary": [
+      "sun",
+      "balloon",
+      "fish",
+      "star",
+      "ladybug"
+    ],
+    "months": [
+      4,
+      5
+    ],
     "keywords": [
       "counting 1 to 5 worksheet",
       "preschool number tracing pdf",
@@ -130,9 +166,9 @@
       "one to one correspondence worksheet"
     ],
     "relatedSlugs": [
-      "letter-a-tracing-and-phonics",
-      "winter-odd-one-out-visual-discrimination",
-      "farm-animals-esl-vocabulary-and-tracing"
+      "shapes-flashcards-and-tracing",
+      "colors-esl-flashcards-preschool",
+      "letter-a-tracing-and-phonics"
     ],
     "faqs": [
       {
@@ -145,7 +181,7 @@
       }
     ],
     "datePublished": "2026-11-18",
-    "dateModified": "2026-11-18",
+    "dateModified": "2026-11-19",
     "category": "numbers-counting",
     "categoryName": "Numbers & Counting",
     "theme": "insects",
@@ -157,9 +193,19 @@
     "slug": "winter-odd-one-out-visual-discrimination",
     "subject": "thinking-skills",
     "subjectName": "Thinking Skills",
-    "topics": ["winter", "clothes"],
-    "activityTypes": ["odd-one-out", "coloring", "tracing"],
-    "ageBands": ["4-5", "5-6"],
+    "topics": [
+      "winter",
+      "clothes"
+    ],
+    "activityTypes": [
+      "odd-one-out",
+      "coloring",
+      "tracing"
+    ],
+    "ageBands": [
+      "4-5",
+      "5-6"
+    ],
     "eslLevel": "beginner",
     "ages": "Ages 4–6",
     "gradeLevel": "Pre-K to 1st Grade",
@@ -205,7 +251,11 @@
       "snow",
       "cold"
     ],
-    "months": [12, 1, 2],
+    "months": [
+      12,
+      1,
+      2
+    ],
     "keywords": [
       "winter odd one out worksheet",
       "visual discrimination preschool",
@@ -215,9 +265,9 @@
       "esl winter vocabulary worksheet"
     ],
     "relatedSlugs": [
-      "letter-a-tracing-and-phonics",
-      "counting-1-to-5-ladybug-party",
-      "farm-animals-esl-vocabulary-and-tracing"
+      "winter-vocabulary-pack-preschool",
+      "winter-clothes-esl-word-cards",
+      "preschool-weather-chart-and-cards"
     ],
     "faqs": [
       {
@@ -230,7 +280,7 @@
       }
     ],
     "datePublished": "2026-11-18",
-    "dateModified": "2026-11-18",
+    "dateModified": "2026-11-19",
     "category": "thinking-skills",
     "categoryName": "Thinking Skills",
     "theme": "winter",
@@ -242,9 +292,18 @@
     "slug": "farm-animals-esl-vocabulary-and-tracing",
     "subject": "vocabulary",
     "subjectName": "Vocabulary",
-    "topics": ["farm-animals"],
-    "activityTypes": ["matching", "cut-and-paste"],
-    "ageBands": ["3-4", "4-5", "5-6"],
+    "topics": [
+      "farm-animals"
+    ],
+    "activityTypes": [
+      "matching",
+      "cut-and-paste"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
     "eslLevel": "beginner",
     "ages": "Ages 3–6",
     "gradeLevel": "Pre-K & Kindergarten",
@@ -287,7 +346,11 @@
       "quack",
       "neigh"
     ],
-    "months": [3, 4, 9],
+    "months": [
+      3,
+      4,
+      9
+    ],
     "keywords": [
       "farm animals worksheet esl",
       "cut and paste farm animals preschool",
@@ -297,9 +360,9 @@
       "preschool scissor skills worksheet"
     ],
     "relatedSlugs": [
-      "letter-a-tracing-and-phonics",
-      "counting-1-to-5-ladybug-party",
-      "winter-odd-one-out-visual-discrimination"
+      "farm-animals-esl-lesson-plan",
+      "farm-animal-bingo-preschool",
+      "beginning-sounds-clip-cards"
     ],
     "faqs": [
       {
@@ -312,10 +375,1685 @@
       }
     ],
     "datePublished": "2026-11-18",
-    "dateModified": "2026-11-18",
+    "dateModified": "2026-11-19",
     "category": "vocabulary",
     "categoryName": "ESL Vocabulary",
     "theme": "farm-animals",
     "themeName": "Farm Animals"
+  },
+  {
+    "id": "ws-colors-esl-flashcards",
+    "title": "ESL Color Flashcards for Preschool",
+    "subject": "shapes-colors",
+    "subjectName": "Shapes & Colors",
+    "topics": [
+      "food"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "coloring",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
+    "ages": "Ages 3–5",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Color vocabulary and early word tracing.",
+    "description": "A 2-page ESL color set with eight cut-apart flashcards and a follow-up page for coloring and tracing color words. Made for preschool circle time and small-group English lessons.",
+    "quickSummary": "Eight color flashcards plus a tracing page so children can say, find, and write the color words.",
+    "teacherNote": {
+      "skillFocus": "Color words and matching a spoken word to a picture.",
+      "learningGoal": "Child names each color and finds something in the room that matches.",
+      "teachingTip": "Hold up one card and wait. Let the children say the word first, then you repeat it clearly.",
+      "extensionActivity": "Play a color hunt: \"Find something red.\" Children walk, point, and say the word."
+    },
+    "whatsInside": [
+      "Page 1: Eight cut-apart color flashcards (red, blue, yellow, green, orange, purple, pink, brown).",
+      "Page 2: Color-the-picture and trace-the-word practice for red, yellow, green, and purple."
+    ],
+    "vocabulary": [
+      "red",
+      "blue",
+      "yellow",
+      "green",
+      "orange",
+      "purple",
+      "pink",
+      "brown"
+    ],
+    "months": [
+      9,
+      3
+    ],
+    "keywords": [
+      "esl flashcards for kids pdf",
+      "color flashcards preschool",
+      "color tracing worksheet",
+      "free color cards for teachers"
+    ],
+    "relatedSlugs": [
+      "shapes-flashcards-and-tracing",
+      "letter-a-tracing-and-phonics",
+      "counting-1-to-5-ladybug-party"
+    ],
+    "faqs": [
+      {
+        "question": "Which colors are included?",
+        "answer": "Red, blue, yellow, green, orange, purple, pink, and brown. Page 2 practices four of those words with tracing lines."
+      },
+      {
+        "question": "Can I print these on cardstock?",
+        "answer": "Yes. Cardstock makes the flashcards easier to reuse in a pocket chart or circle-time basket."
+      },
+      {
+        "question": "How should I introduce the cards in an ESL group?",
+        "answer": "Teach three or four colors first. Add the rest once children can say those confidently."
+      }
+    ],
+    "theme": "food",
+    "themeName": "Food & Nutrition",
+    "slug": "colors-esl-flashcards-preschool",
+    "pdfPath": "/worksheets/colors-esl-flashcards-preschool/esl-color-flashcards-preschool.pdf",
+    "pdfFileSize": "179 KB",
+    "previewImages": [
+      "/worksheets/colors-esl-flashcards-preschool/preview-page-1.png",
+      "/worksheets/colors-esl-flashcards-preschool/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/colors-esl-flashcards-preschool/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "shapes-colors",
+    "categoryName": "Shapes & Colors"
+  },
+  {
+    "id": "ws-body-parts-cards-chant",
+    "title": "Body Parts Cards and Song Chart",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "body"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Body-part vocabulary with pointing and a short original chant.",
+    "description": "A 2-page body-parts set with six cut-apart cards, an original classroom chant (not a copyrighted song), and tracing lines for \"head\" and \"hands.\" Written for teachers and parents to use in circle time.",
+    "quickSummary": "Point-and-say body cards plus a short original chant you can use on the carpet.",
+    "teacherNote": {
+      "skillFocus": "Body-part vocabulary and one-to-one pointing.",
+      "learningGoal": "Child hears a word, points to the card, then points to that part on their own body.",
+      "teachingTip": "Keep it playful: \"Show me your hands. Now show me your feet.\" Go slowly for new learners.",
+      "extensionActivity": "Add one new verse using a word the children choose, such as \"nose\" or \"toes.\""
+    },
+    "whatsInside": [
+      "Page 1: Six body-part flashcards (head, eyes, ears, mouth, hands, feet).",
+      "Page 2: An original four-line classroom chant and tracing practice for head and hands."
+    ],
+    "vocabulary": [
+      "head",
+      "eyes",
+      "ears",
+      "mouth",
+      "hands",
+      "feet"
+    ],
+    "months": [
+      9,
+      10
+    ],
+    "keywords": [
+      "body parts esl preschool",
+      "body parts flashcards pdf",
+      "preschool body chant",
+      "free body parts worksheet for teachers"
+    ],
+    "relatedSlugs": [
+      "tpr-classroom-command-cards-esl",
+      "feelings-cards-for-circle-time",
+      "esl-circle-time-song-lyric-cards"
+    ],
+    "faqs": [
+      {
+        "question": "Is the chant a published song?",
+        "answer": "No. It is a short original classroom chant written for this printable, so you can use it in class without a licensed lyric sheet."
+      },
+      {
+        "question": "Which body parts are on the cards?",
+        "answer": "Head, eyes, ears, mouth, hands, and feet."
+      },
+      {
+        "question": "Can this be used with very new English learners?",
+        "answer": "Yes. Start with pointing only. Add the chant once the six words feel familiar."
+      }
+    ],
+    "theme": "body",
+    "themeName": "Body & Five Senses",
+    "slug": "body-parts-flashcards-and-song",
+    "pdfPath": "/worksheets/body-parts-flashcards-and-song/body-parts-cards-and-song-chart.pdf",
+    "pdfFileSize": "62 KB",
+    "previewImages": [
+      "/worksheets/body-parts-flashcards-and-song/preview-page-1.png",
+      "/worksheets/body-parts-flashcards-and-song/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/body-parts-flashcards-and-song/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-classroom-objects-flashcards",
+    "title": "Classroom Objects ESL Flashcards",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [],
+    "activityTypes": [
+      "flashcards",
+      "matching"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Classroom object vocabulary and picture-to-word matching.",
+    "description": "A 2-page classroom vocabulary set: eight cut-apart object cards and a draw-a-line matching page. Useful in the first weeks of school and in ESL classrooms where children need the words for everyday materials.",
+    "quickSummary": "Eight classroom object cards plus a matching page you can use in the first weeks of school.",
+    "teacherNote": {
+      "skillFocus": "Classroom object vocabulary used in daily routines.",
+      "learningGoal": "Child names the card and can find the real object in the room.",
+      "teachingTip": "Introduce four cards first. Add the rest once those four feel easy.",
+      "extensionActivity": "Give a TPR instruction: \"Point to the chair.\" \"Put the pencil on the table.\""
+    },
+    "whatsInside": [
+      "Page 1: Eight flashcards (book, pencil, crayon, bag, chair, table, glue, scissors).",
+      "Page 2: Draw-a-line matching from picture to word (book, pencil, chair, bag)."
+    ],
+    "vocabulary": [
+      "book",
+      "pencil",
+      "crayon",
+      "bag",
+      "chair",
+      "table",
+      "glue",
+      "scissors"
+    ],
+    "months": [
+      8,
+      9
+    ],
+    "keywords": [
+      "classroom objects flashcards esl",
+      "classroom vocabulary preschool pdf",
+      "free classroom object cards"
+    ],
+    "relatedSlugs": [
+      "tpr-classroom-command-cards-esl",
+      "visual-schedule-cards-preschool",
+      "preschool-cutting-practice-strips"
+    ],
+    "faqs": [
+      {
+        "question": "Which objects are included?",
+        "answer": "Book, pencil, crayon, bag, chair, table, glue, and scissors."
+      },
+      {
+        "question": "Do children need to read the words on page 2?",
+        "answer": "You can read the words aloud first. The matching page still works as a listening task if you name each word as they draw the line."
+      }
+    ],
+    "themeName": "Classroom",
+    "slug": "classroom-objects-esl-flashcards",
+    "pdfPath": "/worksheets/classroom-objects-esl-flashcards/classroom-objects-esl-flashcards.pdf",
+    "pdfFileSize": "63 KB",
+    "previewImages": [
+      "/worksheets/classroom-objects-esl-flashcards/preview-page-1.png",
+      "/worksheets/classroom-objects-esl-flashcards/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/classroom-objects-esl-flashcards/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-preschool-weather-chart",
+    "title": "Preschool Weather Chart and Cards",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "weather"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Weather words and a short daily sentence: \"Today it is ___.\"",
+    "description": "A 2-page weather routine set: a class chart for circling today’s weather and a page of cut-apart weather cards. A teacher or parent can use it every morning with very little preparation.",
+    "quickSummary": "A simple weather chart and five cards for a daily \"Today it is…\" routine.",
+    "teacherNote": {
+      "skillFocus": "Weather words and a simple daily language routine.",
+      "learningGoal": "Child looks outside, names the weather, and completes the sentence frame.",
+      "teachingTip": "Use this page every morning for a week. The repetition is the lesson.",
+      "extensionActivity": "Add a feeling: \"It is rainy. I feel sleepy.\" Keep both sentences short."
+    },
+    "whatsInside": [
+      "Page 1: Class weather chart with five choices and a tracing sentence.",
+      "Page 2: Cut-apart weather cards (sunny, cloudy, rainy, windy, snowy)."
+    ],
+    "vocabulary": [
+      "sunny",
+      "cloudy",
+      "rainy",
+      "windy",
+      "snowy",
+      "today"
+    ],
+    "months": [
+      3,
+      9,
+      11,
+      1
+    ],
+    "keywords": [
+      "preschool weather chart printable free",
+      "weather flashcards esl",
+      "today the weather is worksheet"
+    ],
+    "relatedSlugs": [
+      "circle-time-board-day-and-weather",
+      "winter-clothes-esl-word-cards",
+      "esl-circle-time-song-lyric-cards"
+    ],
+    "faqs": [
+      {
+        "question": "Which weather types are on the chart?",
+        "answer": "Sunny, cloudy, rainy, windy, and snowy."
+      },
+      {
+        "question": "Do I need a pocket chart?",
+        "answer": "No. You can clip or tape the daily card to page 1, or just circle the weather on the chart itself."
+      }
+    ],
+    "theme": "weather",
+    "themeName": "Weather & Seasons",
+    "slug": "preschool-weather-chart-and-cards",
+    "pdfPath": "/worksheets/preschool-weather-chart-and-cards/preschool-weather-chart-and-cards.pdf",
+    "pdfFileSize": "98 KB",
+    "previewImages": [
+      "/worksheets/preschool-weather-chart-and-cards/preview-page-1.png",
+      "/worksheets/preschool-weather-chart-and-cards/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/preschool-weather-chart-and-cards/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-feelings-cards-circle-time",
+    "title": "Feelings Cards for Circle Time",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "family",
+      "body"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "matching"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Feeling words and matching a short situation to a face.",
+    "description": "A 2-page social-emotional set for teachers and parents: six feeling faces to cut apart, plus a page where children circle the face that matches a short sentence. Language stays simple and classroom-friendly.",
+    "quickSummary": "Six feeling cards and a listen-and-circle page for morning meetings.",
+    "teacherNote": {
+      "skillFocus": "Feeling words and simple social-emotional language.",
+      "learningGoal": "Child names a feeling and can point to the face that matches a short story you tell.",
+      "teachingTip": "Start with happy, sad, and angry. Add the others later. Always pair the word with the face.",
+      "extensionActivity": "Invite children to show a face, then you name it. Later they name it themselves."
+    },
+    "whatsInside": [
+      "Page 1: Six cut-apart feeling cards (happy, sad, angry, surprised, sleepy, calm).",
+      "Page 2: Three short situations with faces to circle."
+    ],
+    "vocabulary": [
+      "happy",
+      "sad",
+      "angry",
+      "surprised",
+      "sleepy",
+      "calm"
+    ],
+    "months": [
+      2,
+      9
+    ],
+    "keywords": [
+      "emotions preschool worksheet",
+      "feelings flashcards preschool pdf",
+      "circle time feelings cards"
+    ],
+    "relatedSlugs": [
+      "body-parts-flashcards-and-song",
+      "esl-circle-time-song-lyric-cards",
+      "visual-schedule-cards-preschool"
+    ],
+    "faqs": [
+      {
+        "question": "Which feelings are included?",
+        "answer": "Happy, sad, angry, surprised, sleepy, and calm."
+      },
+      {
+        "question": "Is this meant for children to use alone?",
+        "answer": "No. A teacher or parent should read the sentences and talk through the faces together."
+      },
+      {
+        "question": "What if a child uses a different word, like mad instead of angry?",
+        "answer": "Accept the word they know, then gently add the card word: \"Yes, mad. We can also say angry.\""
+      }
+    ],
+    "theme": "family",
+    "themeName": "Family & Home",
+    "slug": "feelings-cards-for-circle-time",
+    "pdfPath": "/worksheets/feelings-cards-for-circle-time/feelings-cards-for-circle-time.pdf",
+    "pdfFileSize": "65 KB",
+    "previewImages": [
+      "/worksheets/feelings-cards-for-circle-time/preview-page-1.png",
+      "/worksheets/feelings-cards-for-circle-time/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/feelings-cards-for-circle-time/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-esl-circle-time-chants",
+    "title": "ESL Circle Time Song Lyric Cards",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "weather"
+    ],
+    "activityTypes": [
+      "flashcards"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Classroom routine language through short original chants (hello, weather, tidy-up, goodbye).",
+    "description": "One printable page of four original classroom chants for preschool ESL circle time: Hello Time, Weather Look, Tidy Up, and Goodbye Time. These are original verses, not licensed song lyrics.",
+    "quickSummary": "Four original circle-time chants you can cut apart and keep on a ring or in a folder.",
+    "teacherNote": {
+      "skillFocus": "Classroom routine language and choral speaking.",
+      "learningGoal": "Child joins in a short, repeated chant and begins to say key phrases independently.",
+      "teachingTip": "These are original classroom chants. Start with Hello Time only.",
+      "extensionActivity": "Add a simple gesture for each line so new learners can join before they have all the words."
+    },
+    "whatsInside": [
+      "Page 1: Four cut-apart chant cards — Hello Time, Weather Look, Tidy Up, and Goodbye Time."
+    ],
+    "vocabulary": [
+      "hello",
+      "goodbye",
+      "weather",
+      "tidy up",
+      "friends"
+    ],
+    "months": [
+      8,
+      9,
+      3
+    ],
+    "keywords": [
+      "preschool circle time songs with lyrics",
+      "esl circle time chants",
+      "classroom hello song printable"
+    ],
+    "relatedSlugs": [
+      "circle-time-board-day-and-weather",
+      "preschool-weather-chart-and-cards",
+      "tpr-classroom-command-cards-esl"
+    ],
+    "faqs": [
+      {
+        "question": "Are these copyrighted songs?",
+        "answer": "No. The four chants were written for this printable so teachers can use them freely in class and at home."
+      },
+      {
+        "question": "How do I use the cards?",
+        "answer": "Cut them apart, punch a corner, and keep them on a ring. Hold up the card that matches the part of the day."
+      }
+    ],
+    "theme": "weather",
+    "themeName": "Weather & Seasons",
+    "slug": "esl-circle-time-song-lyric-cards",
+    "pdfPath": "/worksheets/esl-circle-time-song-lyric-cards/esl-circle-time-song-lyric-cards.pdf",
+    "pdfFileSize": "59 KB",
+    "previewImages": [
+      "/worksheets/esl-circle-time-song-lyric-cards/preview-page-1.png"
+    ],
+    "pinterestPinImage": "/worksheets/esl-circle-time-song-lyric-cards/pinterest-pin.jpg",
+    "pages": 1,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-circle-time-board",
+    "title": "Circle Time Board: Day and Weather",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "weather"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Calendar language: days of the week, months, and weather.",
+    "description": "A 2-page circle-time board set with sentence frames for today, the month, and the weather, plus cut-apart day, month, and weather cards. Designed for a low-prep morning meeting.",
+    "quickSummary": "Printable day, month, and weather cards with a simple board you can build once and use every morning.",
+    "teacherNote": {
+      "skillFocus": "Calendar language: days, months, and weather.",
+      "learningGoal": "Child helps complete the sentences and places the matching cards on the board.",
+      "teachingTip": "Change only one part of the board each day at first (the weather is easiest).",
+      "extensionActivity": "Print page 2 on cardstock. Store the cards in a small envelope taped to the back of page 1."
+    },
+    "whatsInside": [
+      "Page 1: Circle-time board sentence frames and a tracing line for \"today.\"",
+      "Page 2: Cut-apart cards for seven days, twelve months, and five weather types."
+    ],
+    "vocabulary": [
+      "today",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "sunny",
+      "cloudy",
+      "rainy"
+    ],
+    "months": [
+      1,
+      3,
+      9
+    ],
+    "keywords": [
+      "preschool circle time board",
+      "days of the week cards preschool",
+      "calendar cards printable free"
+    ],
+    "relatedSlugs": [
+      "preschool-weather-chart-and-cards",
+      "esl-circle-time-song-lyric-cards",
+      "visual-schedule-cards-preschool"
+    ],
+    "faqs": [
+      {
+        "question": "Do I need a pocket chart?",
+        "answer": "No. Page 1 can sit on a clipboard or be laminated and used with tape or clips."
+      },
+      {
+        "question": "Are weekend days included?",
+        "answer": "Yes. Saturday and Sunday are on the day-card row so home learners can use the board too."
+      }
+    ],
+    "theme": "weather",
+    "themeName": "Weather & Seasons",
+    "slug": "circle-time-board-day-and-weather",
+    "pdfPath": "/worksheets/circle-time-board-day-and-weather/circle-time-board-day-and-weather.pdf",
+    "pdfFileSize": "98 KB",
+    "previewImages": [
+      "/worksheets/circle-time-board-day-and-weather/preview-page-1.png",
+      "/worksheets/circle-time-board-day-and-weather/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/circle-time-board-day-and-weather/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-visual-schedule-cards",
+    "title": "Visual Schedule Cards for Preschool",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [],
+    "activityTypes": [
+      "flashcards",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Daily routine vocabulary and sequence words: first, next.",
+    "description": "A 2-page visual schedule for preschool teachers and parents: eight routine cards (arrive, circle time, wash hands, snack, outdoor play, story time, table work, go home) and a first/next chart with tracing.",
+    "quickSummary": "Eight daily routine cards and a first/next chart so children can see what is coming.",
+    "teacherNote": {
+      "skillFocus": "Daily routine vocabulary and classroom independence.",
+      "learningGoal": "Child looks at the next card and can tell a friend what is coming.",
+      "teachingTip": "Point to the current card and the next one: \"Now snack. Next, outdoor play.\"",
+      "extensionActivity": "Use only the cards you really need. A short schedule is easier to follow than a long one."
+    },
+    "whatsInside": [
+      "Page 1: Eight cut-apart routine cards.",
+      "Page 2: A first/next chart and tracing lines for the words first and next."
+    ],
+    "vocabulary": [
+      "arrive",
+      "circle time",
+      "wash hands",
+      "snack",
+      "outdoor play",
+      "story time",
+      "go home",
+      "first",
+      "next"
+    ],
+    "months": [
+      8,
+      9
+    ],
+    "keywords": [
+      "visual schedule preschool printable",
+      "preschool daily routine cards",
+      "first next visual schedule"
+    ],
+    "relatedSlugs": [
+      "tpr-classroom-command-cards-esl",
+      "classroom-objects-esl-flashcards",
+      "circle-time-board-day-and-weather"
+    ],
+    "faqs": [
+      {
+        "question": "Can I leave some cards out?",
+        "answer": "Yes. Use only the parts of the day you want to show. A shorter line of cards is often calmer for young children."
+      },
+      {
+        "question": "Are the pictures decorative only?",
+        "answer": "No. Each card has a simple outline picture so children can follow the schedule even before they can read the words."
+      }
+    ],
+    "themeName": "Classroom Routines",
+    "slug": "visual-schedule-cards-preschool",
+    "pdfPath": "/worksheets/visual-schedule-cards-preschool/visual-schedule-cards-preschool.pdf",
+    "pdfFileSize": "63 KB",
+    "previewImages": [
+      "/worksheets/visual-schedule-cards-preschool/preview-page-1.png",
+      "/worksheets/visual-schedule-cards-preschool/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/visual-schedule-cards-preschool/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-farm-animals-lesson-plan",
+    "title": "Farm Animals ESL Lesson Plan",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "farm-animals"
+    ],
+    "activityTypes": [
+      "matching"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Farm animal names and sounds, with a 20-minute low-prep lesson outline.",
+    "description": "A 2-page farm ESL lesson you can print and take to the carpet: a 20-minute plan on page 1 and a listen-point-match activity on page 2. Pairs well with our farm cut-and-paste worksheet, but it also stands alone.",
+    "quickSummary": "A short farm lesson plan plus a student matching page for animal names and sounds.",
+    "teacherNote": {
+      "skillFocus": "Farm animal names and sounds; listening and speaking.",
+      "learningGoal": "By the end, children can name and sound at least three animals without a model.",
+      "teachingTip": "If the group is new to English, teach three animals today and add the rest tomorrow.",
+      "extensionActivity": "Follow up with the farm cut-and-paste worksheet on another day, not in the same 20 minutes."
+    },
+    "whatsInside": [
+      "Page 1: A 20-minute lesson outline (language, materials, and four steps).",
+      "Page 2: Draw-a-line matching from animal pictures to sound words."
+    ],
+    "vocabulary": [
+      "cow",
+      "pig",
+      "sheep",
+      "duck",
+      "horse",
+      "chicken",
+      "moo",
+      "oink",
+      "baa",
+      "quack",
+      "neigh"
+    ],
+    "months": [
+      3,
+      4,
+      9
+    ],
+    "keywords": [
+      "esl preschool lesson plans",
+      "farm animals esl lesson",
+      "animal sounds matching printable"
+    ],
+    "relatedSlugs": [
+      "farm-animals-esl-vocabulary-and-tracing",
+      "farm-animal-bingo-preschool",
+      "beginning-sounds-clip-cards"
+    ],
+    "faqs": [
+      {
+        "question": "Do I need the other farm worksheet to use this plan?",
+        "answer": "No. The plan lists it as optional. Page 2 is a complete student activity on its own."
+      },
+      {
+        "question": "How long does the lesson take?",
+        "answer": "About 20 minutes. You can add a familiar song at the end if you have a few minutes left."
+      },
+      {
+        "question": "Which animals are in the matching activity?",
+        "answer": "Cow, pig, sheep, duck, and horse, with their sounds."
+      }
+    ],
+    "theme": "farm-animals",
+    "themeName": "Farm Animals",
+    "slug": "farm-animals-esl-lesson-plan",
+    "pdfPath": "/worksheets/farm-animals-esl-lesson-plan/farm-animals-esl-lesson-plan.pdf",
+    "pdfFileSize": "220 KB",
+    "previewImages": [
+      "/worksheets/farm-animals-esl-lesson-plan/preview-page-1.png",
+      "/worksheets/farm-animals-esl-lesson-plan/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/farm-animals-esl-lesson-plan/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-letter-tracing-a-to-z",
+    "title": "Letter Tracing Worksheets A to Z",
+    "subject": "alphabet",
+    "subjectName": "Alphabet",
+    "topics": [],
+    "activityTypes": [
+      "tracing",
+      "coloring"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
+    "ages": "Ages 3–5",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Uppercase and lowercase letter formation for the full alphabet, with an initial-sound picture on each page.",
+    "description": "A 26-page letter tracing pack, one letter per page. Each page has stroke-guided uppercase and lowercase tracing, a starting-dot model, a “now you try” line, and a simple picture for the letter sound. Use one page a week, or send home the letters you are teaching.",
+    "quickSummary": "Twenty-six tracing pages, A to Z, with starting dots and a picture word on every page.",
+    "teacherNote": {
+      "skillFocus": "Letter formation for A–Z and a first-sound picture on each page.",
+      "learningGoal": "Child traces the target letter with a consistent starting point and can name the picture word.",
+      "teachingTip": "Say the stroke path out loud. Then ask, “What else starts like this picture?”",
+      "extensionActivity": "Send home only the letter of the week, not the whole pack, if families find 26 pages overwhelming."
+    },
+    "whatsInside": [
+      "26 pages, one for each letter A–Z.",
+      "On every page: uppercase tracing, lowercase tracing, an independent writing line, and a picture word."
+    ],
+    "vocabulary": [
+      "letter",
+      "trace",
+      "uppercase",
+      "lowercase",
+      "apple",
+      "balloon",
+      "cow",
+      "duck",
+      "egg",
+      "fish",
+      "grapes",
+      "horse",
+      "ice skate",
+      "jug",
+      "kite",
+      "ladybug",
+      "mitten",
+      "nest",
+      "orange",
+      "pig",
+      "quilt",
+      "rain",
+      "sun",
+      "tree",
+      "umbrella",
+      "van",
+      "watermelon",
+      "box",
+      "yarn",
+      "zipper"
+    ],
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "keywords": [
+      "letter tracing worksheets free printable",
+      "a to z tracing pdf",
+      "preschool letter formation worksheets"
+    ],
+    "relatedSlugs": [
+      "letter-a-tracing-and-phonics",
+      "uppercase-lowercase-letter-match",
+      "beginning-sounds-clip-cards"
+    ],
+    "faqs": [
+      {
+        "question": "Is this one letter per page?",
+        "answer": "Yes. There are 26 pages, with A on page 1 and Z on page 26. You can print a single letter if you do not need the full pack."
+      },
+      {
+        "question": "Does this replace the Letter A Andy the Ant page?",
+        "answer": "No. The Andy the Ant page is a longer Letter of the Week activity. This pack is a clean A–Z tracing set you can use for any letter."
+      },
+      {
+        "question": "Are the strokes marked?",
+        "answer": "Yes. Each letter starts at a dot, with a solid model and several dashed traces."
+      }
+    ],
+    "series": {
+      "id": "letter-tracing-az",
+      "name": "Letter Tracing A–Z Pack",
+      "order": 1,
+      "total": 1
+    },
+    "themeName": "Alphabet",
+    "slug": "letter-tracing-worksheets-a-to-z",
+    "pdfPath": "/worksheets/letter-tracing-worksheets-a-to-z/letter-tracing-worksheets-a-to-z.pdf",
+    "pdfFileSize": "467 KB",
+    "previewImages": [
+      "/worksheets/letter-tracing-worksheets-a-to-z/preview-page-1.png",
+      "/worksheets/letter-tracing-worksheets-a-to-z/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/letter-tracing-worksheets-a-to-z/pinterest-pin.jpg",
+    "pages": 26,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "alphabet",
+    "categoryName": "Alphabet"
+  },
+  {
+    "id": "ws-cutting-practice-strips",
+    "title": "Preschool Cutting Practice Strips",
+    "subject": "thinking-skills",
+    "subjectName": "Thinking Skills",
+    "topics": [],
+    "activityTypes": [
+      "cut-and-paste"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
+    "ages": "Ages 3–5",
+    "gradeLevel": "Pre-K",
+    "skill": "Scissor control on straight, wavy, and zigzag paths, then cutting around simple shapes.",
+    "description": "A 2-page cutting practice set for preschool: six strips that get a little harder (straight lines, gentle curves, zigzag, and a longer curve), plus a page of simple shapes to cut out and color. Written with left- and right-handed children in mind.",
+    "quickSummary": "Straight lines, then wiggly paths, then shapes — a gentle scissor-skills sequence.",
+    "teacherNote": {
+      "skillFocus": "Bilateral coordination and scissor control.",
+      "learningGoal": "Child cuts along a path from left to right, turning the page only when needed.",
+      "teachingTip": "Use child-safe scissors. Show a thumbs-up grip. Sit beside left-handed children so the path is not covered.",
+      "extensionActivity": "Once the strips feel easy, move to page 2 and cut around a circle or square."
+    },
+    "whatsInside": [
+      "Page 1: Six cutting strips, from straight lines to zigzag and curve paths.",
+      "Page 2: Six simple shapes to cut out and color."
+    ],
+    "vocabulary": [
+      "cut",
+      "line",
+      "circle",
+      "square",
+      "triangle",
+      "star"
+    ],
+    "months": [
+      8,
+      9,
+      1
+    ],
+    "keywords": [
+      "cutting practice preschool",
+      "scissor skills worksheets",
+      "cutting strips printable free"
+    ],
+    "relatedSlugs": [
+      "shapes-flashcards-and-tracing",
+      "farm-animals-esl-vocabulary-and-tracing",
+      "valentines-day-preschool-printables"
+    ],
+    "faqs": [
+      {
+        "question": "What kind of scissors should we use?",
+        "answer": "Child-safe scissors with a blunt tip. Stay close by, especially the first few times."
+      },
+      {
+        "question": "My child is left-handed. Will this still work?",
+        "answer": "Yes. Sit on their left so they can see the line, and let them turn the paper rather than twisting the scissors."
+      }
+    ],
+    "themeName": "Fine Motor",
+    "slug": "preschool-cutting-practice-strips",
+    "pdfPath": "/worksheets/preschool-cutting-practice-strips/preschool-cutting-practice-strips.pdf",
+    "pdfFileSize": "63 KB",
+    "previewImages": [
+      "/worksheets/preschool-cutting-practice-strips/preview-page-1.png",
+      "/worksheets/preschool-cutting-practice-strips/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/preschool-cutting-practice-strips/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "thinking-skills",
+    "categoryName": "Thinking Skills"
+  },
+  {
+    "id": "ws-winter-vocabulary-pack",
+    "title": "Winter Vocabulary Pack for Preschool",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "winter"
+    ],
+    "activityTypes": [
+      "coloring",
+      "tracing",
+      "flashcards"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Winter vocabulary (snowman, penguin, sled, mitten, hat, hot cocoa) with coloring and tracing.",
+    "description": "A 2-page winter vocabulary pack featuring Penny the Penguin: six winter pictures to say and color, then a tracing page for the same words. This is a word-and-picture pack, not the winter odd-one-out thinking sheet.",
+    "quickSummary": "Penny the Penguin helps children say, color, and trace six winter words.",
+    "teacherNote": {
+      "skillFocus": "Winter vocabulary: snowman, penguin, sled, mitten, hat, hot cocoa.",
+      "learningGoal": "Child names each picture and traces the winter words.",
+      "teachingTip": "Introduce the words with a real mitten or hat if you have one nearby.",
+      "extensionActivity": "For “hot cocoa,” you can also say “cocoa” if the two-word phrase feels long."
+    },
+    "whatsInside": [
+      "Page 1: Six winter picture cards to say and color.",
+      "Page 2: Tracing lines for the winter words, with a picture prompt beside each one."
+    ],
+    "vocabulary": [
+      "snowman",
+      "penguin",
+      "sled",
+      "mitten",
+      "hat",
+      "hot cocoa"
+    ],
+    "months": [
+      12,
+      1,
+      2
+    ],
+    "keywords": [
+      "preschool winter worksheets free",
+      "winter vocabulary esl",
+      "winter tracing preschool"
+    ],
+    "relatedSlugs": [
+      "winter-odd-one-out-visual-discrimination",
+      "winter-clothes-esl-word-cards",
+      "preschool-weather-chart-and-cards"
+    ],
+    "faqs": [
+      {
+        "question": "Is this the same as the winter odd-one-out page?",
+        "answer": "No. That page is a thinking-skills activity. This pack is a vocabulary and tracing set with Penny the Penguin."
+      },
+      {
+        "question": "Which words are included?",
+        "answer": "Snowman, penguin, sled, mitten, hat, and hot cocoa."
+      }
+    ],
+    "theme": "winter",
+    "themeName": "Winter & Cold Weather",
+    "slug": "winter-vocabulary-pack-preschool",
+    "pdfPath": "/worksheets/winter-vocabulary-pack-preschool/winter-vocabulary-pack-preschool.pdf",
+    "pdfFileSize": "266 KB",
+    "previewImages": [
+      "/worksheets/winter-vocabulary-pack-preschool/preview-page-1.png",
+      "/worksheets/winter-vocabulary-pack-preschool/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/winter-vocabulary-pack-preschool/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-winter-clothes-esl-cards",
+    "title": "Winter Clothes ESL Word Cards",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "clothes",
+      "winter"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "coloring"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Winter clothing vocabulary and a dress-for-the-weather sorting task.",
+    "description": "A 2-page winter clothes set: six ESL word cards (hat, scarf, mittens, coat, boots, ice skates) and a “dress Penny for the snow” page where children circle winter clothes and cross out sunny-day items.",
+    "quickSummary": "Winter clothes cards plus a circle-and-cross page to dress Penny for the snow.",
+    "teacherNote": {
+      "skillFocus": "Winter clothing vocabulary and dressing language: “Put on your ___.”",
+      "learningGoal": "Child names the item and can mime putting it on when you give the instruction.",
+      "teachingTip": "Use TPR: “Put on your hat.” “Take off your mittens.” Go slowly and repeat.",
+      "extensionActivity": "Ask why sunglasses do not belong in the snow bag. Accept answers in any mix of languages."
+    },
+    "whatsInside": [
+      "Page 1: Six cut-apart winter clothes cards.",
+      "Page 2: A circle-the-winter-clothes activity with Penny the Penguin."
+    ],
+    "vocabulary": [
+      "hat",
+      "scarf",
+      "mittens",
+      "coat",
+      "boots",
+      "ice skates"
+    ],
+    "months": [
+      12,
+      1,
+      2
+    ],
+    "keywords": [
+      "winter clothes esl flashcards",
+      "winter clothing worksheet preschool",
+      "put on your coat esl"
+    ],
+    "relatedSlugs": [
+      "winter-vocabulary-pack-preschool",
+      "winter-odd-one-out-visual-discrimination",
+      "tpr-classroom-command-cards-esl"
+    ],
+    "faqs": [
+      {
+        "question": "What should children circle on page 2?",
+        "answer": "Hat, scarf, boots, and mittens. They cross out the sun hat and the sunglasses."
+      },
+      {
+        "question": "Can I use the cards for dressing practice?",
+        "answer": "Yes. Give the command “Put on your boots” and let children mime the action or place the card on Penny."
+      }
+    ],
+    "theme": "clothes",
+    "themeName": "Clothes & Dressing",
+    "slug": "winter-clothes-esl-word-cards",
+    "pdfPath": "/worksheets/winter-clothes-esl-word-cards/winter-clothes-esl-word-cards.pdf",
+    "pdfFileSize": "362 KB",
+    "previewImages": [
+      "/worksheets/winter-clothes-esl-word-cards/preview-page-1.png",
+      "/worksheets/winter-clothes-esl-word-cards/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/winter-clothes-esl-word-cards/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-valentines-friendship-printables",
+    "title": "Valentine's Day Preschool Printables",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "holidays"
+    ],
+    "activityTypes": [
+      "coloring",
+      "tracing",
+      "cut-and-paste"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Friendship language, heart coloring, and a simple cut-out card.",
+    "description": "A 2-page friendship pack for February: color the hearts, trace the word friend, finish a sentence about being a good friend, and make a small card that says “You are a kind friend.” The tone stays gentle and classroom-appropriate.",
+    "quickSummary": "A kindness-focused Valentine pack: trace “friend” and make a simple card for someone you care about.",
+    "teacherNote": {
+      "skillFocus": "Friendship language and fine-motor coloring, tracing, and cutting.",
+      "learningGoal": "Child colors the hearts, traces “friend,” and (with help) names one kind action.",
+      "teachingTip": "Keep the focus on kindness, not on boyfriends or girlfriends. “A good friend shares.”",
+      "extensionActivity": "If a child does not want to give a card, they can keep it or give it to a family member."
+    },
+    "whatsInside": [
+      "Page 1: Heart coloring, the word friend to trace, and a sentence to finish.",
+      "Page 2: A cut-out friendship card: “You are a kind friend.”"
+    ],
+    "vocabulary": [
+      "friend",
+      "kind",
+      "heart"
+    ],
+    "months": [
+      2
+    ],
+    "keywords": [
+      "valentines preschool printables",
+      "friendship card preschool",
+      "kindness worksheet preschool"
+    ],
+    "relatedSlugs": [
+      "feelings-cards-for-circle-time",
+      "preschool-cutting-practice-strips",
+      "colors-esl-flashcards-preschool"
+    ],
+    "faqs": [
+      {
+        "question": "Is this a romantic Valentine activity?",
+        "answer": "No. It is written as a friendship and kindness activity, which is a better fit for preschool."
+      },
+      {
+        "question": "Do we have to cut out the card?",
+        "answer": "No. Children can color page 2 and leave it in the packet if cutting feels like too much that day."
+      }
+    ],
+    "theme": "holidays",
+    "themeName": "Holidays & Celebrations",
+    "slug": "valentines-day-preschool-printables",
+    "pdfPath": "/worksheets/valentines-day-preschool-printables/valentines-day-preschool-printables.pdf",
+    "pdfFileSize": "60 KB",
+    "previewImages": [
+      "/worksheets/valentines-day-preschool-printables/preview-page-1.png",
+      "/worksheets/valentines-day-preschool-printables/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/valentines-day-preschool-printables/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-community-helpers-cards",
+    "title": "Community Helpers Cards and Match",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "community-helpers"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "matching"
+    ],
+    "ageBands": [
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 4–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Community helper names and matching a person to a familiar tool or vehicle.",
+    "description": "A 2-page community helpers set for preschool and kindergarten: six job cards (doctor, firefighter, teacher, police officer, cook, bus driver) and a draw-a-line page matching each helper to a tool or vehicle.",
+    "quickSummary": "Six community helper cards and a matching page for jobs and the tools they use.",
+    "teacherNote": {
+      "skillFocus": "Community helper names and simple job language: “A firefighter helps.”",
+      "learningGoal": "Child names each helper and can tell one thing that person does.",
+      "teachingTip": "Keep the language short: “The doctor helps sick people.” Invite home-language answers too.",
+      "extensionActivity": "If a child uses a different word (cook instead of chef), accept it and add the new word later."
+    },
+    "whatsInside": [
+      "Page 1: Six cut-apart helper cards.",
+      "Page 2: Match the helper to the tool (kit, truck, book, bus)."
+    ],
+    "vocabulary": [
+      "doctor",
+      "firefighter",
+      "teacher",
+      "police officer",
+      "cook",
+      "bus driver"
+    ],
+    "months": [
+      5,
+      9
+    ],
+    "keywords": [
+      "community helpers preschool worksheets",
+      "community helpers flashcards pdf",
+      "jobs matching worksheet preschool"
+    ],
+    "relatedSlugs": [
+      "classroom-objects-esl-flashcards",
+      "farm-animals-esl-lesson-plan",
+      "tpr-classroom-command-cards-esl"
+    ],
+    "faqs": [
+      {
+        "question": "Which helpers are included?",
+        "answer": "Doctor, firefighter, teacher, police officer, cook, and bus driver."
+      },
+      {
+        "question": "What is the matching answer key?",
+        "answer": "Doctor–kit, firefighter–truck, teacher–book, and bus driver–bus."
+      }
+    ],
+    "theme": "community-helpers",
+    "themeName": "Community Helpers",
+    "slug": "community-helpers-cards-and-match",
+    "pdfPath": "/worksheets/community-helpers-cards-and-match/community-helpers-cards-and-match.pdf",
+    "pdfFileSize": "65 KB",
+    "previewImages": [
+      "/worksheets/community-helpers-cards-and-match/preview-page-1.png",
+      "/worksheets/community-helpers-cards-and-match/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/community-helpers-cards-and-match/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-shapes-flashcards-tracing",
+    "title": "Shapes Flashcards and Tracing Pages",
+    "subject": "shapes-colors",
+    "subjectName": "Shapes & Colors",
+    "topics": [],
+    "activityTypes": [
+      "flashcards",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
+    "ages": "Ages 3–5",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Shape names (circle, square, triangle, rectangle, heart, star) and shape tracing.",
+    "description": "A 2-page shapes set: six cut-apart shape cards and a tracing page for circle, square, triangle, and rectangle, with a space to try one shape independently.",
+    "quickSummary": "Shape cards to name and find, plus a tracing page for the four basic shapes.",
+    "teacherNote": {
+      "skillFocus": "Basic shape names and visual matching.",
+      "learningGoal": "Child names circle, square, and triangle, and can find a real object for at least one shape.",
+      "teachingTip": "Start with three shapes. A clock or plate is a kind circle; a book can be a rectangle.",
+      "extensionActivity": "For circle, remind them to start at the top and come back to the starting point."
+    },
+    "whatsInside": [
+      "Page 1: Six shape flashcards (circle, square, triangle, rectangle, heart, star).",
+      "Page 2: Tracing practice for circle, square, triangle, and rectangle."
+    ],
+    "vocabulary": [
+      "circle",
+      "square",
+      "triangle",
+      "rectangle",
+      "heart",
+      "star"
+    ],
+    "months": [
+      8,
+      9,
+      1
+    ],
+    "keywords": [
+      "shapes worksheets preschool",
+      "shape flashcards printable",
+      "shape tracing preschool pdf"
+    ],
+    "relatedSlugs": [
+      "colors-esl-flashcards-preschool",
+      "preschool-cutting-practice-strips",
+      "counting-1-to-5-ladybug-party"
+    ],
+    "faqs": [
+      {
+        "question": "Which shapes are on the tracing page?",
+        "answer": "Circle, square, triangle, and rectangle. Heart and star appear on the flashcard page."
+      },
+      {
+        "question": "Can I use the cards in a scavenger hunt?",
+        "answer": "Yes. Hold up a card and ask, “Can you find a circle in our room?”"
+      }
+    ],
+    "themeName": "Shapes",
+    "slug": "shapes-flashcards-and-tracing",
+    "pdfPath": "/worksheets/shapes-flashcards-and-tracing/shapes-flashcards-and-tracing.pdf",
+    "pdfFileSize": "62 KB",
+    "previewImages": [
+      "/worksheets/shapes-flashcards-and-tracing/preview-page-1.png",
+      "/worksheets/shapes-flashcards-and-tracing/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/shapes-flashcards-and-tracing/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "shapes-colors",
+    "categoryName": "Shapes & Colors"
+  },
+  {
+    "id": "ws-farm-animal-bingo",
+    "title": "Farm Animal Bingo for Preschool",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [
+      "farm-animals"
+    ],
+    "activityTypes": [
+      "matching"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Listening for farm animal names and sounds in a simple 3×3 bingo game.",
+    "description": "A 2-page farm animal bingo set with two different 3×3 boards so a pair or small group can play without finishing at the same moment. Call the animal name, or later call only the sound.",
+    "quickSummary": "Two farm bingo boards for a short listening game in circle time or small group.",
+    "teacherNote": {
+      "skillFocus": "Farm animal names and sounds; listening and visual matching.",
+      "learningGoal": "Child covers the picture you name (or the sound you make) and notices a line of three.",
+      "teachingTip": "Call the name first. Later, call only the sound: “moo.” Use buttons or scraps of paper as tokens.",
+      "extensionActivity": "When someone has three in a row, they can call “Bingo!” and name the three animals."
+    },
+    "whatsInside": [
+      "Page 1: Bingo board A with a free space in the center.",
+      "Page 2: Bingo board B, arranged differently for a partner or a second group."
+    ],
+    "vocabulary": [
+      "cow",
+      "pig",
+      "sheep",
+      "duck",
+      "horse",
+      "chicken"
+    ],
+    "months": [
+      3,
+      4,
+      9
+    ],
+    "keywords": [
+      "animal bingo printable",
+      "farm animal bingo preschool",
+      "esl bingo farm animals"
+    ],
+    "relatedSlugs": [
+      "farm-animals-esl-vocabulary-and-tracing",
+      "farm-animals-esl-lesson-plan",
+      "beginning-sounds-clip-cards"
+    ],
+    "faqs": [
+      {
+        "question": "How many children can play?",
+        "answer": "Two children can play with Boards A and B. For a larger group, print extra copies of either board."
+      },
+      {
+        "question": "What do we use as tokens?",
+        "answer": "Buttons, bottle caps, scraps of paper, or a crayon X. Avoid very small pieces with younger preschoolers."
+      }
+    ],
+    "theme": "farm-animals",
+    "themeName": "Farm Animals",
+    "slug": "farm-animal-bingo-preschool",
+    "pdfPath": "/worksheets/farm-animal-bingo-preschool/farm-animal-bingo-preschool.pdf",
+    "pdfFileSize": "257 KB",
+    "previewImages": [
+      "/worksheets/farm-animal-bingo-preschool/preview-page-1.png",
+      "/worksheets/farm-animal-bingo-preschool/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/farm-animal-bingo-preschool/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-tpr-command-cards",
+    "title": "TPR Classroom Command Cards (ESL)",
+    "subject": "vocabulary",
+    "subjectName": "ESL Vocabulary",
+    "topics": [],
+    "activityTypes": [
+      "flashcards",
+      "tracing"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 3–6",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Classroom commands and total physical response: stand up, sit down, clap, jump, listen, raise your hand.",
+    "description": "A 2-page TPR set for preschool ESL: six command cards and a tracing page for stand, sit, clap, and jump. Children can listen and move first, then say the words.",
+    "quickSummary": "Command cards you can hold up, plus a tracing page for four action words.",
+    "teacherNote": {
+      "skillFocus": "Classroom commands and total physical response (listen and do).",
+      "learningGoal": "Child hears a command and does the action without needing to speak first.",
+      "teachingTip": "Demonstrate silently first, then add the words. Keep praise short: “Yes. You stood up.”",
+      "extensionActivity": "Play a quick game after tracing: you say the word, they do the action, then they say it back."
+    },
+    "whatsInside": [
+      "Page 1: Six command cards (stand up, sit down, clap, jump, listen, raise your hand).",
+      "Page 2: Trace the words stand, sit, clap, and jump."
+    ],
+    "vocabulary": [
+      "stand up",
+      "sit down",
+      "clap",
+      "jump",
+      "listen",
+      "raise your hand"
+    ],
+    "months": [
+      8,
+      9
+    ],
+    "keywords": [
+      "esl classroom commands flashcards",
+      "tpr cards preschool",
+      "stand up sit down esl"
+    ],
+    "relatedSlugs": [
+      "classroom-objects-esl-flashcards",
+      "body-parts-flashcards-and-song",
+      "visual-schedule-cards-preschool"
+    ],
+    "faqs": [
+      {
+        "question": "What does TPR mean here?",
+        "answer": "Total Physical Response: children hear a command and do the action. Speaking can come later."
+      },
+      {
+        "question": "Can I use these in a whole-class game?",
+        "answer": "Yes. Start with two commands, then add more. Let a child be the teacher once the group knows the set."
+      }
+    ],
+    "themeName": "Classroom English",
+    "slug": "tpr-classroom-command-cards-esl",
+    "pdfPath": "/worksheets/tpr-classroom-command-cards-esl/tpr-classroom-command-cards-esl.pdf",
+    "pdfFileSize": "65 KB",
+    "previewImages": [
+      "/worksheets/tpr-classroom-command-cards-esl/preview-page-1.png",
+      "/worksheets/tpr-classroom-command-cards-esl/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/tpr-classroom-command-cards-esl/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "vocabulary",
+    "categoryName": "ESL Vocabulary"
+  },
+  {
+    "id": "ws-beginning-sounds-clip-cards",
+    "title": "Beginning Sounds Clip Cards A-Z",
+    "subject": "phonics",
+    "subjectName": "Phonics",
+    "topics": [
+      "food",
+      "farm-animals"
+    ],
+    "activityTypes": [
+      "flashcards",
+      "matching"
+    ],
+    "ageBands": [
+      "4-5",
+      "5-6"
+    ],
+    "ages": "Ages 4–6",
+    "gradeLevel": "Kindergarten & early ESL",
+    "skill": "Initial sound isolation: hearing the first sound in a spoken word and marking the matching letter.",
+    "description": "A 2-page beginning-sounds set with 12 clip cards (apple, balloon, cow, duck, fish, horse, kite, ladybug, mitten, pig, sun, tree). Children say the word and clip or color the letter that starts it. The answer key is in the teacher tip on page 2.",
+    "quickSummary": "Twelve beginning-sound clip cards. Say the word, then mark the first letter.",
+    "teacherNote": {
+      "skillFocus": "Initial sound isolation (first sound in a spoken word).",
+      "learningGoal": "Child says the picture word and marks the letter that matches the first sound.",
+      "teachingTip": "Say the word slowly, then stretch the first sound: “sssun.”",
+      "extensionActivity": "Answer key: apple A, balloon B, cow C, duck D, fish F, horse H, kite K, ladybug L, mitten M, pig P, sun S, tree T."
+    },
+    "whatsInside": [
+      "Page 1: Six clip cards (A, B, C, D, F, H).",
+      "Page 2: Six more clip cards (K, L, M, P, S, T) and the answer key in the teacher tip."
+    ],
+    "vocabulary": [
+      "apple",
+      "balloon",
+      "cow",
+      "duck",
+      "fish",
+      "horse",
+      "kite",
+      "ladybug",
+      "mitten",
+      "pig",
+      "sun",
+      "tree"
+    ],
+    "months": [
+      9,
+      10,
+      1
+    ],
+    "keywords": [
+      "beginning sounds clip cards",
+      "initial sounds worksheets preschool",
+      "first sound clip cards pdf"
+    ],
+    "relatedSlugs": [
+      "letter-tracing-worksheets-a-to-z",
+      "letter-a-tracing-and-phonics",
+      "uppercase-lowercase-letter-match"
+    ],
+    "faqs": [
+      {
+        "question": "Do I need clothespins?",
+        "answer": "Clothespins are handy, but children can also color the correct letter circle with a crayon."
+      },
+      {
+        "question": "Is the full alphabet included?",
+        "answer": "This first set covers 12 common letters. The pictures match words used elsewhere on the site, so you can reuse the same vocabulary."
+      },
+      {
+        "question": "Where is the answer key?",
+        "answer": "It is printed in the teacher tip at the bottom of page 2, not on the student cards."
+      }
+    ],
+    "themeName": "Phonics",
+    "slug": "beginning-sounds-clip-cards",
+    "pdfPath": "/worksheets/beginning-sounds-clip-cards/beginning-sounds-clip-cards.pdf",
+    "pdfFileSize": "358 KB",
+    "previewImages": [
+      "/worksheets/beginning-sounds-clip-cards/preview-page-1.png",
+      "/worksheets/beginning-sounds-clip-cards/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/beginning-sounds-clip-cards/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "phonics",
+    "categoryName": "Phonics"
+  },
+  {
+    "id": "ws-uppercase-lowercase-match",
+    "title": "Uppercase and Lowercase Letter Match",
+    "subject": "alphabet",
+    "subjectName": "Alphabet",
+    "topics": [],
+    "activityTypes": [
+      "matching"
+    ],
+    "ageBands": [
+      "3-4",
+      "4-5"
+    ],
+    "ages": "Ages 3–5",
+    "gradeLevel": "Pre-K & Kindergarten",
+    "skill": "Matching uppercase letters to their lowercase partners, including look-alike letters such as b, d, and p.",
+    "description": "A 2-page letter matching set. Page 1 practices A, M, T, S, F, and L. Page 2 practices B, P, D, H, N, and K, with extra care for letters that are easy to mix up.",
+    "quickSummary": "Draw a line from each capital letter to its lowercase partner, in two short sets.",
+    "teacherNote": {
+      "skillFocus": "Uppercase and lowercase letter matching.",
+      "learningGoal": "Child draws a line from each capital letter to the matching lowercase letter.",
+      "teachingTip": "If a child is unsure, have them say the letter name first, then look for the little one.",
+      "extensionActivity": "b, d, and p can be tricky. Slow down on those three and trace them in the air first."
+    },
+    "whatsInside": [
+      "Page 1: Match A, M, T, S, F, and L to their lowercase partners.",
+      "Page 2: Match B, P, D, H, N, and K, including look-alike letters."
+    ],
+    "vocabulary": [
+      "uppercase",
+      "lowercase",
+      "letter",
+      "match"
+    ],
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "keywords": [
+      "uppercase lowercase matching printable",
+      "capital and lowercase letters worksheet",
+      "letter matching preschool"
+    ],
+    "relatedSlugs": [
+      "letter-tracing-worksheets-a-to-z",
+      "letter-a-tracing-and-phonics",
+      "beginning-sounds-clip-cards"
+    ],
+    "faqs": [
+      {
+        "question": "Why are the letters split across two pages?",
+        "answer": "A shorter set is less tiring. Page 2 focuses on letters that are easier to confuse."
+      },
+      {
+        "question": "Should children say the letter names or the sounds?",
+        "answer": "Either works. Letter names are fine here; you can add sounds if you are already teaching them."
+      }
+    ],
+    "themeName": "Alphabet",
+    "slug": "uppercase-lowercase-letter-match",
+    "pdfPath": "/worksheets/uppercase-lowercase-letter-match/uppercase-lowercase-letter-match.pdf",
+    "pdfFileSize": "63 KB",
+    "previewImages": [
+      "/worksheets/uppercase-lowercase-letter-match/preview-page-1.png",
+      "/worksheets/uppercase-lowercase-letter-match/preview-page-2.png"
+    ],
+    "pinterestPinImage": "/worksheets/uppercase-lowercase-letter-match/pinterest-pin.jpg",
+    "pages": 2,
+    "eslLevel": "beginner",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "category": "alphabet",
+    "categoryName": "Alphabet"
   }
 ]
