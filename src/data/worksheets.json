@@ -1910,31 +1910,45 @@
     "ages": "Ages 4–6",
     "gradeLevel": "Kindergarten & early ESL",
     "skill": "Initial sound isolation: hearing the first sound in a spoken word and marking the matching letter.",
-    "description": "A 2-page beginning-sounds set with 12 clip cards (apple, balloon, cow, duck, fish, horse, kite, ladybug, mitten, pig, sun, tree). Children say the word and clip or color the letter that starts it. The answer key is in the teacher tip on page 2.",
-    "quickSummary": "Twelve beginning-sound clip cards. Say the word, then mark the first letter.",
+    "description": "A 5-page beginning-sounds set with 26 clip cards, one for each letter A–Z. Children say the picture word and clip or color the letter that starts it. The answer key is in the teacher tip on page 5.",
+    "quickSummary": "Twenty-six beginning-sound clip cards, A to Z. Say the word, then mark the first letter.",
     "teacherNote": {
       "skillFocus": "Initial sound isolation (first sound in a spoken word).",
       "learningGoal": "Child says the picture word and marks the letter that matches the first sound.",
       "teachingTip": "Say the word slowly, then stretch the first sound: “sssun.”",
-      "extensionActivity": "Answer key: apple A, balloon B, cow C, duck D, fish F, horse H, kite K, ladybug L, mitten M, pig P, sun S, tree T."
+      "extensionActivity": "Answer key: apple A, balloon B, cow C, duck D, egg E, fish F, grapes G, horse H, igloo I, jug J, kite K, ladybug L, mitten M, nest N, orange O, pig P, quilt Q, rain R, sun S, tree T, umbrella U, van V, watermelon W, x-ray X, yarn Y, zipper Z."
     },
     "whatsInside": [
-      "Page 1: Six clip cards (A, B, C, D, F, H).",
-      "Page 2: Six more clip cards (K, L, M, P, S, T) and the answer key in the teacher tip."
+      "Pages 1–4: Six clip cards on each page, covering A–X.",
+      "Page 5: The last two cards (Y, Z) and a full A–Z answer key box for the teacher."
     ],
     "vocabulary": [
       "apple",
       "balloon",
       "cow",
       "duck",
+      "egg",
       "fish",
+      "grapes",
       "horse",
+      "igloo",
+      "jug",
       "kite",
       "ladybug",
       "mitten",
+      "nest",
+      "orange",
       "pig",
+      "quilt",
+      "rain",
       "sun",
-      "tree"
+      "tree",
+      "umbrella",
+      "van",
+      "watermelon",
+      "x-ray",
+      "yarn",
+      "zipper"
     ],
     "months": [
       9,
@@ -1958,23 +1972,23 @@
       },
       {
         "question": "Is the full alphabet included?",
-        "answer": "This first set covers 12 common letters. The pictures match words used elsewhere on the site, so you can reuse the same vocabulary."
+        "answer": "Yes. There is one clip card for every letter A–Z. Igloo is used for I and x-ray for X, so the first sound matches the letter."
       },
       {
         "question": "Where is the answer key?",
-        "answer": "It is printed in the teacher tip at the bottom of page 2, not on the student cards."
+        "answer": "It is printed in the teacher tip at the bottom of page 5, not on the student cards."
       }
     ],
     "themeName": "Phonics",
     "slug": "beginning-sounds-clip-cards",
     "pdfPath": "/worksheets/beginning-sounds-clip-cards/beginning-sounds-clip-cards.pdf",
-    "pdfFileSize": "358 KB",
+    "pdfFileSize": "390 KB",
     "previewImages": [
       "/worksheets/beginning-sounds-clip-cards/preview-page-1.png",
       "/worksheets/beginning-sounds-clip-cards/preview-page-2.png"
     ],
     "pinterestPinImage": "/worksheets/beginning-sounds-clip-cards/pinterest-pin.jpg",
-    "pages": 2,
+    "pages": 5,
     "eslLevel": "beginner",
     "datePublished": "2026-11-19",
     "dateModified": "2026-11-19",
