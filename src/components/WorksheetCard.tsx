@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Worksheet } from '@/types/worksheet';
-import { Layers } from 'lucide-react';
+import { useLessonPack } from '@/context/LessonPackContext';
+import { Layers, Plus, Check } from 'lucide-react';
 
 interface WorksheetCardProps {
   worksheet: Worksheet;
@@ -12,6 +15,14 @@ export function WorksheetCard({ worksheet }: WorksheetCardProps) {
   const href = `/worksheets/${worksheet.slug}`;
   const pagesText = `${worksheet.pages} ${worksheet.pages > 1 ? 'pages' : 'page'}`;
   const metaLine = `${worksheet.ages} · ${pagesText}`;
+  const { hasItem, toggleItem } = useLessonPack();
+  const inPack = hasItem(worksheet.slug);
+
+  const handleTogglePack = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleItem(worksheet);
+  };
 
   return (
     <article className="group relative flex flex-col bg-white rounded-2xl border border-slate-200/80 hover:border-[#2E6B6B] hover:shadow-lg transition-all duration-200 overflow-hidden">
@@ -45,11 +56,26 @@ export function WorksheetCard({ worksheet }: WorksheetCardProps) {
             {worksheet.title}
           </h3>
 
-          <div className="mt-auto pt-2 text-xs text-slate-500 font-medium flex items-center justify-between">
+          <div className="mt-auto pt-2 text-xs text-slate-500 font-medium flex items-center justify-between gap-2">
             <span>{metaLine}</span>
-            <span className="text-[#2E6B6B] font-semibold group-hover:underline">
-              View →
-            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleTogglePack}
+                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold transition-colors ${
+                  inPack
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    : 'bg-slate-100 hover:bg-[#F0F7F7] text-slate-700 hover:text-[#2E6B6B] border border-slate-200'
+                }`}
+                aria-label={inPack ? `Remove ${worksheet.title} from Lesson Pack` : `Add ${worksheet.title} to Lesson Pack`}
+              >
+                {inPack ? <Check className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+                <span>{inPack ? 'Saved' : 'Pack'}</span>
+              </button>
+              <span className="text-[#2E6B6B] font-semibold group-hover:underline">
+                View →
+              </span>
+            </div>
           </div>
         </div>
       </Link>

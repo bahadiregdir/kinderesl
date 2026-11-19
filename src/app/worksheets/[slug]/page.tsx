@@ -120,9 +120,21 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
     const subjectWorksheets = getWorksheetsBySubject(subject.slug);
     const otherWorksheets = getAllWorksheets()
       .filter((w) => w.subject !== subject.slug)
-      .slice(0, 2);
+      .slice(0, 4);
 
-    const alphabetLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const availableLettersMap = new Map<string, { letter: string; slug: string; title: string }>();
+    for (const ws of subjectWorksheets) {
+      const m = /^letter-([a-z])(?:-|$)/i.exec(ws.slug);
+      if (m) {
+        const letter = m[1].toUpperCase();
+        if (!availableLettersMap.has(letter)) {
+          availableLettersMap.set(letter, { letter, slug: ws.slug, title: ws.title });
+        }
+      }
+    }
+    const availableLetterItems = Array.from(availableLettersMap.values()).sort((a, b) =>
+      a.letter.localeCompare(b.letter)
+    );
 
     return (
       <div>
@@ -162,16 +174,19 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
                 </h3>
                 <span className="text-xs text-slate-500">A–Z Alphabet</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/worksheets/letter-a-tracing-and-phonics"
-                  className="w-10 h-10 rounded-lg bg-[#2E6B6B] text-white text-base font-bold flex items-center justify-center shadow-xs transition-transform hover:scale-105"
-                  title="Letter A Tracing Worksheet"
-                >
-                  A
-                </Link>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {availableLetterItems.map((item) => (
+                  <Link
+                    key={item.letter}
+                    href={`/worksheets/${item.slug}`}
+                    className="w-10 h-10 rounded-lg bg-[#2E6B6B] text-white text-base font-bold flex items-center justify-center shadow-xs transition-transform hover:scale-105"
+                    title={item.title}
+                  >
+                    {item.letter}
+                  </Link>
+                ))}
                 <span className="text-xs text-slate-500 font-medium italic">
-                  More letters coming soon (B through Z)
+                  More letters coming soon
                 </span>
               </div>
             </div>
@@ -246,6 +261,9 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
             </div>
           )}
 
+          {/* Ad Slot above Subject FAQs */}
+          <AdUnit slotType="in-content" />
+
           {/* Subject FAQs */}
           {subject.faqs && subject.faqs.length > 0 && (
             <div className="max-w-3xl pt-6">
@@ -264,6 +282,9 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
   const worksheet = getWorksheetBySlug(slug);
   if (worksheet) {
     const relatedWorksheets = getRelatedWorksheets(worksheet, 4);
+    const nextInSeriesWorksheet = worksheet.series?.nextSlug
+      ? getWorksheetBySlug(worksheet.series.nextSlug) ?? null
+      : null;
 
     // Schema.org Structured Data
     const pageUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
@@ -295,6 +316,7 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
         <WorksheetDetailView
           worksheet={worksheet}
           relatedWorksheets={relatedWorksheets}
+          nextInSeriesWorksheet={nextInSeriesWorksheet}
         />
       </>
     );

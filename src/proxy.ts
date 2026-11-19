@@ -16,11 +16,13 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.next();
 
-  // 2. Set X-Robots-Tag: noindex, nofollow on all hosts other than canonical production domain
+  // 2. Set X-Robots-Tag: noindex, nofollow on all hosts other than canonical production domain,
+  // and ALWAYS on /admin and /api routes regardless of host.
   const isProductionDomain = host === 'kinderesl.com' || host === 'www.kinderesl.com';
   const isLocalhost = host.startsWith('localhost') || host.startsWith('127.0.0.1');
+  const isAdminOrApi = pathname.startsWith('/admin') || pathname.startsWith('/api/');
 
-  if (!isProductionDomain && !isLocalhost) {
+  if (isAdminOrApi || (!isProductionDomain && !isLocalhost)) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
   }
 

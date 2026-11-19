@@ -9,6 +9,9 @@ import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
 import { WorksheetCard } from '@/components/WorksheetCard';
+import { PreDownloadModal } from '@/components/PreDownloadModal';
+import { useLessonPack } from '@/context/LessonPackContext';
+import { trackEvent } from '@/lib/analytics';
 import { getSiteUrl } from '@/config/site';
 import {
   FileDown,
@@ -20,19 +23,26 @@ import {
   Lightbulb,
   Target,
   Bookmark,
+  FolderHeart,
+  Check,
 } from 'lucide-react';
 
 interface WorksheetDetailViewProps {
   worksheet: Worksheet;
   relatedWorksheets: Worksheet[];
+  nextInSeriesWorksheet?: Worksheet | null;
 }
 
 export function WorksheetDetailView({
   worksheet,
   relatedWorksheets,
+  nextInSeriesWorksheet: providedNextInSeries = null,
 }: WorksheetDetailViewProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [downloadModalOpen, setDownloadModalOpen] = useState(false);
+  const { hasItem, toggleItem } = useLessonPack();
+  const inPack = hasItem(worksheet.slug);
 
   const { title, description, quickSummary, teacherNote, whatsInside, faqs } = worksheet;
 
@@ -62,6 +72,7 @@ export function WorksheetDetailView({
   }, []);
 
   const handlePrint = () => {
+    trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject });
     const printWindow = window.open(worksheet.pdfPath, '_blank');
     if (printWindow) {
       printWindow.focus();
@@ -75,9 +86,11 @@ export function WorksheetDetailView({
   ];
 
   // Check if series next item exists
-  const nextWorksheetInSeries = worksheet.series?.nextSlug
-    ? relatedWorksheets.find((w) => w.slug === worksheet.series?.nextSlug)
-    : null;
+  const nextWorksheetInSeries =
+    providedNextInSeries ||
+    (worksheet.series?.nextSlug
+      ? relatedWorksheets.find((w) => w.slug === worksheet.series?.nextSlug)
+      : null);
 
   return (
     <div className="pb-24">
@@ -117,16 +130,16 @@ export function WorksheetDetailView({
 
           {/* Mobile Download CTA Button */}
           <div className="pt-1">
-            <a
+            <button
               id="mobile-download-btn"
-              href={worksheet.pdfPath}
-              download
+              type="button"
+              onClick={() => setDownloadModalOpen(true)}
               className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl text-white font-bold text-base bg-[#2E6B6B] hover:bg-[#235353] active:scale-[0.99] transition-all shadow-sm"
             >
               <FileDown className="w-5 h-5" />
               <span>Download free PDF</span>
               <span className="text-xs font-normal opacity-80">({worksheet.pdfFileSize})</span>
-            </a>
+            </button>
             <div className="pt-2 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>Free for home &amp; classroom use · No registration required</span>
@@ -249,18 +262,18 @@ export function WorksheetDetailView({
             {/* CTA Action Box */}
             <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3.5">
               {/* Primary Full-width Download Button */}
-              <a
+              <button
                 id="desktop-download-btn"
-                href={worksheet.pdfPath}
-                download
+                type="button"
+                onClick={() => setDownloadModalOpen(true)}
                 className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl text-white font-bold text-base bg-[#2E6B6B] hover:bg-[#235353] active:scale-[0.99] transition-all shadow-sm"
               >
                 <FileDown className="w-5 h-5" />
                 <span>Download free PDF</span>
                 <span className="text-xs font-normal opacity-80">({worksheet.pdfFileSize})</span>
-              </a>
+              </button>
 
-              {/* Secondary Buttons: Print and Pinterest */}
+              {/* Secondary Buttons: Print, Save to Pack & Pinterest */}
               <div className="grid grid-cols-2 gap-2.5">
                 <button
                   type="button"
@@ -281,6 +294,19 @@ export function WorksheetDetailView({
                   <span>Save to Pinterest</span>
                 </a>
               </div>
+
+              <button
+                type="button"
+                onClick={() => toggleItem(worksheet)}
+                className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all border ${
+                  inPack
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                    : 'bg-[#F0F7F7]/80 hover:bg-[#e1efef] text-[#2E6B6B] border-[#d0e3e3]'
+                }`}
+              >
+                {inPack ? <Check className="w-4 h-4" /> : <FolderHeart className="w-4 h-4" />}
+                <span>{inPack ? 'Saved in My Lesson Pack' : 'Add to My Lesson Pack'}</span>
+              </button>
 
               {/* Trust line */}
               <div className="pt-2 border-t border-slate-100 flex items-center justify-center gap-1.5 text-xs text-slate-500 font-medium">
@@ -306,6 +332,9 @@ export function WorksheetDetailView({
                 </ul>
               </div>
             )}
+
+            {/* Ad Slot 2: Desktop Sidebar Slot */}
+            <AdUnit slotType="sidebar" className="my-2!" />
           </div>
         </div>
 
@@ -498,16 +527,24 @@ export function WorksheetDetailView({
             <p className="text-xs font-bold text-slate-900 truncate">{title}</p>
             <p className="text-[10px] text-slate-500">{worksheet.pages}p · Free PDF</p>
           </div>
-          <a
-            href={worksheet.pdfPath}
-            download
+          <button
+            type="button"
+            onClick={() => setDownloadModalOpen(true)}
             className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs font-bold rounded-lg shrink-0 shadow-xs"
           >
             <FileDown className="w-4 h-4" />
             <span>Download PDF</span>
-          </a>
+          </button>
         </div>
       )}
+
+      {/* 3-Second Pre-Download Modal */}
+      <PreDownloadModal
+        isOpen={downloadModalOpen}
+        onClose={() => setDownloadModalOpen(false)}
+        worksheet={worksheet}
+        relatedWorksheets={relatedWorksheets}
+      />
     </div>
   );
 }

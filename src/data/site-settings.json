@@ -1,0 +1,33 @@
+{
+  "author": {
+    "name": "KinderESL Teaching Team",
+    "slug": "kinderesl-team",
+    "role": "Early Childhood Educator & Content Creator",
+    "shortBio": "Educational materials created for preschool, kindergarten, and early ESL classrooms with a focus on handwriting readiness, phonics, and early math.",
+    "fullBio": "KinderESL resources are created for early childhood teachers and homeschooling parents. The worksheets focus on simple, high-contrast layouts, handwriting stroke directionality, and clear learning milestones for young learners.",
+    "credentials": [
+      "Early Childhood ESL Education Focus",
+      "Preschool & Kindergarten Learning Printables"
+    ],
+    "avatar": "/images/author-avatar.jpg"
+  },
+  "contactEmail": "",
+  "pinterest": {
+    "handle": "",
+    "url": "",
+    "verificationToken": ""
+  },
+  "adsense": {
+    "client": "",
+    "enabled": false,
+    "slots": {
+      "inContent": "",
+      "sidebar": "",
+      "preDownload": ""
+    },
+    "rewardedAdEnabled": true
+  },
+  "analytics": {
+    "ga4MeasurementId": ""
+  }
+}

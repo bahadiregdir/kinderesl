@@ -11,6 +11,7 @@ import { isIndexableCollection } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
+import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
 import { Sparkles, ArrowRight, Clock, BookOpen } from 'lucide-react';
 
@@ -68,7 +69,7 @@ export default async function TopicDetailPage({ params }: Props) {
   const worksheets = getWorksheetsByTopic(t.slug);
   const otherWorksheets = getAllWorksheets()
     .filter((w) => !w.topics.includes(t.slug))
-    .slice(0, 2);
+    .slice(0, 4);
 
   return (
     <div>
@@ -168,6 +169,9 @@ export default async function TopicDetailPage({ params }: Props) {
             )}
           </div>
         )}
+
+        {/* Ad Slot above Topic FAQ */}
+        <AdUnit slotType="in-content" />
 
         {/* Topic FAQ */}
         {t.faqs && t.faqs.length > 0 && (

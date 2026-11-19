@@ -12,6 +12,7 @@ import { isIndexableCollection } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
+import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
 import { Sparkles, ArrowRight, Clock, Calendar } from 'lucide-react';
 
@@ -69,7 +70,7 @@ export default async function MonthDetailPage({ params }: Props) {
   const worksheets = getWorksheetsByMonth(m.monthNumber);
   const otherWorksheets = getAllWorksheets()
     .filter((w) => !worksheets.some((mw) => mw.id === w.id))
-    .slice(0, 2);
+    .slice(0, 4);
 
   const activeTopics = topics.filter((t) => m.topicSlugs.includes(t.slug));
 
@@ -185,6 +186,9 @@ export default async function MonthDetailPage({ params }: Props) {
             )}
           </div>
         )}
+
+        {/* Ad Slot above Month FAQs */}
+        <AdUnit slotType="in-content" />
 
         {/* Month FAQs */}
         {m.faqs && m.faqs.length > 0 && (

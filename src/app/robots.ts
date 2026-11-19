@@ -10,6 +10,8 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: [
+          '/admin',
+          '/admin/',
           '/api/',
           '/_next/',
           '/games',
@@ -21,27 +23,27 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'GPTBot',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/admin', '/admin/', '/api/', '/_next/'],
       },
       {
         userAgent: 'ClaudeBot',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/admin', '/admin/', '/api/', '/_next/'],
       },
       {
         userAgent: 'PerplexityBot',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/admin', '/admin/', '/api/', '/_next/'],
       },
       {
         userAgent: 'Google-Extended',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/admin', '/admin/', '/api/', '/_next/'],
       },
       {
         userAgent: 'Pinterestbot',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/admin', '/admin/', '/api/', '/_next/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useMemo, useTransition } from 'react';
+import React, { useState, useMemo, useTransition, useEffect } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Worksheet, SubjectMeta } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
+import { trackEvent } from '@/lib/analytics';
 import { Search, X, SlidersHorizontal, BookOpen } from 'lucide-react';
 
 interface WorksheetsCatalogProps {
@@ -29,6 +30,15 @@ export function WorksheetsCatalog({
   const [selectedSubject, setSelectedSubject] = useState(initialSubject);
   const [selectedActivity, setSelectedActivity] = useState(initialActivity);
   const [selectedAge, setSelectedAge] = useState(initialAge);
+
+  useEffect(() => {
+    const trimmed = searchQuery.trim();
+    if (trimmed.length < 2) return;
+    const timer = setTimeout(() => {
+      trackEvent('catalog_search', { query: trimmed });
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   const updateUrlParams = (q: string, subject: string, activity: string, age: string) => {
     const params = new URLSearchParams();

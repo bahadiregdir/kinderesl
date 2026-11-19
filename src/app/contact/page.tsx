@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { WorksheetRequestForm } from '@/components/WorksheetRequestForm';
 import { siteConfig, getSiteUrl } from '@/config/site';
-import { Mail, MessageSquare, Clock, ShieldCheck, Heart } from 'lucide-react';
+import { Mail, MessageSquare, Clock, ShieldCheck } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/contact`;
@@ -45,7 +46,12 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Email Direct Contact Card (Replaced broken form with direct email as requested in Item 10) */}
+        {/* Request a Worksheet Interactive Form */}
+        <div className="mb-8">
+          <WorksheetRequestForm />
+        </div>
+
+        {/* Email Direct Contact Card */}
         <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm space-y-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-xl bg-[#F0F7F7] border border-[#d0e3e3]">
             <div className="space-y-1">

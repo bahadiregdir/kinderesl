@@ -111,6 +111,50 @@ export interface MonthMeta {
   plannedTitles?: string[];
 }
 
+export interface SiteSettings {
+  author: {
+    name: string;
+    slug: string;
+    role: string;
+    shortBio: string;
+    fullBio: string;
+    credentials: string[];
+    avatar: string;
+  };
+  contactEmail: string;
+  pinterest: {
+    handle: string;
+    url: string;
+    verificationToken: string;
+  };
+  adsense: {
+    client: string;
+    enabled: boolean;
+    slots: {
+      inContent: string;
+      sidebar: string;
+      preDownload: string;
+    };
+    rewardedAdEnabled: boolean;
+  };
+  analytics?: {
+    ga4MeasurementId: string;
+  };
+}
+
+export interface WorksheetRequest {
+  id: string;
+  name: string;
+  email?: string;
+  role: string;
+  ageGroup: string;
+  subject: string;
+  topic: string;
+  details: string;
+  status: 'new' | 'planned' | 'done';
+  createdAt: string;
+}
+
 /**
  * Central indexation rule:
  * Subject, topic, and monthly theme collections require >= 6 worksheets to be indexed

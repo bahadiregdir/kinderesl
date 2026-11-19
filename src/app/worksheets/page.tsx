@@ -4,6 +4,7 @@ import { getAllWorksheets } from '@/data/worksheets';
 import { subjects } from '@/data/subjects';
 import { WorksheetsCatalog } from '@/components/WorksheetsCatalog';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
 
 const siteUrl = getSiteUrl();
@@ -56,6 +57,8 @@ export default function WorksheetsPage() {
         >
           <WorksheetsCatalog worksheets={worksheets} subjects={subjects} />
         </Suspense>
+
+        <AdUnit slotType="in-content" />
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '@/app/globals.css';
 import { siteConfig, getSiteUrl } from '@/config/site';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
+import { SiteChrome } from '@/components/SiteChrome';
 
 export const viewport: Viewport = {
   themeColor: '#2E6B6B',
@@ -111,6 +110,9 @@ export default function RootLayout({
     !siteConfig.adsense.client.startsWith('ca-pub-XXX') &&
     siteConfig.adsense.client.trim() !== '';
 
+  const ga4Id = siteConfig.analytics?.ga4MeasurementId?.trim() || '';
+  const isRealGa4 = /^G-[A-Z0-9]+$/i.test(ga4Id);
+
   return (
     <html lang="en" className="h-full scroll-smooth">
       <head>
@@ -122,7 +124,21 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/* Google AdSense CMP Script - only loaded when real AdSense client ID is active (Item 11) */}
+        {/* Anonymous GA4 (no advertising signals, IP anonymized for child-safe privacy) */}
+        {isRealGa4 && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(ga4Id)},{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false});`,
+              }}
+            />
+          </>
+        )}
+        {/* Google AdSense CMP Script - only loaded when real AdSense client ID is active */}
         {isRealAdSense && (
           <script
             async
@@ -132,9 +148,7 @@ export default function RootLayout({
         )}
       </head>
       <body className="min-h-full flex flex-col bg-white text-slate-800 antialiased selection:bg-[#2E6B6B] selection:text-white">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

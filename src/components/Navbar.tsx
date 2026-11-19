@@ -12,7 +12,9 @@ import {
   ChevronDown,
   Layers,
   Sparkle,
+  FolderHeart,
 } from 'lucide-react';
+import { useLessonPack } from '@/context/LessonPackContext';
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,6 +23,7 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const pathname = usePathname();
   const megaMenuRef = useRef<HTMLDivElement>(null);
+  const { items: packItems, openDrawer } = useLessonPack();
 
   // Close menus on outside click or route change
   useEffect(() => {
@@ -222,8 +225,25 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Action Icons: Search & Mobile Menu Button */}
+          {/* Right Action Icons: Lesson Pack, Search & Mobile Menu Button */}
           <div className="flex items-center gap-2">
+            {/* My Lesson Pack Button */}
+            <button
+              type="button"
+              onClick={openDrawer}
+              className="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-[#2E6B6B] bg-[#F0F7F7] hover:bg-[#e1efef] border border-[#d0e3e3] transition-colors"
+              aria-label="Open My Lesson Pack"
+              title="My Lesson Pack"
+            >
+              <FolderHeart className="w-4 h-4" />
+              <span className="hidden sm:inline">Pack</span>
+              {packItems.length > 0 && (
+                <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-[#2E6B6B] text-white text-[10px] font-bold">
+                  {packItems.length}
+                </span>
+              )}
+            </button>
+
             {/* Quick search button */}
             <div className="relative">
               <button
