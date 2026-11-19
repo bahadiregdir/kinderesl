@@ -135,6 +135,9 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
     const availableLetterItems = Array.from(availableLettersMap.values()).sort((a, b) =>
       a.letter.localeCompare(b.letter)
     );
+    const fullAzPack = subjectWorksheets.find(
+      (w) => w.slug === 'letter-tracing-worksheets-a-to-z'
+    );
 
     return (
       <div>
@@ -174,20 +177,31 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
                 </h3>
                 <span className="text-xs text-slate-500">A–Z Alphabet</span>
               </div>
-              <div className="flex flex-wrap items-center gap-2.5">
-                {availableLetterItems.map((item) => (
+              <div className="flex flex-wrap items-center gap-3">
+                {fullAzPack && (
                   <Link
-                    key={item.letter}
-                    href={`/worksheets/${item.slug}`}
-                    className="w-10 h-10 rounded-lg bg-[#2E6B6B] text-white text-base font-bold flex items-center justify-center shadow-xs transition-transform hover:scale-105"
-                    title={item.title}
+                    href={`/worksheets/${fullAzPack.slug}`}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs sm:text-sm font-bold shadow-xs transition-colors"
                   >
-                    {item.letter}
+                    <span>Complete A–Z Pack ({fullAzPack.pages} Pages)</span>
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
-                ))}
-                <span className="text-xs text-slate-500 font-medium italic">
-                  More letters coming soon
-                </span>
+                )}
+                <div className="flex flex-wrap items-center gap-2">
+                  {availableLetterItems.map((item) => (
+                    <Link
+                      key={item.letter}
+                      href={`/worksheets/${item.slug}`}
+                      className="w-10 h-10 rounded-lg bg-[#F0F7F7] hover:bg-[#2E6B6B] text-[#2E6B6B] hover:text-white border border-[#d0e3e3] text-base font-bold flex items-center justify-center shadow-2xs transition-colors"
+                      title={item.title}
+                    >
+                      {item.letter}
+                    </Link>
+                  ))}
+                  <span className="text-xs text-slate-500 font-medium italic">
+                    Individual letter packs coming soon
+                  </span>
+                </div>
               </div>
             </div>
           )}

@@ -26,7 +26,25 @@ import {
 
 export default function HomePage() {
   const worksheets = getAllWorksheets();
-  const featuredWorksheets = worksheets.slice(0, 4);
+  const showcaseSlugs = [
+    'letter-tracing-worksheets-a-to-z',
+    'beginning-sounds-clip-cards',
+    'counting-1-to-5-ladybug-party',
+    'colors-esl-flashcards-preschool',
+    'body-parts-flashcards-and-song',
+    'visual-schedule-cards-preschool',
+    'winter-odd-one-out-visual-discrimination',
+    'farm-animals-esl-vocabulary-and-tracing',
+  ];
+  const bySlug = new Map(worksheets.map((w) => [w.slug, w]));
+  const picked = showcaseSlugs
+    .map((slug) => bySlug.get(slug))
+    .filter((w): w is (typeof worksheets)[number] => Boolean(w));
+  const pickedSet = new Set(picked.map((w) => w.slug));
+  const featuredWorksheets = [
+    ...picked,
+    ...worksheets.filter((w) => !pickedSet.has(w.slug)),
+  ].slice(0, 8);
   const popularTopics = topics.slice(0, 6);
 
   const getSubjectIcon = (slug: string) => {

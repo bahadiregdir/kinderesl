@@ -16,8 +16,6 @@ export default function robots(): MetadataRoute.Robots {
           '/_next/',
           '/games',
           '/themes/',
-          '/preschool-themes/',
-          '/worksheets/shapes-colors',
         ],
       },
       {
