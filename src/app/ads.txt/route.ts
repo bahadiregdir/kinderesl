@@ -1,7 +1,11 @@
-import { siteConfig } from '@/config/site';
+import { fetchSiteSettings } from '@/lib/worksheets-store';
 
 export async function GET() {
-  const clientId = siteConfig.adsense.client?.trim() || '';
+  const settings = await fetchSiteSettings();
+  const clientId =
+    process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim() ||
+    settings.adsense.client?.trim() ||
+    '';
   const match = /^ca-(pub-\d+)$/.exec(clientId);
 
   const body = match

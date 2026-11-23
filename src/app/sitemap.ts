@@ -1,19 +1,26 @@
 import { MetadataRoute } from 'next';
 import {
-  getAllWorksheets,
-  getWorksheetsBySubject,
-  getWorksheetsByTopic,
-  getWorksheetsByMonth,
-} from '@/data/worksheets';
+  fetchAllWorksheets,
+  fetchWorksheetsBySubject,
+  fetchWorksheetsByTopic,
+  fetchWorksheetsByMonth,
+} from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { topics } from '@/data/topics';
 import { months } from '@/data/months';
 import { isIndexableCollection } from '@/types/worksheet';
 import { getSiteUrl } from '@/config/site';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();
-  const lastModDate = new Date('2026-11-18');
+  const allWorksheets = await fetchAllWorksheets();
+  const latestModStr =
+    allWorksheets
+      .map((w) => w.dateModified)
+      .filter(Boolean)
+      .sort()
+      .pop() || '2026-11-23';
+  const lastModDate = new Date(latestModStr);
 
   const routes: MetadataRoute.Sitemap = [
     {
@@ -62,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Subjects (enter sitemap only when count >= 6)
   for (const s of subjects) {
-    const count = getWorksheetsBySubject(s.slug).length;
+    const count = (await fetchWorksheetsBySubject(s.slug)).length;
     if (isIndexableCollection(count)) {
       routes.push({
         url: `${baseUrl}/worksheets/${s.slug}`,
@@ -75,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Topics (enter sitemap only when count >= 6)
   for (const t of topics) {
-    const count = getWorksheetsByTopic(t.slug).length;
+    const count = (await fetchWorksheetsByTopic(t.slug)).length;
     if (isIndexableCollection(count)) {
       routes.push({
         url: `${baseUrl}/topics/${t.slug}`,
@@ -88,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Months (enter sitemap only when count >= 6)
   for (const m of months) {
-    const count = getWorksheetsByMonth(m.monthNumber).length;
+    const count = (await fetchWorksheetsByMonth(m.monthNumber)).length;
     if (isIndexableCollection(count)) {
       routes.push({
         url: `${baseUrl}/preschool-themes/${m.slug}`,
@@ -100,9 +107,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   // Individual worksheet pages
-  for (const ws of getAllWorksheets()) {
+  for (const ws of allWorksheets) {
     const enUrl = `${baseUrl}/worksheets/${ws.slug}`;
-    const modDate = new Date(ws.dateModified || '2026-11-18');
+    const modDate = new Date(ws.dateModified || latestModStr);
 
     routes.push({
       url: enUrl,

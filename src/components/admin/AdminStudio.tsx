@@ -4,7 +4,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { SiteSettings, Worksheet, WorksheetRequest } from '@/types/worksheet';
 import type { StorageInfo } from '@/lib/cms-storage';
-import type { AdminTabId, CollectionStats, RequestPrefillDraft } from './admin-types';
+import type {
+  AdminAnalyticsSummary,
+  AdminTabId,
+  CollectionStats,
+  RequestPrefillDraft,
+} from './admin-types';
 import { AdminDashboardTab } from './AdminDashboardTab';
 import { AdminWorksheetsTab } from './AdminWorksheetsTab';
 import { AdminUploadForm } from './AdminUploadForm';
@@ -45,6 +50,7 @@ export function AdminStudio() {
   const [requests, setRequests] = useState<WorksheetRequest[]>([]);
   const [stats, setStats] = useState<CollectionStats | null>(null);
   const [storage, setStorage] = useState<StorageInfo | null>(null);
+  const [analytics, setAnalytics] = useState<AdminAnalyticsSummary | null>(null);
 
   const [editingWorksheet, setEditingWorksheet] = useState<Worksheet | null>(null);
   const [prefillDraft, setPrefillDraft] = useState<RequestPrefillDraft | null>(null);
@@ -67,6 +73,7 @@ export function AdminStudio() {
         const wsData = await wsRes.json();
         setWorksheets(wsData.worksheets || []);
         setStats(wsData.stats || null);
+        if (wsData.analytics) setAnalytics(wsData.analytics);
         if (wsData.storage) setStorage(wsData.storage);
       }
       if (setRes.ok) {
@@ -305,15 +312,23 @@ export function AdminStudio() {
 
         {/* Bottom Storage Status & External Links */}
         <div className="mt-auto p-4 border-t border-slate-800 space-y-2.5 hidden lg:block">
-          <div className="px-3 py-2 rounded-xl bg-slate-800/80 text-[11px] space-y-0.5">
-            <span className="text-slate-400 block">Storage Engine</span>
-            <span className="font-bold text-teal-300 block">
-              {storage?.mode === 'github'
-                ? 'GitHub Auto-Commit'
-                : storage?.mode === 'local'
-                ? 'Local Disk CMS'
-                : 'Unconfigured'}
-            </span>
+          <div className="px-3 py-2.5 rounded-xl bg-slate-800/80 text-[11px] space-y-1">
+            <div>
+              <span className="text-slate-400 block">Database</span>
+              <span className="font-bold text-emerald-300 block">
+                {storage?.database === 'neon' ? 'Neon Postgres (Live)' : 'Local JSON'}
+              </span>
+            </div>
+            <div>
+              <span className="text-slate-400 block">PDF &amp; Image Storage</span>
+              <span className="font-bold text-teal-300 block">
+                {storage?.assetStorage === 'r2'
+                  ? 'Cloudflare R2 (CDN)'
+                  : storage?.assetStorage === 'local'
+                  ? 'Local Disk (R2 Pending)'
+                  : 'R2 Setup Pending'}
+              </span>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 text-[11px]">
@@ -379,6 +394,7 @@ export function AdminStudio() {
                 requests={requests}
                 stats={stats}
                 storage={storage}
+                analytics={analytics}
                 onNavigateTab={(tab) => {
                   if (tab === 'upload') {
                     setEditingWorksheet(null);

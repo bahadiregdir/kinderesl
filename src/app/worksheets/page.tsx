@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getAllWorksheets } from '@/data/worksheets';
+import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { WorksheetsCatalog } from '@/components/WorksheetsCatalog';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WorksheetsPage() {
-  const worksheets = getAllWorksheets();
+export default async function WorksheetsPage() {
+  const worksheets = await fetchAllWorksheets();
 
   return (
     <div>

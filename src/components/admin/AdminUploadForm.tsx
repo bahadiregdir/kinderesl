@@ -463,7 +463,9 @@ export function AdminUploadForm({
         setErrorMsg(data.error || 'Failed to publish worksheet.');
       } else {
         const msg =
-          data.commit?.mode === 'github'
+          data.commit?.mode === 'neon'
+            ? `${isEdit ? 'Updated' : 'Published'} to Neon Postgres & live immediately!`
+            : data.commit?.mode === 'github'
             ? `${isEdit ? 'Updated' : 'Published'} & committed to GitHub (${data.commit.commitSha?.slice(0, 7)}) — Vercel rebuild started.`
             : `Worksheet ${isEdit ? 'updated' : 'saved'} locally!`;
         onPublished(data.worksheet, msg, isEdit);

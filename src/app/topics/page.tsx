@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { topics } from '@/data/topics';
-import { getWorksheetsByTopic } from '@/data/worksheets';
+import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { getSiteUrl } from '@/config/site';
 import { Sparkles, ArrowRight, BookOpen } from 'lucide-react';
@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TopicsIndexPage() {
+export default async function TopicsIndexPage() {
+  const allWorksheets = await fetchAllWorksheets();
   return (
     <div>
       <div className="bg-slate-50 border-b border-slate-200/80">
@@ -38,7 +39,7 @@ export default function TopicsIndexPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {topics.map((topic) => {
-            const count = getWorksheetsByTopic(topic.slug).length;
+            const count = allWorksheets.filter((w) => w.topics.includes(topic.slug)).length;
             return (
               <Link
                 key={topic.slug}

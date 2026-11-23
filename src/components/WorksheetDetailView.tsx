@@ -12,7 +12,7 @@ import { WorksheetCard } from '@/components/WorksheetCard';
 import { PreDownloadModal } from '@/components/PreDownloadModal';
 import { useLessonPack } from '@/context/LessonPackContext';
 import { trackEvent } from '@/lib/analytics';
-import { getSiteUrl } from '@/config/site';
+import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
 import {
   FileDown,
   Printer,
@@ -50,7 +50,7 @@ export function WorksheetDetailView({
   const currentUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
 
   // Pinterest URL
-  const pinMediaUrl = `${siteUrl}${worksheet.pinterestPinImage}`;
+  const pinMediaUrl = toAbsoluteAssetUrl(worksheet.pinterestPinImage, siteUrl);
   const pinDescription = encodeURIComponent(
     `${title} - Free printable PDF for preschool and kindergarten teachers.`
   );

@@ -85,7 +85,9 @@ export function AdminSettingsTab({ settings, storage, onSaved }: AdminSettingsTa
         setErrorMsg(data.error || 'Could not save settings.');
       } else {
         const msg =
-          data.commit?.mode === 'github'
+          data.commit?.mode === 'neon'
+            ? 'Site settings saved to Neon Postgres and revalidated live.'
+            : data.commit?.mode === 'github'
             ? `Settings committed (${data.commit.commitSha?.slice(0, 7)}) — Vercel rebuild started.`
             : 'Site settings saved to src/data/site-settings.json.';
         onSaved(data.settings, msg);
@@ -99,14 +101,19 @@ export function AdminSettingsTab({ settings, storage, onSaved }: AdminSettingsTa
 
   const envItems = [
     {
+      name: 'DATABASE_URL',
+      ok: storage?.envStatus.hasDatabaseUrl ?? false,
+      note: 'Neon Postgres connection string for worksheets, requests, settings & analytics',
+    },
+    {
+      name: 'R2_ACCOUNT_ID / R2_* Keys',
+      ok: storage?.envStatus.hasR2Config ?? false,
+      note: 'Cloudflare R2 credentials + R2_PUBLIC_URL (https://cdn.kinderesl.com)',
+    },
+    {
       name: 'ADMIN_PASSWORD',
       ok: storage?.envStatus.hasAdminPassword ?? false,
       note: 'Required in Vercel production to enable /admin login',
-    },
-    {
-      name: 'GITHUB_TOKEN',
-      ok: storage?.envStatus.hasGithubToken ?? false,
-      note: 'Required on Vercel to publish PDFs & edits via GitHub API',
     },
     {
       name: 'NEXT_PUBLIC_SITE_URL',
@@ -116,7 +123,12 @@ export function AdminSettingsTab({ settings, storage, onSaved }: AdminSettingsTa
     {
       name: 'ENABLE_DOMAIN_REDIRECT',
       ok: storage?.envStatus.enableDomainRedirect ?? false,
-      note: 'Keep false until kinderesl.com DNS is active',
+      note: 'Redirects old kinderesl.vercel.app links to kinderesl.com (301)',
+    },
+    {
+      name: 'GITHUB_TOKEN',
+      ok: storage?.envStatus.hasGithubToken ?? false,
+      note: 'Optional legacy fallback (not needed when Neon + R2 are active)',
     },
   ];
 

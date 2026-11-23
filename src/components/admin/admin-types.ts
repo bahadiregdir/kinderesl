@@ -40,6 +40,21 @@ export interface CollectionStats {
   }>;
 }
 
+export interface AdminAnalyticsSummary {
+  totalDownloads: number;
+  topDownloaded: Array<{
+    slug: string;
+    title: string;
+    subject: string;
+    downloads: number;
+  }>;
+  topSearches: Array<{
+    query: string;
+    count: number;
+    zeroResults: number;
+  }>;
+}
+
 export interface RequestPrefillDraft {
   subject: WorksheetSubject;
   titleHint: string;

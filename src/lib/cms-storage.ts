@@ -1,14 +1,20 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { getAdminPasswordConfig } from './admin-auth';
+import { isDatabaseConfigured } from './db';
+import { isR2Configured } from './r2-storage';
 
 export type CmsStorageMode = 'local' | 'github' | 'unconfigured';
 
 export interface StorageInfo {
   mode: CmsStorageMode;
+  database: 'neon' | 'json';
+  assetStorage: 'r2' | 'local' | 'unconfigured';
   repo: string;
   branch: string;
   envStatus: {
+    hasDatabaseUrl: boolean;
+    hasR2Config: boolean;
     hasAdminPassword: boolean;
     hasGithubToken: boolean;
     hasSiteUrl: boolean;
@@ -48,6 +54,8 @@ export function getStorageInfo(): StorageInfo {
   const repo = process.env.GITHUB_REPO?.trim() || 'bahadiregdir/kinderesl';
   const branch = process.env.GITHUB_BRANCH?.trim() || 'main';
   const hasGithubToken = Boolean(process.env.GITHUB_TOKEN?.trim());
+  const hasDatabaseUrl = isDatabaseConfigured();
+  const hasR2Config = isR2Configured();
   const isVercel = process.env.VERCEL === '1';
   const forceGithub = process.env.CMS_STORAGE_MODE === 'github';
   const adminCfg = getAdminPasswordConfig();
@@ -55,15 +63,26 @@ export function getStorageInfo(): StorageInfo {
   let mode: CmsStorageMode = 'local';
   if (hasGithubToken && (isVercel || forceGithub || process.env.NODE_ENV === 'production')) {
     mode = 'github';
-  } else if (isVercel) {
+  } else if (isVercel && !hasDatabaseUrl) {
     mode = 'unconfigured';
   }
 
+  const database: StorageInfo['database'] = hasDatabaseUrl ? 'neon' : 'json';
+  const assetStorage: StorageInfo['assetStorage'] = hasR2Config
+    ? 'r2'
+    : isVercel
+    ? 'unconfigured'
+    : 'local';
+
   return {
     mode,
+    database,
+    assetStorage,
     repo,
     branch,
     envStatus: {
+      hasDatabaseUrl,
+      hasR2Config,
       hasAdminPassword: adminCfg.configured && !adminCfg.isDevDefault,
       hasGithubToken,
       hasSiteUrl: Boolean(process.env.NEXT_PUBLIC_SITE_URL?.trim()),

@@ -57,7 +57,9 @@ export function AdminMonetizationTab({ settings, onSaved }: AdminMonetizationTab
         setErrorMsg(data.error || 'Could not save monetization settings.');
       } else {
         const msg =
-          data.commit?.mode === 'github'
+          data.commit?.mode === 'neon'
+            ? 'AdSense monetization settings saved to Neon Postgres and revalidated live.'
+            : data.commit?.mode === 'github'
             ? `AdSense settings committed (${data.commit.commitSha?.slice(0, 7)}) — Vercel rebuild started.`
             : 'AdSense monetization settings saved.';
         onSaved(data.settings, msg);

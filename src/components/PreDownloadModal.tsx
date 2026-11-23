@@ -74,6 +74,11 @@ export function PreDownloadModal({
         subject: worksheet.subject,
         pages: worksheet.pages,
       });
+      fetch('/api/analytics/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
+      }).catch(() => {});
     }
   }, [isOpen, countdown, downloadStarted, worksheet]);
 

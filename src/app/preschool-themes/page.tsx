@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { months } from '@/data/months';
 import { topics } from '@/data/topics';
-import { getWorksheetsByMonth } from '@/data/worksheets';
+import { fetchWorksheetsByMonth } from '@/lib/worksheets-store';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Sparkles, Calendar, ArrowRight } from 'lucide-react';
 
@@ -17,7 +17,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PreschoolThemesIndexPage() {
+export default async function PreschoolThemesIndexPage() {
+  const countsByMonth = await Promise.all(
+    months.map(async (m) => ({
+      slug: m.slug,
+      count: (await fetchWorksheetsByMonth(m.monthNumber)).length,
+    }))
+  );
+  const countMap = new Map(countsByMonth.map((x) => [x.slug, x.count]));
+
   return (
     <div>
       <div className="bg-slate-50 border-b border-slate-200/80">
@@ -38,7 +46,7 @@ export default function PreschoolThemesIndexPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {months.map((m) => {
-            const count = getWorksheetsByMonth(m.monthNumber).length;
+            const count = countMap.get(m.slug) || 0;
             const monthTopics = topics.filter((t) => m.topicSlugs.includes(t.slug));
 
             return (

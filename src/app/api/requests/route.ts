@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { commitFiles, getStorageInfo, readJsonFile } from '@/lib/cms-storage';
+import { dbInsertRequest, isDatabaseConfigured } from '@/lib/db';
 import type { WorksheetRequest } from '@/types/worksheet';
 
 // Simple per-instance sliding window rate limit (5 requests / 10 minutes per IP)
@@ -52,16 +53,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const storage = getStorageInfo();
-    if (storage.mode === 'unconfigured') {
-      return NextResponse.json({
-        ok: true,
-        saved: false,
-        fallbackEmail: true,
-      });
-    }
-
-    const existing = await readJsonFile<WorksheetRequest[]>('src/data/requests.json');
     const newReq: WorksheetRequest = {
       id: `req-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
       name,
@@ -75,6 +66,25 @@ export async function POST(request: Request) {
       createdAt: new Date().toISOString(),
     };
 
+    if (isDatabaseConfigured()) {
+      await dbInsertRequest(newReq);
+      return NextResponse.json({
+        ok: true,
+        saved: true,
+        requestId: newReq.id,
+      });
+    }
+
+    const storage = getStorageInfo();
+    if (storage.mode === 'unconfigured') {
+      return NextResponse.json({
+        ok: true,
+        saved: false,
+        fallbackEmail: true,
+      });
+    }
+
+    const existing = await readJsonFile<WorksheetRequest[]>('src/data/requests.json');
     const nextList = [newReq, ...existing].slice(0, 200);
     const contentBase64 = Buffer.from(
       JSON.stringify(nextList, null, 2) + '\n',

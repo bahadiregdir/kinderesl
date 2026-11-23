@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
 import { commitFiles, getStorageInfo, readJsonFile } from '@/lib/cms-storage';
+import { dbGetSiteSettings, dbSaveSiteSettings, isDatabaseConfigured } from '@/lib/db';
+import { revalidateSettings } from '@/lib/revalidation';
 import type { SiteSettings } from '@/types/worksheet';
 
 export async function GET() {
@@ -9,7 +11,13 @@ export async function GET() {
   }
 
   try {
-    const settings = await readJsonFile<SiteSettings>('src/data/site-settings.json');
+    let settings: SiteSettings | null = null;
+    if (isDatabaseConfigured()) {
+      settings = await dbGetSiteSettings();
+    }
+    if (!settings) {
+      settings = await readJsonFile<SiteSettings>('src/data/site-settings.json');
+    }
     return NextResponse.json({
       settings,
       storage: getStorageInfo(),
@@ -66,6 +74,12 @@ export async function PUT(request: Request) {
         ga4MeasurementId: String(body.analytics?.ga4MeasurementId || '').trim(),
       },
     };
+
+    if (isDatabaseConfigured()) {
+      await dbSaveSiteSettings(sanitized);
+      revalidateSettings();
+      return NextResponse.json({ settings: sanitized, commit: { mode: 'neon' } });
+    }
 
     const contentBase64 = Buffer.from(
       JSON.stringify(sanitized, null, 2) + '\n',

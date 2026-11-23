@@ -3,19 +3,19 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  getAllWorksheets,
-  getWorksheetBySlug,
-  getWorksheetsBySubject,
-  getRelatedWorksheets,
-} from '@/data/worksheets';
+  fetchAllWorksheets,
+  fetchWorksheetBySlug,
+  fetchWorksheetsBySubject,
+  fetchRelatedWorksheets,
+} from '@/lib/worksheets-store';
 import { subjects, getSubjectBySlug } from '@/data/subjects';
-import { isIndexableCollection, WorksheetSubject } from '@/types/worksheet';
+import { isIndexableCollection } from '@/types/worksheet';
 import { WorksheetDetailView } from '@/components/WorksheetDetailView';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
-import { getSiteUrl } from '@/config/site';
+import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
 import {
   BookOpen,
   Sparkles,
@@ -33,7 +33,8 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const subjectParams = subjects.map((s) => ({ slug: s.slug }));
-  const worksheetParams = getAllWorksheets().map((w) => ({ slug: w.slug }));
+  const allWorksheets = await fetchAllWorksheets();
+  const worksheetParams = allWorksheets.map((w) => ({ slug: w.slug }));
   return [...subjectParams, ...worksheetParams];
 }
 
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 1. Is it a Subject?
   const subject = getSubjectBySlug(slug);
   if (subject) {
-    const subjectWorksheets = getWorksheetsBySubject(subject.slug);
+    const subjectWorksheets = await fetchWorksheetsBySubject(subject.slug);
     const isIndexable = isIndexableCollection(subjectWorksheets.length);
     const pageUrl = `${siteUrl}/worksheets/${subject.slug}`;
     return {
@@ -66,9 +67,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   // 2. Is it a Worksheet?
-  const worksheet = getWorksheetBySlug(slug);
+  const worksheet = await fetchWorksheetBySlug(slug);
   if (worksheet) {
     const pageUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
+    const previewImgUrl = toAbsoluteAssetUrl(worksheet.previewImages[0], siteUrl);
 
     return {
       title: `${worksheet.title} | Free Printable PDF`,
@@ -85,7 +87,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         modifiedTime: `${worksheet.dateModified}T00:00:00.000Z`,
         images: [
           {
-            url: `${siteUrl}${worksheet.previewImages[0]}`,
+            url: previewImgUrl,
             width: 1224,
             height: 1584,
             alt: `${worksheet.title} Printable PDF Preview`,
@@ -96,7 +98,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         card: 'summary_large_image',
         title: worksheet.title,
         description: worksheet.description,
-        images: [`${siteUrl}${worksheet.previewImages[0]}`],
+        images: [previewImgUrl],
       },
       robots: {
         index: true,
@@ -117,8 +119,9 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
   // 1. Check if slug matches a Subject
   const subject = getSubjectBySlug(slug);
   if (subject) {
-    const subjectWorksheets = getWorksheetsBySubject(subject.slug);
-    const otherWorksheets = getAllWorksheets()
+    const subjectWorksheets = await fetchWorksheetsBySubject(subject.slug);
+    const allWorksheets = await fetchAllWorksheets();
+    const otherWorksheets = allWorksheets
       .filter((w) => w.subject !== subject.slug)
       .slice(0, 4);
 
@@ -293,11 +296,11 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
   }
 
   // 2. Check if slug matches a Worksheet
-  const worksheet = getWorksheetBySlug(slug);
+  const worksheet = await fetchWorksheetBySlug(slug);
   if (worksheet) {
-    const relatedWorksheets = getRelatedWorksheets(worksheet, 4);
+    const relatedWorksheets = await fetchRelatedWorksheets(worksheet, 4);
     const nextInSeriesWorksheet = worksheet.series?.nextSlug
-      ? getWorksheetBySlug(worksheet.series.nextSlug) ?? null
+      ? (await fetchWorksheetBySlug(worksheet.series.nextSlug)) ?? null
       : null;
 
     // Schema.org Structured Data
@@ -316,7 +319,7 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
       encodingFormat: 'application/pdf',
       datePublished: `${worksheet.datePublished}T00:00:00.000Z`,
       dateModified: `${worksheet.dateModified}T00:00:00.000Z`,
-      image: `${siteUrl}${worksheet.previewImages[0]}`,
+      image: toAbsoluteAssetUrl(worksheet.previewImages[0], siteUrl),
     };
 
     return (

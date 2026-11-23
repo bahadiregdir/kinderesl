@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useTransition, useEffect } from 'react';
+import React, { useState, useMemo, useTransition, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Worksheet, SubjectMeta } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
@@ -30,12 +30,22 @@ export function WorksheetsCatalog({
   const [selectedSubject, setSelectedSubject] = useState(initialSubject);
   const [selectedActivity, setSelectedActivity] = useState(initialActivity);
   const [selectedAge, setSelectedAge] = useState(initialAge);
+  const filteredCountRef = useRef(worksheets.length);
 
   useEffect(() => {
     const trimmed = searchQuery.trim();
     if (trimmed.length < 2) return;
     const timer = setTimeout(() => {
       trackEvent('catalog_search', { query: trimmed });
+      fetch('/api/analytics/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'search',
+          query: trimmed,
+          resultCount: filteredCountRef.current,
+        }),
+      }).catch(() => {});
     }, 800);
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -117,6 +127,8 @@ export function WorksheetsCatalog({
       return true;
     });
   }, [worksheets, searchQuery, selectedSubject, selectedActivity, selectedAge]);
+
+  filteredCountRef.current = filteredWorksheets.length;
 
   const hasActiveFilters = Boolean(
     searchQuery || selectedSubject || selectedActivity || selectedAge

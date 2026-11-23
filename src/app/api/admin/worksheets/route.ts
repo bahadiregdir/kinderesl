@@ -2,8 +2,15 @@ import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
 import { commitFiles, getStorageInfo, readJsonFile } from '@/lib/cms-storage';
 import {
+  dbGetAnalyticsSummary,
+  dbListWorksheets,
+  dbUpsertWorksheet,
+  isDatabaseConfigured,
+} from '@/lib/db';
+import { revalidateCatalog } from '@/lib/revalidation';
+import {
   computeCollectionStats,
-  processUploadedAssets,
+  saveUploadedAssetsForWorksheet,
   validateWorksheetMetadata,
 } from '@/lib/worksheet-cms-helper';
 import type { Worksheet } from '@/types/worksheet';
@@ -14,11 +21,20 @@ export async function GET() {
   }
 
   try {
-    const worksheets = await readJsonFile<Worksheet[]>('src/data/worksheets.json');
+    const useDb = isDatabaseConfigured();
+    const worksheets = useDb
+      ? await dbListWorksheets()
+      : await readJsonFile<Worksheet[]>('src/data/worksheets.json');
+
+    const analytics = useDb
+      ? await dbGetAnalyticsSummary()
+      : { totalDownloads: 0, topDownloaded: [], topSearches: [] };
+
     return NextResponse.json({
       worksheets,
       storage: getStorageInfo(),
       stats: computeCollectionStats(worksheets),
+      analytics,
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Failed to load worksheets';
@@ -39,14 +55,17 @@ export async function POST(request: Request) {
     }
 
     const parsedMeta = JSON.parse(metadataRaw) as Record<string, unknown>;
-    const existingWorksheets = await readJsonFile<Worksheet[]>('src/data/worksheets.json');
+    const useDb = isDatabaseConfigured();
+    const existingWorksheets = useDb
+      ? await dbListWorksheets()
+      : await readJsonFile<Worksheet[]>('src/data/worksheets.json');
 
     const validated = validateWorksheetMetadata(parsedMeta, {
       requireSlugFree: true,
       existingWorksheets,
     });
 
-    const uploaded = await processUploadedAssets(validated.slug, formData);
+    const uploaded = await saveUploadedAssetsForWorksheet(validated.slug, formData);
     if (!uploaded.pdfPath || !uploaded.pdfFileSize) {
       return NextResponse.json({ error: 'A valid PDF file is required.' }, { status: 400 });
     }
@@ -66,6 +85,28 @@ export async function POST(request: Request) {
       pinterestPinImage: uploaded.pinterestPinImage || uploaded.previewImages[0],
     };
 
+    if (useDb) {
+      if (uploaded.localChanges.length > 0) {
+        await commitFiles(
+          uploaded.localChanges,
+          `cms: save local assets for ${finalWorksheet.slug}`
+        );
+      }
+      await dbUpsertWorksheet(finalWorksheet, true);
+      revalidateCatalog(finalWorksheet.slug);
+
+      const nextList = [finalWorksheet, ...existingWorksheets];
+      return NextResponse.json(
+        {
+          worksheet: finalWorksheet,
+          commit: { mode: 'neon', assetStorage: uploaded.assetBackend },
+          stats: computeCollectionStats(nextList),
+        },
+        { status: 201 }
+      );
+    }
+
+    // Legacy JSON / Git-CMS fallback if DATABASE_URL is absent
     const nextList = [finalWorksheet, ...existingWorksheets];
     const jsonBase64 = Buffer.from(JSON.stringify(nextList, null, 2) + '\n', 'utf8').toString(
       'base64'
@@ -73,7 +114,7 @@ export async function POST(request: Request) {
 
     const commit = await commitFiles(
       [
-        ...uploaded.changes,
+        ...uploaded.localChanges,
         { path: 'src/data/worksheets.json', contentBase64: jsonBase64 },
       ],
       `cms: add worksheet ${finalWorksheet.slug}`
@@ -89,7 +130,10 @@ export async function POST(request: Request) {
     );
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Failed to publish worksheet';
-    const status = msg.includes('already exists') || msg.includes('required') ? 400 : 500;
+    const status =
+      msg.includes('already exists') || msg.includes('required') || msg.includes('limit')
+        ? 400
+        : 500;
     return NextResponse.json({ error: msg }, { status });
   }
 }

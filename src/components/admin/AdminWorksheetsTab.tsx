@@ -77,7 +77,9 @@ export function AdminWorksheetsTab({
         setErrorMsg(data.error || 'Delete failed.');
       } else {
         const msg =
-          data.commit?.mode === 'github'
+          data.commit?.mode === 'neon'
+            ? 'Worksheet deleted from Neon Postgres and site updated live.'
+            : data.commit?.mode === 'github'
             ? `Deleted & committed to GitHub (${data.commit.commitSha?.slice(0, 7)}) — Vercel rebuild started.`
             : 'Worksheet deleted from local repository.';
         onDeleted(ws.slug, msg);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllWorksheets } from '@/data/worksheets';
+import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { topics } from '@/data/topics';
 import { months } from '@/data/months';
@@ -24,8 +24,8 @@ import {
   FileDown,
 } from 'lucide-react';
 
-export default function HomePage() {
-  const worksheets = getAllWorksheets();
+export default async function HomePage() {
+  const worksheets = await fetchAllWorksheets();
   const showcaseSlugs = [
     'letter-tracing-worksheets-a-to-z',
     'beginning-sounds-clip-cards',

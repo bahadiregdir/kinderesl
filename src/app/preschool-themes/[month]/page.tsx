@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { months, getMonthBySlug } from '@/data/months';
 import { topics } from '@/data/topics';
 import {
-  getAllWorksheets,
-  getWorksheetsByMonth,
-} from '@/data/worksheets';
+  fetchAllWorksheets,
+  fetchWorksheetsByMonth,
+} from '@/lib/worksheets-store';
 import { isIndexableCollection } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/preschool-themes/${m.slug}`;
-  const monthWorksheets = getWorksheetsByMonth(m.monthNumber);
+  const monthWorksheets = await fetchWorksheetsByMonth(m.monthNumber);
   const isIndexable = isIndexableCollection(monthWorksheets.length);
 
   return {
@@ -67,8 +67,9 @@ export default async function MonthDetailPage({ params }: Props) {
     notFound();
   }
 
-  const worksheets = getWorksheetsByMonth(m.monthNumber);
-  const otherWorksheets = getAllWorksheets()
+  const worksheets = await fetchWorksheetsByMonth(m.monthNumber);
+  const allWorksheets = await fetchAllWorksheets();
+  const otherWorksheets = allWorksheets
     .filter((w) => !worksheets.some((mw) => mw.id === w.id))
     .slice(0, 4);
 

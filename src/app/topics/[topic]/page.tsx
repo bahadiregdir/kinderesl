@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { topics, getTopicBySlug } from '@/data/topics';
 import {
-  getAllWorksheets,
-  getWorksheetsByTopic,
-} from '@/data/worksheets';
+  fetchAllWorksheets,
+  fetchWorksheetsByTopic,
+} from '@/lib/worksheets-store';
 import { isIndexableCollection } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/topics/${t.slug}`;
-  const topicWorksheets = getWorksheetsByTopic(t.slug);
+  const topicWorksheets = await fetchWorksheetsByTopic(t.slug);
   const isIndexable = isIndexableCollection(topicWorksheets.length);
 
   return {
@@ -66,8 +66,9 @@ export default async function TopicDetailPage({ params }: Props) {
     notFound();
   }
 
-  const worksheets = getWorksheetsByTopic(t.slug);
-  const otherWorksheets = getAllWorksheets()
+  const worksheets = await fetchWorksheetsByTopic(t.slug);
+  const allWorksheets = await fetchAllWorksheets();
+  const otherWorksheets = allWorksheets
     .filter((w) => !w.topics.includes(t.slug))
     .slice(0, 4);
 

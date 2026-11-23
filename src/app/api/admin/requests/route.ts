@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
 import { commitFiles, readJsonFile } from '@/lib/cms-storage';
+import {
+  dbDeleteRequest,
+  dbListRequests,
+  dbUpdateRequestStatus,
+  isDatabaseConfigured,
+} from '@/lib/db';
 import type { WorksheetRequest } from '@/types/worksheet';
 
 const VALID_STATUSES = new Set<WorksheetRequest['status']>(['new', 'planned', 'done']);
@@ -11,7 +17,9 @@ export async function GET() {
   }
 
   try {
-    const requests = await readJsonFile<WorksheetRequest[]>('src/data/requests.json');
+    const requests = isDatabaseConfigured()
+      ? await dbListRequests()
+      : await readJsonFile<WorksheetRequest[]>('src/data/requests.json');
     return NextResponse.json({ requests });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Failed to load requests';
@@ -33,6 +41,25 @@ export async function PATCH(request: Request) {
 
     if (!body.id) {
       return NextResponse.json({ error: 'Request id is required.' }, { status: 400 });
+    }
+
+    if (isDatabaseConfigured()) {
+      if (body.delete) {
+        const deleted = await dbDeleteRequest(body.id);
+        if (!deleted) {
+          return NextResponse.json({ error: 'Request not found.' }, { status: 404 });
+        }
+      } else if (body.status && VALID_STATUSES.has(body.status)) {
+        const updated = await dbUpdateRequestStatus(body.id, body.status);
+        if (!updated) {
+          return NextResponse.json({ error: 'Request not found.' }, { status: 404 });
+        }
+      } else {
+        return NextResponse.json({ error: 'Invalid status update.' }, { status: 400 });
+      }
+
+      const requests = await dbListRequests();
+      return NextResponse.json({ requests, commit: { mode: 'neon' } });
     }
 
     const requests = await readJsonFile<WorksheetRequest[]>('src/data/requests.json');

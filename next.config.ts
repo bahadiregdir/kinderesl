@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.kinderesl.com' },
+      { protocol: 'https', hostname: '**.r2.dev' },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {

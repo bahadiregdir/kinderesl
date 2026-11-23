@@ -9,6 +9,8 @@ import {
   isIndexableCollection,
 } from '@/types/worksheet';
 import type { CmsFileChange } from './cms-storage';
+import { commitFiles, getStorageInfo } from './cms-storage';
+import { deleteFromR2ByUrl, isR2Configured, uploadBufferToR2 } from './r2-storage';
 
 const RESERVED_SUBJECT_SLUGS = new Set<string>(subjects.map((s) => s.slug));
 const VALID_SUBJECTS = new Set<string>(subjects.map((s) => s.slug));
@@ -328,4 +330,92 @@ export async function processUploadedAssets(
   }
 
   return { changes, pdfPath, pdfFileSize, previewImages, pinterestPinImage };
+}
+
+export async function saveUploadedAssetsForWorksheet(
+  slug: string,
+  formData: FormData
+): Promise<{
+  assetBackend: 'r2' | 'local';
+  pdfPath?: string;
+  pdfFileSize?: string;
+  previewImages: string[];
+  pinterestPinImage?: string;
+  localChanges: CmsFileChange[];
+}> {
+  const localPrepared = await processUploadedAssets(slug, formData);
+
+  if (isR2Configured()) {
+    let pdfPath: string | undefined;
+    const previewImages: string[] = [];
+    let pinterestPinImage: string | undefined;
+
+    for (const ch of localPrepared.changes) {
+      if (ch.delete) continue;
+      const buf = Buffer.from(ch.contentBase64, 'base64');
+      // Convert public/worksheets/<slug>/<file> -> worksheets/<slug>/<file>
+      const objectKey = ch.path.replace(/^public\//, '');
+      let contentType = 'application/octet-stream';
+      if (objectKey.endsWith('.pdf')) contentType = 'application/pdf';
+      else if (objectKey.endsWith('.png')) contentType = 'image/png';
+      else if (objectKey.endsWith('.webp')) contentType = 'image/webp';
+      else if (objectKey.endsWith('.jpg') || objectKey.endsWith('.jpeg')) {
+        contentType = 'image/jpeg';
+      }
+
+      const publicUrl = await uploadBufferToR2(objectKey, buf, contentType);
+      if (objectKey.endsWith('.pdf')) {
+        pdfPath = publicUrl;
+      } else if (objectKey.includes('/pinterest-pin.')) {
+        pinterestPinImage = publicUrl;
+      } else {
+        previewImages.push(publicUrl);
+      }
+    }
+
+    return {
+      assetBackend: 'r2',
+      pdfPath,
+      pdfFileSize: localPrepared.pdfFileSize,
+      previewImages,
+      pinterestPinImage,
+      localChanges: [],
+    };
+  }
+
+  const info = getStorageInfo();
+  if (info.assetStorage === 'unconfigured' && localPrepared.changes.length > 0) {
+    throw new Error(
+      'Cloudflare R2 is not configured in Vercel production. Please add R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, and R2_PUBLIC_URL in Vercel Environment Variables to upload PDF and preview files.'
+    );
+  }
+
+  return {
+    assetBackend: 'local',
+    pdfPath: localPrepared.pdfPath,
+    pdfFileSize: localPrepared.pdfFileSize,
+    previewImages: localPrepared.previewImages,
+    pinterestPinImage: localPrepared.pinterestPinImage,
+    localChanges: localPrepared.changes,
+  };
+}
+
+export async function removeOldAssetUrls(urls: string[]): Promise<void> {
+  const uniqueUrls = Array.from(new Set(urls.filter(Boolean)));
+  const r2Urls = uniqueUrls.filter(
+    (u) => u.startsWith('https://') || u.startsWith('http://')
+  );
+  const localPaths = uniqueUrls
+    .filter((u) => u.startsWith('/worksheets/'))
+    .map((u) => `public/${u.replace(/^\/+/, '')}`);
+
+  await Promise.all(r2Urls.map((u) => deleteFromR2ByUrl(u)));
+
+  const info = getStorageInfo();
+  if (localPaths.length > 0 && info.mode === 'local') {
+    await commitFiles(
+      localPaths.map((p) => ({ path: p, delete: true })),
+      'cms: cleanup removed local worksheet assets'
+    );
+  }
 }

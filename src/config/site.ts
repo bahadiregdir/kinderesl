@@ -26,6 +26,15 @@ export function getSiteUrl(): string {
   return 'https://kinderesl.com';
 }
 
+export function toAbsoluteAssetUrl(assetPath: string, siteUrl: string): string {
+  if (!assetPath) return '';
+  if (assetPath.startsWith('http://') || assetPath.startsWith('https://')) {
+    return assetPath;
+  }
+  const normalizedPath = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+  return `${siteUrl.replace(/\/+$/, '')}${normalizedPath}`;
+}
+
 export const siteConfig = {
   name: 'KinderESL',
   legalName: 'KinderESL Educational Resources',
