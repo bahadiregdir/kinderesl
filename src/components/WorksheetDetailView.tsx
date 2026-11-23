@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Worksheet } from '@/types/worksheet';
+import { Worksheet, type SiteSettings } from '@/types/worksheet';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
@@ -32,12 +32,14 @@ interface WorksheetDetailViewProps {
   worksheet: Worksheet;
   relatedWorksheets: Worksheet[];
   nextInSeriesWorksheet?: Worksheet | null;
+  author?: SiteSettings['author'];
 }
 
 export function WorksheetDetailView({
   worksheet,
   relatedWorksheets,
   nextInSeriesWorksheet: providedNextInSeries = null,
+  author,
 }: WorksheetDetailViewProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
@@ -541,7 +543,7 @@ export function WorksheetDetailView({
           )}
 
           {/* Author Box */}
-          <AuthorBox isCompact={false} />
+          <AuthorBox isCompact={false} author={author} />
 
           {/* Save to Pinterest Section */}
           <section className="p-6 rounded-2xl bg-[#FFF5F5] border border-red-100 flex flex-col sm:flex-row items-center justify-between gap-4">

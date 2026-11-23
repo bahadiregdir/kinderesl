@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { AuthorBox } from '@/components/AuthorBox';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { fetchSiteSettings } from '@/lib/worksheets-store';
 import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { BookOpen, ShieldCheck, HeartHandshake, Sparkles } from 'lucide-react';
 
@@ -33,7 +34,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const settings = await fetchSiteSettings();
+
   return (
     <>
       <div className="bg-slate-50 border-b border-slate-200">
@@ -57,7 +60,7 @@ export default function AboutPage() {
         </header>
 
         {/* Clean Author Box */}
-        <AuthorBox isCompact={false} />
+        <AuthorBox isCompact={false} author={settings.author} />
 
         {/* Core Design Pillars (Fabricated claims removed as requested in Item 2) */}
         <section className="my-12">

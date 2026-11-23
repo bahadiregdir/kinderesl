@@ -14,6 +14,14 @@ export function getContactEmail(): string {
   return '[BURAYA GERÇEK E-POSTA]';
 }
 
+export function resolveContactEmail(settingsEmail?: string): string {
+  const trimmed = settingsEmail?.trim();
+  if (trimmed && trimmed.includes('@') && !trimmed.includes('BURAYA')) {
+    return trimmed;
+  }
+  return getContactEmail();
+}
+
 export function getSiteUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
   if (envUrl && envUrl.trim() !== '') {

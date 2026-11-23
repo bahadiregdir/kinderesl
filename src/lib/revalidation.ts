@@ -10,6 +10,10 @@ export function revalidateCatalog(slug?: string): void {
     revalidatePath('/topics/[topic]', 'page');
     revalidatePath('/preschool-themes');
     revalidatePath('/preschool-themes/[month]', 'page');
+    revalidatePath('/ages/[age]', 'page');
+    revalidatePath('/activities/[activity]', 'page');
+    revalidatePath('/guides');
+    revalidatePath('/guides/[slug]', 'page');
     revalidatePath('/sitemap.xml');
     revalidatePath('/rss.xml');
     revalidatePath('/llms.txt');
@@ -23,12 +27,15 @@ export function revalidateCatalog(slug?: string): void {
 
 export function revalidateSettings(): void {
   try {
-    revalidateTag('site-settings', 'max');
+    revalidateTag('site-settings', { expire: 0 });
     revalidatePath('/', 'layout');
     revalidatePath('/');
     revalidatePath('/ads.txt');
     revalidatePath('/contact');
     revalidatePath('/about');
+    revalidatePath('/privacy-policy');
+    revalidatePath('/worksheets/[slug]', 'page');
+    revalidatePath('/guides/[slug]', 'page');
   } catch (err) {
     console.warn('Settings revalidation skipped or partial:', err);
   }

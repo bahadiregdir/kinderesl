@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { connection } from 'next/server';
 import { getSiteUrl, siteConfig } from '@/config/site';
 import { subjects } from '@/data/subjects';
+import { guides } from '@/data/guides';
 import { fetchAllWorksheets } from '@/lib/worksheets-store';
 
 export async function GET() {
@@ -51,6 +52,14 @@ export async function GET() {
     }
     lines.push('');
   }
+
+  lines.push('## Educator Teaching Guides');
+  for (const guide of guides) {
+    lines.push(
+      `- [${guide.title}](${baseUrl}/guides/${guide.slug}) (${guide.targetAges}, ${guide.readingTime}): ${guide.description}`
+    );
+  }
+  lines.push('');
 
   lines.push('## Inquiries & Feedback');
   lines.push(`- Website: [${siteConfig.name}](${baseUrl})`);

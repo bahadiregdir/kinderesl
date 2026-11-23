@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetRequestForm } from '@/components/WorksheetRequestForm';
-import { siteConfig, getSiteUrl } from '@/config/site';
+import { getSiteUrl, resolveContactEmail } from '@/config/site';
+import { fetchSiteSettings } from '@/lib/worksheets-store';
 import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Mail, MessageSquare, Clock, ShieldCheck } from 'lucide-react';
 
@@ -33,7 +34,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await fetchSiteSettings();
+  const contactEmail = resolveContactEmail(settings.contactEmail);
+
   return (
     <>
       <div className="bg-slate-50 border-b border-slate-200">
@@ -69,14 +73,14 @@ export default function ContactPage() {
                 Direct Educator Inbox
               </span>
               <h2 className="text-xl font-bold text-slate-900 break-all">
-                {siteConfig.contactEmail}
+                {contactEmail}
               </h2>
               <p className="text-xs text-slate-600">
                 For printable requests, bug reports, and copyright inquiries.
               </p>
             </div>
             <a
-              href={`mailto:${siteConfig.contactEmail}?subject=KinderESL%20Teacher%20Inquiry`}
+              href={`mailto:${contactEmail}?subject=KinderESL%20Teacher%20Inquiry`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-xs font-bold shadow-xs transition-colors shrink-0"
             >
               <Mail className="w-4 h-4" />

@@ -8,6 +8,8 @@ import {
   isDatabaseConfigured,
 } from '@/lib/db';
 import type {
+  ActivityType,
+  AgeBand,
   SiteSettings,
   Worksheet,
   WorksheetSubject,
@@ -65,6 +67,20 @@ export async function fetchWorksheetsByMonth(
     if (w.months && w.months.includes(monthNumber)) return true;
     return w.topics.some((topic) => matchingTopics.includes(topic));
   });
+}
+
+export async function fetchWorksheetsByAgeBand(
+  ageBand: AgeBand
+): Promise<Worksheet[]> {
+  const all = await fetchAllWorksheets();
+  return all.filter((w) => w.ageBands.includes(ageBand));
+}
+
+export async function fetchWorksheetsByActivityType(
+  activity: ActivityType
+): Promise<Worksheet[]> {
+  const all = await fetchAllWorksheets();
+  return all.filter((w) => w.activityTypes.includes(activity));
 }
 
 export async function fetchRelatedWorksheets(

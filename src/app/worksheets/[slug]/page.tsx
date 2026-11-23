@@ -7,6 +7,7 @@ import {
   fetchWorksheetBySlug,
   fetchWorksheetsBySubject,
   fetchRelatedWorksheets,
+  fetchSiteSettings,
 } from '@/lib/worksheets-store';
 import { subjects, getSubjectBySlug } from '@/data/subjects';
 import { isIndexableCollection } from '@/types/worksheet';
@@ -317,10 +318,13 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
   // 2. Check if slug matches a Worksheet
   const worksheet = await fetchWorksheetBySlug(slug);
   if (worksheet) {
-    const relatedWorksheets = await fetchRelatedWorksheets(worksheet, 4);
-    const nextInSeriesWorksheet = worksheet.series?.nextSlug
-      ? (await fetchWorksheetBySlug(worksheet.series.nextSlug)) ?? null
-      : null;
+    const [relatedWorksheets, nextInSeriesWorksheet, settings] = await Promise.all([
+      fetchRelatedWorksheets(worksheet, 4),
+      worksheet.series?.nextSlug
+        ? fetchWorksheetBySlug(worksheet.series.nextSlug).then((w) => w ?? null)
+        : Promise.resolve(null),
+      fetchSiteSettings(),
+    ]);
 
     // Schema.org Structured Data
     const pageUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
@@ -355,6 +359,7 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
           worksheet={worksheet}
           relatedWorksheets={relatedWorksheets}
           nextInSeriesWorksheet={nextInSeriesWorksheet}
+          author={settings.author}
         />
       </>
     );

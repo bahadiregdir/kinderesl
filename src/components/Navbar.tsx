@@ -45,6 +45,7 @@ export function Navbar() {
   const navItems = [
     { title: 'Worksheets', href: '/worksheets', isMega: true },
     { title: 'Topics', href: '/topics' },
+    { title: 'Guides', href: '/guides' },
     { title: 'Seasons & Months', href: '/preschool-themes' },
     { title: 'Games', href: '/games' },
     { title: 'About', href: '/about' },
@@ -60,18 +61,19 @@ export function Navbar() {
   ];
 
   const agesList = [
-    { title: 'Ages 3–4 (Preschool)', href: '/worksheets?age=3-4' },
-    { title: 'Ages 4–5 (Pre-K)', href: '/worksheets?age=4-5' },
-    { title: 'Ages 5–6 (Kindergarten)', href: '/worksheets?age=5-6' },
+    { title: 'Ages 3–4 (Preschool)', href: '/ages/3-4' },
+    { title: 'Ages 4–5 (Pre-K)', href: '/ages/4-5' },
+    { title: 'Ages 5–6 (Kindergarten)', href: '/ages/5-6' },
   ];
 
   const activitiesList = [
-    { title: 'Letter & Line Tracing', href: '/worksheets?activity=tracing' },
-    { title: 'Coloring Pages', href: '/worksheets?activity=coloring' },
-    { title: 'Cut & Paste Worksheets', href: '/worksheets?activity=cut-and-paste' },
-    { title: 'Matching Activities', href: '/worksheets?activity=matching' },
-    { title: 'Counting Worksheets', href: '/worksheets?activity=counting' },
-    { title: 'Odd One Out Logic', href: '/worksheets?activity=odd-one-out' },
+    { title: 'Letter & Line Tracing', href: '/activities/tracing' },
+    { title: 'Coloring Pages', href: '/activities/coloring' },
+    { title: 'Cut & Paste Worksheets', href: '/activities/cut-and-paste' },
+    { title: 'Matching Activities', href: '/activities/matching' },
+    { title: 'Counting Worksheets', href: '/activities/counting' },
+    { title: 'Odd One Out Logic', href: '/activities/odd-one-out' },
+    { title: 'ESL Flashcards', href: '/activities/flashcards' },
   ];
 
   return (

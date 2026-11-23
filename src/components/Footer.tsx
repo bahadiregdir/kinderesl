@@ -25,6 +25,7 @@ export function Footer() {
     { title: 'Insects & Bugs', href: '/topics/insects' },
     { title: 'Food & Nutrition', href: '/topics/food' },
     { title: 'Monthly Themes', href: '/preschool-themes' },
+    { title: 'Teaching Guides', href: '/guides' },
   ];
 
   const legalLinks = [

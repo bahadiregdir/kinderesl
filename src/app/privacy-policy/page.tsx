@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { siteConfig, getSiteUrl } from '@/config/site';
+import { siteConfig, getSiteUrl, resolveContactEmail } from '@/config/site';
+import { fetchSiteSettings } from '@/lib/worksheets-store';
 import { DEFAULT_OG_IMAGE, buildSeoDescription } from '@/lib/seo-meta';
 import { ShieldCheck, Lock } from 'lucide-react';
 
@@ -31,7 +32,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const settings = await fetchSiteSettings();
+  const contactEmail = resolveContactEmail(settings.contactEmail);
+
   return (
     <>
       <div className="bg-slate-50 border-b border-slate-200">
@@ -117,7 +121,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <p className="font-semibold text-slate-900">
               KinderESL Educational Resources<br />
-              Email: {siteConfig.contactEmail}<br />
+              Email: {contactEmail}<br />
               Website: <a href={`${siteUrl}/contact`} className="text-[#2E6B6B] underline">{siteConfig.domain}/contact</a>
             </p>
           </section>

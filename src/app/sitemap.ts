@@ -5,10 +5,15 @@ import {
   fetchWorksheetsBySubject,
   fetchWorksheetsByTopic,
   fetchWorksheetsByMonth,
+  fetchWorksheetsByAgeBand,
+  fetchWorksheetsByActivityType,
 } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { topics } from '@/data/topics';
 import { months } from '@/data/months';
+import { ageBandsData } from '@/data/ages';
+import { activitiesData } from '@/data/activities';
+import { guides } from '@/data/guides';
 import { isIndexableCollection, type Worksheet } from '@/types/worksheet';
 import { getSiteUrl } from '@/config/site';
 
@@ -52,6 +57,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/topics`,
+      lastModified: latestModDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/guides`,
       lastModified: latestModDate,
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -125,6 +136,43 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
       });
     }
+  }
+
+  // Age groups (enter sitemap when count >= 1)
+  for (const a of ageBandsData) {
+    const items = await fetchWorksheetsByAgeBand(a.slug);
+    if (isIndexableCollection(items.length)) {
+      routes.push({
+        url: `${baseUrl}/ages/${a.slug}`,
+        lastModified: getLatestDate(items, latestModDate),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Activity types (enter sitemap when count >= 1)
+  for (const act of activitiesData) {
+    const items = await fetchWorksheetsByActivityType(act.slug);
+    if (isIndexableCollection(items.length)) {
+      routes.push({
+        url: `${baseUrl}/activities/${act.slug}`,
+        lastModified: getLatestDate(items, latestModDate),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Educator teaching guides
+  for (const g of guides) {
+    const mod = new Date(g.dateModified || latestModDate);
+    routes.push({
+      url: `${baseUrl}/guides/${g.slug}`,
+      lastModified: Number.isNaN(mod.getTime()) ? latestModDate : mod,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
   }
 
   // Individual published worksheet pages with real updatedAt lastmod

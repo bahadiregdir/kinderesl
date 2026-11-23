@@ -1,10 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import type { SiteSettings } from '@/types/worksheet';
 import { BookOpen, Sparkles } from 'lucide-react';
 
-export function AuthorBox({ isCompact = false }: { isCompact?: boolean }) {
-  const { author } = siteConfig;
+interface AuthorBoxProps {
+  isCompact?: boolean;
+  author?: SiteSettings['author'];
+}
+
+export function AuthorBox({
+  isCompact = false,
+  author: providedAuthor,
+}: AuthorBoxProps) {
+  const author = providedAuthor || siteConfig.author;
 
   if (isCompact) {
     return (

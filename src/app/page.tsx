@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getSiteUrl, siteConfig } from '@/config/site';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo-meta';
-import { fetchAllWorksheets } from '@/lib/worksheets-store';
+import { fetchAllWorksheets, fetchSiteSettings } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { topics } from '@/data/topics';
 import { months } from '@/data/months';
@@ -57,7 +57,10 @@ import {
 } from 'lucide-react';
 
 export default async function HomePage() {
-  const worksheets = await fetchAllWorksheets();
+  const [worksheets, settings] = await Promise.all([
+    fetchAllWorksheets(),
+    fetchSiteSettings(),
+  ]);
   const showcaseSlugs = [
     'letter-tracing-worksheets-a-to-z',
     'beginning-sounds-clip-cards',
@@ -432,7 +435,7 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <AuthorBox isCompact={false} />
+          <AuthorBox isCompact={false} author={settings.author} />
         </div>
       </section>
 
