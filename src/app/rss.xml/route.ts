@@ -75,7 +75,6 @@ export async function GET(request: Request) {
         `      <category>${escapeXml(ws.subjectName)}</category>`,
         `      <description>${escapeXml(descriptionText)}</description>`,
         `      <enclosure url="${escapeXml(pinImageUrl)}" type="${mimeType}" length="0" />`,
-        `      <media:content url="${escapeXml(pinImageUrl)}" medium="image" type="${mimeType}" width="1000" height="1500" />`,
         '    </item>',
       ].join('\n');
     })
@@ -83,7 +82,7 @@ export async function GET(request: Request) {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
     '  <channel>',
     `    <title>${escapeXml(channelTitle)}</title>`,
     `    <link>${escapeXml(channelLink)}</link>`,
