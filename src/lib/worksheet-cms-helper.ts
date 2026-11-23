@@ -50,7 +50,7 @@ export function computeCollectionStats(allWorksheets: Worksheet[]) {
       fullTitle: s.title,
       count,
       indexed: isIndexableCollection(count),
-      remainingForIndex: Math.max(0, 6 - count),
+      remainingForIndex: Math.max(0, 1 - count),
     };
   });
 
@@ -61,7 +61,7 @@ export function computeCollectionStats(allWorksheets: Worksheet[]) {
       title: t.title,
       count,
       indexed: isIndexableCollection(count),
-      remainingForIndex: Math.max(0, 6 - count),
+      remainingForIndex: Math.max(0, 1 - count),
     };
   });
 
@@ -80,7 +80,7 @@ export function computeCollectionStats(allWorksheets: Worksheet[]) {
       monthNumber: m.monthNumber,
       count,
       indexed: isIndexableCollection(count),
-      remainingForIndex: Math.max(0, 6 - count),
+      remainingForIndex: Math.max(0, 1 - count),
     };
   });
 

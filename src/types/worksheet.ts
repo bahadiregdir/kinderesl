@@ -163,9 +163,9 @@ export interface WorksheetRequest {
 
 /**
  * Central indexation rule:
- * Subject, topic, and monthly theme collections require >= 6 worksheets to be indexed
- * and included in sitemap.xml. Otherwise they remain noindex, follow.
+ * Any subject, topic, or monthly theme collection with at least 1 worksheet
+ * is indexable and included in sitemap.xml.
  */
 export function isIndexableCollection(count: number): boolean {
-  return count >= 6;
+  return count >= 1;
 }

@@ -89,7 +89,7 @@ export function AdminDashboardTab({
       actionLabel: 'PDF Ekle',
     },
     {
-      label: 'En Az Bir Ana Konu İndekslenebilir Durumda (≥ 6 kağıt)',
+      label: 'En Az Bir Ana Konu İndekslenebilir Durumda (≥ 1 kağıt)',
       detail: `${stats?.indexedSubjects || 0} / 6 konu Google & sitemap.xml için indekslenebilir`,
       ok: (stats?.indexedSubjects || 0) >= 1,
       actionTab: 'upload' as AdminTabId,
@@ -252,12 +252,12 @@ export function AdminDashboardTab({
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-1.5">
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span>İndekslenen Kategoriler (≥6)</span>
+            <span>İndekslenen Kategoriler</span>
             <Globe className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{totalIndexableHubs}</p>
           <p className="text-[11px] text-slate-500">
-            SEO eşiğini geçen konu/tema/ay sayısı
+            İçerik eklenen konu, tema ve ay sayfaları
           </p>
         </div>
 
@@ -285,42 +285,40 @@ export function AdminDashboardTab({
                 Konu İndeksleme İlerlemesi
               </h2>
               <p className="text-[11px] text-slate-500">
-                Kategoriler 6 çalışma kağıdına ulaşınca <code className="font-mono">noindex</code>&apos;ten{' '}
-                <code className="font-mono">index</code>&apos;e geçer.
+                En az 1 çalışma kağıdı bulunan tüm konu, tema ve ay sayfaları Google&apos;da indekslenir ve{' '}
+                <code className="font-mono">sitemap.xml</code>&apos;e eklenir.
               </p>
             </div>
             <Layers className="w-4 h-4 text-[#2E6B6B]" />
           </div>
 
           <div className="space-y-3.5">
-            {(stats?.subjectStats || []).map((sub) => {
-              const pct = Math.min(100, Math.round((sub.count / 6) * 100));
-              return (
-                <div key={sub.slug} className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-800">
-                      {SUBJECT_TR[sub.slug] || sub.title}
-                    </span>
-                    <span
-                      className={`font-semibold ${
-                        sub.indexed ? 'text-emerald-700' : 'text-slate-500'
-                      }`}
-                    >
-                      {sub.count} / 6{' '}
-                      {sub.indexed ? '(İndekslendi ✓)' : `(indeks için ${sub.remainingForIndex} adet daha)`}
-                    </span>
-                  </div>
-                  <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all ${
-                        sub.indexed ? 'bg-emerald-500' : 'bg-[#2E6B6B]'
-                      }`}
-                      style={{ width: `${Math.max(4, pct)}%` }}
-                    />
-                  </div>
+            {(stats?.subjectStats || []).map((sub) => (
+              <div key={sub.slug} className="space-y-1.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-800">
+                    {SUBJECT_TR[sub.slug] || sub.title}
+                  </span>
+                  <span
+                    className={`font-semibold ${
+                      sub.indexed ? 'text-emerald-700' : 'text-slate-500'
+                    }`}
+                  >
+                    {sub.indexed
+                      ? `${sub.count} çalışma kağıdı (İndekslendi ✓)`
+                      : `${sub.count} çalışma kağıdı (İçerik bekleniyor)`}
+                  </span>
                 </div>
-              );
-            })}
+                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all ${
+                      sub.indexed ? 'bg-emerald-500' : 'bg-[#2E6B6B]'
+                    }`}
+                    style={{ width: sub.indexed ? '100%' : '4%' }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

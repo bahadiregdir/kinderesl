@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Subjects (enter sitemap only when count >= 6)
+  // Subjects (enter sitemap when count >= 1)
   for (const s of subjects) {
     const count = (await fetchWorksheetsBySubject(s.slug)).length;
     if (isIndexableCollection(count)) {
@@ -80,7 +80,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Topics (enter sitemap only when count >= 6)
+  // Topics (enter sitemap when count >= 1)
   for (const t of topics) {
     const count = (await fetchWorksheetsByTopic(t.slug)).length;
     if (isIndexableCollection(count)) {
@@ -93,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Months (enter sitemap only when count >= 6)
+  // Months (enter sitemap when count >= 1)
   for (const m of months) {
     const count = (await fetchWorksheetsByMonth(m.monthNumber)).length;
     if (isIndexableCollection(count)) {
