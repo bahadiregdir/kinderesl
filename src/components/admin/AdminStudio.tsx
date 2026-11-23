@@ -85,7 +85,7 @@ export function AdminStudio() {
         setRequests(reqData.requests || []);
       }
     } catch {
-      showToast('err', 'Failed to refresh CMS data.');
+      showToast('err', 'CMS verileri yenilenemedi.');
     } finally {
       setLoadingData(false);
     }
@@ -104,7 +104,7 @@ export function AdminStudio() {
           await loadAllCmsData();
         }
       } catch {
-        setLoginError('Unable to reach auth endpoint.');
+        setLoginError('Yetkilendirme sunucusuna ulaşılamadı.');
       } finally {
         setCheckingAuth(false);
       }
@@ -123,7 +123,7 @@ export function AdminStudio() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setLoginError(data.error || 'Authentication failed.');
+        setLoginError(data.error || 'Giriş başarısız.');
       } else {
         setAuthenticated(true);
         setPasswordInput('');
@@ -131,7 +131,7 @@ export function AdminStudio() {
         await loadAllCmsData();
       }
     } catch {
-      setLoginError('Network error during login.');
+      setLoginError('Giriş sırasında ağ hatası oluştu.');
     } finally {
       setLoggingIn(false);
     }
@@ -145,12 +145,12 @@ export function AdminStudio() {
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center text-sm font-semibold text-slate-500">
-        Loading KinderESL Admin Studio...
+        KinderESL Yönetim Paneli yükleniyor...
       </div>
     );
   }
 
-  // Unauthenticated Login Gate
+  // Yetkisiz Giriş Ekranı
   if (!authenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#F0F7F7] via-white to-slate-100 flex items-center justify-center p-4">
@@ -160,26 +160,26 @@ export function AdminStudio() {
               <Lock className="w-6 h-6" />
             </div>
             <h1 className="text-xl font-extrabold text-slate-900 font-heading">
-              KinderESL Admin Studio
+              KinderESL Yönetim Paneli
             </h1>
             <p className="text-xs text-slate-500">
-              Sign in to upload PDF printables, generate Pinterest Pins, and manage AdSense &amp; SEO.
+              PDF çalışma kağıtları yüklemek, Pinterest Pini oluşturmak, AdSense ve SEO ayarlarını yönetmek için giriş yapın.
             </p>
           </div>
 
           {!passwordConfigured ? (
             <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1.5">
-              <p className="font-bold">Production Login Locked</p>
+              <p className="font-bold">Üretim Girişi Kilitli</p>
               <p>
-                Set <code className="font-mono bg-white px-1 rounded">ADMIN_PASSWORD</code> in your
-                Vercel Project Environment Variables and redeploy to unlock Admin Studio.
+                Yönetim Panelinin kilidini açmak için Vercel Proje Environment Variables ayarlarına{' '}
+                <code className="font-mono bg-white px-1 rounded">ADMIN_PASSWORD</code> değerini ekleyip projeyi yeniden deploy edin.
               </p>
             </div>
           ) : (
             <form onSubmit={handleLogin} className="space-y-4">
               {isDevDefaultPassword && (
                 <div className="p-3 rounded-xl bg-[#F0F7F7] border border-[#d0e3e3] text-[11px] text-[#2E6B6B] font-medium">
-                  Development default password active: <code className="font-mono font-bold">kinderesl-dev</code>
+                  Geliştirme varsayılan şifresi aktif: <code className="font-mono font-bold">kinderesl-dev</code>
                 </div>
               )}
 
@@ -192,7 +192,7 @@ export function AdminStudio() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Admin Password
+                  Yönetici Şifresi
                 </label>
                 <input
                   type="password"
@@ -200,7 +200,7 @@ export function AdminStudio() {
                   autoFocus
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
-                  placeholder="Enter admin password..."
+                  placeholder="Yönetici şifresini girin..."
                   className="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B]"
                 />
               </div>
@@ -210,14 +210,14 @@ export function AdminStudio() {
                 disabled={loggingIn}
                 className="w-full py-3 rounded-xl bg-[#2E6B6B] hover:bg-[#235353] text-white text-sm font-bold shadow-xs transition-colors disabled:opacity-60"
               >
-                {loggingIn ? 'Signing in...' : 'Unlock Studio'}
+                {loggingIn ? 'Giriş yapılıyor...' : 'Panele Giriş Yap'}
               </button>
             </form>
           )}
 
           <div className="pt-2 border-t border-slate-100 text-center">
             <Link href="/" className="text-xs font-semibold text-slate-500 hover:text-[#2E6B6B]">
-              ← Return to kinderesl.com
+              ← kinderesl.com sitesine dön
             </Link>
           </div>
         </div>
@@ -233,12 +233,12 @@ export function AdminStudio() {
     icon: React.ComponentType<{ className?: string }>;
     badge?: number;
   }> = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'worksheets', label: 'Worksheets', icon: FileText, badge: worksheets.length },
-    { id: 'upload', label: editingWorksheet ? 'Edit Printable' : '+ Upload PDF', icon: Upload },
-    { id: 'requests', label: 'Requests', icon: Inbox, badge: newReqCount || undefined },
-    { id: 'monetization', label: 'Monetization', icon: Megaphone },
-    { id: 'settings', label: 'Settings', icon: Settings },
+    { id: 'dashboard', label: 'Genel Bakış', icon: LayoutDashboard },
+    { id: 'worksheets', label: 'Çalışma Kağıtları', icon: FileText, badge: worksheets.length },
+    { id: 'upload', label: editingWorksheet ? 'Çalışmayı Düzenle' : '+ PDF Yükle', icon: Upload },
+    { id: 'requests', label: 'İstekler', icon: Inbox, badge: newReqCount || undefined },
+    { id: 'monetization', label: 'Reklam / AdSense', icon: Megaphone },
+    { id: 'settings', label: 'Ayarlar', icon: Settings },
   ];
 
   return (
@@ -255,7 +255,7 @@ export function AdminStudio() {
                 KinderESL
               </span>
               <span className="text-[10px] font-bold uppercase tracking-wider text-teal-400">
-                Admin Studio
+                Yönetim Paneli
               </span>
             </div>
           </div>
@@ -264,7 +264,7 @@ export function AdminStudio() {
             type="button"
             onClick={handleLogout}
             className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
-            aria-label="Sign out"
+            aria-label="Çıkış Yap"
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -310,23 +310,23 @@ export function AdminStudio() {
           })}
         </nav>
 
-        {/* Bottom Storage Status & External Links */}
+        {/* Alt Depolama Durumu & Dış Bağlantılar */}
         <div className="mt-auto p-4 border-t border-slate-800 space-y-2.5 hidden lg:block">
           <div className="px-3 py-2.5 rounded-xl bg-slate-800/80 text-[11px] space-y-1">
             <div>
-              <span className="text-slate-400 block">Database</span>
+              <span className="text-slate-400 block">Veritabanı</span>
               <span className="font-bold text-emerald-300 block">
-                {storage?.database === 'neon' ? 'Neon Postgres (Live)' : 'Local JSON'}
+                {storage?.database === 'neon' ? 'Neon Postgres (Canlı)' : 'Yerel JSON'}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block">PDF &amp; Image Storage</span>
+              <span className="text-slate-400 block">PDF &amp; Görsel Depolama</span>
               <span className="font-bold text-teal-300 block">
                 {storage?.assetStorage === 'r2'
                   ? 'Cloudflare R2 (CDN)'
                   : storage?.assetStorage === 'local'
-                  ? 'Local Disk (R2 Pending)'
-                  : 'R2 Setup Pending'}
+                  ? 'Yerel Disk (R2 Bekliyor)'
+                  : 'R2 Kurulumu Bekliyor'}
               </span>
             </div>
           </div>
@@ -337,7 +337,7 @@ export function AdminStudio() {
               target="_blank"
               className="flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold"
             >
-              <span>Live Site</span>
+              <span>Canlı Site</span>
               <ExternalLink className="w-3 h-3" />
             </Link>
             <Link
@@ -346,7 +346,7 @@ export function AdminStudio() {
               className="flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-teal-300 font-semibold"
             >
               <Eye className="w-3 h-3" />
-              <span>Ad Map</span>
+              <span>Reklam Haritası</span>
             </Link>
           </div>
 
@@ -356,7 +356,7 @@ export function AdminStudio() {
             className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-bold transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
-            <span>Sign Out</span>
+            <span>Çıkış Yap</span>
           </button>
         </div>
       </aside>
@@ -384,7 +384,7 @@ export function AdminStudio() {
         )}
 
         {loadingData && !stats ? (
-          <div className="py-20 text-center text-sm text-slate-500">Loading studio data...</div>
+          <div className="py-20 text-center text-sm text-slate-500">Panel verileri yükleniyor...</div>
         ) : (
           <>
             {activeTab === 'dashboard' && (

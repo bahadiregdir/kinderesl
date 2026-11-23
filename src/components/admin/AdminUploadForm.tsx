@@ -43,16 +43,40 @@ interface AdminUploadFormProps {
 }
 
 const ACTIVITY_OPTIONS: Array<{ value: ActivityType; label: string }> = [
-  { value: 'tracing', label: 'Tracing' },
-  { value: 'coloring', label: 'Coloring' },
-  { value: 'counting', label: 'Counting' },
-  { value: 'matching', label: 'Matching' },
-  { value: 'cut-and-paste', label: 'Cut & Paste' },
-  { value: 'odd-one-out', label: 'Odd One Out' },
-  { value: 'flashcards', label: 'Flashcards' },
-  { value: 'dot-to-dot', label: 'Dot-to-Dot' },
-  { value: 'maze', label: 'Maze' },
+  { value: 'tracing', label: 'Çizgi Takibi' },
+  { value: 'coloring', label: 'Boyama' },
+  { value: 'counting', label: 'Sayma' },
+  { value: 'matching', label: 'Eşleştirme' },
+  { value: 'cut-and-paste', label: 'Kes ve Yapıştır' },
+  { value: 'odd-one-out', label: 'Farklı Olanı Bul' },
+  { value: 'flashcards', label: 'Kelime Kartları (Flashcards)' },
+  { value: 'dot-to-dot', label: 'Nokta Birleştirme' },
+  { value: 'maze', label: 'Labirent' },
 ];
+
+const SUBJECT_TR: Record<string, string> = {
+  alphabet: 'Alfabe (Alphabet)',
+  phonics: 'Fonik / Ses Bilgisi (Phonics)',
+  'numbers-counting': 'Sayılar ve Sayma (Numbers & Counting)',
+  'shapes-colors': 'Şekiller ve Renkler (Shapes & Colors)',
+  vocabulary: 'Kelime Bilgisi (Vocabulary)',
+  'thinking-skills': 'Düşünme Becerileri (Thinking Skills)',
+};
+
+const MONTH_TR: Record<number, string> = {
+  1: 'Oca',
+  2: 'Şub',
+  3: 'Mar',
+  4: 'Nis',
+  5: 'May',
+  6: 'Haz',
+  7: 'Tem',
+  8: 'Ağu',
+  9: 'Eyl',
+  10: 'Eki',
+  11: 'Kas',
+  12: 'Ara',
+};
 
 const AGE_OPTIONS: AgeBand[] = ['3-4', '4-5', '5-6'];
 
@@ -300,7 +324,7 @@ export function AdminUploadForm({
   const handlePdfSelected = async (file: File) => {
     setErrorMsg(null);
     if (file.size > 4 * 1024 * 1024) {
-      setErrorMsg('Selected PDF is larger than 4 MB. Please compress it before uploading.');
+      setErrorMsg('Seçilen PDF 4 MB boyutundan büyük. Lütfen yüklemeden önce sıkıştırın.');
       return;
     }
     setPdfFile(file);
@@ -320,7 +344,7 @@ export function AdminUploadForm({
         pinBadge
       );
     } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : 'Failed to render PDF preview pages.');
+      setErrorMsg(err instanceof Error ? err.message : 'PDF önizleme sayfaları oluşturulamadı.');
     } finally {
       setRenderingPdf(false);
     }
@@ -358,17 +382,17 @@ export function AdminUploadForm({
     }
   };
 
-  // SEO & Quality Score Checklist
+  // SEO & Kalite Puanı Kontrol Listesi
   const qualityChecks = [
-    { label: 'Title (25–75 chars)', ok: title.trim().length >= 25 && title.trim().length <= 75 },
-    { label: 'Description (>= 90 chars)', ok: description.trim().length >= 90 },
-    { label: 'PDF Attached', ok: Boolean(pdfFile || editingWorksheet?.pdfPath) },
-    { label: 'PNG Previews Ready', ok: activePreviewSrcs.length > 0 },
-    { label: 'Pinterest Pin Ready', ok: Boolean(pinBlob || editingWorksheet?.pinterestPinImage) },
-    { label: 'Vocabulary (>= 3 English words)', ok: vocabulary.length >= 3 },
-    { label: 'Teacher Goal & Tip Filled', ok: Boolean(learningGoal.trim() && teachingTip.trim()) },
+    { label: 'Başlık (25–75 karakter)', ok: title.trim().length >= 25 && title.trim().length <= 75 },
+    { label: 'Açıklama (≥ 90 karakter)', ok: description.trim().length >= 90 },
+    { label: 'PDF Eklendi', ok: Boolean(pdfFile || editingWorksheet?.pdfPath) },
+    { label: 'PNG Önizlemeler Hazır', ok: activePreviewSrcs.length > 0 },
+    { label: 'Pinterest Pini Hazır', ok: Boolean(pinBlob || editingWorksheet?.pinterestPinImage) },
+    { label: 'Kelime Listesi (≥ 3 İngilizce kelime)', ok: vocabulary.length >= 3 },
+    { label: 'Öğrenme Hedefi & İpucu Dolu', ok: Boolean(learningGoal.trim() && teachingTip.trim()) },
     {
-      label: 'FAQs (>= 2 Q&As)',
+      label: 'SSS (≥ 2 Soru-Cevap)',
       ok: faqs.filter((f) => f.question.trim() && f.answer.trim()).length >= 2,
     },
   ];
@@ -381,15 +405,15 @@ export function AdminUploadForm({
     setErrorMsg(null);
 
     if (!isEdit && !pdfFile) {
-      setErrorMsg('Please upload a PDF file first.');
+      setErrorMsg('Lütfen önce bir PDF dosyası yükleyin.');
       return;
     }
     if (renderedPages.length === 0 && !isEdit) {
-      setErrorMsg('Please wait for the PDF pages to render into PNG previews.');
+      setErrorMsg('Lütfen PDF sayfalarının PNG önizlemelere dönüştürülmesini bekleyin.');
       return;
     }
     if (totalUploadBytes > 4.3 * 1024 * 1024) {
-      setErrorMsg('Total payload exceeds 4.3 MB Vercel limit. Please use a smaller PDF.');
+      setErrorMsg('Toplam yükleme boyutu 4.3 MB Vercel sınırını aşıyor. Lütfen daha küçük bir PDF seçin.');
       return;
     }
 
@@ -460,18 +484,18 @@ export function AdminUploadForm({
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.error || 'Failed to publish worksheet.');
+        setErrorMsg(data.error || 'Çalışma kağıdı yayınlanamadı.');
       } else {
         const msg =
           data.commit?.mode === 'neon'
-            ? `${isEdit ? 'Updated' : 'Published'} to Neon Postgres & live immediately!`
+            ? `Çalışma kağıdı Neon Postgres'e ${isEdit ? 'güncellendi' : 'yayınlandı'} ve sitede anında aktif oldu!`
             : data.commit?.mode === 'github'
-            ? `${isEdit ? 'Updated' : 'Published'} & committed to GitHub (${data.commit.commitSha?.slice(0, 7)}) — Vercel rebuild started.`
-            : `Worksheet ${isEdit ? 'updated' : 'saved'} locally!`;
+            ? `${isEdit ? 'Güncellendi' : 'Yayınlandı'} ve GitHub'a commit'lendi (${data.commit.commitSha?.slice(0, 7)}) — Vercel yeniden derleme başlatıldı.`
+            : `Çalışma kağıdı yerel olarak ${isEdit ? 'güncellendi' : 'kaydedildi'}!`;
         onPublished(data.worksheet, msg, isEdit);
       }
     } catch {
-      setErrorMsg('Network error submitting worksheet.');
+      setErrorMsg('Çalışma kağıdı gönderilirken ağ hatası oluştu.');
     } finally {
       setSubmitting(false);
     }
@@ -479,23 +503,23 @@ export function AdminUploadForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Header */}
+      {/* Üst Başlık */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={onCancel}
             className="p-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-600"
-            aria-label="Back to worksheets"
+            aria-label="Çalışma kağıtlarına dön"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900 font-heading">
-              {isEdit ? `Edit: ${editingWorksheet!.title}` : 'PDF Worksheet Upload & Pin Studio'}
+              {isEdit ? `Düzenle: ${editingWorksheet!.title}` : 'PDF Çalışma Kağıdı Yükleme & Pin Stüdyosu'}
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">
-              Drop a US Letter PDF to auto-render crisp page previews and a 1000×1500 Pinterest Pin.
+              US Letter boyutunda PDF bırakın; sayfa önizlemeleri ve 1000×1500 Pinterest Pini otomatik oluşturulsun. (Site içeriği alanlarını İngilizce doldurun.)
             </p>
           </div>
         </div>
@@ -506,7 +530,7 @@ export function AdminUploadForm({
           className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold"
         >
           <Wand2 className="w-3.5 h-3.5" />
-          <span>Quick-Fill Subject Template</span>
+          <span>Konu Şablonuyla Hızlı Doldur</span>
         </button>
       </div>
 
@@ -518,17 +542,17 @@ export function AdminUploadForm({
       )}
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-        {/* LEFT MAIN: PDF Drop + Metadata Form (8 cols) */}
+        {/* SOL ANA ALAN: PDF Yükleme + Meta Bilgi Formu (8 sütun) */}
         <div className="xl:col-span-8 space-y-6">
-          {/* Step A: PDF Upload */}
+          {/* Adım A: PDF Yükleme */}
           <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base font-bold text-slate-900 font-heading flex items-center gap-2">
                 <FileText className="w-4 h-4 text-[#2E6B6B]" />
-                <span>1. Printable PDF File &amp; Auto-Rendered Pages</span>
+                <span>1. Yazdırılabilir PDF Dosyası ve Otomatik Önizleme Sayfaları</span>
               </h2>
               <span className="text-xs font-semibold text-slate-500">
-                {effectivePages} {effectivePages > 1 ? 'pages' : 'page'} · {effectiveSizeLabel}
+                {effectivePages} sayfa · {effectiveSizeLabel}
               </span>
             </div>
 
@@ -555,15 +579,15 @@ export function AdminUploadForm({
               <Upload className="w-8 h-8 text-[#2E6B6B] mx-auto mb-2" />
               <p className="text-sm font-bold text-slate-900">
                 {renderingPdf
-                  ? 'Rendering vector PDF pages in browser...'
+                  ? 'PDF sayfaları tarayıcıda PNG görsele dönüştürülüyor...'
                   : pdfFile
-                  ? `Selected: ${pdfFile.name} (${formatBytesLabel(pdfFile.size)})`
+                  ? `Seçilen dosya: ${pdfFile.name} (${formatBytesLabel(pdfFile.size)})`
                   : isEdit
-                  ? 'Optional: Drop a new PDF to replace existing file'
-                  : 'Drop printable PDF here or click to browse'}
+                  ? 'İsteğe bağlı: Mevcut dosyayı değiştirmek için yeni PDF bırakın'
+                  : 'Yazdırılabilir PDF dosyasını buraya sürükleyin veya seçmek için tıklayın'}
               </p>
               <p className="text-[11px] text-slate-500 mt-1">
-                Recommended: US Letter vector PDF under 3 MB (PNG previews render locally at zero server cost)
+                Önerilen: 3 MB altı US Letter vektörel PDF (PNG önizlemeler sunucu maliyeti olmadan tarayıcıda üretilir)
               </p>
             </div>
 
@@ -576,11 +600,11 @@ export function AdminUploadForm({
                   >
                     <img
                       src={src}
-                      alt={`Rendered Page ${idx + 1}`}
+                      alt={`Sayfa ${idx + 1} önizlemesi`}
                       className="w-full aspect-[1224/1584] object-contain bg-white rounded border border-slate-100"
                     />
                     <p className="text-[11px] font-bold text-center text-slate-600">
-                      Page {idx + 1} PNG ✓
+                      Sayfa {idx + 1} PNG ✓
                     </p>
                   </div>
                 ))}
@@ -590,36 +614,36 @@ export function AdminUploadForm({
             {totalUploadBytes > 0 && (
               <div className="flex items-center justify-between text-[11px] px-3 py-2 rounded-lg bg-slate-50 border border-slate-200">
                 <span className="font-semibold text-slate-600">
-                  Combined upload payload (PDF + PNGs + Pin JPG):
+                  Toplam yükleme boyutu (PDF + PNG + Pin JPG):
                 </span>
                 <span
                   className={`font-bold ${
                     totalUploadBytes > 3.8 * 1024 * 1024 ? 'text-rose-600' : 'text-emerald-700'
                   }`}
                 >
-                  {formatBytesLabel(totalUploadBytes)} / 4.5 MB limit
+                  {formatBytesLabel(totalUploadBytes)} / 4.5 MB sınır
                 </span>
               </div>
             )}
           </section>
 
-          {/* Step B: Core Metadata */}
+          {/* Adım B: Temel Meta Veriler */}
           <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
             <h2 className="text-base font-bold text-slate-900 font-heading border-b border-slate-100 pb-3">
-              2. SEO Title, Taxonomy &amp; Classification
+              2. SEO Başlığı, Kategori ve Sınıflandırma
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Worksheet Title (H1 &amp; SEO Title) *
+                  Çalışma Kağıdı Başlığı (İngilizce H1 &amp; SEO Başlığı) *
                 </label>
                 <input
                   type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="e.g. Letter B Tracing & Phonics: Benny Bear Picks Blueberries"
+                  placeholder="ör. Letter B Tracing & Phonics: Benny Bear Picks Blueberries"
                   className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-[#2E6B6B] focus:outline-hidden"
                 />
               </div>
@@ -644,7 +668,7 @@ export function AdminUploadForm({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Subject *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Ana Konu *</label>
                 <select
                   value={subject}
                   onChange={(e) => setSubject(e.target.value as WorksheetSubject)}
@@ -652,14 +676,14 @@ export function AdminUploadForm({
                 >
                   {subjects.map((s) => (
                     <option key={s.slug} value={s.slug}>
-                      {s.shortTitle}
+                      {SUBJECT_TR[s.slug] || s.shortTitle}
                     </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Ages Label *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Yaş Etiketi (İngilizce) *</label>
                 <input
                   type="text"
                   required
@@ -671,7 +695,7 @@ export function AdminUploadForm({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Grade Level *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Sınıf Seviyesi (İngilizce) *</label>
                 <input
                   type="text"
                   required
@@ -683,10 +707,10 @@ export function AdminUploadForm({
               </div>
             </div>
 
-            {/* Age Bands & ESL Level */}
+            {/* Yaş Grupları & ESL Seviyesi */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Age Filter Bands *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Yaş Filtre Grupları *</label>
                 <div className="flex flex-wrap gap-2">
                   {AGE_OPTIONS.map((band) => {
                     const active = ageBands.includes(band);
@@ -705,7 +729,7 @@ export function AdminUploadForm({
                             : 'bg-slate-50 text-slate-600 border-slate-200'
                         }`}
                       >
-                        Ages {band}
+                        {band} yaş
                       </button>
                     );
                   })}
@@ -713,29 +737,29 @@ export function AdminUploadForm({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">ESL Level</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">ESL Seviyesi</label>
                 <div className="flex gap-2">
                   {(['beginner', 'early-reader'] as const).map((lvl) => (
                     <button
                       key={lvl}
                       type="button"
                       onClick={() => setEslLevel(lvl)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold border capitalize ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold border ${
                         eslLevel === lvl
                           ? 'bg-[#2E6B6B] text-white border-[#2E6B6B]'
                           : 'bg-slate-50 text-slate-600 border-slate-200'
                       }`}
                     >
-                      {lvl.replace('-', ' ')}
+                      {lvl === 'beginner' ? 'Başlangıç (Beginner)' : 'Erken Okuyucu (Early Reader)'}
                     </button>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Activity Types */}
+            {/* Etkinlik Türleri */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Activity Types</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Etkinlik Türleri</label>
               <div className="flex flex-wrap gap-1.5">
                 {ACTIVITY_OPTIONS.map((act) => {
                   const active = activityTypes.includes(act.value);
@@ -763,10 +787,10 @@ export function AdminUploadForm({
               </div>
             </div>
 
-            {/* Topics & Curriculum Months */}
+            {/* Konular ve Müfredat Ayları */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Topics / Themes</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Konular / Temalar</label>
                 <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto p-2 rounded-xl border border-slate-200 bg-slate-50/70">
                   {topics.map((t) => {
                     const active = selectedTopics.includes(t.slug);
@@ -796,7 +820,7 @@ export function AdminUploadForm({
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Curriculum Months
+                  Müfredat Ayları
                 </label>
                 <div className="grid grid-cols-4 gap-1.5 p-2 rounded-xl border border-slate-200 bg-slate-50/70">
                   {months.map((m) => {
@@ -818,7 +842,7 @@ export function AdminUploadForm({
                             : 'bg-white text-slate-600 border-slate-200'
                         }`}
                       >
-                        {m.name.slice(0, 3)}
+                        {MONTH_TR[m.monthNumber] || m.name.slice(0, 3)}
                       </button>
                     );
                   })}
@@ -827,61 +851,61 @@ export function AdminUploadForm({
             </div>
           </section>
 
-          {/* Step C: Descriptions, Teacher Notes, Vocabulary, Series & FAQs */}
+          {/* Adım C: Açıklamalar, Öğretmen Notları, Kelime Listesi, Seri & SSS */}
           <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
             <h2 className="text-base font-bold text-slate-900 font-heading border-b border-slate-100 pb-3">
-              3. Classroom Guide, Vocabulary &amp; FAQs
+              3. Öğretmen Rehberi, Kelime Listesi ve SSS (İngilizce İçerik)
             </h2>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Meta Description &amp; Intro Paragraph *
+                Meta Açıklama ve Giriş Paragrafı *
               </label>
               <textarea
                 required
                 rows={2}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="1–2 crisp sentences explaining what educators get in this printable PDF..."
+                placeholder="Eğitimcilerin bu PDF ile ne elde edeceğini anlatan 1–2 net İngilizce cümle..."
                 className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white"
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Quick Above-the-Fold Summary (1 sentence)
+                Hızlı Özet (1 cümle — sayfa üstünde görünür)
               </label>
               <input
                 type="text"
                 value={quickSummary}
                 onChange={(e) => setQuickSummary(e.target.value)}
-                placeholder="Defaults to description if left empty"
+                placeholder="Boş bırakılırsa üstteki açıklamayı kullanır"
                 className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Target Skill Summary *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Hedef Beceri Özeti *</label>
               <input
                 type="text"
                 required
                 value={skill}
                 onChange={(e) => setSkill(e.target.value)}
-                placeholder="e.g. Initial phonics sound /b/, letter formation, and vocabulary recall"
+                placeholder="ör. Initial phonics sound /b/, letter formation, and vocabulary recall"
                 className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white"
               />
             </div>
 
-            {/* Teacher Note fields */}
+            {/* Öğretmen Notu Alanları */}
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
               <p className="text-xs font-bold uppercase tracking-wider text-[#2E6B6B]">
-                How to Use (Teacher &amp; Parent Methodology)
+                Nasıl Kullanılır (Öğretmen &amp; Veli Rehberi)
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                    Learning Goal *
+                    Öğrenme Hedefi *
                   </label>
                   <input
                     type="text"
@@ -893,13 +917,13 @@ export function AdminUploadForm({
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                    Skill Focus
+                    Beceri Odağı
                   </label>
                   <input
                     type="text"
                     value={skillFocus}
                     onChange={(e) => setSkillFocus(e.target.value)}
-                    placeholder="Defaults to target skill"
+                    placeholder="Boşsa hedef beceriyi kullanır"
                     className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 bg-white"
                   />
                 </div>
@@ -907,7 +931,7 @@ export function AdminUploadForm({
 
               <div>
                 <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                  Teacher Tip *
+                  Öğretmen İpucu *
                 </label>
                 <textarea
                   required
@@ -920,7 +944,7 @@ export function AdminUploadForm({
 
               <div>
                 <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                  Extension Activity
+                  Ek Etkinlik
                 </label>
                 <input
                   type="text"
@@ -931,9 +955,9 @@ export function AdminUploadForm({
               </div>
             </div>
 
-            {/* What's Inside dynamic list */}
+            {/* İçerik Listesi */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-700">What&apos;s Inside Checklist</label>
+              <label className="block text-xs font-bold text-slate-700">İçerik Listesi (What&apos;s Inside)</label>
               {whatsInside.map((item, idx) => (
                 <div key={idx} className="flex gap-2">
                   <input
@@ -944,7 +968,7 @@ export function AdminUploadForm({
                       next[idx] = e.target.value;
                       setWhatsInside(next);
                     }}
-                    placeholder={`Bullet ${idx + 1}...`}
+                    placeholder={`Madde ${idx + 1}...`}
                     className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50"
                   />
                   <button
@@ -961,15 +985,15 @@ export function AdminUploadForm({
                 onClick={() => setWhatsInside((prev) => [...prev, ''])}
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline"
               >
-                <Plus className="w-3.5 h-3.5" /> Add item
+                <Plus className="w-3.5 h-3.5" /> Madde ekle
               </button>
             </div>
 
-            {/* Vocabulary & Keywords */}
+            {/* Kelime Listesi & SEO Anahtar Kelimeler */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="block text-xs font-bold text-slate-700">
-                  English Vocabulary Words (need &gt;= 3 to display)
+                  İngilizce Kelimeler (görünmesi için ≥ 3)
                 </label>
                 <div className="flex flex-wrap gap-1.5">
                   {vocabulary.map((word, idx) => (
@@ -1003,7 +1027,7 @@ export function AdminUploadForm({
                         setVocabInput('');
                       }
                     }}
-                    placeholder="Type word + Enter (or comma-separated)"
+                    placeholder="Kelime yazıp Enter'a basın (veya virgülle ayırın)"
                     className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50"
                   />
                   <button
@@ -1018,13 +1042,13 @@ export function AdminUploadForm({
                     }}
                     className="px-2.5 py-1.5 rounded-lg bg-slate-100 text-xs font-bold"
                   >
-                    Add
+                    Ekle
                   </button>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="block text-xs font-bold text-slate-700">SEO Keywords</label>
+                <label className="block text-xs font-bold text-slate-700">SEO Anahtar Kelimeleri</label>
                 <div className="flex flex-wrap gap-1.5">
                   {keywords.map((kw, idx) => (
                     <span
@@ -1057,7 +1081,7 @@ export function AdminUploadForm({
                         setKwInput('');
                       }
                     }}
-                    placeholder="Add SEO phrase + Enter"
+                    placeholder="SEO ifadesi yazıp Enter'a basın"
                     className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50"
                   />
                   <button
@@ -1072,44 +1096,44 @@ export function AdminUploadForm({
                     }}
                     className="px-2.5 py-1.5 rounded-lg bg-slate-100 text-xs font-bold"
                   >
-                    Add
+                    Ekle
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Series Linking */}
+            {/* Seri Bağlantısı */}
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
               <p className="text-xs font-bold text-slate-700">
-                Optional Series Connection (e.g. Letter of the Week)
+                Opsiyonel Seri Bağlantısı (ör. Letter of the Week)
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 <input
                   type="text"
                   value={seriesName}
                   onChange={(e) => setSeriesName(e.target.value)}
-                  placeholder="Series Name"
+                  placeholder="Seri Adı"
                   className="px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
                 />
                 <input
                   type="text"
                   value={seriesId}
                   onChange={(e) => setSeriesId(e.target.value)}
-                  placeholder="series-id (optional)"
+                  placeholder="seri-id (opsiyonel)"
                   className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 bg-white"
                 />
                 <input
                   type="number"
                   value={seriesOrder}
                   onChange={(e) => setSeriesOrder(e.target.value)}
-                  placeholder="Order (e.g. 2)"
+                  placeholder="Sıra (ör. 2)"
                   className="px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
                 />
                 <input
                   type="number"
                   value={seriesTotal}
                   onChange={(e) => setSeriesTotal(e.target.value)}
-                  placeholder="Total (e.g. 26)"
+                  placeholder="Toplam (ör. 26)"
                   className="px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
                 />
                 <select
@@ -1117,12 +1141,12 @@ export function AdminUploadForm({
                   onChange={(e) => setSeriesPrevSlug(e.target.value)}
                   className="px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
                 >
-                  <option value="">Previous in series (none)</option>
+                  <option value="">Serideki önceki (yok)</option>
                   {existingWorksheets
                     .filter((w) => w.slug !== slug)
                     .map((w) => (
                       <option key={w.slug} value={w.slug}>
-                        Prev: {w.slug}
+                        Önceki: {w.slug}
                       </option>
                     ))}
                 </select>
@@ -1131,22 +1155,22 @@ export function AdminUploadForm({
                   onChange={(e) => setSeriesNextSlug(e.target.value)}
                   className="px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
                 >
-                  <option value="">Next in series (none)</option>
+                  <option value="">Serideki sonraki (yok)</option>
                   {existingWorksheets
                     .filter((w) => w.slug !== slug)
                     .map((w) => (
                       <option key={w.slug} value={w.slug}>
-                        Next: {w.slug}
+                        Sonraki: {w.slug}
                       </option>
                     ))}
                 </select>
               </div>
             </div>
 
-            {/* FAQs */}
+            {/* SSS */}
             <div className="space-y-3">
               <label className="block text-xs font-bold text-slate-700">
-                Worksheet FAQs (Generates FAQ Schema)
+                Sık Sorulan Sorular (Google FAQ Şeması Üretir)
               </label>
               {faqs.map((faq, idx) => (
                 <div
@@ -1162,7 +1186,7 @@ export function AdminUploadForm({
                         next[idx] = { ...next[idx], question: e.target.value };
                         setFaqs(next);
                       }}
-                      placeholder={`Question ${idx + 1}`}
+                      placeholder={`Soru ${idx + 1} (İngilizce)`}
                       className="flex-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white"
                     />
                     <button
@@ -1181,7 +1205,7 @@ export function AdminUploadForm({
                       next[idx] = { ...next[idx], answer: e.target.value };
                       setFaqs(next);
                     }}
-                    placeholder="Clear answer for parents and teachers..."
+                    placeholder="Veliler ve öğretmenler için net cevap (İngilizce)..."
                     className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
                   />
                 </div>
@@ -1191,21 +1215,21 @@ export function AdminUploadForm({
                 onClick={() => setFaqs((p) => [...p, { question: '', answer: '' }])}
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline"
               >
-                <Plus className="w-3.5 h-3.5" /> Add FAQ
+                <Plus className="w-3.5 h-3.5" /> Soru Ekle
               </button>
             </div>
           </section>
         </div>
 
-        {/* RIGHT SIDEBAR: Auto Pinterest Pin Studio + Live SEO Score (4 cols) */}
+        {/* SAĞ YAN MENÜ: Otomatik Pinterest Pin Stüdyosu + Canlı SEO Puanı (4 sütun) */}
         <div className="xl:col-span-4 space-y-6 xl:sticky xl:top-6">
-          {/* Pinterest Pin Studio */}
+          {/* Pinterest Pin Stüdyosu */}
           <section className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
                 <ImageIcon className="w-4 h-4 text-red-600" />
                 <h3 className="text-sm font-bold text-slate-900 font-heading">
-                  Auto Pinterest Pin (1000×1500)
+                  Otomatik Pinterest Pini (1000×1500)
                 </h3>
               </div>
               {pinDataUrl && (
@@ -1215,7 +1239,7 @@ export function AdminUploadForm({
                   className="inline-flex items-center gap-1 text-[11px] font-bold text-red-600 hover:underline"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download JPG</span>
+                  <span>JPG İndir</span>
                 </a>
               )}
             </div>
@@ -1224,20 +1248,20 @@ export function AdminUploadForm({
               <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 shadow-xs">
                 <img
                   src={pinDataUrl}
-                  alt="Generated Pinterest Pin preview"
+                  alt="Oluşturulan Pinterest Pin önizlemesi"
                   className="w-full aspect-[2/3] object-contain"
                 />
               </div>
             ) : (
               <div className="aspect-[2/3] rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center p-6 text-center text-xs text-slate-400">
                 <Sparkles className="w-6 h-6 mb-2 text-slate-300" />
-                <span>Upload a PDF to auto-generate your vertical Pinterest Pin canvas.</span>
+                <span>Dikey Pinterest Pin görselinizi otomatik oluşturmak için bir PDF yükleyin.</span>
               </div>
             )}
 
             <div className="space-y-2.5 text-xs">
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Pin Kicker</label>
+                <label className="block text-[11px] font-bold text-slate-600 mb-1">Pin Üst Etiketi</label>
                 <input
                   type="text"
                   value={pinBadge}
@@ -1247,7 +1271,7 @@ export function AdminUploadForm({
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-slate-600 mb-1">
-                  Pin Display Title
+                  Pin Başlığı
                 </label>
                 <input
                   type="text"
@@ -1258,7 +1282,7 @@ export function AdminUploadForm({
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Pin Subtitle</label>
+                <label className="block text-[11px] font-bold text-slate-600 mb-1">Pin Alt Başlığı</label>
                 <input
                   type="text"
                   value={pinSubtitle}
@@ -1276,12 +1300,12 @@ export function AdminUploadForm({
                   className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold disabled:opacity-50"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 ${generatingPin ? 'animate-spin' : ''}`} />
-                  <span>Regenerate Pin</span>
+                  <span>Pini Yeniden Oluştur</span>
                 </button>
 
                 <label className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold cursor-pointer">
                   <Upload className="w-3.5 h-3.5" />
-                  <span>Custom Pin</span>
+                  <span>Özel Pin Yükle</span>
                   <input
                     type="file"
                     accept="image/jpeg,image/png,image/webp"
@@ -1296,10 +1320,10 @@ export function AdminUploadForm({
             </div>
           </section>
 
-          {/* Live Quality & SEO Score */}
+          {/* Canlı Kalite ve SEO Puanı */}
           <section className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-900 font-heading">SEO &amp; Quality Score</h3>
+              <h3 className="text-sm font-bold text-slate-900 font-heading">SEO ve Kalite Puanı</h3>
               <span
                 className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
                   scorePct >= 80
@@ -1307,7 +1331,7 @@ export function AdminUploadForm({
                     : 'bg-amber-100 text-amber-800'
                 }`}
               >
-                {scorePct}%
+                %{scorePct}
               </span>
             </div>
 
@@ -1334,10 +1358,10 @@ export function AdminUploadForm({
               <Upload className="w-4 h-4" />
               <span>
                 {submitting
-                  ? 'Publishing...'
+                  ? 'Yayınlanıyor...'
                   : isEdit
-                  ? 'Save Changes & Publish'
-                  : 'Publish Worksheet to Site'}
+                  ? 'Değişiklikleri Kaydet ve Yayınla'
+                  : 'Çalışma Kağıdını Sitede Yayınla'}
               </span>
             </button>
           </section>

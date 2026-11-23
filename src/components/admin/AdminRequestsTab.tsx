@@ -12,6 +12,13 @@ interface AdminRequestsTabProps {
   onDraftFromRequest: (draft: RequestPrefillDraft) => void;
 }
 
+const STATUS_LABELS: Record<'all' | WorksheetRequest['status'], string> = {
+  all: 'Tümü',
+  new: 'Yeni',
+  planned: 'Planlandı',
+  done: 'Tamamlandı',
+};
+
 export function AdminRequestsTab({
   requests,
   onUpdated,
@@ -37,12 +44,12 @@ export function AdminRequestsTab({
       });
       const data = await res.json();
       if (!res.ok) {
-        setErrorMsg(data.error || 'Could not update request.');
+        setErrorMsg(data.error || 'İstek güncellenemedi.');
       } else {
-        onUpdated(data.requests, `Request marked as "${status}".`);
+        onUpdated(data.requests, `İstek "${STATUS_LABELS[status]}" olarak işaretlendi.`);
       }
     } catch {
-      setErrorMsg('Network error updating request.');
+      setErrorMsg('İstek güncellenirken ağ hatası oluştu.');
     } finally {
       setBusyId(null);
     }
@@ -59,12 +66,12 @@ export function AdminRequestsTab({
       });
       const data = await res.json();
       if (!res.ok) {
-        setErrorMsg(data.error || 'Could not delete request.');
+        setErrorMsg(data.error || 'İstek silinemedi.');
       } else {
-        onUpdated(data.requests, 'Request removed from queue.');
+        onUpdated(data.requests, 'İstek listeden kaldırıldı.');
       }
     } catch {
-      setErrorMsg('Network error deleting request.');
+      setErrorMsg('İstek silinirken ağ hatası oluştu.');
     } finally {
       setBusyId(null);
     }
@@ -91,10 +98,10 @@ export function AdminRequestsTab({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 font-heading">
-            Educator Request Inbox ({requests.length})
+            Öğretmen İstek Kutusu ({requests.length})
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Classroom resource suggestions submitted via the public /contact page.
+            Sitedeki /contact iletişim sayfasından gönderilen sınıf içi materyal talepleri.
           </p>
         </div>
 
@@ -104,13 +111,13 @@ export function AdminRequestsTab({
               key={tab}
               type="button"
               onClick={() => setStatusFilter(tab)}
-              className={`px-3 py-1.5 rounded-lg capitalize transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-colors ${
                 statusFilter === tab
                   ? 'bg-[#2E6B6B] text-white'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
-              {tab}
+              {STATUS_LABELS[tab]}
             </button>
           ))}
         </div>
@@ -126,9 +133,9 @@ export function AdminRequestsTab({
       {filtered.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl py-16 px-6 text-center space-y-2">
           <Inbox className="w-8 h-8 text-slate-300 mx-auto" />
-          <p className="text-sm font-bold text-slate-700">No worksheet requests in this view</p>
+          <p className="text-sm font-bold text-slate-700">Bu görünümde çalışma kağıdı isteği yok</p>
           <p className="text-xs text-slate-500">
-            Educator requests submitted on /contact will appear here automatically.
+            /contact sayfasından gönderilen öğretmen talepleri burada otomatik olarak listelenir.
           </p>
         </div>
       ) : (
@@ -150,7 +157,7 @@ export function AdminRequestsTab({
                           : 'bg-emerald-100 text-emerald-800'
                       }`}
                     >
-                      {req.status}
+                      {STATUS_LABELS[req.status]}
                     </span>
                     <span className="text-xs font-bold text-[#2E6B6B] bg-[#F0F7F7] px-2.5 py-0.5 rounded-full">
                       {req.subject}
@@ -169,9 +176,9 @@ export function AdminRequestsTab({
                     }
                     className="px-2.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-slate-50"
                   >
-                    <option value="new">New</option>
-                    <option value="planned">Planned</option>
-                    <option value="done">Done</option>
+                    <option value="new">Yeni</option>
+                    <option value="planned">Planlandı</option>
+                    <option value="done">Tamamlandı</option>
                   </select>
 
                   <button
@@ -180,14 +187,14 @@ export function AdminRequestsTab({
                     className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs font-bold"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>Draft Worksheet</span>
+                    <span>Taslak Oluştur</span>
                   </button>
 
                   <button
                     type="button"
                     disabled={busyId === req.id}
                     onClick={() => handleDelete(req.id)}
-                    aria-label="Delete request"
+                    aria-label="İsteği sil"
                     className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -201,7 +208,7 @@ export function AdminRequestsTab({
 
               <div className="flex flex-wrap items-center gap-4 text-[11px] text-slate-500">
                 <span>
-                  Requested by <strong>{req.name}</strong> ({req.role})
+                  Talep eden: <strong>{req.name}</strong> ({req.role})
                 </span>
                 {req.email && (
                   <a
@@ -214,9 +221,9 @@ export function AdminRequestsTab({
                 )}
                 <span className="inline-flex items-center gap-1 ml-auto">
                   <Clock className="w-3 h-3" />
-                  {new Date(req.createdAt).toLocaleDateString('en-US', {
-                    month: 'short',
+                  {new Date(req.createdAt).toLocaleDateString('tr-TR', {
                     day: 'numeric',
+                    month: 'short',
                     year: 'numeric',
                   })}
                 </span>

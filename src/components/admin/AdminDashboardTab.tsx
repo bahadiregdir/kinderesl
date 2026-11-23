@@ -34,6 +34,15 @@ interface AdminDashboardTabProps {
   onNavigateTab: (tab: AdminTabId) => void;
 }
 
+const SUBJECT_TR: Record<string, string> = {
+  alphabet: 'Alfabe (Alphabet)',
+  phonics: 'Fonik / Ses Bilgisi (Phonics)',
+  'numbers-counting': 'Sayılar ve Sayma (Numbers & Counting)',
+  'shapes-colors': 'Şekiller ve Renkler (Shapes & Colors)',
+  vocabulary: 'Kelime Bilgisi (Vocabulary)',
+  'thinking-skills': 'Düşünme Becerileri (Thinking Skills)',
+};
+
 export function AdminDashboardTab({
   worksheets,
   settings,
@@ -60,63 +69,63 @@ export function AdminDashboardTab({
 
   const readinessChecks = [
     {
-      label: '15+ Original PDF Worksheets Published',
-      detail: `${worksheets.length} / 15 published (${Math.max(0, 15 - worksheets.length)} more recommended before AdSense application)`,
+      label: '15+ Özgün PDF Çalışma Kağıdı Yayında',
+      detail: `${worksheets.length} / 15 yayınlandı (AdSense başvurusu öncesi önerilen: ${Math.max(0, 15 - worksheets.length)} adet kaldı)`,
       ok: hasMinimumLibrary,
       actionTab: 'upload' as AdminTabId,
-      actionLabel: 'Add PDF',
+      actionLabel: 'PDF Ekle',
     },
     {
-      label: 'At Least One Subject Collection Indexed (>= 6 sheets)',
-      detail: `${stats?.indexedSubjects || 0} / 6 subjects indexable in Google & sitemap.xml`,
+      label: 'En Az Bir Ana Konu İndekslenebilir Durumda (≥ 6 kağıt)',
+      detail: `${stats?.indexedSubjects || 0} / 6 konu Google & sitemap.xml için indekslenebilir`,
       ok: (stats?.indexedSubjects || 0) >= 1,
       actionTab: 'upload' as AdminTabId,
-      actionLabel: 'Grow a Subject',
+      actionLabel: 'Konu Büyüt',
     },
     {
-      label: 'Real Educator Author Profile (E-E-A-T)',
+      label: 'Gerçek Eğitmen / Yazar Profili (E-E-A-T)',
       detail: hasCustomAuthor
-        ? `Author: ${settings?.author.name}`
-        : 'Still using default "KinderESL Teaching Team" template',
+        ? `Yazar: ${settings?.author.name}`
+        : 'Hala varsayılan "KinderESL Teaching Team" şablonu kullanılıyor',
       ok: hasCustomAuthor,
       actionTab: 'settings' as AdminTabId,
-      actionLabel: 'Edit Profile',
+      actionLabel: 'Profili Düzenle',
     },
     {
-      label: 'Real Contact Email Configured',
+      label: 'Gerçek İletişim E-postası Tanımlı',
       detail: hasRealEmail
         ? settings!.contactEmail
-        : 'Set contact email in Settings or NEXT_PUBLIC_CONTACT_EMAIL',
+        : 'Ayarlar bölümünden veya NEXT_PUBLIC_CONTACT_EMAIL ile iletişim e-postası ekleyin',
       ok: hasRealEmail,
       actionTab: 'settings' as AdminTabId,
-      actionLabel: 'Set Email',
+      actionLabel: 'E-posta Ekle',
     },
     {
-      label: 'Legal Pages (/privacy-policy, /terms, /cookie-policy) & /ads.txt Live',
-      detail: 'Dynamic /ads.txt endpoint and CMP-ready disclosures active',
+      label: 'Yasal Sayfalar (/privacy-policy, /terms, /cookie-policy) ve /ads.txt Aktif',
+      detail: 'Dinamik /ads.txt uç noktası ve CMP uyumlu yasal metinler çalışıyor',
       ok: true,
     },
     {
-      label: 'AdSense Publisher ID Connected',
+      label: 'AdSense Yayıncı Kimliği (Publisher ID) Bağlı',
       detail: hasAdsenseClient
-        ? `${settings?.adsense.client} (${settings?.adsense.enabled ? 'Active' : 'Disabled / Stealth'})`
-        : 'Pending approval (Stealth mode hides empty boxes until approved)',
+        ? `${settings?.adsense.client} (${settings?.adsense.enabled ? 'Aktif' : 'Kapalı / Gizli Mod'})`
+        : 'Onay bekleniyor (Onaylanana kadar boş reklam kutuları gizli tutulur)',
       ok: hasAdsenseClient,
       actionTab: 'monetization' as AdminTabId,
-      actionLabel: 'Monetization',
+      actionLabel: 'Reklam Ayarları',
     },
   ];
 
   return (
     <div className="space-y-8">
-      {/* Header Actions */}
+      {/* Üst Başlık ve Hızlı İşlem */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 font-heading">
-            Curriculum &amp; Growth Overview
+            Müfredat ve Büyüme Özeti
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Monitor collection indexability, educator requests, and AdSense approval readiness.
+            Koleksiyon indekslenebilirliğini, öğretmen taleplerini ve AdSense onay hazırlığını buradan takip edin.
           </p>
         </div>
 
@@ -126,11 +135,11 @@ export function AdminDashboardTab({
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs font-bold shadow-xs transition-colors"
         >
           <Upload className="w-4 h-4" />
-          <span>Upload New PDF Worksheet</span>
+          <span>Yeni PDF Çalışma Kağıdı Yükle</span>
         </button>
       </div>
 
-      {/* Connection Status Strip: Neon Postgres + Cloudflare R2 */}
+      {/* Bağlantı Durumu Şeridi: Neon Postgres + Cloudflare R2 */}
       <div className="flex flex-wrap items-center gap-2.5 text-xs">
         <span
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold border ${
@@ -141,7 +150,7 @@ export function AdminDashboardTab({
         >
           <Database className="w-3.5 h-3.5" />
           <span>
-            Neon Postgres: {storage?.database === 'neon' ? 'Connected' : 'Local JSON Fallback'}
+            Neon Postgres: {storage?.database === 'neon' ? 'Bağlı' : 'Yerel JSON Yedeği'}
           </span>
         </span>
 
@@ -156,44 +165,44 @@ export function AdminDashboardTab({
           <span>
             Cloudflare R2:{' '}
             {storage?.assetStorage === 'r2'
-              ? 'Connected'
+              ? 'Bağlı'
               : storage?.assetStorage === 'local'
-              ? 'Pending setup (using local disk)'
-              : 'Pending setup'}
+              ? 'Kurulum bekliyor (yerel disk)'
+              : 'Kurulum bekliyor'}
           </span>
         </span>
       </div>
 
-      {/* KPI Grid */}
+      {/* KPI Kartları */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-1.5">
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span>Worksheets</span>
+            <span>Çalışma Kağıtları</span>
             <FileText className="w-4 h-4 text-[#2E6B6B]" />
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{stats?.totalWorksheets ?? worksheets.length}</p>
-          <p className="text-[11px] text-slate-500">{stats?.totalPages ?? 0} total printable pages</p>
+          <p className="text-[11px] text-slate-500">{stats?.totalPages ?? 0} toplam yazdırılabilir sayfa</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-1.5">
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span>Real PDF Downloads</span>
+            <span>Gerçek PDF İndirmeleri</span>
             <Download className="w-4 h-4 text-sky-600" />
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{analytics?.totalDownloads ?? 0}</p>
           <p className="text-[11px] text-slate-500">
-            Anonymous download counter in Neon DB
+            Neon veritabanında anonim sayaç
           </p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-1.5">
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span>Indexed Hubs (&gt;=6)</span>
+            <span>İndekslenen Kategoriler (≥6)</span>
             <Globe className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{totalIndexableHubs}</p>
           <p className="text-[11px] text-slate-500">
-            Subjects/Topics/Months meeting SEO threshold
+            SEO eşiğini geçen konu/tema/ay sayısı
           </p>
         </div>
 
@@ -203,25 +212,26 @@ export function AdminDashboardTab({
           className="bg-white border border-slate-200 hover:border-[#2E6B6B] rounded-2xl p-5 space-y-1.5 text-left transition-colors"
         >
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span>Teacher Requests</span>
+            <span>Öğretmen İstekleri</span>
             <Inbox className="w-4 h-4 text-amber-500" />
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{newRequestsCount}</p>
-          <p className="text-[11px] text-slate-500">{requests.length} total submissions in queue</p>
+          <p className="text-[11px] text-slate-500">{requests.length} toplam talep sırada</p>
         </button>
       </div>
 
-      {/* Two Column: Hub Progress + AdSense Readiness */}
+      {/* İki Sütun: Konu İndeksleme + AdSense Hazırlığı */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Subject SEO Indexability */}
+        {/* Konu SEO İndeksleme */}
         <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h2 className="text-base font-bold text-slate-900 font-heading">
-                Subject Indexability Progress
+                Konu İndeksleme İlerlemesi
               </h2>
               <p className="text-[11px] text-slate-500">
-                Hubs switch from <code className="font-mono">noindex</code> to <code className="font-mono">index</code> at 6 worksheets.
+                Kategoriler 6 çalışma kağıdına ulaşınca <code className="font-mono">noindex</code>&apos;ten{' '}
+                <code className="font-mono">index</code>&apos;e geçer.
               </p>
             </div>
             <Layers className="w-4 h-4 text-[#2E6B6B]" />
@@ -233,14 +243,16 @@ export function AdminDashboardTab({
               return (
                 <div key={sub.slug} className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-800">{sub.title}</span>
+                    <span className="font-bold text-slate-800">
+                      {SUBJECT_TR[sub.slug] || sub.title}
+                    </span>
                     <span
                       className={`font-semibold ${
                         sub.indexed ? 'text-emerald-700' : 'text-slate-500'
                       }`}
                     >
                       {sub.count} / 6{' '}
-                      {sub.indexed ? '(Indexed ✓)' : `(${sub.remainingForIndex} more to index)`}
+                      {sub.indexed ? '(İndekslendi ✓)' : `(indeks için ${sub.remainingForIndex} adet daha)`}
                     </span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
@@ -257,15 +269,15 @@ export function AdminDashboardTab({
           </div>
         </section>
 
-        {/* AdSense Launch Checklist */}
+        {/* AdSense Yayın Kontrol Listesi */}
         <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h2 className="text-base font-bold text-slate-900 font-heading">
-                AdSense &amp; Launch Readiness
+                AdSense ve Yayın Hazırlığı
               </h2>
               <p className="text-[11px] text-slate-500">
-                Automated verification of pre-approval policy signals.
+                Başvuru öncesi politika sinyallerinin otomatik kontrolü.
               </p>
             </div>
             <Megaphone className="w-4 h-4 text-[#2E6B6B]" />
@@ -309,16 +321,16 @@ export function AdminDashboardTab({
         </section>
       </div>
 
-      {/* Live Analytics Row: Top Downloads & Teacher Searches */}
+      {/* Canlı Analitik Satırı: En Çok İndirilenler & Öğretmen Aramaları */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h2 className="text-base font-bold text-slate-900 font-heading">
-                Top Downloaded Printables
+                En Çok İndirilen Çalışma Kağıtları
               </h2>
               <p className="text-[11px] text-slate-500">
-                Real teacher and parent PDF downloads tracked anonymously.
+                Anonim olarak takip edilen gerçek öğretmen ve veli PDF indirmeleri.
               </p>
             </div>
             <Download className="w-4 h-4 text-sky-600" />
@@ -333,7 +345,7 @@ export function AdminDashboardTab({
                 >
                   <div className="min-w-0">
                     <p className="font-bold text-slate-800 truncate">{item.title}</p>
-                    <p className="text-[11px] text-slate-500">{item.subject}</p>
+                    <p className="text-[11px] text-slate-500">{SUBJECT_TR[item.subject] || item.subject}</p>
                   </div>
                   <span className="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 font-extrabold shrink-0">
                     {item.downloads}
@@ -343,7 +355,7 @@ export function AdminDashboardTab({
             </div>
           ) : (
             <p className="text-xs text-slate-500 py-6 text-center">
-              No downloads recorded in Neon DB yet.
+              Henüz Neon veritabanında kayıtlı indirme yok.
             </p>
           )}
         </section>
@@ -352,10 +364,10 @@ export function AdminDashboardTab({
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h2 className="text-base font-bold text-slate-900 font-heading">
-                Teacher Catalog Searches
+                Öğretmen Katalog Aramaları
               </h2>
               <p className="text-[11px] text-slate-500">
-                Zero-result queries spotlight high-demand PDF topics to create next.
+                Sonuç bulunamayan aramalar sıradaki yüksek talepli PDF konularını gösterir.
               </p>
             </div>
             <Search className="w-4 h-4 text-[#2E6B6B]" />
@@ -372,7 +384,7 @@ export function AdminDashboardTab({
                     <span className="font-bold text-slate-800 truncate">&ldquo;{item.query}&rdquo;</span>
                     {item.zeroResults > 0 && (
                       <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold shrink-0">
-                        {item.zeroResults} zero-result
+                        {item.zeroResults} sonuçsuz
                       </span>
                     )}
                   </div>
@@ -382,7 +394,7 @@ export function AdminDashboardTab({
             </div>
           ) : (
             <p className="text-xs text-slate-500 py-6 text-center">
-              No search queries logged yet.
+              Henüz arama kaydı yok.
             </p>
           )}
         </section>
