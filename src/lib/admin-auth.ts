@@ -96,6 +96,56 @@ export async function isAdminAuthenticated(): Promise<boolean> {
   return verifySessionToken(token);
 }
 
+export function verifyBearerToken(authHeader: string | null): {
+  valid: boolean;
+  tokenKey?: string;
+} {
+  const configuredToken = process.env.ADMIN_API_TOKEN?.trim();
+  if (!configuredToken || !authHeader) {
+    return { valid: false };
+  }
+
+  const match = /^Bearer\s+(\S+)$/i.exec(authHeader.trim());
+  if (!match) {
+    return { valid: false };
+  }
+
+  const provided = match[1];
+  const providedHash = crypto.createHash('sha256').update(provided).digest();
+  const expectedHash = crypto.createHash('sha256').update(configuredToken).digest();
+
+  if (!crypto.timingSafeEqual(providedHash, expectedHash)) {
+    return { valid: false };
+  }
+
+  const tokenKey = expectedHash.toString('hex').slice(0, 16);
+  return { valid: true, tokenKey };
+}
+
+export async function authenticateAdminRequest(request: Request): Promise<{
+  ok: boolean;
+  method: 'bearer' | 'cookie' | null;
+  rateLimitKey?: string;
+}> {
+  const authHeader = request.headers.get('authorization');
+  if (authHeader !== null) {
+    const res = verifyBearerToken(authHeader);
+    if (!res.valid) {
+      return { ok: false, method: null };
+    }
+    return {
+      ok: true,
+      method: 'bearer',
+      rateLimitKey: `bearer:${res.tokenKey}`,
+    };
+  }
+
+  const cookieOk = await isAdminAuthenticated();
+  return cookieOk
+    ? { ok: true, method: 'cookie' }
+    : { ok: false, method: null };
+}
+
 export async function setAdminSessionCookie(): Promise<void> {
   const cookieStore = await cookies();
   const token = createSessionToken();

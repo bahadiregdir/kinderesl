@@ -22,14 +22,14 @@ export async function fetchAllWorksheets(): Promise<Worksheet[]> {
     try {
       const rows = await dbListWorksheets();
       if (rows.length > 0) {
-        return rows;
+        return rows.filter((w) => w.published !== false);
       }
     } catch (err) {
       console.error('Neon fetchAllWorksheets failed, falling back to local JSON:', err);
     }
   }
 
-  return fallbackWorksheets;
+  return fallbackWorksheets.filter((w) => w.published !== false);
 }
 
 export async function fetchWorksheetBySlug(

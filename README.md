@@ -204,6 +204,110 @@ When ready to enable the AdSense Offerwall (rewarded ads for downloads), toggle 
 
 ## 📌 How to Verify Pinterest
 
-Open `src/config/site.ts`:
-Paste your Pinterest HTML verification token in `pinterest.verificationToken`.
-The layout will automatically inject `<meta name="p:domain_verify" content="..." />`.
+Configure Pinterest domain verification directly in `/admin -> Settings` (stored in Neon Postgres) or via `NEXT_PUBLIC_PINTEREST_VERIFICATION`. The layout injects `<meta name="p:domain_verify" content="..." />`.
+
+---
+
+## 🤖 Bot Bulk Upload API (Token-Authenticated)
+
+External automation scripts and bots can bulk-publish worksheets, manage RSS visibility (`includeInRss`), and toggle draft/published state using the shared admin backend (Neon Postgres + Cloudflare R2 at `cdn.kinderesl.com`).
+
+### Authentication & Rate Limit
+
+- Pass `Authorization: Bearer $ADMIN_API_TOKEN` on all API requests (`crypto.timingSafeEqual` against the `ADMIN_API_TOKEN` environment variable).
+- **Rate limit:** **30 requests per minute** per token (`X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`, HTTP `429` with `Retry-After` if exceeded).
+- Existing browser password cookie login for `/admin` remains unchanged.
+
+### Upload Strategy on Vercel (Multipart vs. Presigned R2)
+
+Both direct `multipart/form-data` and **Presigned R2 URLs** are supported using the same shared service (`src/lib/worksheet-service.ts`):
+- **Direct `multipart/form-data`** (`POST /api/admin/worksheets`): Easiest single-request upload when total payload (`pdf` + `preview` + `pin`) fits comfortably under Vercel's `4.5 MB` serverless request body limit.
+- **Presigned Direct-to-R2 Flow** (`POST /api/admin/uploads/presign` → R2 `PUT` → `POST /api/admin/worksheets` JSON): **Chosen for PDFs > 4 MB (up to 20 MB)** so large vector PDFs and high-res images bypass Vercel's serverless body limit and upload directly to `worksheets/<slug>/...` in Cloudflare R2.
+
+### Endpoints
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| `GET` | `/api/admin/worksheets` | List all worksheets (`slug, title, subject, published, inRss, updatedAt`) |
+| `POST` | `/api/admin/uploads/presign` | Generate 10-minute presigned R2 `PUT` URL (`pdf`, `preview`, or `pin`) |
+| `POST` | `/api/admin/worksheets` | Create worksheet (`?upsert=true` updates existing, `?dryRun=true` validates only) |
+| `PATCH` | `/api/admin/worksheets/[slug]` | Partial metadata update without files (`includeInRss`, `published`, etc.) |
+| `DELETE` | `/api/admin/worksheets/[slug]` | Delete worksheet and clean up its R2 assets |
+
+### `curl` Examples
+
+#### 1. Dry-Run Validation (`?dryRun=true`)
+```bash
+curl -sS -X POST "https://kinderesl.com/api/admin/worksheets?dryRun=true" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  -F "pdf=@./worksheet.pdf;type=application/pdf" \
+  -F "preview=@./page-1.png;type=image/png" \
+  -F "pin=@./pin.jpg;type=image/jpeg" \
+  -F 'metadata={
+    "slug": "letter-b-tracing-and-phonics",
+    "title": "Letter B Tracing & Phonics: Benny Bear",
+    "description": "Free 2-page printable Letter B tracing and beginning sound /b/ worksheet for preschool and ESL learners.",
+    "subject": "alphabet",
+    "topics": ["animals"],
+    "activityTypes": ["tracing", "coloring"],
+    "ageBands": ["3-4", "4-5"],
+    "vocabulary": ["bear", "ball", "banana"],
+    "months": [9],
+    "pageCount": 2,
+    "published": true,
+    "includeInRss": true
+  }'
+```
+
+#### 2. Create Worksheet (`POST /api/admin/worksheets` — Multipart)
+```bash
+curl -sS -X POST "https://kinderesl.com/api/admin/worksheets" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  -F "pdf=@./worksheet.pdf;type=application/pdf" \
+  -F "preview=@./page-1.png;type=image/png" \
+  -F "pin=@./pin.jpg;type=image/jpeg" \
+  -F 'metadata={"slug":"letter-b-tracing-and-phonics","title":"Letter B Tracing & Phonics: Benny Bear","description":"Free 2-page printable Letter B worksheet for preschool & kindergarten.","subject":"alphabet","ageBands":["3-4","4-5"],"includeInRss":true,"published":true}'
+```
+
+#### 3. Large PDF Create via Presigned R2 URL (Up to 20 MB PDF)
+```bash
+# Step A: Get presigned URL for PDF (and optionally preview / pin)
+PRESIGN=$(curl -sS -X POST "https://kinderesl.com/api/admin/uploads/presign" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"slug":"letter-b-tracing-and-phonics","kind":"pdf","filename":"letter-b.pdf","contentType":"application/pdf","sizeBytes":6500000}')
+
+UPLOAD_URL=$(echo "$PRESIGN" | jq -r '.uploadUrl')
+PDF_URL=$(echo "$PRESIGN" | jq -r '.publicUrl')
+
+# Step B: Upload directly to Cloudflare R2
+curl -sS -X PUT "$UPLOAD_URL" -H "Content-Type: application/pdf" --data-binary "@./letter-b.pdf"
+
+# Step C: Commit metadata + asset URLs
+curl -sS -X POST "https://kinderesl.com/api/admin/worksheets" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{\"slug\":\"letter-b-tracing-and-phonics\",\"title\":\"Letter B Tracing & Phonics\",\"description\":\"Free 2-page Letter B phonics printable.\",\"subject\":\"alphabet\",\"pdfUrl\":\"$PDF_URL\",\"pdfSizeBytes\":6500000}"
+```
+
+#### 4. Upsert Existing Worksheet (`?upsert=true`)
+```bash
+curl -sS -X POST "https://kinderesl.com/api/admin/worksheets?upsert=true" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"slug":"letter-b-tracing-and-phonics","title":"Letter B Tracing & Phonics (Updated)","description":"Updated 2-page Letter B printable for Pre-K & Kindergarten.","subject":"alphabet","includeInRss":true}'
+```
+
+#### 5. List All Worksheets (`GET /api/admin/worksheets`)
+```bash
+curl -sS "https://kinderesl.com/api/admin/worksheets" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN"
+```
+
+#### 6. Update Metadata Only (`PATCH /api/admin/worksheets/[slug]`)
+```bash
+curl -sS -X PATCH "https://kinderesl.com/api/admin/worksheets/letter-b-tracing-and-phonics" \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"includeInRss":false,"published":true}'
+```

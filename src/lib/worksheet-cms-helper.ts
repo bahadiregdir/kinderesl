@@ -12,9 +12,37 @@ import type { CmsFileChange } from './cms-storage';
 import { commitFiles, getStorageInfo } from './cms-storage';
 import { deleteFromR2ByUrl, isR2Configured, uploadBufferToR2 } from './r2-storage';
 
-const RESERVED_SUBJECT_SLUGS = new Set<string>(subjects.map((s) => s.slug));
-const VALID_SUBJECTS = new Set<string>(subjects.map((s) => s.slug));
-const MAX_PDF_BYTES = 4 * 1024 * 1024; // 4 MB safety guard for Vercel 4.5MB limit
+export const RESERVED_SUBJECT_SLUGS = new Set<string>(subjects.map((s) => s.slug));
+export const VALID_SUBJECTS = new Set<string>(subjects.map((s) => s.slug));
+export const VALID_ACTIVITY_TYPES = new Set<string>([
+  'tracing',
+  'coloring',
+  'cut-and-paste',
+  'matching',
+  'counting',
+  'odd-one-out',
+  'flashcards',
+  'dot-to-dot',
+  'maze',
+]);
+export const VALID_AGE_BANDS = new Set<string>(['3-4', '4-5', '5-6']);
+
+export const MAX_PDF_BYTES = 20 * 1024 * 1024; // 20 MB upper bound
+export const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MB per preview/pin image
+const SLUG_RE = /^[a-z0-9-]+$/;
+
+export class WorksheetValidationError extends Error {
+  status: number;
+  errors: Record<string, string>;
+
+  constructor(status: number, errors: Record<string, string>, message?: string) {
+    const firstMsg = message || Object.values(errors)[0] || 'Validation failed';
+    super(firstMsg);
+    this.name = 'WorksheetValidationError';
+    this.status = status;
+    this.errors = errors;
+  }
+}
 
 export function sanitizeSlug(raw: string): string {
   return raw
@@ -107,20 +135,111 @@ export function validateWorksheetMetadata(
   raw: Record<string, unknown>,
   options: { requireSlugFree: boolean; existingWorksheets: Worksheet[]; currentSlug?: string }
 ): Worksheet {
-  const title = String(raw.title || '').trim();
+  const errors: Record<string, string> = {};
+
+  const title = typeof raw.title === 'string' ? raw.title.trim() : '';
   if (title.length < 5) {
-    throw new Error('Title must be at least 5 characters.');
+    errors.title = 'Title is required and must be at least 5 characters.';
   }
 
-  const slug = sanitizeSlug(String(raw.slug || title));
-  if (!slug || slug.length < 3 || !/^[a-z0-9-]+$/.test(slug)) {
-    throw new Error('Slug must contain at least 3 lowercase letters, numbers, or hyphens.');
+  let slug = '';
+  if (raw.slug !== undefined && raw.slug !== null && String(raw.slug).trim() !== '') {
+    const rawSlugStr = String(raw.slug).trim();
+    if (!SLUG_RE.test(rawSlugStr) || rawSlugStr.length < 3) {
+      errors.slug = 'Slug must match ^[a-z0-9-]+$ and be at least 3 characters.';
+    } else {
+      slug = rawSlugStr;
+    }
+  } else if (title.length >= 5) {
+    const derived = sanitizeSlug(title);
+    if (!derived || derived.length < 3 || !SLUG_RE.test(derived)) {
+      errors.slug = 'Slug could not be derived from title; provide a valid slug (^[a-z0-9-]+$).';
+    } else {
+      slug = derived;
+    }
+  } else {
+    errors.slug = 'Slug is required (^[a-z0-9-]+$).';
   }
-  if (RESERVED_SUBJECT_SLUGS.has(slug)) {
-    throw new Error(`Slug "${slug}" conflicts with a reserved subject route.`);
+
+  if (slug && RESERVED_SUBJECT_SLUGS.has(slug)) {
+    errors.slug = `Slug "${slug}" conflicts with a reserved subject route.`;
   }
+
+  const subjectRaw = typeof raw.subject === 'string' ? raw.subject.trim() : '';
+  if (!subjectRaw || !VALID_SUBJECTS.has(subjectRaw)) {
+    errors.subject = `Subject must be one of: ${Array.from(VALID_SUBJECTS).join(', ')}.`;
+  }
+
+  const description = typeof raw.description === 'string' ? raw.description.trim() : '';
+  if (description.length < 10) {
+    errors.description = 'Description is required and must be at least 10 characters.';
+  }
+
+  if (raw.activityTypes !== undefined) {
+    if (!Array.isArray(raw.activityTypes)) {
+      errors.activityTypes = 'activityTypes must be an array.';
+    } else {
+      const invalid = raw.activityTypes.filter(
+        (a) => !VALID_ACTIVITY_TYPES.has(String(a).trim())
+      );
+      if (invalid.length > 0) {
+        errors.activityTypes = `Invalid activityTypes: ${invalid.join(', ')}. Allowed: ${Array.from(
+          VALID_ACTIVITY_TYPES
+        ).join(', ')}.`;
+      }
+    }
+  }
+
+  if (raw.ageBands !== undefined) {
+    if (!Array.isArray(raw.ageBands) || raw.ageBands.length === 0) {
+      errors.ageBands = 'ageBands must be a non-empty array of: 3-4, 4-5, 5-6.';
+    } else {
+      const invalid = raw.ageBands.filter((a) => !VALID_AGE_BANDS.has(String(a).trim()));
+      if (invalid.length > 0) {
+        errors.ageBands = `Invalid ageBands: ${invalid.join(', ')}. Allowed: 3-4, 4-5, 5-6.`;
+      }
+    }
+  }
+
+  if (raw.months !== undefined) {
+    if (!Array.isArray(raw.months)) {
+      errors.months = 'months must be an array of integers between 1 and 12.';
+    } else {
+      const invalid = raw.months.filter((m) => {
+        const num = Number(m);
+        return !Number.isInteger(num) || num < 1 || num > 12;
+      });
+      if (invalid.length > 0) {
+        errors.months = 'months must contain integers between 1 and 12.';
+      }
+    }
+  }
+
+  const rawPageCount = raw.pageCount ?? raw.pages;
+  if (rawPageCount !== undefined && rawPageCount !== null && rawPageCount !== '') {
+    const pc = Number(rawPageCount);
+    if (!Number.isFinite(pc) || pc < 1 || !Number.isInteger(pc)) {
+      errors.pageCount = 'pageCount must be a positive integer (>= 1).';
+    }
+  }
+
+  if (raw.published !== undefined && typeof raw.published !== 'boolean') {
+    errors.published = 'published must be a boolean.';
+  }
+
+  if (raw.includeInRss !== undefined && typeof raw.includeInRss !== 'boolean') {
+    errors.includeInRss = 'includeInRss must be a boolean.';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    throw new WorksheetValidationError(400, errors);
+  }
+
+  // Slug conflict check returns 409
   if (options.requireSlugFree && options.existingWorksheets.some((w) => w.slug === slug)) {
-    throw new Error(`A worksheet with slug "${slug}" already exists.`);
+    throw new WorksheetValidationError(409, {
+      slug: `A worksheet with slug "${slug}" already exists. Pass ?upsert=true to update it.`,
+    });
   }
   if (
     !options.requireSlugFree &&
@@ -128,53 +247,50 @@ export function validateWorksheetMetadata(
     slug !== options.currentSlug &&
     options.existingWorksheets.some((w) => w.slug === slug)
   ) {
-    throw new Error(`Cannot rename to "${slug}" because that slug is already in use.`);
+    throw new WorksheetValidationError(409, {
+      slug: `Cannot rename to "${slug}" because that slug is already in use.`,
+    });
   }
 
-  const subjectRaw = String(raw.subject || '');
-  if (!VALID_SUBJECTS.has(subjectRaw)) {
-    throw new Error(`Invalid subject "${subjectRaw}".`);
-  }
   const subject = subjectRaw as WorksheetSubject;
   const subjectMeta = subjects.find((s) => s.slug === subject)!;
 
-  const description = String(raw.description || '').trim();
   const quickSummary = String(raw.quickSummary || description).trim();
-  const skill = String(raw.skill || '').trim();
-  if (!description || !skill) {
-    throw new Error('Description and Skill focus are required.');
-  }
+  const skill =
+    typeof raw.skill === 'string' && raw.skill.trim()
+      ? raw.skill.trim()
+      : `${subjectMeta.shortTitle}: ${description.slice(0, 140)}`;
 
   const teacherNoteRaw = (raw.teacherNote || {}) as Record<string, unknown>;
   const teacherNote = {
     skillFocus: String(teacherNoteRaw.skillFocus || skill).trim(),
-    learningGoal: String(teacherNoteRaw.learningGoal || '').trim(),
-    teachingTip: String(teacherNoteRaw.teachingTip || '').trim(),
+    learningGoal:
+      String(teacherNoteRaw.learningGoal || '').trim() ||
+      `Learners complete ${title} while practicing ${subjectMeta.shortTitle.toLowerCase()} skills.`,
+    teachingTip:
+      String(teacherNoteRaw.teachingTip || '').trim() ||
+      `Model one example together before students work independently with ${title}.`,
     extensionActivity: String(teacherNoteRaw.extensionActivity || '').trim(),
     steps: Array.isArray(teacherNoteRaw.steps)
       ? teacherNoteRaw.steps.map((s) => String(s).trim()).filter(Boolean)
       : [],
   };
 
-  if (!teacherNote.learningGoal || !teacherNote.teachingTip) {
-    throw new Error('Teacher note requires Learning Goal and Teaching Tip.');
-  }
-
   const topicsList = Array.isArray(raw.topics)
     ? raw.topics.map((t) => String(t).trim()).filter(Boolean)
     : [];
   const activityTypes = (
-    Array.isArray(raw.activityTypes) ? raw.activityTypes : []
+    Array.isArray(raw.activityTypes) && raw.activityTypes.length > 0
+      ? raw.activityTypes
+      : ['tracing']
   ).map((a) => String(a).trim()) as ActivityType[];
-  const ageBands = (Array.isArray(raw.ageBands) ? raw.ageBands : []).map((a) =>
-    String(a).trim()
-  ) as AgeBand[];
+  const ageBands = (
+    Array.isArray(raw.ageBands) && raw.ageBands.length > 0
+      ? raw.ageBands
+      : ['3-4', '4-5']
+  ).map((a) => String(a).trim()) as AgeBand[];
 
-  if (ageBands.length === 0) {
-    throw new Error('Select at least one target Age Band.');
-  }
-
-  const ages = String(raw.ages || 'Ages 3–5').trim();
+  const ages = String(raw.ages || `Ages ${ageBands[0]}–${ageBands[ageBands.length - 1]}`).trim();
   const gradeLevel = String(raw.gradeLevel || 'Pre-K & Kindergarten').trim();
   const eslLevel = raw.eslLevel === 'early-reader' ? 'early-reader' : 'beginner';
 
@@ -226,8 +342,21 @@ export function validateWorksheetMetadata(
     }
   }
 
-  let pinterestConfig: Worksheet['pinterest'] | undefined;
-  if (raw.pinterest && typeof raw.pinterest === 'object') {
+  const published = raw.published !== false;
+
+  let pinterestConfig: Worksheet['pinterest'];
+  if (typeof raw.includeInRss === 'boolean') {
+    const existingRssAt =
+      raw.pinterest && typeof raw.pinterest === 'object'
+        ? String((raw.pinterest as Record<string, unknown>).rssQueuedAt || '').trim()
+        : '';
+    pinterestConfig = {
+      autoPublish: raw.includeInRss,
+      ...(raw.includeInRss
+        ? { rssQueuedAt: existingRssAt || new Date().toISOString() }
+        : {}),
+    };
+  } else if (raw.pinterest && typeof raw.pinterest === 'object') {
     const pObj = raw.pinterest as Record<string, unknown>;
     const autoPublish = pObj.autoPublish !== false;
     const queuedStr = String(pObj.rssQueuedAt || '').trim();
@@ -236,9 +365,15 @@ export function validateWorksheetMetadata(
       autoPublish,
       ...(rssQueuedAt ? { rssQueuedAt } : {}),
     };
+  } else {
+    pinterestConfig = {
+      autoPublish: true,
+      rssQueuedAt: new Date().toISOString(),
+    };
   }
 
   const today = new Date().toISOString().slice(0, 10);
+  const pages = Math.max(1, Number(rawPageCount) || 1);
 
   return {
     id: String(raw.id || `ws-${slug}`).trim(),
@@ -247,13 +382,13 @@ export function validateWorksheetMetadata(
     subject,
     subjectName: subjectMeta.shortTitle,
     topics: topicsList,
-    activityTypes: activityTypes.length > 0 ? activityTypes : ['tracing'],
+    activityTypes,
     ageBands,
     eslLevel,
     ages,
     gradeLevel,
     skill,
-    pages: Math.max(1, Number(raw.pages) || 1),
+    pages,
     description,
     quickSummary,
     teacherNote,
@@ -272,12 +407,28 @@ export function validateWorksheetMetadata(
     faqs,
     datePublished: String(raw.datePublished || today).trim(),
     dateModified: today,
-    ...(pinterestConfig ? { pinterest: pinterestConfig } : {}),
+    published,
+    pinterest: pinterestConfig,
     category: subject,
     categoryName: subjectMeta.shortTitle,
     theme: topicsList[0] || subject,
     themeName: topics.find((t) => t.slug === topicsList[0])?.title || subjectMeta.shortTitle,
   };
+}
+
+function isAllowedImageFile(file: File): boolean {
+  const mime = (file.type || '').toLowerCase();
+  if (mime) {
+    return mime.startsWith('image/');
+  }
+  return /\.(png|jpe?g|webp|gif)$/i.test(file.name);
+}
+
+function imageExt(file: File): string {
+  const mime = (file.type || '').toLowerCase();
+  if (mime === 'image/webp' || file.name.toLowerCase().endsWith('.webp')) return 'webp';
+  if (mime === 'image/jpeg' || mime === 'image/jpg' || /\.jpe?g$/i.test(file.name)) return 'jpg';
+  return 'png';
 }
 
 export async function processUploadedAssets(
@@ -290,6 +441,7 @@ export async function processUploadedAssets(
   previewImages: string[];
   pinterestPinImage?: string;
 }> {
+  const errors: Record<string, string> = {};
   const changes: CmsFileChange[] = [];
   let pdfPath: string | undefined;
   let pdfFileSize: string | undefined;
@@ -299,47 +451,79 @@ export async function processUploadedAssets(
   const pdfEntry = formData.get('pdf');
   if (pdfEntry instanceof File && pdfEntry.size > 0) {
     if (pdfEntry.size > MAX_PDF_BYTES) {
-      throw new Error('PDF file exceeds 4 MB limit.');
+      errors.pdf = 'PDF file exceeds 20 MB upper limit.';
+    } else if (
+      pdfEntry.type
+        ? pdfEntry.type.toLowerCase() !== 'application/pdf'
+        : !pdfEntry.name.toLowerCase().endsWith('.pdf')
+    ) {
+      errors.pdf = 'Uploaded PDF must have MIME type application/pdf.';
+    } else {
+      const buf = Buffer.from(await pdfEntry.arrayBuffer());
+      const safePdfName = sanitizeFilename(
+        pdfEntry.name.toLowerCase().endsWith('.pdf') ? pdfEntry.name : `${slug}.pdf`,
+        `${slug}.pdf`
+      );
+      const repoPdfPath = `public/worksheets/${slug}/${safePdfName}`;
+      changes.push({ path: repoPdfPath, contentBase64: buf.toString('base64') });
+      pdfPath = `/worksheets/${slug}/${safePdfName}`;
+      pdfFileSize = formatFileSize(buf.byteLength);
     }
-    if (pdfEntry.type && pdfEntry.type !== 'application/pdf' && !pdfEntry.name.toLowerCase().endsWith('.pdf')) {
-      throw new Error('Uploaded PDF must be a valid .pdf file.');
-    }
-    const buf = Buffer.from(await pdfEntry.arrayBuffer());
-    const safePdfName = sanitizeFilename(
-      pdfEntry.name.endsWith('.pdf') ? pdfEntry.name : `${slug}.pdf`,
-      `${slug}.pdf`
-    );
-    const repoPdfPath = `public/worksheets/${slug}/${safePdfName}`;
-    changes.push({ path: repoPdfPath, contentBase64: buf.toString('base64') });
-    pdfPath = `/worksheets/${slug}/${safePdfName}`;
-    pdfFileSize = formatFileSize(buf.byteLength);
+  } else if (pdfEntry !== null && !(pdfEntry instanceof File)) {
+    errors.pdf = 'pdf must be uploaded as a file in multipart/form-data.';
   }
 
-  const previewEntries: Array<{ idx: number; file: File }> = [];
+  // Gather both `preview_0..n` (Admin UI) and `preview` (Bot API)
+  const indexedPreviews: Array<{ idx: number; file: File }> = [];
+  const plainPreviews: File[] = [];
+
   for (const [key, value] of formData.entries()) {
+    if (!(value instanceof File) || value.size === 0) continue;
     const match = /^preview_(\d+)$/.exec(key);
-    if (match && value instanceof File && value.size > 0) {
-      previewEntries.push({ idx: Number(match[1]), file: value });
+    if (match) {
+      indexedPreviews.push({ idx: Number(match[1]), file: value });
+    } else if (key === 'preview') {
+      plainPreviews.push(value);
     }
   }
-  previewEntries.sort((a, b) => a.idx - b.idx);
+  indexedPreviews.sort((a, b) => a.idx - b.idx);
+  const allPreviews = [...indexedPreviews.map((p) => p.file), ...plainPreviews];
 
-  for (let i = 0; i < previewEntries.length; i++) {
-    const { file } = previewEntries[i];
-    const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/jpeg' ? 'jpg' : 'png';
+  for (let i = 0; i < allPreviews.length; i++) {
+    const file = allPreviews[i];
+    if (file.size > MAX_IMAGE_BYTES) {
+      errors.preview = `Preview image ${i + 1} exceeds 10 MB limit.`;
+      break;
+    }
+    if (!isAllowedImageFile(file)) {
+      errors.preview = `Preview image ${i + 1} must have an image/* MIME type.`;
+      break;
+    }
+    const ext = imageExt(file);
     const buf = Buffer.from(await file.arrayBuffer());
     const repoImgPath = `public/worksheets/${slug}/preview-page-${i + 1}.${ext}`;
     changes.push({ path: repoImgPath, contentBase64: buf.toString('base64') });
     previewImages.push(`/worksheets/${slug}/preview-page-${i + 1}.${ext}`);
   }
 
-  const pinEntry = formData.get('pinterestPin');
+  // Gather `pinterestPin` (Admin UI) or `pin` (Bot API)
+  const pinEntry = formData.get('pinterestPin') ?? formData.get('pin');
   if (pinEntry instanceof File && pinEntry.size > 0) {
-    const ext = pinEntry.type === 'image/png' ? 'png' : 'jpg';
-    const buf = Buffer.from(await pinEntry.arrayBuffer());
-    const repoPinPath = `public/worksheets/${slug}/pinterest-pin.${ext}`;
-    changes.push({ path: repoPinPath, contentBase64: buf.toString('base64') });
-    pinterestPinImage = `/worksheets/${slug}/pinterest-pin.${ext}`;
+    if (pinEntry.size > MAX_IMAGE_BYTES) {
+      errors.pin = 'Pinterest pin image exceeds 10 MB limit.';
+    } else if (!isAllowedImageFile(pinEntry)) {
+      errors.pin = 'Pinterest pin image must have an image/* MIME type.';
+    } else {
+      const ext = imageExt(pinEntry);
+      const buf = Buffer.from(await pinEntry.arrayBuffer());
+      const repoPinPath = `public/worksheets/${slug}/pinterest-pin.${ext}`;
+      changes.push({ path: repoPinPath, contentBase64: buf.toString('base64') });
+      pinterestPinImage = `/worksheets/${slug}/pinterest-pin.${ext}`;
+    }
+  }
+
+  if (Object.keys(errors).length > 0) {
+    throw new WorksheetValidationError(400, errors);
   }
 
   return { changes, pdfPath, pdfFileSize, previewImages, pinterestPinImage };
@@ -366,7 +550,6 @@ export async function saveUploadedAssetsForWorksheet(
     for (const ch of localPrepared.changes) {
       if (ch.delete) continue;
       const buf = Buffer.from(ch.contentBase64, 'base64');
-      // Convert public/worksheets/<slug>/<file> -> worksheets/<slug>/<file>
       const objectKey = ch.path.replace(/^public\//, '');
       let contentType = 'application/octet-stream';
       if (objectKey.endsWith('.pdf')) contentType = 'application/pdf';
