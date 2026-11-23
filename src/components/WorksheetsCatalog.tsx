@@ -45,6 +45,7 @@ export function WorksheetsCatalog({
           query: trimmed,
           resultCount: filteredCountRef.current,
         }),
+        keepalive: true,
       }).catch(() => {});
     }, 800);
     return () => clearTimeout(timer);

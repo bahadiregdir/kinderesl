@@ -28,7 +28,21 @@ export async function GET() {
 
     const analytics = useDb
       ? await dbGetAnalyticsSummary()
-      : { totalDownloads: 0, topDownloaded: [], topSearches: [] };
+      : {
+          totalDownloads: 0,
+          topDownloaded: [],
+          topSearches: [],
+          traffic: {
+            totalPageViews: 0,
+            todayPageViews: 0,
+            uniqueSessions30d: 0,
+            todaySessions: 0,
+            avgDurationSec: 0,
+            dailyVisits: [],
+            topPages: [],
+            topReferrers: [],
+          },
+        };
 
     return NextResponse.json({
       worksheets,

@@ -139,6 +139,7 @@ export interface SiteSettings {
   };
   analytics?: {
     ga4MeasurementId: string;
+    googleSiteVerification?: string;
   };
 }
 

@@ -395,6 +395,8 @@ export function AdminStudio() {
                 stats={stats}
                 storage={storage}
                 analytics={analytics}
+                onRefresh={loadAllCmsData}
+                refreshing={loadingData}
                 onNavigateTab={(tab) => {
                   if (tab === 'upload') {
                     setEditingWorksheet(null);

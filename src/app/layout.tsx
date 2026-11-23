@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '@/app/globals.css';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { fetchSiteSettings } from '@/lib/worksheets-store';
 import { SiteChrome } from '@/components/SiteChrome';
 
 export const viewport: Viewport = {
@@ -9,75 +10,81 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const siteUrl = getSiteUrl();
+export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = getSiteUrl();
+  const settings = await fetchSiteSettings();
+  const pinterestToken = settings.pinterest?.verificationToken?.trim() || '';
+  const googleVerification = settings.analytics?.googleSiteVerification?.trim() || '';
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: `${siteConfig.name} - Free Printable Educational Resources for Teachers & Parents`,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  authors: [{ name: siteConfig.author.name, url: `${siteUrl}/about` }],
-  creator: siteConfig.author.name,
-  publisher: siteConfig.legalName,
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  alternates: {
-    canonical: siteUrl,
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: siteUrl,
-    siteName: siteConfig.name,
-    title: `${siteConfig.name} - Free Printable Worksheets for Teachers & Parents`,
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: `${siteConfig.name} - Free Printable Educational Resources for Teachers & Parents`,
+      template: `%s | ${siteConfig.name}`,
+    },
     description: siteConfig.description,
-    images: [
-      {
-        url: '/images/og-default.jpg',
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} Printable Classroom Resources`,
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${siteConfig.name} - Free Printable Resources for Educators`,
-    description: siteConfig.description,
-    images: ['/images/og-default.jpg'],
-  },
-  other: {
-    // Only include p:domain_verify if a real token is provided (Item 12)
-    ...(siteConfig.pinterest.verificationToken && siteConfig.pinterest.verificationToken.trim() !== ''
-      ? { 'p:domain_verify': siteConfig.pinterest.verificationToken }
+    applicationName: siteConfig.name,
+    authors: [{ name: settings.author.name, url: `${siteUrl}/about` }],
+    creator: settings.author.name,
+    publisher: siteConfig.legalName,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    alternates: {
+      canonical: siteUrl,
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'en_US',
+      url: siteUrl,
+      siteName: siteConfig.name,
+      title: `${siteConfig.name} - Free Printable Worksheets for Teachers & Parents`,
+      description: siteConfig.description,
+      images: [
+        {
+          url: '/images/og-default.jpg',
+          width: 1200,
+          height: 630,
+          alt: `${siteConfig.name} Printable Classroom Resources`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${siteConfig.name} - Free Printable Resources for Educators`,
+      description: siteConfig.description,
+      images: ['/images/og-default.jpg'],
+    },
+    ...(googleVerification
+      ? { verification: { google: googleVerification } }
       : {}),
-    'pinterest-rich-pin': 'true',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    other: {
+      ...(pinterestToken !== '' ? { 'p:domain_verify': pinterestToken } : {}),
+      'pinterest-rich-pin': 'true',
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-};
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const currentSiteUrl = getSiteUrl();
+  const settings = await fetchSiteSettings();
 
   const orgSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -87,9 +94,8 @@ export default function RootLayout({
     logo: `${currentSiteUrl}/images/og-default.jpg`,
   };
 
-  // Only add sameAs if Pinterest url is configured (Item 12)
-  if (siteConfig.pinterest.url && siteConfig.pinterest.url.trim() !== '') {
-    orgSchema.sameAs = [siteConfig.pinterest.url];
+  if (settings.pinterest?.url && settings.pinterest.url.trim() !== '') {
+    orgSchema.sameAs = [settings.pinterest.url];
   }
 
   const websiteSchema = {
@@ -105,12 +111,12 @@ export default function RootLayout({
   };
 
   const isRealAdSense =
-    siteConfig.adsense.enabled &&
-    siteConfig.adsense.client &&
-    !siteConfig.adsense.client.startsWith('ca-pub-XXX') &&
-    siteConfig.adsense.client.trim() !== '';
+    settings.adsense.enabled &&
+    settings.adsense.client &&
+    !settings.adsense.client.startsWith('ca-pub-XXX') &&
+    settings.adsense.client.trim() !== '';
 
-  const ga4Id = siteConfig.analytics?.ga4MeasurementId?.trim() || '';
+  const ga4Id = settings.analytics?.ga4MeasurementId?.trim() || '';
   const isRealGa4 = /^G-[A-Z0-9]+$/i.test(ga4Id);
 
   return (
@@ -142,7 +148,7 @@ export default function RootLayout({
         {isRealAdSense && (
           <script
             async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsense.client}`}
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${settings.adsense.client}`}
             crossOrigin="anonymous"
           />
         )}

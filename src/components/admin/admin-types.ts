@@ -53,6 +53,16 @@ export interface AdminAnalyticsSummary {
     count: number;
     zeroResults: number;
   }>;
+  traffic?: {
+    totalPageViews: number;
+    todayPageViews: number;
+    uniqueSessions30d: number;
+    todaySessions: number;
+    avgDurationSec: number;
+    dailyVisits: Array<{ date: string; views: number; sessions: number }>;
+    topPages: Array<{ path: string; views: number; exits: number; avgDurationSec: number }>;
+    topReferrers: Array<{ source: string; views: number }>;
+  };
 }
 
 export interface RequestPrefillDraft {

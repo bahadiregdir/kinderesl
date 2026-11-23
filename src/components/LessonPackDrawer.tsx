@@ -49,6 +49,12 @@ export function LessonPackDrawer() {
     for (let i = 0; i < items.length; i++) {
       setDownloadProgress(`Downloading ${i + 1} of ${items.length}...`);
       triggerPdfFileDownload(items[i].pdfPath, items[i].title);
+      fetch('/api/analytics/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'download', slug: items[i].slug }),
+        keepalive: true,
+      }).catch(() => {});
       if (i < items.length - 1) {
         await new Promise((resolve) => setTimeout(resolve, 600));
       }
@@ -188,7 +194,15 @@ export function LessonPackDrawer() {
                   <div className="flex items-center gap-2 mt-2.5">
                     <button
                       type="button"
-                      onClick={() => triggerPdfFileDownload(item.pdfPath, item.title)}
+                      onClick={() => {
+                        triggerPdfFileDownload(item.pdfPath, item.title);
+                        fetch('/api/analytics/event', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ type: 'download', slug: item.slug }),
+                          keepalive: true,
+                        }).catch(() => {});
+                      }}
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F0F7F7] hover:bg-[#dcedec] text-[#2E6B6B] text-[11px] font-bold transition-colors"
                     >
                       <FileDown className="w-3 h-3" />

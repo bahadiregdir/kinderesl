@@ -78,6 +78,7 @@ export function PreDownloadModal({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
+        keepalive: true,
       }).catch(() => {});
     }
   }, [isOpen, countdown, downloadStarted, worksheet]);

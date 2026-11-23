@@ -22,6 +22,7 @@ export function revalidateCatalog(slug?: string): void {
 export function revalidateSettings(): void {
   try {
     revalidateTag('site-settings', 'max');
+    revalidatePath('/', 'layout');
     revalidatePath('/');
     revalidatePath('/ads.txt');
     revalidatePath('/contact');

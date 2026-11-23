@@ -69,6 +69,27 @@ export async function ensureDatabaseSchema(): Promise<void> {
           last_searched_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
+      await sql`
+        CREATE TABLE IF NOT EXISTS page_views (
+          id BIGSERIAL PRIMARY KEY,
+          path TEXT NOT NULL,
+          referrer_host TEXT,
+          session_id TEXT NOT NULL,
+          device_type TEXT NOT NULL DEFAULT 'desktop',
+          duration_ms INTEGER NOT NULL DEFAULT 0,
+          is_exit BOOLEAN NOT NULL DEFAULT FALSE,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON page_views (created_at DESC)
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS idx_page_views_path ON page_views (path)
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS idx_page_views_session ON page_views (session_id, path, created_at DESC)
+      `;
     })().catch((err) => {
       schemaReadyPromise = null;
       throw err;
@@ -278,14 +299,83 @@ export async function dbRecordSearch(query: string, resultCount: number): Promis
   `;
 }
 
+export async function dbRecordPageView(input: {
+  path: string;
+  referrerHost: string | null;
+  sessionId: string;
+  deviceType: 'mobile' | 'desktop';
+}): Promise<void> {
+  const cleanPath = input.path.trim().slice(0, 200) || '/';
+  const cleanSession = input.sessionId.trim().slice(0, 64);
+  if (!cleanSession) return;
+  const cleanReferrer = input.referrerHost
+    ? input.referrerHost.trim().toLowerCase().slice(0, 120) || null
+    : null;
+  const device = input.deviceType === 'mobile' ? 'mobile' : 'desktop';
+
+  await ensureDatabaseSchema();
+  const sql = getSql();
+  await sql`
+    INSERT INTO page_views (path, referrer_host, session_id, device_type)
+    VALUES (${cleanPath}, ${cleanReferrer}, ${cleanSession}, ${device})
+  `;
+}
+
+export async function dbRecordPageExit(input: {
+  path: string;
+  sessionId: string;
+  durationMs: number;
+}): Promise<void> {
+  const cleanPath = input.path.trim().slice(0, 200);
+  const cleanSession = input.sessionId.trim().slice(0, 64);
+  if (!cleanPath || !cleanSession) return;
+  const clampedMs = Math.max(0, Math.min(1800000, Math.round(Number(input.durationMs) || 0)));
+
+  await ensureDatabaseSchema();
+  const sql = getSql();
+  await sql`
+    UPDATE page_views
+    SET
+      duration_ms = GREATEST(duration_ms, ${clampedMs}),
+      is_exit = TRUE
+    WHERE id = (
+      SELECT id
+      FROM page_views
+      WHERE session_id = ${cleanSession}
+        AND path = ${cleanPath}
+        AND created_at >= NOW() - INTERVAL '6 hours'
+      ORDER BY created_at DESC
+      LIMIT 1
+    )
+  `;
+}
+
 export async function dbGetAnalyticsSummary(): Promise<{
   totalDownloads: number;
   topDownloaded: Array<{ slug: string; title: string; subject: string; downloads: number }>;
   topSearches: Array<{ query: string; count: number; zeroResults: number }>;
+  traffic: {
+    totalPageViews: number;
+    todayPageViews: number;
+    uniqueSessions30d: number;
+    todaySessions: number;
+    avgDurationSec: number;
+    dailyVisits: Array<{ date: string; views: number; sessions: number }>;
+    topPages: Array<{ path: string; views: number; exits: number; avgDurationSec: number }>;
+    topReferrers: Array<{ source: string; views: number }>;
+  };
 }> {
   await ensureDatabaseSchema();
   const sql = getSql();
-  const [sumRows, topWsRows, searchRows] = await Promise.all([
+  const [
+    sumRows,
+    topWsRows,
+    searchRows,
+    trafficAggRows,
+    dailyRows,
+    topPageRows,
+    referrerRows,
+  ] = await Promise.all([
     sql`SELECT COALESCE(SUM(download_count), 0) AS total_downloads FROM worksheets`,
     sql`
       SELECT slug, title, subject, download_count
@@ -300,7 +390,50 @@ export async function dbGetAnalyticsSummary(): Promise<{
       ORDER BY last_searched_at DESC, search_count DESC
       LIMIT 10
     `,
+    sql`
+      SELECT
+        COUNT(*)::int AS total_views,
+        COUNT(*) FILTER (WHERE created_at >= DATE_TRUNC('day', NOW()))::int AS today_views,
+        COUNT(DISTINCT session_id) FILTER (WHERE created_at >= NOW() - INTERVAL '30 days')::int AS sessions_30d,
+        COUNT(DISTINCT session_id) FILTER (WHERE created_at >= DATE_TRUNC('day', NOW()))::int AS today_sessions,
+        COALESCE(ROUND(AVG(duration_ms) FILTER (WHERE duration_ms > 0 AND created_at >= NOW() - INTERVAL '30 days') / 1000.0), 0)::int AS avg_duration_sec
+      FROM page_views
+    `,
+    sql`
+      SELECT
+        TO_CHAR(DATE_TRUNC('day', created_at), 'YYYY-MM-DD') AS day,
+        COUNT(*)::int AS views,
+        COUNT(DISTINCT session_id)::int AS sessions
+      FROM page_views
+      WHERE created_at >= DATE_TRUNC('day', NOW()) - INTERVAL '6 days'
+      GROUP BY DATE_TRUNC('day', created_at)
+      ORDER BY DATE_TRUNC('day', created_at) ASC
+    `,
+    sql`
+      SELECT
+        path,
+        COUNT(*)::int AS views,
+        COUNT(*) FILTER (WHERE is_exit = TRUE)::int AS exits,
+        COALESCE(ROUND(AVG(duration_ms) FILTER (WHERE duration_ms > 0) / 1000.0), 0)::int AS avg_duration_sec
+      FROM page_views
+      WHERE created_at >= NOW() - INTERVAL '30 days'
+      GROUP BY path
+      ORDER BY views DESC, path ASC
+      LIMIT 8
+    `,
+    sql`
+      SELECT
+        COALESCE(NULLIF(referrer_host, ''), 'Doğrudan Giriş') AS source,
+        COUNT(*)::int AS views
+      FROM page_views
+      WHERE created_at >= NOW() - INTERVAL '30 days'
+      GROUP BY COALESCE(NULLIF(referrer_host, ''), 'Doğrudan Giriş')
+      ORDER BY views DESC, source ASC
+      LIMIT 6
+    `,
   ]);
+
+  const tAgg = trafficAggRows[0] || {};
 
   return {
     totalDownloads: Number(sumRows[0]?.total_downloads ?? 0),
@@ -315,5 +448,27 @@ export async function dbGetAnalyticsSummary(): Promise<{
       count: Number(r.search_count || 0),
       zeroResults: Number(r.zero_result_count || 0),
     })),
+    traffic: {
+      totalPageViews: Number(tAgg.total_views ?? 0),
+      todayPageViews: Number(tAgg.today_views ?? 0),
+      uniqueSessions30d: Number(tAgg.sessions_30d ?? 0),
+      todaySessions: Number(tAgg.today_sessions ?? 0),
+      avgDurationSec: Number(tAgg.avg_duration_sec ?? 0),
+      dailyVisits: dailyRows.map((r) => ({
+        date: String(r.day),
+        views: Number(r.views || 0),
+        sessions: Number(r.sessions || 0),
+      })),
+      topPages: topPageRows.map((r) => ({
+        path: String(r.path),
+        views: Number(r.views || 0),
+        exits: Number(r.exits || 0),
+        avgDurationSec: Number(r.avg_duration_sec || 0),
+      })),
+      topReferrers: referrerRows.map((r) => ({
+        source: String(r.source),
+        views: Number(r.views || 0),
+      })),
+    },
   };
 }
