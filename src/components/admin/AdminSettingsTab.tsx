@@ -37,6 +37,7 @@ export function AdminSettingsTab({ settings, storage, onSaved }: AdminSettingsTa
     settings.pinterest.verificationToken || ''
   );
   const [ga4Id, setGa4Id] = useState(settings.analytics?.ga4MeasurementId || '');
+  const [gtmId, setGtmId] = useState(settings.analytics?.gtmContainerId || '');
   const [googleVerification, setGoogleVerification] = useState(
     settings.analytics?.googleSiteVerification || ''
   );
@@ -74,6 +75,7 @@ export function AdminSettingsTab({ settings, storage, onSaved }: AdminSettingsTa
       },
       analytics: {
         ga4MeasurementId: ga4Id.trim(),
+        gtmContainerId: gtmId.trim(),
         googleSiteVerification: googleVerification.trim(),
       },
     };
@@ -295,6 +297,19 @@ export function AdminSettingsTab({ settings, storage, onSaved }: AdminSettingsTa
                 value={ga4Id}
                 onChange={(e) => setGa4Id(e.target.value)}
                 placeholder="G-XXXXXXXXXX"
+                className="w-full px-3.5 py-2.5 text-sm font-mono rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                Google Tag Manager Kimliği (GTM-XXXXXXXX)
+              </label>
+              <input
+                type="text"
+                value={gtmId}
+                onChange={(e) => setGtmId(e.target.value)}
+                placeholder="GTM-WWVHMXSK"
                 className="w-full px-3.5 py-2.5 text-sm font-mono rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B]"
               />
             </div>

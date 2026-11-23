@@ -28,6 +28,7 @@
     "rewardedAdEnabled": true
   },
   "analytics": {
-    "ga4MeasurementId": ""
+    "ga4MeasurementId": "",
+    "gtmContainerId": "GTM-WWVHMXSK"
   }
 }

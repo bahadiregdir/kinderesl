@@ -118,6 +118,8 @@ export default async function RootLayout({
 
   const ga4Id = settings.analytics?.ga4MeasurementId?.trim() || '';
   const isRealGa4 = /^G-[A-Z0-9]+$/i.test(ga4Id);
+  const gtmId = settings.analytics?.gtmContainerId?.trim() || '';
+  const isRealGtm = /^GTM-[A-Z0-9]+$/i.test(gtmId);
 
   return (
     <html lang="en" className="h-full scroll-smooth">
@@ -130,6 +132,20 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
+        {/* Google Tag Manager */}
+        {isRealGtm && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});function gtag(){dataLayer.push(arguments);}gtag('js',new Date());`,
+              }}
+            />
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}
+            />
+          </>
+        )}
         {/* Anonymous GA4 (no advertising signals, IP anonymized for child-safe privacy) */}
         {isRealGa4 && (
           <>
@@ -154,6 +170,16 @@ export default async function RootLayout({
         )}
       </head>
       <body className="min-h-full flex flex-col bg-white text-slate-800 antialiased selection:bg-[#2E6B6B] selection:text-white">
+        {isRealGtm && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        )}
         <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
