@@ -26,6 +26,7 @@ import {
   Bookmark,
   FolderHeart,
   Check,
+  Search,
 } from 'lucide-react';
 
 interface WorksheetDetailViewProps {
@@ -489,24 +490,36 @@ export function WorksheetDetailView({
           {/* English Words in this Worksheet (Item 6: only shown if >= 3 words) */}
           {worksheet.vocabulary && worksheet.vocabulary.length >= 3 && (
             <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 className="text-base font-bold text-slate-900 font-heading">
-                  English words in this worksheet
-                </h3>
-                <span className="text-xs font-semibold text-slate-500">
+              <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 font-heading">
+                    English words in this worksheet
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Click any word to find matching worksheets
+                  </p>
+                </div>
+                <span className="text-xs font-semibold text-slate-500 shrink-0">
                   {worksheet.vocabulary.length} words
                 </span>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {worksheet.vocabulary.map((vocab, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200"
-                  >
-                    {vocab}
-                  </span>
-                ))}
+                {worksheet.vocabulary.map((vocab, idx) => {
+                  const searchTerm =
+                    vocab.replace(/\s*\([^)]*\)/g, '').trim() || vocab.trim();
+                  return (
+                    <Link
+                      key={idx}
+                      href={`/worksheets?q=${encodeURIComponent(searchTerm)}`}
+                      title={`Find worksheets with "${searchTerm}"`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200 hover:bg-[#F0F7F7] hover:text-[#2E6B6B] hover:border-[#2E6B6B] transition-colors"
+                    >
+                      <span>{vocab}</span>
+                      <Search className="w-3 h-3 opacity-50" />
+                    </Link>
+                  );
+                })}
               </div>
             </section>
           )}
