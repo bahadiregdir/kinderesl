@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="none">
+  <defs>
+    <linearGradient id="bg-grad" x1="48" y1="24" x2="464" y2="488" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3A8686" />
+      <stop offset="52%" stop-color="#2E6B6B" />
+      <stop offset="100%" stop-color="#1E4D4D" />
+    </linearGradient>
+    <linearGradient id="star-grad" x1="210" y1="88" x2="302" y2="198" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <linearGradient id="page-right" x1="256" y1="220" x2="420" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F4FAFA" />
+      <stop offset="100%" stop-color="#DDF0F0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded Squircle Base -->
+  <rect x="0" y="0" width="512" height="512" rx="116" fill="url(#bg-grad)" />
+  <rect
+    x="6"
+    y="6"
+    width="500"
+    height="500"
+    rx="110"
+    stroke="rgba(255,255,255,0.22)"
+    stroke-width="8"
+  />
+
+  <!-- Warm Amber 4-Point Learning Sparkle Star -->
+  <path
+    d="M256 80 Q274 126 320 144 Q274 162 256 208 Q238 162 192 144 Q238 126 256 80 Z"
+    fill="url(#star-grad)"
+  />
+
+  <!-- Open Storybook Bottom Cover Accent -->
+  <path
+    d="M84 374 C84 388, 95 400, 110 398 C158 390, 212 396, 256 420 C300 396, 354 390, 402 398 C417 400, 428 388, 428 374 L428 392 C428 408, 415 418, 400 415 C354 406, 300 412, 256 436 C212 412, 158 406, 112 415 C97 418, 84 408, 84 392 Z"
+    fill="#153B3B"
+    opacity="0.45"
+  />
+
+  <!-- Left Page -->
+  <path
+    d="M256 244 C214 212, 150 210, 104 226 C95 229, 88 238, 88 248 L88 376 C88 388, 98 396, 110 393 C156 380, 212 384, 256 410 Z"
+    fill="#FFFFFF"
+  />
+
+  <!-- Right Page -->
+  <path
+    d="M256 244 C298 212, 362 210, 408 226 C417 229, 424 238, 424 248 L424 376 C424 388, 414 396, 402 393 C356 380, 300 384, 256 410 Z"
+    fill="url(#page-right)"
+  />
+
+  <!-- Page Ruled Accents -->
+  <rect x="128" y="268" width="90" height="16" rx="8" fill="#B5D8D8" />
+  <rect x="128" y="306" width="76" height="16" rx="8" fill="#CBE4E4" />
+  <rect x="128" y="344" width="60" height="16" rx="8" fill="#CBE4E4" />
+
+  <rect x="294" y="268" width="90" height="16" rx="8" fill="#9BCBCB" />
+  <rect x="294" y="306" width="76" height="16" rx="8" fill="#B5D8D8" />
+  <rect x="294" y="344" width="60" height="16" rx="8" fill="#B5D8D8" />
+
+  <!-- Crisp Center Book Spine -->
+  <path
+    d="M256 244 L256 410"
+    stroke="#235555"
+    stroke-width="11"
+    stroke-linecap="round"
+  />
+</svg>

@@ -60,6 +60,19 @@ export async function generateMetadata(): Promise<Metadata> {
     ...(googleVerification
       ? { verification: { google: googleVerification } }
       : {}),
+    icons: {
+      icon: [
+        { url: '/favicon.ico' },
+        { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      shortcut: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
+    manifest: '/site.webmanifest',
+    appleWebApp: {
+      title: 'KinderESL',
+    },
     other: {
       ...(pinterestToken !== '' ? { 'p:domain_verify': pinterestToken } : {}),
       'pinterest-rich-pin': 'true',
