@@ -65,6 +65,13 @@ export interface AdminAnalyticsSummary {
   };
 }
 
+export interface NewsletterSubscriber {
+  email: string;
+  role: string;
+  source: string;
+  createdAt: string;
+}
+
 export interface RequestPrefillDraft {
   subject: WorksheetSubject;
   titleHint: string;

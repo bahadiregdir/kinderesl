@@ -8,6 +8,7 @@ import type {
   AdminAnalyticsSummary,
   AdminTabId,
   CollectionStats,
+  NewsletterSubscriber,
   RequestPrefillDraft,
 } from './admin-types';
 import { AdminDashboardTab } from './AdminDashboardTab';
@@ -51,6 +52,7 @@ export function AdminStudio() {
   const [stats, setStats] = useState<CollectionStats | null>(null);
   const [storage, setStorage] = useState<StorageInfo | null>(null);
   const [analytics, setAnalytics] = useState<AdminAnalyticsSummary | null>(null);
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
 
   const [editingWorksheet, setEditingWorksheet] = useState<Worksheet | null>(null);
   const [prefillDraft, setPrefillDraft] = useState<RequestPrefillDraft | null>(null);
@@ -63,10 +65,11 @@ export function AdminStudio() {
   const loadAllCmsData = useCallback(async () => {
     setLoadingData(true);
     try {
-      const [wsRes, setRes, reqRes] = await Promise.all([
+      const [wsRes, setRes, reqRes, subRes] = await Promise.all([
         fetch('/api/admin/worksheets', { cache: 'no-store' }),
         fetch('/api/admin/settings', { cache: 'no-store' }),
         fetch('/api/admin/requests', { cache: 'no-store' }),
+        fetch('/api/admin/subscribers', { cache: 'no-store' }),
       ]);
 
       if (wsRes.ok) {
@@ -83,6 +86,10 @@ export function AdminStudio() {
       if (reqRes.ok) {
         const reqData = await reqRes.json();
         setRequests(reqData.requests || []);
+      }
+      if (subRes.ok) {
+        const subData = await subRes.json();
+        setSubscribers(subData.subscribers || []);
       }
     } catch {
       showToast('err', 'CMS verileri yenilenemedi.');
@@ -395,6 +402,7 @@ export function AdminStudio() {
                 stats={stats}
                 storage={storage}
                 analytics={analytics}
+                subscribers={subscribers}
                 onRefresh={loadAllCmsData}
                 refreshing={loadingData}
                 onNavigateTab={(tab) => {

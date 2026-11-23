@@ -10,6 +10,7 @@ import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { PreDownloadModal } from '@/components/PreDownloadModal';
+import { NewsletterBox } from '@/components/NewsletterBox';
 import { useLessonPack } from '@/context/LessonPackContext';
 import { trackEvent } from '@/lib/analytics';
 import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
@@ -41,8 +42,12 @@ export function WorksheetDetailView({
   const [selectedImage, setSelectedImage] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
+  const [paperSize, setPaperSize] = useState<'letter' | 'a4'>('letter');
   const { hasItem, toggleItem } = useLessonPack();
   const inPack = hasItem(worksheet.slug);
+
+  const activePdfUrl =
+    paperSize === 'a4' ? `/api/pdf/a4?slug=${worksheet.slug}` : worksheet.pdfPath;
 
   const { title, description, quickSummary, teacherNote, whatsInside, faqs } = worksheet;
 
@@ -72,8 +77,8 @@ export function WorksheetDetailView({
   }, []);
 
   const handlePrint = () => {
-    trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject });
-    const printWindow = window.open(worksheet.pdfPath, '_blank');
+    trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject, paperSize });
+    const printWindow = window.open(activePdfUrl, '_blank');
     if (printWindow) {
       printWindow.focus();
     }
@@ -118,6 +123,9 @@ export function WorksheetDetailView({
                 {worksheet.pages} {worksheet.pages > 1 ? 'Pages' : 'Page'}
               </span>
             </span>
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80">
+              US Letter &amp; A4
+            </span>
           </div>
 
           {/* Single H1 for all breakpoints */}
@@ -129,7 +137,32 @@ export function WorksheetDetailView({
           </p>
 
           {/* Mobile Download CTA Button */}
-          <div className="pt-1 lg:hidden">
+          <div className="pt-1 lg:hidden space-y-2.5">
+            <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs">
+              <button
+                type="button"
+                onClick={() => setPaperSize('letter')}
+                className={`py-2 px-3 rounded-lg font-bold transition-colors ${
+                  paperSize === 'letter'
+                    ? 'bg-white text-[#2E6B6B] shadow-2xs border border-slate-200/80'
+                    : 'text-slate-600'
+                }`}
+              >
+                US Letter (8.5×11&quot;)
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaperSize('a4')}
+                className={`py-2 px-3 rounded-lg font-bold transition-colors ${
+                  paperSize === 'a4'
+                    ? 'bg-white text-[#2E6B6B] shadow-2xs border border-slate-200/80'
+                    : 'text-slate-600'
+                }`}
+              >
+                A4 (210×297mm)
+              </button>
+            </div>
+
             <button
               id="mobile-download-btn"
               type="button"
@@ -137,10 +170,10 @@ export function WorksheetDetailView({
               className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl text-white font-bold text-base bg-[#2E6B6B] hover:bg-[#235353] active:scale-[0.99] transition-all shadow-sm"
             >
               <FileDown className="w-5 h-5" />
-              <span>Download free PDF</span>
+              <span>{paperSize === 'a4' ? 'Download A4 PDF' : 'Download free PDF'}</span>
               <span className="text-xs font-normal opacity-80">({worksheet.pdfFileSize})</span>
             </button>
-            <div className="pt-2 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium">
+            <div className="pt-1 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>Free for home &amp; classroom use · No registration required</span>
             </div>
@@ -248,6 +281,9 @@ export function WorksheetDetailView({
                     {worksheet.pages} {worksheet.pages > 1 ? 'Pages' : 'Page'}
                   </span>
                 </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80">
+                  US Letter &amp; A4
+                </span>
               </div>
 
               {/* Title lives in the shared H1 above the grid; avoid a second H1 */}
@@ -255,6 +291,38 @@ export function WorksheetDetailView({
 
             {/* CTA Action Box */}
             <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3.5">
+              {/* Paper Size Toggle */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+                  <span>Paper format</span>
+                  <span>{paperSize === 'a4' ? 'Europe / Global' : 'US / North America'}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setPaperSize('letter')}
+                    className={`py-2 px-3 rounded-lg font-bold transition-colors ${
+                      paperSize === 'letter'
+                        ? 'bg-white text-[#2E6B6B] shadow-2xs border border-slate-200/80'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    US Letter (8.5×11&quot;)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaperSize('a4')}
+                    className={`py-2 px-3 rounded-lg font-bold transition-colors ${
+                      paperSize === 'a4'
+                        ? 'bg-white text-[#2E6B6B] shadow-2xs border border-slate-200/80'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    A4 (210×297mm)
+                  </button>
+                </div>
+              </div>
+
               {/* Primary Full-width Download Button */}
               <button
                 id="desktop-download-btn"
@@ -263,7 +331,7 @@ export function WorksheetDetailView({
                 className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl text-white font-bold text-base bg-[#2E6B6B] hover:bg-[#235353] active:scale-[0.99] transition-all shadow-sm"
               >
                 <FileDown className="w-5 h-5" />
-                <span>Download free PDF</span>
+                <span>{paperSize === 'a4' ? 'Download A4 PDF' : 'Download free PDF'}</span>
                 <span className="text-xs font-normal opacity-80">({worksheet.pdfFileSize})</span>
               </button>
 
@@ -484,6 +552,9 @@ export function WorksheetDetailView({
             </a>
           </section>
 
+          {/* Weekly Theme Pack Lead Magnet */}
+          <NewsletterBox source="worksheet-detail" compact />
+
           {/* Related Worksheets Section */}
           {relatedWorksheets && relatedWorksheets.length > 0 && (
             <section className="space-y-6 pt-6 border-t border-slate-200">
@@ -519,7 +590,9 @@ export function WorksheetDetailView({
         <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 z-50 shadow-2xl flex items-center justify-between gap-3 animate-in slide-in-from-bottom duration-200">
           <div className="min-w-0 flex-1">
             <p className="text-xs font-bold text-slate-900 truncate">{title}</p>
-            <p className="text-[10px] text-slate-500">{worksheet.pages}p · Free PDF</p>
+            <p className="text-[10px] text-slate-500">
+              {worksheet.pages}p · Free {paperSize === 'a4' ? 'A4' : 'US Letter'} PDF
+            </p>
           </div>
           <button
             type="button"
@@ -527,7 +600,7 @@ export function WorksheetDetailView({
             className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs font-bold rounded-lg shrink-0 shadow-xs"
           >
             <FileDown className="w-4 h-4" />
-            <span>Download PDF</span>
+            <span>{paperSize === 'a4' ? 'Download A4' : 'Download PDF'}</span>
           </button>
         </div>
       )}
@@ -538,6 +611,8 @@ export function WorksheetDetailView({
         onClose={() => setDownloadModalOpen(false)}
         worksheet={worksheet}
         relatedWorksheets={relatedWorksheets}
+        paperSize={paperSize}
+        onPaperSizeChange={setPaperSize}
       />
     </div>
   );

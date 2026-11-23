@@ -8,6 +8,7 @@ import { months } from '@/data/months';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
+import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import {
   BookOpen,
@@ -402,6 +403,11 @@ export default async function HomePage() {
 
           <AuthorBox isCompact={false} />
         </div>
+      </section>
+
+      {/* Weekly Theme Pack Lead Magnet */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <NewsletterBox source="homepage" />
       </section>
 
       {/* Educator FAQ Section */}

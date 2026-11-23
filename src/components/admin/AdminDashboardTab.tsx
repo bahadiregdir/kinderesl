@@ -7,6 +7,7 @@ import type {
   AdminAnalyticsSummary,
   AdminTabId,
   CollectionStats,
+  NewsletterSubscriber,
 } from './admin-types';
 import {
   FileText,
@@ -27,6 +28,7 @@ import {
   Users,
   Clock,
   ArrowUpRight,
+  Mail,
 } from 'lucide-react';
 
 interface AdminDashboardTabProps {
@@ -36,6 +38,7 @@ interface AdminDashboardTabProps {
   stats: CollectionStats | null;
   storage: StorageInfo | null;
   analytics: AdminAnalyticsSummary | null;
+  subscribers?: NewsletterSubscriber[];
   onRefresh?: () => void;
   refreshing?: boolean;
   onNavigateTab: (tab: AdminTabId) => void;
@@ -57,6 +60,7 @@ export function AdminDashboardTab({
   stats,
   storage,
   analytics,
+  subscribers = [],
   onRefresh,
   refreshing,
   onNavigateTab,
@@ -562,6 +566,60 @@ export function AdminDashboardTab({
             )}
           </div>
         </div>
+      </section>
+
+      {/* E-posta Aboneleri (Lead Magnet) */}
+      <section className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div>
+            <h2 className="text-base font-bold text-slate-900 font-heading flex items-center gap-2">
+              <Mail className="w-4 h-4 text-[#2E6B6B]" />
+              <span>E-posta Aboneleri ({subscribers.length})</span>
+            </h2>
+            <p className="text-[11px] text-slate-500 mt-0.5">
+              Haftalık Ücretsiz Tema Paketi formundan kayıt olan öğretmen ve veli listesi (Neon Postgres).
+            </p>
+          </div>
+
+          <a
+            href="/api/admin/subscribers?format=csv"
+            download="kinderesl-subscribers.csv"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#F0F7F7] hover:bg-[#dcedec] border border-[#d0e3e3] text-[#2E6B6B] text-xs font-bold transition-colors"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>CSV İndir</span>
+          </a>
+        </div>
+
+        {subscribers.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+            {subscribers.slice(0, 12).map((sub) => (
+              <div
+                key={sub.email}
+                className="flex items-center justify-between gap-2 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs"
+              >
+                <div className="min-w-0">
+                  <p className="font-bold text-slate-800 truncate">{sub.email}</p>
+                  <p className="text-[11px] text-slate-500 truncate">
+                    {sub.role === 'teacher'
+                      ? 'Öğretmen'
+                      : sub.role === 'parent'
+                      ? 'Veli'
+                      : 'Evde Eğitim'}{' '}
+                    · {sub.source}
+                  </p>
+                </div>
+                <span className="text-[10px] font-mono text-slate-400 shrink-0">
+                  {new Date(sub.createdAt).toLocaleDateString('tr-TR')}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-xs text-slate-500 py-4 text-center">
+            Henüz e-posta abonesi kaydı yok. Ana sayfa, katalog ve çalışma kağıdı sayfalarındaki formdan gelen kayıtlar burada görünür.
+          </p>
+        )}
       </section>
     </div>
   );

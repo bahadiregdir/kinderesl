@@ -90,6 +90,14 @@ export async function ensureDatabaseSchema(): Promise<void> {
       await sql`
         CREATE INDEX IF NOT EXISTS idx_page_views_session ON page_views (session_id, path, created_at DESC)
       `;
+      await sql`
+        CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+          email TEXT PRIMARY KEY,
+          role TEXT NOT NULL DEFAULT 'teacher',
+          source TEXT NOT NULL DEFAULT 'homepage',
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `;
     })().catch((err) => {
       schemaReadyPromise = null;
       throw err;
@@ -471,4 +479,53 @@ export async function dbGetAnalyticsSummary(): Promise<{
       })),
     },
   };
+}
+
+export async function dbUpsertSubscriber(input: {
+  email: string;
+  role: string;
+  source: string;
+}): Promise<{ alreadySubscribed: boolean }> {
+  const cleanEmail = input.email.trim().toLowerCase().slice(0, 160);
+  const cleanRole = input.role.trim().toLowerCase().slice(0, 40) || 'teacher';
+  const cleanSource = input.source.trim().toLowerCase().slice(0, 40) || 'homepage';
+
+  await ensureDatabaseSchema();
+  const sql = getSql();
+  const rows = await sql`
+    INSERT INTO newsletter_subscribers (email, role, source)
+    VALUES (${cleanEmail}, ${cleanRole}, ${cleanSource})
+    ON CONFLICT (email) DO UPDATE SET
+      role = EXCLUDED.role,
+      source = EXCLUDED.source
+    RETURNING (xmax <> 0) AS already_subscribed
+  `;
+  return { alreadySubscribed: Boolean(rows[0]?.already_subscribed) };
+}
+
+export async function dbListSubscribers(): Promise<
+  Array<{ email: string; role: string; source: string; createdAt: string }>
+> {
+  await ensureDatabaseSchema();
+  const sql = getSql();
+  const rows = await sql`
+    SELECT email, role, source, created_at
+    FROM newsletter_subscribers
+    ORDER BY created_at DESC
+    LIMIT 500
+  `;
+  return rows.map((r) => ({
+    email: String(r.email),
+    role: String(r.role),
+    source: String(r.source),
+    createdAt:
+      r.created_at instanceof Date ? r.created_at.toISOString() : String(r.created_at),
+  }));
+}
+
+export async function dbCountSubscribers(): Promise<number> {
+  await ensureDatabaseSchema();
+  const sql = getSql();
+  const rows = await sql`SELECT COUNT(*)::int AS total FROM newsletter_subscribers`;
+  return Number(rows[0]?.total ?? 0);
 }

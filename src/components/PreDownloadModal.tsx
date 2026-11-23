@@ -25,6 +25,8 @@ interface PreDownloadModalProps {
   onClose: () => void;
   worksheet: Worksheet;
   relatedWorksheets: Worksheet[];
+  paperSize?: 'letter' | 'a4';
+  onPaperSizeChange?: (size: 'letter' | 'a4') => void;
 }
 
 export function PreDownloadModal({
@@ -32,11 +34,25 @@ export function PreDownloadModal({
   onClose,
   worksheet,
   relatedWorksheets,
+  paperSize: controlledPaperSize,
+  onPaperSizeChange,
 }: PreDownloadModalProps) {
   const initialSeconds = siteConfig.adsense.rewardedAdEnabled !== false ? 3 : 0;
   const [countdown, setCountdown] = useState(initialSeconds);
   const [downloadStarted, setDownloadStarted] = useState(false);
+  const [internalPaperSize, setInternalPaperSize] = useState<'letter' | 'a4'>('letter');
+  const paperSize = controlledPaperSize ?? internalPaperSize;
+  const setPaperSize = (next: 'letter' | 'a4') => {
+    setInternalPaperSize(next);
+    onPaperSizeChange?.(next);
+  };
   const { hasItem, toggleItem } = useLessonPack();
+
+  const activePdfUrl =
+    paperSize === 'a4' ? `/api/pdf/a4?slug=${worksheet.slug}` : worksheet.pdfPath;
+  const activeDownloadTitle =
+    paperSize === 'a4' ? `${worksheet.title} a4` : worksheet.title;
+  const paperFormatLabel = paperSize === 'a4' ? 'A4 PDF (210×297mm)' : 'US Letter PDF';
 
   useEffect(() => {
     if (!isOpen) {
@@ -68,11 +84,12 @@ export function PreDownloadModal({
   useEffect(() => {
     if (isOpen && countdown === 0 && !downloadStarted) {
       setDownloadStarted(true);
-      triggerPdfFileDownload(worksheet.pdfPath, worksheet.title);
+      triggerPdfFileDownload(activePdfUrl, activeDownloadTitle);
       trackEvent('worksheet_download', {
         slug: worksheet.slug,
         subject: worksheet.subject,
         pages: worksheet.pages,
+        paperSize,
       });
       fetch('/api/analytics/event', {
         method: 'POST',
@@ -81,7 +98,7 @@ export function PreDownloadModal({
         keepalive: true,
       }).catch(() => {});
     }
-  }, [isOpen, countdown, downloadStarted, worksheet]);
+  }, [isOpen, countdown, downloadStarted, worksheet, activePdfUrl, activeDownloadTitle, paperSize]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -99,8 +116,8 @@ export function PreDownloadModal({
   const inPack = hasItem(worksheet.slug);
 
   const handlePrint = () => {
-    trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject });
-    const win = window.open(worksheet.pdfPath, '_blank');
+    trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject, paperSize });
+    const win = window.open(activePdfUrl, '_blank');
     if (win) win.focus();
   };
 
@@ -140,6 +157,35 @@ export function PreDownloadModal({
 
         {/* Body */}
         <div className="p-6 space-y-5">
+          {/* Paper Format Toggle inside modal */}
+          <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200 text-[11px]">
+            <span className="font-bold text-slate-600 pl-1.5">Paper size:</span>
+            <div className="grid grid-cols-2 gap-1 bg-white p-0.5 rounded-lg border border-slate-200">
+              <button
+                type="button"
+                onClick={() => setPaperSize('letter')}
+                className={`px-2.5 py-1 rounded-md font-bold transition-colors ${
+                  paperSize === 'letter'
+                    ? 'bg-[#2E6B6B] text-white'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                US Letter (8.5×11&quot;)
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaperSize('a4')}
+                className={`px-2.5 py-1 rounded-md font-bold transition-colors ${
+                  paperSize === 'a4'
+                    ? 'bg-[#2E6B6B] text-white'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                A4 (210×297mm)
+              </button>
+            </div>
+          </div>
+
           {/* Worksheet Summary + Countdown / Status */}
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs font-semibold">
@@ -162,12 +208,12 @@ export function PreDownloadModal({
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>
-                    {worksheet.pages} {worksheet.pages > 1 ? 'pages' : 'page'} · {worksheet.pdfFileSize} US Letter PDF
+                    {worksheet.pages} {worksheet.pages > 1 ? 'pages' : 'page'} · {worksheet.pdfFileSize} {paperFormatLabel}
                   </span>
                 </span>
                 <button
                   type="button"
-                  onClick={() => triggerPdfFileDownload(worksheet.pdfPath, worksheet.title)}
+                  onClick={() => triggerPdfFileDownload(activePdfUrl, activeDownloadTitle)}
                   className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -176,7 +222,9 @@ export function PreDownloadModal({
               </div>
             ) : (
               <p className="text-xs text-slate-500">
-                Standard 8.5×11&quot; US Letter vector PDF · Free for classroom and homeschooling use.
+                {paperSize === 'a4'
+                  ? 'Standard 210×297mm ISO A4 vector PDF · Scaled for international printers.'
+                  : 'Standard 8.5×11" US Letter vector PDF · Free for classroom and homeschooling use.'}
               </p>
             )}
           </div>

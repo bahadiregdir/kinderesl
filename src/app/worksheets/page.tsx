@@ -1,8 +1,9 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import type { Metadata } from 'next';
 import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { WorksheetsCatalog } from '@/components/WorksheetsCatalog';
+import { NewsletterBox } from '@/components/NewsletterBox';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
@@ -49,14 +50,10 @@ export default async function WorksheetsPage() {
           </p>
         </div>
 
-        {/* Client-Side Interactive Catalog with instant search and filter */}
-        <Suspense
-          fallback={
-            <div className="py-20 text-center text-slate-400">Loading worksheets catalog...</div>
-          }
-        >
-          <WorksheetsCatalog worksheets={worksheets} subjects={subjects} />
-        </Suspense>
+        {/* Server-Rendered Interactive Catalog with instant client search and filter */}
+        <WorksheetsCatalog worksheets={worksheets} subjects={subjects} />
+
+        <NewsletterBox source="worksheets-catalog" />
 
         <AdUnit slotType="in-content" />
       </div>

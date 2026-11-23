@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useTransition, useEffect, useRef } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Worksheet, SubjectMeta } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { trackEvent } from '@/lib/analytics';
@@ -16,21 +16,27 @@ export function WorksheetsCatalog({
   worksheets,
   subjects,
 }: WorksheetsCatalogProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [, startTransition] = useTransition();
 
-  const initialQ = searchParams?.get('q') || '';
-  const initialSubject = searchParams?.get('subject') || '';
-  const initialActivity = searchParams?.get('activity') || '';
-  const initialAge = searchParams?.get('age') || '';
-
-  const [searchQuery, setSearchQuery] = useState(initialQ);
-  const [selectedSubject, setSelectedSubject] = useState(initialSubject);
-  const [selectedActivity, setSelectedActivity] = useState(initialActivity);
-  const [selectedAge, setSelectedAge] = useState(initialAge);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedSubject, setSelectedSubject] = useState('');
+  const [selectedActivity, setSelectedActivity] = useState('');
+  const [selectedAge, setSelectedAge] = useState('');
   const filteredCountRef = useRef(worksheets.length);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    const sub = params.get('subject') || '';
+    const act = params.get('activity') || '';
+    const age = params.get('age') || '';
+    if (q) setSearchQuery(q);
+    if (sub) setSelectedSubject(sub);
+    if (act) setSelectedActivity(act);
+    if (age) setSelectedAge(age);
+  }, []);
 
   useEffect(() => {
     const trimmed = searchQuery.trim();
