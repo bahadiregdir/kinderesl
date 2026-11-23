@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLessonPack } from '@/context/LessonPackContext';
 import { triggerPdfFileDownload } from '@/lib/download-helper';
-import { trackEvent } from '@/lib/analytics';
+import { trackEvent, trackPdfDownload } from '@/lib/analytics';
 import {
   X,
   FileDown,
@@ -49,6 +49,15 @@ export function LessonPackDrawer() {
     for (let i = 0; i < items.length; i++) {
       setDownloadProgress(`Downloading ${i + 1} of ${items.length}...`);
       triggerPdfFileDownload(items[i].pdfPath, items[i].title);
+      trackPdfDownload({
+        slug: items[i].slug,
+        title: items[i].title,
+        subject: items[i].subjectName,
+        pages: items[i].pages,
+        paperSize: 'letter',
+        fileName: `${items[i].slug}.pdf`,
+        source: 'lesson_pack_all',
+      });
       fetch('/api/analytics/event', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -196,6 +205,15 @@ export function LessonPackDrawer() {
                       type="button"
                       onClick={() => {
                         triggerPdfFileDownload(item.pdfPath, item.title);
+                        trackPdfDownload({
+                          slug: item.slug,
+                          title: item.title,
+                          subject: item.subjectName,
+                          pages: item.pages,
+                          paperSize: 'letter',
+                          fileName: `${item.slug}.pdf`,
+                          source: 'lesson_pack',
+                        });
                         fetch('/api/analytics/event', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Worksheet } from '@/types/worksheet';
 import { AdUnit } from '@/components/AdUnit';
 import { triggerPdfFileDownload } from '@/lib/download-helper';
-import { trackEvent } from '@/lib/analytics';
+import { trackEvent, trackPdfDownload } from '@/lib/analytics';
 import { siteConfig } from '@/config/site';
 import { useLessonPack } from '@/context/LessonPackContext';
 import {
@@ -85,11 +85,14 @@ export function PreDownloadModal({
     if (isOpen && countdown === 0 && !downloadStarted) {
       setDownloadStarted(true);
       triggerPdfFileDownload(activePdfUrl, activeDownloadTitle);
-      trackEvent('worksheet_download', {
+      trackPdfDownload({
         slug: worksheet.slug,
+        title: worksheet.title,
         subject: worksheet.subject,
         pages: worksheet.pages,
         paperSize,
+        fileName: `${worksheet.slug}${paperSize === 'a4' ? '-a4' : ''}.pdf`,
+        source: 'modal',
       });
       fetch('/api/analytics/event', {
         method: 'POST',
@@ -213,7 +216,18 @@ export function PreDownloadModal({
                 </span>
                 <button
                   type="button"
-                  onClick={() => triggerPdfFileDownload(activePdfUrl, activeDownloadTitle)}
+                  onClick={() => {
+                    triggerPdfFileDownload(activePdfUrl, activeDownloadTitle);
+                    trackPdfDownload({
+                      slug: worksheet.slug,
+                      title: worksheet.title,
+                      subject: worksheet.subject,
+                      pages: worksheet.pages,
+                      paperSize,
+                      fileName: `${worksheet.slug}${paperSize === 'a4' ? '-a4' : ''}.pdf`,
+                      source: 'modal_retry',
+                    });
+                  }}
                   className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline"
                 >
                   <FileDown className="w-3.5 h-3.5" />
