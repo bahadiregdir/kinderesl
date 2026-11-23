@@ -67,6 +67,7 @@ export async function PUT(request: Request, context: RouteContext) {
         pdfFileSize: current.pdfFileSize,
         previewImages: current.previewImages,
         pinterestPinImage: current.pinterestPinImage,
+        pinterest: parsedMeta.pinterest ?? current.pinterest,
         pages: current.pages,
       },
       {
@@ -218,6 +219,67 @@ export async function DELETE(_request: Request, context: RouteContext) {
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Failed to delete worksheet';
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
+}
+
+export async function PATCH(request: Request, context: RouteContext) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { slug: paramSlug } = await context.params;
+    const body = (await request.json()) as { pinterestAutoPublish?: boolean };
+    const autoPublish = Boolean(body.pinterestAutoPublish);
+    const useDb = isDatabaseConfigured();
+
+    const existingWorksheets = useDb
+      ? await dbListWorksheets()
+      : await readJsonFile<Worksheet[]>('src/data/worksheets.json');
+
+    const current = useDb
+      ? await dbGetWorksheetBySlug(paramSlug)
+      : existingWorksheets.find((w) => w.slug === paramSlug) || null;
+
+    if (!current) {
+      return NextResponse.json({ error: 'Worksheet not found' }, { status: 404 });
+    }
+
+    const updatedWorksheet: Worksheet = {
+      ...current,
+      pinterest: {
+        autoPublish,
+        ...(autoPublish ? { rssQueuedAt: new Date().toISOString() } : {}),
+      },
+    };
+
+    if (useDb) {
+      await dbUpsertWorksheet(updatedWorksheet, false);
+      revalidateCatalog(updatedWorksheet.slug);
+      return NextResponse.json({
+        worksheet: updatedWorksheet,
+        commit: { mode: 'neon' },
+      });
+    }
+
+    const nextList = existingWorksheets.map((w) =>
+      w.slug === updatedWorksheet.slug ? updatedWorksheet : w
+    );
+    const jsonBase64 = Buffer.from(JSON.stringify(nextList, null, 2) + '\n', 'utf8').toString(
+      'base64'
+    );
+    const commit = await commitFiles(
+      [{ path: 'src/data/worksheets.json', contentBase64: jsonBase64 }],
+      `cms: toggle pinterest RSS for ${updatedWorksheet.slug}`
+    );
+
+    return NextResponse.json({
+      worksheet: updatedWorksheet,
+      commit,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Failed to update Pinterest status';
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

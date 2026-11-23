@@ -226,6 +226,18 @@ export function validateWorksheetMetadata(
     }
   }
 
+  let pinterestConfig: Worksheet['pinterest'] | undefined;
+  if (raw.pinterest && typeof raw.pinterest === 'object') {
+    const pObj = raw.pinterest as Record<string, unknown>;
+    const autoPublish = pObj.autoPublish !== false;
+    const queuedStr = String(pObj.rssQueuedAt || '').trim();
+    const rssQueuedAt = queuedStr || (autoPublish ? new Date().toISOString() : undefined);
+    pinterestConfig = {
+      autoPublish,
+      ...(rssQueuedAt ? { rssQueuedAt } : {}),
+    };
+  }
+
   const today = new Date().toISOString().slice(0, 10);
 
   return {
@@ -260,6 +272,7 @@ export function validateWorksheetMetadata(
     faqs,
     datePublished: String(raw.datePublished || today).trim(),
     dateModified: today,
+    ...(pinterestConfig ? { pinterest: pinterestConfig } : {}),
     category: subject,
     categoryName: subjectMeta.shortTitle,
     theme: topicsList[0] || subject,

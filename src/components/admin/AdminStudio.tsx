@@ -432,6 +432,10 @@ export function AdminStudio() {
                   showToast('ok', msg);
                   await loadAllCmsData();
                 }}
+                onUpdated={async (msg) => {
+                  showToast('ok', msg);
+                  await loadAllCmsData();
+                }}
               />
             )}
 

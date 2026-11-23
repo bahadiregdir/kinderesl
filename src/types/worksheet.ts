@@ -71,6 +71,10 @@ export interface Worksheet {
   keywords: string[];
   datePublished: string;
   dateModified: string;
+  pinterest?: {
+    autoPublish: boolean;
+    rssQueuedAt?: string;
+  };
 
   // Backwards compatibility aliases
   category?: string;

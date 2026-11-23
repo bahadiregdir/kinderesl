@@ -14,6 +14,11 @@ import {
   Layers,
   CheckCircle2,
   AlertCircle,
+  Rss,
+  Copy,
+  Check,
+  Send,
+  XCircle,
 } from 'lucide-react';
 
 interface AdminWorksheetsTabProps {
@@ -21,6 +26,7 @@ interface AdminWorksheetsTabProps {
   onCreateNew: () => void;
   onEdit: (ws: Worksheet) => void;
   onDeleted: (slug: string, message: string) => void;
+  onUpdated?: (message: string) => void;
 }
 
 function getSeoCompleteness(ws: Worksheet): { score: number; label: string } {
@@ -47,16 +53,29 @@ export function AdminWorksheetsTab({
   onCreateNew,
   onEdit,
   onDeleted,
+  onUpdated,
 }: AdminWorksheetsTabProps) {
   const [query, setQuery] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('');
+  const [pinterestFilter, setPinterestFilter] = useState<'all' | 'rss' | 'none'>('all');
   const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
+  const [togglingSlug, setTogglingSlug] = useState<string | null>(null);
+  const [copiedRss, setCopiedRss] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const rssUrl = 'https://kinderesl.com/rss.xml';
+  const rssCount = useMemo(
+    () => worksheets.filter((w) => w.pinterest?.autoPublish !== false).length,
+    [worksheets]
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return worksheets.filter((w) => {
       if (subjectFilter && w.subject !== subjectFilter) return false;
+      const inRss = w.pinterest?.autoPublish !== false;
+      if (pinterestFilter === 'rss' && !inRss) return false;
+      if (pinterestFilter === 'none' && inRss) return false;
       if (q) {
         return (
           w.title.toLowerCase().includes(q) ||
@@ -66,7 +85,45 @@ export function AdminWorksheetsTab({
       }
       return true;
     });
-  }, [worksheets, query, subjectFilter]);
+  }, [worksheets, query, subjectFilter, pinterestFilter]);
+
+  const handleCopyRss = async () => {
+    try {
+      await navigator.clipboard.writeText(rssUrl);
+      setCopiedRss(true);
+      setTimeout(() => setCopiedRss(false), 2500);
+    } catch {
+      // ignore clipboard errors
+    }
+  };
+
+  const handleTogglePinterest = async (ws: Worksheet) => {
+    const currentlyInRss = ws.pinterest?.autoPublish !== false;
+    const nextState = !currentlyInRss;
+    setTogglingSlug(ws.slug);
+    setErrorMsg(null);
+
+    try {
+      const res = await fetch(`/api/admin/worksheets/${encodeURIComponent(ws.slug)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pinterestAutoPublish: nextState }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMsg(data.error || 'Pinterest RSS durumu güncellenemedi.');
+      } else {
+        const msg = nextState
+          ? `"${ws.title}" Pinterest RSS beslemesine eklendi.`
+          : `"${ws.title}" Pinterest RSS beslemesinden çıkarıldı.`;
+        onUpdated?.(msg);
+      }
+    } catch {
+      setErrorMsg('Pinterest RSS durumu güncellenirken ağ hatası oluştu.');
+    } finally {
+      setTogglingSlug(null);
+    }
+  };
 
   const handleDelete = async (ws: Worksheet) => {
     const confirmed = window.confirm(
@@ -108,7 +165,7 @@ export function AdminWorksheetsTab({
             Çalışma Kağıdı Kütüphanesi ({worksheets.length})
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            SEO durumunu inceleyin, üretilen Pinterest Pinlerini indirin, bilgileri düzenleyin veya içerikleri kaldırın.
+            SEO durumunu inceleyin, Pinterest RSS beslemesini yönetin, Pin indirin veya içerikleri düzenleyin.
           </p>
         </div>
         <button
@@ -121,6 +178,46 @@ export function AdminWorksheetsTab({
         </button>
       </div>
 
+      {/* Pinterest Otomatik RSS Beslemesi Bilgi Çubuğu */}
+      <div className="bg-[#FFF5F5] border border-red-200/80 rounded-2xl p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-red-700">
+              <Rss className="w-4 h-4" />
+              <span>Pinterest Otomatik RSS Beslemesi</span>
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full bg-white border border-red-200 text-[11px] font-bold text-red-700">
+              {rssCount} / {worksheets.length} çalışma kağıdı RSS&apos;te
+            </span>
+          </div>
+          <p className="text-[11px] text-slate-600">
+            Pinterest Business → Ayarlar → Toplu Pin Oluştur (RSS Feed) alanına ekleyin:{' '}
+            <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-red-100 text-slate-800">
+              {rssUrl}
+            </code>
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={handleCopyRss}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-red-50 border border-red-200 text-xs font-bold text-red-700 transition-colors"
+          >
+            {copiedRss ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copiedRss ? 'Kopyalandı!' : 'RSS Linkini Kopyala'}</span>
+          </button>
+          <Link
+            href="/rss.xml"
+            target="_blank"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors"
+          >
+            <span>RSS&apos;i Aç</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+
       {errorMsg && (
         <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
           <AlertCircle className="w-4 h-4 shrink-0" />
@@ -128,8 +225,8 @@ export function AdminWorksheetsTab({
         </div>
       )}
 
-      {/* Arama ve Konu Filtresi */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row gap-3">
+      {/* Arama, Konu ve Pinterest Filtresi */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           <input
@@ -152,12 +249,24 @@ export function AdminWorksheetsTab({
             </option>
           ))}
         </select>
+        <select
+          value={pinterestFilter}
+          onChange={(e) =>
+            setPinterestFilter(e.target.value as 'all' | 'rss' | 'none')
+          }
+          className="px-3 py-2 text-xs font-semibold rounded-xl bg-slate-50 border border-slate-200 focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B]"
+        >
+          <option value="all">Tüm Pinterest Durumları</option>
+          <option value="rss">RSS&apos;te (Gönderildi)</option>
+          <option value="none">Gönderilmedi</option>
+        </select>
       </div>
 
       {/* Tablo / Kartlar */}
       <div className="space-y-3">
         {filtered.map((ws) => {
           const seo = getSeoCompleteness(ws);
+          const inRss = ws.pinterest?.autoPublish !== false;
           return (
             <div
               key={ws.slug}
@@ -187,6 +296,16 @@ export function AdminWorksheetsTab({
                       <CheckCircle2 className="w-3 h-3" />
                       SEO {seo.label}
                     </span>
+                    <span
+                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        inRss
+                          ? 'bg-red-50 text-red-700 border border-red-200/80'
+                          : 'bg-slate-100 text-slate-500 border border-slate-200'
+                      }`}
+                    >
+                      <Rss className="w-3 h-3" />
+                      {inRss ? "Pinterest RSS'te ✓" : "Pinterest'e Gönderilmedi"}
+                    </span>
                   </div>
 
                   <h3 className="text-sm font-bold text-slate-900 truncate">{ws.title}</h3>
@@ -198,6 +317,29 @@ export function AdminWorksheetsTab({
 
               {/* İşlem Butonları */}
               <div className="flex flex-wrap items-center gap-2 shrink-0 w-full md:w-auto justify-end">
+                <button
+                  type="button"
+                  onClick={() => handleTogglePinterest(ws)}
+                  disabled={togglingSlug === ws.slug}
+                  className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors disabled:opacity-50 ${
+                    inRss
+                      ? 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
+                      : 'bg-red-600 hover:bg-red-700 text-white border-red-600'
+                  }`}
+                >
+                  {inRss ? (
+                    <>
+                      <XCircle className="w-3.5 h-3.5" />
+                      <span>{togglingSlug === ws.slug ? 'İşleniyor...' : "RSS'ten Çıkar"}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>{togglingSlug === ws.slug ? 'Gönderiliyor...' : "Pinterest'e Gönder"}</span>
+                    </>
+                  )}
+                </button>
+
                 <Link
                   href={`/worksheets/${ws.slug}`}
                   target="_blank"

@@ -254,6 +254,9 @@ export function AdminUploadForm({
   );
   const [customPinUploaded, setCustomPinUploaded] = useState(false);
   const [generatingPin, setGeneratingPin] = useState(false);
+  const [pinterestAutoPublish, setPinterestAutoPublish] = useState(
+    editingWorksheet ? editingWorksheet.pinterest?.autoPublish !== false : true
+  );
 
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -455,6 +458,15 @@ export function AdminUploadForm({
           }
         : undefined,
       faqs: faqs.filter((f) => f.question.trim() && f.answer.trim()),
+      pinterest: {
+        autoPublish: pinterestAutoPublish,
+        ...(pinterestAutoPublish
+          ? {
+              rssQueuedAt:
+                editingWorksheet?.pinterest?.rssQueuedAt || new Date().toISOString(),
+            }
+          : {}),
+      },
     };
 
     try {
@@ -1349,6 +1361,23 @@ export function AdminUploadForm({
                 </div>
               ))}
             </div>
+
+            <label className="flex items-start gap-2.5 p-3 rounded-xl bg-[#FFF5F5] border border-red-200/80 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={pinterestAutoPublish}
+                onChange={(e) => setPinterestAutoPublish(e.target.checked)}
+                className="mt-0.5 w-4 h-4 accent-red-600 shrink-0"
+              />
+              <div>
+                <span className="text-xs font-bold text-slate-900 block">
+                  Pinterest RSS beslemesine otomatik ekle
+                </span>
+                <span className="text-[11px] text-slate-600 block mt-0.5 leading-snug">
+                  İşaretli kalırsa <code className="font-mono">/rss.xml</code> akışına dahil edilir ve bağlı Pinterest panona otomatik gider. İşaretli değilse sonradan Çalışma Kağıtları listesinden tek tıkla gönderebilirsin.
+                </span>
+              </div>
+            </label>
 
             <button
               type="submit"

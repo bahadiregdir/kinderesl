@@ -11,6 +11,7 @@ export function revalidateCatalog(slug?: string): void {
     revalidatePath('/preschool-themes');
     revalidatePath('/preschool-themes/[month]', 'page');
     revalidatePath('/sitemap.xml');
+    revalidatePath('/rss.xml');
     if (slug) {
       revalidatePath(`/worksheets/${slug}`);
     }
