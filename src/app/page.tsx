@@ -76,7 +76,7 @@ export default async function HomePage() {
     {
       question: 'What format are the worksheets provided in?',
       answer:
-        'Every worksheet is provided as a standard 8.5×11" US Letter PDF (which also prints cleanly on A4 paper). High-contrast black line art ensures crisp results on standard black-and-white classroom copy machines.',
+        'Every worksheet is available as a one-click download in both US Letter (8.5×11") and ISO A4 (210×297mm) PDF formats. High-contrast black line art ensures crisp results on standard black-and-white classroom copy machines.',
     },
     {
       question: 'How do these printables support ESL / ELL students?',
@@ -157,7 +157,7 @@ export default async function HomePage() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Standard 8.5×11&quot; US Letter</span>
+                  <span>US Letter &amp; A4 PDFs</span>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -301,7 +301,7 @@ export default async function HomePage() {
                 Featured Worksheets
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Ready-to-print resources formatted in standard US Letter size for crisp classroom printing.
+                Ready-to-print resources available in both US Letter &amp; A4 formats for crisp classroom printing worldwide.
               </p>
             </div>
             <Link

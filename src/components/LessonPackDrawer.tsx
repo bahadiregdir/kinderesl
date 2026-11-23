@@ -98,7 +98,7 @@ export function LessonPackDrawer() {
         <head><title>KinderESL Weekly Lesson Pack Checklist</title></head>
         <body style="font-family:system-ui,sans-serif;padding:32px;color:#0f172a;max-width:680px;margin:0 auto;">
           <h1 style="margin:0 0 6px;font-size:22px;color:#2E6B6B;">KinderESL Lesson Pack Checklist</h1>
-          <p style="margin:0 0 24px;font-size:13px;color:#64748b;">${items.length} worksheets · ${totalPages} printable US Letter pages total</p>
+          <p style="margin:0 0 24px;font-size:13px;color:#64748b;">${items.length} worksheets · ${totalPages} printable pages total (US Letter & A4 ready)</p>
           <ol style="list-style:none;padding:0;margin:0;">${listHtml}</ol>
         </body>
       </html>`);

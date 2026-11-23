@@ -68,7 +68,7 @@ export function DownloadButton({
             Free Download for Teachers &amp; Parents
           </h4>
           <p className="text-xs text-slate-600">
-            Standard 8.5×11&quot; US Letter format. Ready to print in black &amp; white or full color.
+            Available in US Letter &amp; A4 formats. Ready to print in black &amp; white or full color.
           </p>
         </div>
 
