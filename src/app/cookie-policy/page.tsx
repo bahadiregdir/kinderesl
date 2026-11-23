@@ -1,22 +1,33 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription } from '@/lib/seo-meta';
 import { Cookie } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/cookie-policy`;
+const pageDescription = buildSeoDescription(
+  `Cookie Policy for ${siteConfig.name}. Explains the types of cookies we use and how teachers and parents can control preferences.`
+);
 
 export const metadata: Metadata = {
   title: 'Cookie Policy',
-  description: `Cookie Policy for ${siteConfig.name}. Explains the types of cookies we use and how teachers and parents can control preferences.`,
+  description: pageDescription,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
     title: 'Cookie Policy',
-    description: `Cookie Policy for ${siteConfig.name}. Explains cookie usage and controls.`,
+    description: pageDescription,
     url: pageUrl,
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cookie Policy',
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 

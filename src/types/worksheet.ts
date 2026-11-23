@@ -71,6 +71,8 @@ export interface Worksheet {
   keywords: string[];
   datePublished: string;
   dateModified: string;
+  updatedAt?: string;
+  seoTitle?: string;
   published?: boolean;
   pinterest?: {
     autoPublish: boolean;

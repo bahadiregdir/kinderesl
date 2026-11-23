@@ -1,22 +1,33 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription } from '@/lib/seo-meta';
 import { FileText, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/terms`;
+const pageDescription = buildSeoDescription(
+  `Terms of Use for ${siteConfig.name}. Free license terms for teachers, classrooms, and homeschooling families. Commercial resale restrictions.`
+);
 
 export const metadata: Metadata = {
   title: 'Terms of Use',
-  description: `Terms of Use for ${siteConfig.name}. Free license terms for teachers, classrooms, and homeschooling families. Commercial resale restrictions.`,
+  description: pageDescription,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
     title: 'Terms of Use',
-    description: `Terms of Use for ${siteConfig.name}. Free license terms for classrooms and homes.`,
+    description: pageDescription,
     url: pageUrl,
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms of Use',
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 

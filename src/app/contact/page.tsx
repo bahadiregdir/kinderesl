@@ -2,24 +2,34 @@ import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetRequestForm } from '@/components/WorksheetRequestForm';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Mail, MessageSquare, Clock, ShieldCheck } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/contact`;
+const pageTitle = buildSeoTitle('Contact Us & Educator Resource Requests');
+const pageDescription = buildSeoDescription(
+  'Have a suggestion for a preschool or kindergarten worksheet? Contact the KinderESL team directly via email for teacher resource requests and feedback.'
+);
 
 export const metadata: Metadata = {
-  title: 'Contact Us & Educator Resource Requests',
-  description:
-    'Have a suggestion for a preschool or kindergarten worksheet? Contact the KinderESL team directly via email for teacher resource requests and feedback.',
+  title: pageTitle,
+  description: pageDescription,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: 'Contact Us & Educator Resource Requests',
-    description:
-      'Contact the KinderESL curriculum team directly via email for early childhood printable suggestions and inquiries.',
+    title: pageTitle,
+    description: pageDescription,
     url: pageUrl,
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 

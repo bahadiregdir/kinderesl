@@ -5,37 +5,42 @@ import { useRouter, usePathname } from 'next/navigation';
 import { Worksheet, SubjectMeta } from '@/types/worksheet';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { trackEvent } from '@/lib/analytics';
+import { filterWorksheets } from '@/lib/worksheet-filter';
 import { Search, X, SlidersHorizontal, BookOpen } from 'lucide-react';
 
 interface WorksheetsCatalogProps {
   worksheets: Worksheet[];
   subjects: SubjectMeta[];
+  initialQuery?: string;
+  initialSubject?: string;
+  initialActivity?: string;
+  initialAge?: string;
 }
 
 export function WorksheetsCatalog({
   worksheets,
   subjects,
+  initialQuery = '',
+  initialSubject = '',
+  initialActivity = '',
+  initialAge = '',
 }: WorksheetsCatalogProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [, startTransition] = useTransition();
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSubject, setSelectedSubject] = useState('');
-  const [selectedActivity, setSelectedActivity] = useState('');
-  const [selectedAge, setSelectedAge] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [selectedSubject, setSelectedSubject] = useState(initialSubject);
+  const [selectedActivity, setSelectedActivity] = useState(initialActivity);
+  const [selectedAge, setSelectedAge] = useState(initialAge);
   const filteredCountRef = useRef(worksheets.length);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const q = params.get('q') || '';
-    const sub = params.get('subject') || '';
-    const act = params.get('activity') || '';
-    const age = params.get('age') || '';
-    if (q) setSearchQuery(q);
-    if (sub) setSelectedSubject(sub);
-    if (act) setSelectedActivity(act);
-    if (age) setSelectedAge(age);
+    setSearchQuery(params.get('q') || '');
+    setSelectedSubject(params.get('subject') || '');
+    setSelectedActivity(params.get('activity') || '');
+    setSelectedAge(params.get('age') || '');
   }, []);
 
   useEffect(() => {
@@ -104,34 +109,11 @@ export function WorksheetsCatalog({
   };
 
   const filteredWorksheets = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-
-    return worksheets.filter((w) => {
-      if (q) {
-        const titleMatch = w.title.toLowerCase().includes(q);
-        const descMatch = w.description.toLowerCase().includes(q);
-        const skillMatch = w.skill.toLowerCase().includes(q);
-        const vocabMatch = w.vocabulary?.some((v) => v.toLowerCase().includes(q));
-        const kwMatch = w.keywords?.some((k) => k.toLowerCase().includes(q));
-
-        if (!titleMatch && !descMatch && !skillMatch && !vocabMatch && !kwMatch) {
-          return false;
-        }
-      }
-
-      if (selectedSubject && w.subject !== selectedSubject) {
-        return false;
-      }
-
-      if (selectedActivity && !w.activityTypes.includes(selectedActivity as any)) {
-        return false;
-      }
-
-      if (selectedAge && !w.ageBands.includes(selectedAge as any)) {
-        return false;
-      }
-
-      return true;
+    return filterWorksheets(worksheets, {
+      q: searchQuery,
+      subject: selectedSubject,
+      activity: selectedActivity,
+      age: selectedAge,
     });
   }, [worksheets, searchQuery, selectedSubject, selectedActivity, selectedAge]);
 

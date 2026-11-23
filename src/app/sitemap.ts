@@ -1,4 +1,5 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { connection } from 'next/server';
 import {
   fetchAllWorksheets,
   fetchWorksheetsBySubject,
@@ -8,60 +9,80 @@ import {
 import { subjects } from '@/data/subjects';
 import { topics } from '@/data/topics';
 import { months } from '@/data/months';
-import { isIndexableCollection } from '@/types/worksheet';
+import { isIndexableCollection, type Worksheet } from '@/types/worksheet';
 import { getSiteUrl } from '@/config/site';
 
+function toLastModDate(ws: Worksheet, fallback = new Date()): Date {
+  const raw = ws.updatedAt || ws.dateModified;
+  if (!raw) return fallback;
+  const parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime()) ? fallback : parsed;
+}
+
+function getLatestDate(list: Worksheet[], fallback: Date): Date {
+  if (list.length === 0) return fallback;
+  let maxMs = 0;
+  for (const ws of list) {
+    const ms = toLastModDate(ws, fallback).getTime();
+    if (ms > maxMs) maxMs = ms;
+  }
+  return maxMs > 0 ? new Date(maxMs) : fallback;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  await connection();
+
   const baseUrl = getSiteUrl();
   const allWorksheets = await fetchAllWorksheets();
-  const latestModStr =
-    allWorksheets
-      .map((w) => w.dateModified)
-      .filter(Boolean)
-      .sort()
-      .pop() || '2026-11-23';
-  const lastModDate = new Date(latestModStr);
+  const nowFallback = new Date();
+  const latestModDate = getLatestDate(allWorksheets, nowFallback);
 
   const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/worksheets`,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/topics`,
+      lastModified: latestModDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/about`,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/privacy-policy`,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/cookie-policy`,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: lastModDate,
+      lastModified: latestModDate,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
@@ -69,11 +90,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Subjects (enter sitemap when count >= 1)
   for (const s of subjects) {
-    const count = (await fetchWorksheetsBySubject(s.slug)).length;
-    if (isIndexableCollection(count)) {
+    const items = await fetchWorksheetsBySubject(s.slug);
+    if (isIndexableCollection(items.length)) {
       routes.push({
         url: `${baseUrl}/worksheets/${s.slug}`,
-        lastModified: lastModDate,
+        lastModified: getLatestDate(items, latestModDate),
         changeFrequency: 'weekly',
         priority: 0.8,
       });
@@ -82,38 +103,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Topics (enter sitemap when count >= 1)
   for (const t of topics) {
-    const count = (await fetchWorksheetsByTopic(t.slug)).length;
-    if (isIndexableCollection(count)) {
+    const items = await fetchWorksheetsByTopic(t.slug);
+    if (isIndexableCollection(items.length)) {
       routes.push({
         url: `${baseUrl}/topics/${t.slug}`,
-        lastModified: lastModDate,
+        lastModified: getLatestDate(items, latestModDate),
         changeFrequency: 'weekly',
         priority: 0.7,
       });
     }
   }
 
-  // Months (enter sitemap when count >= 1)
+  // Months (enter sitemap when count >= 1; empty months like june/july stay excluded)
   for (const m of months) {
-    const count = (await fetchWorksheetsByMonth(m.monthNumber)).length;
-    if (isIndexableCollection(count)) {
+    const items = await fetchWorksheetsByMonth(m.monthNumber);
+    if (isIndexableCollection(items.length)) {
       routes.push({
         url: `${baseUrl}/preschool-themes/${m.slug}`,
-        lastModified: lastModDate,
+        lastModified: getLatestDate(items, latestModDate),
         changeFrequency: 'weekly',
         priority: 0.7,
       });
     }
   }
 
-  // Individual worksheet pages
+  // Individual published worksheet pages with real updatedAt lastmod
   for (const ws of allWorksheets) {
-    const enUrl = `${baseUrl}/worksheets/${ws.slug}`;
-    const modDate = new Date(ws.dateModified || latestModStr);
-
     routes.push({
-      url: enUrl,
-      lastModified: modDate,
+      url: `${baseUrl}/worksheets/${ws.slug}`,
+      lastModified: toLastModDate(ws, latestModDate),
       changeFrequency: 'weekly',
       priority: 0.9,
     });

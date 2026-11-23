@@ -110,13 +110,14 @@ export async function dbListWorksheets(): Promise<Array<Worksheet & { downloadCo
   await ensureDatabaseSchema();
   const sql = getSql();
   const rows = await sql`
-    SELECT data, download_count
+    SELECT data, download_count, updated_at
     FROM worksheets
     ORDER BY sort_order ASC, created_at DESC
   `;
   return rows.map((row) => ({
     ...(row.data as Worksheet),
     downloadCount: Number(row.download_count || 0),
+    updatedAt: row.updated_at ? new Date(row.updated_at as string | Date).toISOString() : undefined,
   }));
 }
 
@@ -124,13 +125,17 @@ export async function dbGetWorksheetBySlug(slug: string): Promise<Worksheet | nu
   await ensureDatabaseSchema();
   const sql = getSql();
   const rows = await sql`
-    SELECT data
+    SELECT data, updated_at
     FROM worksheets
     WHERE slug = ${slug}
     LIMIT 1
   `;
   if (rows.length === 0) return null;
-  return rows[0].data as Worksheet;
+  const row = rows[0];
+  return {
+    ...(row.data as Worksheet),
+    updatedAt: row.updated_at ? new Date(row.updated_at as string | Date).toISOString() : undefined,
+  };
 }
 
 export async function dbUpsertWorksheet(

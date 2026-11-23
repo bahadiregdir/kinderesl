@@ -1,8 +1,25 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllWorksheets } from '@/data/worksheets';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { Search, Compass, ArrowRight, Home } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Page not found',
+  description:
+    'The page or printable worksheet you are looking for could not be found on KinderESL.',
+  openGraph: {
+    title: 'Page not found | KinderESL',
+    description:
+      'The page or printable worksheet you are looking for could not be found on KinderESL.',
+    type: 'website',
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function NotFound() {
   const popularWorksheets = getAllWorksheets().slice(0, 4);

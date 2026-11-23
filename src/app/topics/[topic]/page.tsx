@@ -13,6 +13,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Sparkles, ArrowRight, Clock, BookOpen } from 'lucide-react';
 
 interface Props {
@@ -32,25 +33,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = getTopicBySlug(topic);
 
   if (!t) {
-    return { title: 'Topic Not Found' };
+    return { title: 'Page not found', robots: { index: false, follow: true } };
   }
 
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/topics/${t.slug}`;
   const topicWorksheets = await fetchWorksheetsByTopic(t.slug);
   const isIndexable = isIndexableCollection(topicWorksheets.length);
+  const seoTitle = buildSeoTitle(`${t.title} Preschool Worksheets`);
+  const seoDescription = buildSeoDescription(t.description);
 
   return {
-    title: `${t.title} Worksheets for Preschool & Kindergarten`,
-    description: t.description,
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: `${t.title} Worksheets`,
-      description: t.description,
+      title: seoTitle,
+      description: seoDescription,
       url: pageUrl,
       type: 'website',
+      images: [DEFAULT_OG_IMAGE],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: seoDescription,
+      images: [DEFAULT_OG_IMAGE.url],
     },
     robots: isIndexable
       ? { index: true, follow: true }

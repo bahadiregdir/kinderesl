@@ -56,6 +56,7 @@ export async function GET(request: Request) {
   const itemsXml = items
     .map((ws) => {
       const pageUrl = `${baseUrl}/worksheets/${ws.slug}`;
+      const trackedLinkUrl = `${pageUrl}?utm_source=pinterest&utm_medium=social&utm_campaign=rss`;
       const pinImageRaw = ws.pinterestPinImage || ws.previewImages[0] || '/images/og-default.jpg';
       const pinImageUrl = toAbsoluteAssetUrl(pinImageRaw, baseUrl);
       const mimeType = /\.png(\?|$)/i.test(pinImageUrl) ? 'image/png' : 'image/jpeg';
@@ -69,7 +70,7 @@ export async function GET(request: Request) {
       return [
         '    <item>',
         `      <title>${escapeXml(ws.title)}</title>`,
-        `      <link>${escapeXml(pageUrl)}</link>`,
+        `      <link>${escapeXml(trackedLinkUrl)}</link>`,
         `      <guid isPermaLink="true">${escapeXml(pageUrl)}</guid>`,
         `      <pubDate>${escapeXml(pubDate)}</pubDate>`,
         `      <category>${escapeXml(ws.subjectName)}</category>`,

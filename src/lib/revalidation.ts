@@ -2,7 +2,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 
 export function revalidateCatalog(slug?: string): void {
   try {
-    revalidateTag('worksheets', 'max');
+    revalidateTag('worksheets', { expire: 0 });
     revalidatePath('/');
     revalidatePath('/worksheets');
     revalidatePath('/worksheets/[slug]', 'page');
@@ -12,6 +12,7 @@ export function revalidateCatalog(slug?: string): void {
     revalidatePath('/preschool-themes/[month]', 'page');
     revalidatePath('/sitemap.xml');
     revalidatePath('/rss.xml');
+    revalidatePath('/llms.txt');
     if (slug) {
       revalidatePath(`/worksheets/${slug}`);
     }

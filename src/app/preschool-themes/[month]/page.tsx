@@ -14,6 +14,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Sparkles, ArrowRight, Clock, Calendar } from 'lucide-react';
 
 interface Props {
@@ -33,25 +34,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const m = getMonthBySlug(month);
 
   if (!m) {
-    return { title: 'Month Not Found' };
+    return { title: 'Page not found', robots: { index: false, follow: true } };
   }
 
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/preschool-themes/${m.slug}`;
   const monthWorksheets = await fetchWorksheetsByMonth(m.monthNumber);
   const isIndexable = isIndexableCollection(monthWorksheets.length);
+  const seoTitle = buildSeoTitle(`${m.name} Preschool Themes & Worksheets`);
+  const seoDescription = buildSeoDescription(m.description);
 
   return {
-    title: `${m.name} Preschool Themes & Worksheets`,
-    description: m.description,
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: `${m.name} Preschool Themes`,
-      description: m.description,
+      title: seoTitle,
+      description: seoDescription,
       url: pageUrl,
       type: 'website',
+      images: [DEFAULT_OG_IMAGE],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: seoDescription,
+      images: [DEFAULT_OG_IMAGE.url],
     },
     robots: isIndexable
       ? { index: true, follow: true }

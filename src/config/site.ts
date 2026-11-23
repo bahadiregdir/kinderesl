@@ -47,7 +47,7 @@ export const siteConfig = {
   },
   tagline: 'Free Printable Resources for Preschool, Kindergarten & ESL Educators',
   description:
-    'A printable educational resource hub for early childhood educators, preschool & kindergarten teachers, and homeschooling parents. Download free printable PDF worksheets, phonics packs, and ESL vocabulary sets.',
+    'Free printable PDF worksheets, phonics packs, and ESL vocabulary sets for preschool and kindergarten teachers and homeschooling parents. US Letter & A4.',
 
   author: siteSettings.author,
 

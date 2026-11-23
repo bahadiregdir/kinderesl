@@ -74,11 +74,18 @@ export function DownloadButton({
 
         {/* Buttons right */}
         <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
-          <button
-            type="button"
-            onClick={handleDownload}
-            disabled={downloading}
-            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-sm font-bold shadow-xs transition-all duration-150 disabled:opacity-50 active:scale-95"
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noopener"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDownload();
+            }}
+            aria-disabled={downloading}
+            className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#2E6B6B] hover:bg-[#225151] text-white text-sm font-bold shadow-xs transition-all duration-150 active:scale-95 ${
+              downloading ? 'opacity-50 pointer-events-none' : ''
+            }`}
             aria-label={downloaded ? 'Downloaded' : downloading ? 'Preparing PDF' : 'Download PDF Free'}
           >
             {downloaded ? (
@@ -94,7 +101,7 @@ export function DownloadButton({
                 <span>Download PDF Free</span>
               </>
             )}
-          </button>
+          </a>
 
           <button
             type="button"

@@ -1,22 +1,33 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription } from '@/lib/seo-meta';
 import { ShieldCheck, Lock } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/privacy-policy`;
+const pageDescription = buildSeoDescription(
+  `Privacy Policy for ${siteConfig.name}. Explains our data collection practices, adult teacher/parent target audience, COPPA compliance, and AdSense disclosures.`
+);
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: `Privacy Policy for ${siteConfig.name}. Explains our data collection practices, adult teacher/parent target audience, COPPA compliance, and AdSense disclosures.`,
+  description: pageDescription,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
     title: 'Privacy Policy',
-    description: `Privacy Policy for ${siteConfig.name}. Explains data practices and COPPA compliance.`,
+    description: pageDescription,
     url: pageUrl,
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy',
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 

@@ -5,12 +5,36 @@ import { months } from '@/data/months';
 import { topics } from '@/data/topics';
 import { fetchWorksheetsByMonth } from '@/lib/worksheets-store';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Sparkles, Calendar, ArrowRight } from 'lucide-react';
 
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/preschool-themes`;
+const pageTitle = buildSeoTitle('Preschool Themes by Month');
+const pageDescription = buildSeoDescription(
+  'Plan your preschool and kindergarten calendar with our 12-month thematic curriculum guide. Free printable PDF worksheets for each seasonal month.'
+);
+
 export const metadata: Metadata = {
-  title: 'Preschool Themes by Month (12-Month Curriculum)',
-  description:
-    'Plan your preschool and kindergarten calendar with our 12-month thematic curriculum guide. Free printable PDF worksheets for each seasonal month.',
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
   robots: {
     index: false,
     follow: true,

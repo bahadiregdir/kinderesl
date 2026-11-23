@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
@@ -7,29 +7,71 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 
 const siteUrl = getSiteUrl();
 const canonicalUrl = `${siteUrl}/worksheets`;
+const pageTitle = buildSeoTitle('Free Printable Preschool & ESL Worksheets');
+const pageDescription = buildSeoDescription(
+  'Browse our complete library of free printable US Letter & A4 PDF worksheets for early childhood educators and parents. Filter by subject, theme, or age.'
+);
 
 export const metadata: Metadata = {
-  title: 'Free Printable Worksheets for Preschool & Kindergarten',
-  description:
-    'Browse our complete library of free educational PDF worksheets for early childhood educators and parents. Filter by subject, theme, activity type, and age.',
+  title: pageTitle,
+  description: pageDescription,
   alternates: {
     canonical: canonicalUrl,
   },
   openGraph: {
-    title: 'Free Printable Worksheets for Preschool & Kindergarten',
-    description:
-      'Complete library of free printable worksheets. Alphabet, numbers, phonics, and ESL vocabulary sets.',
+    title: pageTitle,
+    description: pageDescription,
     url: canonicalUrl,
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 
-export default async function WorksheetsPage() {
-  const worksheets = await fetchAllWorksheets();
+interface WorksheetsPageProps {
+  searchParams: Promise<{
+    q?: string | string[];
+    subject?: string | string[];
+    activity?: string | string[];
+    age?: string | string[];
+  }>;
+}
 
+function firstParam(val?: string | string[]): string {
+  if (Array.isArray(val)) return val[0] || '';
+  return val || '';
+}
+
+async function WorksheetsCatalogSection({
+  searchParams,
+}: WorksheetsPageProps) {
+  const [worksheets, resolvedParams] = await Promise.all([
+    fetchAllWorksheets(),
+    searchParams,
+  ]);
+
+  return (
+    <WorksheetsCatalog
+      worksheets={worksheets}
+      subjects={subjects}
+      initialQuery={firstParam(resolvedParams.q)}
+      initialSubject={firstParam(resolvedParams.subject)}
+      initialActivity={firstParam(resolvedParams.activity)}
+      initialAge={firstParam(resolvedParams.age)}
+    />
+  );
+}
+
+export default function WorksheetsPage({ searchParams }: WorksheetsPageProps) {
   return (
     <div>
       {/* Breadcrumbs */}
@@ -50,8 +92,16 @@ export default async function WorksheetsPage() {
           </p>
         </div>
 
-        {/* Server-Rendered Interactive Catalog with instant client search and filter */}
-        <WorksheetsCatalog worksheets={worksheets} subjects={subjects} />
+        {/* Server-Filtered Interactive Catalog */}
+        <Suspense
+          fallback={
+            <div className="py-12 text-center text-sm text-slate-500">
+              Loading printable worksheets...
+            </div>
+          }
+        >
+          <WorksheetsCatalogSection searchParams={searchParams} />
+        </Suspense>
 
         <NewsletterBox source="worksheets-catalog" />
 

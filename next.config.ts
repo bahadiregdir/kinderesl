@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.kinderesl.com' },

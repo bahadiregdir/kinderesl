@@ -46,13 +46,15 @@ export function WorksheetDetailView({
   const { hasItem, toggleItem } = useLessonPack();
   const inPack = hasItem(worksheet.slug);
 
-  const activePdfUrl =
-    paperSize === 'a4' ? `/api/pdf/a4?slug=${worksheet.slug}` : worksheet.pdfPath;
-
-  const { title, description, quickSummary, teacherNote, whatsInside, faqs } = worksheet;
-
   const siteUrl = getSiteUrl();
   const currentUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
+  const directPdfUrl = toAbsoluteAssetUrl(worksheet.pdfPath, siteUrl);
+  const activePdfUrl =
+    paperSize === 'a4'
+      ? `/api/pdf/a4?slug=${encodeURIComponent(worksheet.slug)}`
+      : directPdfUrl;
+
+  const { title, description, quickSummary, teacherNote, whatsInside, faqs } = worksheet;
 
   // Pinterest URL
   const pinMediaUrl = toAbsoluteAssetUrl(worksheet.pinterestPinImage, siteUrl);
@@ -163,16 +165,21 @@ export function WorksheetDetailView({
               </button>
             </div>
 
-            <button
+            <a
               id="mobile-download-btn"
-              type="button"
-              onClick={() => setDownloadModalOpen(true)}
+              href={activePdfUrl}
+              target="_blank"
+              rel="noopener"
+              onClick={(e) => {
+                e.preventDefault();
+                setDownloadModalOpen(true);
+              }}
               className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl text-white font-bold text-base bg-[#2E6B6B] hover:bg-[#235353] active:scale-[0.99] transition-all shadow-sm"
             >
               <FileDown className="w-5 h-5" />
               <span>{paperSize === 'a4' ? 'Download A4 PDF' : 'Download free PDF'}</span>
               <span className="text-xs font-normal opacity-80">({worksheet.pdfFileSize})</span>
-            </button>
+            </a>
             <div className="pt-1 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>Free for home &amp; classroom use · No registration required</span>
@@ -323,17 +330,22 @@ export function WorksheetDetailView({
                 </div>
               </div>
 
-              {/* Primary Full-width Download Button */}
-              <button
+              {/* Primary Full-width Download CTA Link */}
+              <a
                 id="desktop-download-btn"
-                type="button"
-                onClick={() => setDownloadModalOpen(true)}
+                href={activePdfUrl}
+                target="_blank"
+                rel="noopener"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDownloadModalOpen(true);
+                }}
                 className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl text-white font-bold text-base bg-[#2E6B6B] hover:bg-[#235353] active:scale-[0.99] transition-all shadow-sm"
               >
                 <FileDown className="w-5 h-5" />
                 <span>{paperSize === 'a4' ? 'Download A4 PDF' : 'Download free PDF'}</span>
                 <span className="text-xs font-normal opacity-80">({worksheet.pdfFileSize})</span>
-              </button>
+              </a>
 
               {/* Secondary Buttons: Print, Save to Pack & Pinterest */}
               <div className="grid grid-cols-2 gap-2.5">
@@ -594,14 +606,19 @@ export function WorksheetDetailView({
               {worksheet.pages}p · Free {paperSize === 'a4' ? 'A4' : 'US Letter'} PDF
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setDownloadModalOpen(true)}
+          <a
+            href={activePdfUrl}
+            target="_blank"
+            rel="noopener"
+            onClick={(e) => {
+              e.preventDefault();
+              setDownloadModalOpen(true);
+            }}
             className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs font-bold rounded-lg shrink-0 shadow-xs"
           >
             <FileDown className="w-4 h-4" />
             <span>{paperSize === 'a4' ? 'Download A4' : 'Download PDF'}</span>
-          </button>
+          </a>
         </div>
       )}
 

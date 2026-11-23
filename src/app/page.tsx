@@ -1,6 +1,9 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getSiteUrl, siteConfig } from '@/config/site';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo-meta';
 import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { subjects } from '@/data/subjects';
 import { topics } from '@/data/topics';
@@ -10,6 +13,34 @@ import { AuthorBox } from '@/components/AuthorBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
+
+const siteUrl = getSiteUrl();
+const homeTitle = `${siteConfig.name} – Free Printable Preschool & ESL Worksheets`;
+
+export const metadata: Metadata = {
+  title: {
+    absolute: homeTitle,
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    siteName: siteConfig.name,
+    title: homeTitle,
+    description: siteConfig.description,
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: homeTitle,
+    description: siteConfig.description,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
+};
 import {
   BookOpen,
   Calculator,

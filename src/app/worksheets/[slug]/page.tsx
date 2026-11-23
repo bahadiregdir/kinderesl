@@ -16,6 +16,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import {
   BookOpen,
   Sparkles,
@@ -48,17 +49,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const subjectWorksheets = await fetchWorksheetsBySubject(subject.slug);
     const isIndexable = isIndexableCollection(subjectWorksheets.length);
     const pageUrl = `${siteUrl}/worksheets/${subject.slug}`;
+    const seoTitle = buildSeoTitle(subject.title);
+    const seoDescription = buildSeoDescription(subject.description);
     return {
-      title: subject.title,
-      description: subject.description,
+      title: seoTitle,
+      description: seoDescription,
       alternates: {
         canonical: pageUrl,
       },
       openGraph: {
-        title: `${subject.title} | Free Preschool Worksheets`,
-        description: subject.description,
+        title: seoTitle,
+        description: seoDescription,
         url: pageUrl,
         type: 'website',
+        images: [DEFAULT_OG_IMAGE],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: seoTitle,
+        description: seoDescription,
+        images: [DEFAULT_OG_IMAGE.url],
       },
       robots: isIndexable
         ? { index: true, follow: true }
@@ -70,35 +80,43 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const worksheet = await fetchWorksheetBySlug(slug);
   if (worksheet) {
     const pageUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
-    const previewImgUrl = toAbsoluteAssetUrl(worksheet.previewImages[0], siteUrl);
+    const hasPin = Boolean(worksheet.pinterestPinImage?.trim());
+    const ogImgRaw =
+      worksheet.pinterestPinImage || worksheet.previewImages[0] || DEFAULT_OG_IMAGE.url;
+    const ogImgUrl = toAbsoluteAssetUrl(ogImgRaw, siteUrl);
+    const imgWidth = hasPin ? 1000 : worksheet.previewImages[0] ? 1224 : 1200;
+    const imgHeight = hasPin ? 1500 : worksheet.previewImages[0] ? 1584 : 630;
+    const seoTitle = buildSeoTitle(worksheet.seoTitle || worksheet.title);
+    const seoDescription = buildSeoDescription(worksheet.description);
+    const modifiedTime = worksheet.updatedAt || `${worksheet.dateModified}T00:00:00.000Z`;
 
     return {
-      title: `${worksheet.title} | Free Printable PDF`,
-      description: worksheet.description,
+      title: seoTitle,
+      description: seoDescription,
       alternates: {
         canonical: pageUrl,
       },
       openGraph: {
         title: worksheet.title,
-        description: worksheet.description,
+        description: seoDescription,
         url: pageUrl,
         type: 'article',
         publishedTime: `${worksheet.datePublished}T00:00:00.000Z`,
-        modifiedTime: `${worksheet.dateModified}T00:00:00.000Z`,
+        modifiedTime,
         images: [
           {
-            url: previewImgUrl,
-            width: 1224,
-            height: 1584,
-            alt: `${worksheet.title} Printable PDF Preview`,
+            url: ogImgUrl,
+            width: imgWidth,
+            height: imgHeight,
+            alt: `${worksheet.title} Printable PDF`,
           },
         ],
       },
       twitter: {
         card: 'summary_large_image',
         title: worksheet.title,
-        description: worksheet.description,
-        images: [previewImgUrl],
+        description: seoDescription,
+        images: [ogImgUrl],
       },
       robots: {
         index: true,
@@ -108,7 +126,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: 'Worksheet Not Found',
+    title: 'Page not found',
+    robots: { index: false, follow: true },
   };
 }
 
@@ -305,6 +324,8 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
 
     // Schema.org Structured Data
     const pageUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
+    const schemaImgRaw =
+      worksheet.pinterestPinImage || worksheet.previewImages[0] || DEFAULT_OG_IMAGE.url;
     const learningResourceSchema = {
       '@context': 'https://schema.org',
       '@type': 'LearningResource',
@@ -318,8 +339,8 @@ export default async function WorksheetOrSubjectPage({ params }: PageProps) {
       isAccessibleForFree: true,
       encodingFormat: 'application/pdf',
       datePublished: `${worksheet.datePublished}T00:00:00.000Z`,
-      dateModified: `${worksheet.dateModified}T00:00:00.000Z`,
-      image: toAbsoluteAssetUrl(worksheet.previewImages[0], siteUrl),
+      dateModified: worksheet.updatedAt || `${worksheet.dateModified}T00:00:00.000Z`,
+      image: toAbsoluteAssetUrl(schemaImgRaw, siteUrl),
     };
 
     return (

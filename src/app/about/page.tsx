@@ -2,22 +2,34 @@ import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { AuthorBox } from '@/components/AuthorBox';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { BookOpen, ShieldCheck, HeartHandshake, Sparkles } from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/about`;
+const pageTitle = buildSeoTitle('About & Pedagogical Mission');
+const pageDescription = buildSeoDescription(
+  `Learn about ${siteConfig.name}'s mission to provide free, high-quality printable US Letter & A4 worksheets for preschool and kindergarten educators.`
+);
 
 export const metadata: Metadata = {
-  title: 'About & Pedagogical Mission',
-  description: `Learn about ${siteConfig.name}'s mission to provide free, high-quality printable worksheets for preschool and kindergarten teachers and parents.`,
+  title: pageTitle,
+  description: pageDescription,
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: 'About & Pedagogical Mission',
-    description: `Learn about ${siteConfig.name}'s mission and printable design principles.`,
+    title: pageTitle,
+    description: pageDescription,
     url: pageUrl,
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 

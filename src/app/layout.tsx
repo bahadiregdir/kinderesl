@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '@/app/globals.css';
 import { siteConfig, getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo-meta';
 import { fetchSiteSettings } from '@/lib/worksheets-store';
 import { SiteChrome } from '@/components/SiteChrome';
 
@@ -15,11 +16,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await fetchSiteSettings();
   const pinterestToken = settings.pinterest?.verificationToken?.trim() || '';
   const googleVerification = settings.analytics?.googleSiteVerification?.trim() || '';
+  const defaultTitle = `${siteConfig.name} – Free Printable Preschool & ESL Worksheets`;
 
   return {
     metadataBase: new URL(siteUrl),
     title: {
-      default: `${siteConfig.name} - Free Printable Educational Resources for Teachers & Parents`,
+      default: defaultTitle,
       template: `%s | ${siteConfig.name}`,
     },
     description: siteConfig.description,
@@ -32,30 +34,19 @@ export async function generateMetadata(): Promise<Metadata> {
       address: false,
       telephone: false,
     },
-    alternates: {
-      canonical: siteUrl,
-    },
     openGraph: {
       type: 'website',
       locale: 'en_US',
-      url: siteUrl,
       siteName: siteConfig.name,
-      title: `${siteConfig.name} - Free Printable Worksheets for Teachers & Parents`,
+      title: defaultTitle,
       description: siteConfig.description,
-      images: [
-        {
-          url: '/images/og-default.jpg',
-          width: 1200,
-          height: 630,
-          alt: `${siteConfig.name} Printable Classroom Resources`,
-        },
-      ],
+      images: [DEFAULT_OG_IMAGE],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${siteConfig.name} - Free Printable Resources for Educators`,
+      title: defaultTitle,
       description: siteConfig.description,
-      images: ['/images/og-default.jpg'],
+      images: [DEFAULT_OG_IMAGE.url],
     },
     ...(googleVerification
       ? { verification: { google: googleVerification } }

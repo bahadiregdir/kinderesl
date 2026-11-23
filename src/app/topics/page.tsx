@@ -5,14 +5,37 @@ import { topics } from '@/data/topics';
 import { fetchAllWorksheets } from '@/lib/worksheets-store';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { getSiteUrl } from '@/config/site';
+import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Sparkles, ArrowRight, BookOpen } from 'lucide-react';
 
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/topics`;
+const pageTitle = buildSeoTitle('Preschool & Kindergarten Learning Topics');
+const pageDescription = buildSeoDescription(
+  'Explore free printable US Letter & A4 worksheets organized by preschool theme and ESL vocabulary topic: farm animals, winter, weather, and more.'
+);
+
 export const metadata: Metadata = {
-  title: 'Preschool & Kindergarten Learning Topics',
-  description:
-    'Explore free printable worksheets organized by theme and vocabulary topic: farm animals, winter, food, insects, weather, and more.',
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };
