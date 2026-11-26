@@ -1,0 +1,1680 @@
+[
+  {
+    "id": "ant",
+    "name": "ant",
+    "theme": "animals",
+    "tags": [
+      "insects"
+    ],
+    "cvc": false,
+    "file": "animals/ant.png",
+    "width": 894,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bee",
+    "name": "bee",
+    "theme": "animals",
+    "tags": [
+      "insects"
+    ],
+    "cvc": false,
+    "file": "animals/bee.png",
+    "width": 997,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bug",
+    "name": "bug",
+    "theme": "animals",
+    "tags": [
+      "insects"
+    ],
+    "cvc": {
+      "word": "bug"
+    },
+    "file": "animals/bug.png",
+    "width": 1024,
+    "height": 967,
+    "style": "lineart"
+  },
+  {
+    "id": "cat",
+    "name": "cat",
+    "theme": "animals",
+    "tags": [
+      "pets"
+    ],
+    "cvc": {
+      "word": "cat"
+    },
+    "file": "animals/cat.png",
+    "width": 847,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "dog",
+    "name": "dog",
+    "theme": "animals",
+    "tags": [
+      "pets"
+    ],
+    "cvc": {
+      "word": "dog"
+    },
+    "file": "animals/dog.png",
+    "width": 955,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "fish",
+    "name": "fish",
+    "theme": "animals",
+    "tags": [
+      "ocean",
+      "summer"
+    ],
+    "cvc": false,
+    "file": "animals/fish.png",
+    "width": 1024,
+    "height": 876,
+    "style": "lineart"
+  },
+  {
+    "id": "ladybug",
+    "name": "ladybug",
+    "theme": "animals",
+    "tags": [
+      "insects"
+    ],
+    "cvc": false,
+    "file": "animals/ladybug.png",
+    "width": 797,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "penguin",
+    "name": "penguin",
+    "theme": "animals",
+    "tags": [
+      "winter",
+      "birds"
+    ],
+    "cvc": false,
+    "file": "animals/penguin.png",
+    "width": 745,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "rat",
+    "name": "rat",
+    "theme": "animals",
+    "tags": [
+      "pets"
+    ],
+    "cvc": {
+      "word": "rat"
+    },
+    "file": "animals/rat.png",
+    "width": 1024,
+    "height": 1019,
+    "style": "lineart"
+  },
+  {
+    "id": "web",
+    "name": "web",
+    "theme": "animals",
+    "tags": [
+      "insects"
+    ],
+    "cvc": {
+      "word": "web"
+    },
+    "file": "animals/web.png",
+    "width": 1024,
+    "height": 1008,
+    "style": "lineart"
+  },
+  {
+    "id": "chicken",
+    "name": "chicken",
+    "theme": "farm",
+    "tags": [
+      "animals",
+      "birds"
+    ],
+    "cvc": false,
+    "file": "farm/chicken.png",
+    "width": 886,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "cow",
+    "name": "cow",
+    "theme": "farm",
+    "tags": [
+      "animals"
+    ],
+    "cvc": false,
+    "file": "farm/cow.png",
+    "width": 1024,
+    "height": 932,
+    "style": "lineart"
+  },
+  {
+    "id": "duck",
+    "name": "duck",
+    "theme": "farm",
+    "tags": [
+      "animals",
+      "birds"
+    ],
+    "cvc": false,
+    "file": "farm/duck.png",
+    "width": 873,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "egg",
+    "name": "egg",
+    "theme": "farm",
+    "tags": [
+      "food",
+      "animals"
+    ],
+    "cvc": false,
+    "file": "farm/egg.png",
+    "width": 827,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "hen",
+    "name": "hen",
+    "theme": "farm",
+    "tags": [
+      "animals",
+      "birds"
+    ],
+    "cvc": {
+      "word": "hen"
+    },
+    "file": "farm/hen.png",
+    "width": 885,
+    "height": 1024,
+    "style": "lineart",
+    "variantOf": "chicken"
+  },
+  {
+    "id": "horse",
+    "name": "horse",
+    "theme": "farm",
+    "tags": [
+      "animals"
+    ],
+    "cvc": false,
+    "file": "farm/horse.png",
+    "width": 1024,
+    "height": 1011,
+    "style": "lineart"
+  },
+  {
+    "id": "nest",
+    "name": "nest",
+    "theme": "farm",
+    "tags": [
+      "animals",
+      "birds"
+    ],
+    "cvc": false,
+    "file": "farm/nest.png",
+    "width": 1024,
+    "height": 874,
+    "style": "lineart"
+  },
+  {
+    "id": "pig",
+    "name": "pig",
+    "theme": "farm",
+    "tags": [
+      "animals"
+    ],
+    "cvc": {
+      "word": "pig"
+    },
+    "file": "farm/pig.png",
+    "width": 1024,
+    "height": 841,
+    "style": "lineart"
+  },
+  {
+    "id": "sheep",
+    "name": "sheep",
+    "theme": "farm",
+    "tags": [
+      "animals"
+    ],
+    "cvc": false,
+    "file": "farm/sheep.png",
+    "width": 1024,
+    "height": 939,
+    "style": "lineart"
+  },
+  {
+    "id": "apple",
+    "name": "apple",
+    "theme": "food",
+    "tags": [
+      "fruit"
+    ],
+    "cvc": false,
+    "file": "food/apple.png",
+    "width": 903,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bun",
+    "name": "bun",
+    "theme": "food",
+    "tags": [
+      "bakery"
+    ],
+    "cvc": {
+      "word": "bun"
+    },
+    "file": "food/bun.png",
+    "width": 1024,
+    "height": 858,
+    "style": "lineart"
+  },
+  {
+    "id": "cocoa",
+    "name": "cocoa",
+    "theme": "food",
+    "tags": [
+      "winter",
+      "christmas",
+      "drinks"
+    ],
+    "cvc": false,
+    "file": "food/cocoa.png",
+    "width": 945,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "cup",
+    "name": "cup",
+    "theme": "food",
+    "tags": [
+      "drinks",
+      "household"
+    ],
+    "cvc": {
+      "word": "cup"
+    },
+    "file": "food/cup.png",
+    "width": 1024,
+    "height": 832,
+    "style": "lineart"
+  },
+  {
+    "id": "grapes",
+    "name": "grapes",
+    "theme": "food",
+    "tags": [
+      "fruit"
+    ],
+    "cvc": false,
+    "file": "food/grapes.png",
+    "width": 792,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "jug",
+    "name": "jug",
+    "theme": "food",
+    "tags": [
+      "drinks",
+      "household"
+    ],
+    "cvc": {
+      "word": "jug"
+    },
+    "file": "food/jug.png",
+    "width": 981,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "lid",
+    "name": "lid",
+    "theme": "food",
+    "tags": [
+      "household"
+    ],
+    "cvc": {
+      "word": "lid"
+    },
+    "file": "food/lid.png",
+    "width": 1024,
+    "height": 745,
+    "style": "lineart"
+  },
+  {
+    "id": "orange",
+    "name": "orange",
+    "theme": "food",
+    "tags": [
+      "fruit"
+    ],
+    "cvc": false,
+    "file": "food/orange.png",
+    "width": 910,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "pot",
+    "name": "pot",
+    "theme": "food",
+    "tags": [
+      "household"
+    ],
+    "cvc": {
+      "word": "pot"
+    },
+    "file": "food/pot.png",
+    "width": 1024,
+    "height": 759,
+    "style": "lineart"
+  },
+  {
+    "id": "snack",
+    "name": "snack",
+    "theme": "food",
+    "tags": [
+      "routines"
+    ],
+    "cvc": false,
+    "file": "food/snack.png",
+    "width": 1024,
+    "height": 986,
+    "style": "lineart"
+  },
+  {
+    "id": "watermelon",
+    "name": "watermelon",
+    "theme": "food",
+    "tags": [
+      "fruit",
+      "summer"
+    ],
+    "cvc": false,
+    "file": "food/watermelon.png",
+    "width": 1024,
+    "height": 726,
+    "style": "lineart"
+  },
+  {
+    "id": "beanie",
+    "name": "beanie",
+    "theme": "winter",
+    "tags": [
+      "clothes",
+      "hat"
+    ],
+    "cvc": false,
+    "file": "winter/beanie.png",
+    "width": 863,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "boot",
+    "name": "boot",
+    "theme": "winter",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "winter/boot.png",
+    "width": 893,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "boots",
+    "name": "boots",
+    "theme": "winter",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "winter/boots.png",
+    "width": 1024,
+    "height": 890,
+    "style": "lineart",
+    "variantOf": "boot"
+  },
+  {
+    "id": "coat",
+    "name": "coat",
+    "theme": "winter",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "winter/coat.png",
+    "width": 1019,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "ice-skate",
+    "name": "ice skate",
+    "theme": "winter",
+    "tags": [
+      "sports"
+    ],
+    "cvc": false,
+    "file": "winter/ice-skate.png",
+    "width": 1024,
+    "height": 978,
+    "style": "lineart"
+  },
+  {
+    "id": "igloo",
+    "name": "igloo",
+    "theme": "winter",
+    "tags": [],
+    "cvc": false,
+    "file": "winter/igloo.png",
+    "width": 1024,
+    "height": 951,
+    "style": "lineart"
+  },
+  {
+    "id": "mitten",
+    "name": "mitten",
+    "theme": "winter",
+    "tags": [
+      "clothes",
+      "christmas"
+    ],
+    "cvc": false,
+    "file": "winter/mitten.png",
+    "width": 848,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "scarf",
+    "name": "scarf",
+    "theme": "winter",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "winter/scarf.png",
+    "width": 1024,
+    "height": 931,
+    "style": "lineart"
+  },
+  {
+    "id": "sled",
+    "name": "sled",
+    "theme": "winter",
+    "tags": [
+      "toys",
+      "transport"
+    ],
+    "cvc": false,
+    "file": "winter/sled.png",
+    "width": 1024,
+    "height": 588,
+    "style": "lineart"
+  },
+  {
+    "id": "snow",
+    "name": "snow",
+    "theme": "winter",
+    "tags": [
+      "weather"
+    ],
+    "cvc": false,
+    "file": "winter/snow.png",
+    "width": 1014,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "snowflake",
+    "name": "snowflake",
+    "theme": "winter",
+    "tags": [
+      "weather",
+      "christmas"
+    ],
+    "cvc": false,
+    "file": "winter/snowflake.png",
+    "width": 1024,
+    "height": 909,
+    "style": "lineart",
+    "svg": "winter/snowflake.svg"
+  },
+  {
+    "id": "snowman",
+    "name": "snowman",
+    "theme": "winter",
+    "tags": [
+      "christmas"
+    ],
+    "cvc": false,
+    "file": "winter/snowman.png",
+    "width": 639,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bell",
+    "name": "bell",
+    "theme": "christmas",
+    "tags": [],
+    "cvc": false,
+    "file": "christmas/bell.png",
+    "width": 970,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "christmas/bell.svg"
+  },
+  {
+    "id": "candy-cane",
+    "name": "candy cane",
+    "theme": "christmas",
+    "tags": [],
+    "cvc": false,
+    "file": "christmas/candy-cane.png",
+    "width": 663,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "christmas/candy-cane.svg"
+  },
+  {
+    "id": "gift",
+    "name": "gift",
+    "theme": "christmas",
+    "tags": [],
+    "cvc": false,
+    "file": "christmas/gift.png",
+    "width": 1024,
+    "height": 974,
+    "style": "lineart",
+    "svg": "christmas/gift.svg"
+  },
+  {
+    "id": "ornament",
+    "name": "ornament",
+    "theme": "christmas",
+    "tags": [],
+    "cvc": false,
+    "file": "christmas/ornament.png",
+    "width": 845,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "christmas/ornament.svg"
+  },
+  {
+    "id": "star",
+    "name": "star",
+    "theme": "christmas",
+    "tags": [
+      "shapes"
+    ],
+    "cvc": false,
+    "file": "christmas/star.png",
+    "width": 1024,
+    "height": 981,
+    "style": "lineart",
+    "svg": "christmas/star.svg"
+  },
+  {
+    "id": "stocking",
+    "name": "stocking",
+    "theme": "christmas",
+    "tags": [],
+    "cvc": false,
+    "file": "christmas/stocking.png",
+    "width": 755,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "christmas/stocking.svg"
+  },
+  {
+    "id": "christmas-tree",
+    "name": "Christmas tree",
+    "theme": "christmas",
+    "tags": [
+      "nature"
+    ],
+    "cvc": false,
+    "file": "christmas/christmas-tree.png",
+    "width": 942,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "christmas/christmas-tree.svg"
+  },
+  {
+    "id": "balloon",
+    "name": "balloon",
+    "theme": "summer",
+    "tags": [
+      "toys"
+    ],
+    "cvc": false,
+    "file": "summer/balloon.png",
+    "width": 582,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "beach-ball",
+    "name": "beach ball",
+    "theme": "summer",
+    "tags": [
+      "toys",
+      "sports"
+    ],
+    "cvc": false,
+    "file": "summer/beach-ball.png",
+    "width": 1024,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "kite",
+    "name": "kite",
+    "theme": "summer",
+    "tags": [
+      "toys",
+      "weather"
+    ],
+    "cvc": false,
+    "file": "summer/kite.png",
+    "width": 588,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "sunglasses",
+    "name": "sunglasses",
+    "theme": "summer",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "summer/sunglasses.png",
+    "width": 1024,
+    "height": 439,
+    "style": "lineart"
+  },
+  {
+    "id": "cloud",
+    "name": "cloud",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/cloud.png",
+    "width": 1024,
+    "height": 717,
+    "style": "lineart"
+  },
+  {
+    "id": "rain",
+    "name": "rain",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/rain.png",
+    "width": 1024,
+    "height": 1008,
+    "style": "lineart"
+  },
+  {
+    "id": "sun",
+    "name": "sun",
+    "theme": "weather",
+    "tags": [
+      "summer"
+    ],
+    "cvc": {
+      "word": "sun"
+    },
+    "file": "weather/sun.png",
+    "width": 1024,
+    "height": 1021,
+    "style": "lineart"
+  },
+  {
+    "id": "umbrella",
+    "name": "umbrella",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/umbrella.png",
+    "width": 1024,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "wind",
+    "name": "wind",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/wind.png",
+    "width": 1024,
+    "height": 661,
+    "style": "lineart"
+  },
+  {
+    "id": "boat",
+    "name": "boat",
+    "theme": "transport",
+    "tags": [
+      "summer",
+      "ocean"
+    ],
+    "cvc": false,
+    "file": "transport/boat.png",
+    "width": 888,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bus",
+    "name": "bus",
+    "theme": "transport",
+    "tags": [
+      "school"
+    ],
+    "cvc": {
+      "word": "bus"
+    },
+    "file": "transport/bus.png",
+    "width": 1024,
+    "height": 717,
+    "style": "lineart"
+  },
+  {
+    "id": "fire-truck",
+    "name": "fire truck",
+    "theme": "transport",
+    "tags": [
+      "helpers"
+    ],
+    "cvc": false,
+    "file": "transport/fire-truck.png",
+    "width": 1024,
+    "height": 761,
+    "style": "lineart"
+  },
+  {
+    "id": "truck",
+    "name": "truck",
+    "theme": "transport",
+    "tags": [],
+    "cvc": false,
+    "file": "transport/truck.png",
+    "width": 1024,
+    "height": 732,
+    "style": "lineart"
+  },
+  {
+    "id": "van",
+    "name": "van",
+    "theme": "transport",
+    "tags": [],
+    "cvc": {
+      "word": "van"
+    },
+    "file": "transport/van.png",
+    "width": 1024,
+    "height": 635,
+    "style": "lineart"
+  },
+  {
+    "id": "bag",
+    "name": "bag",
+    "theme": "classroom",
+    "tags": [
+      "school"
+    ],
+    "cvc": {
+      "word": "bag"
+    },
+    "file": "classroom/bag.png",
+    "width": 922,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "book",
+    "name": "book",
+    "theme": "classroom",
+    "tags": [
+      "school"
+    ],
+    "cvc": false,
+    "file": "classroom/book.png",
+    "width": 848,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "box",
+    "name": "box",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": {
+      "word": "box"
+    },
+    "file": "classroom/box.png",
+    "width": 1024,
+    "height": 952,
+    "style": "lineart"
+  },
+  {
+    "id": "chair",
+    "name": "chair",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/chair.png",
+    "width": 729,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "crayon",
+    "name": "crayon",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/crayon.png",
+    "width": 604,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "glue",
+    "name": "glue",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/glue.png",
+    "width": 415,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "kit",
+    "name": "kit",
+    "theme": "classroom",
+    "tags": [
+      "helpers"
+    ],
+    "cvc": {
+      "word": "kit"
+    },
+    "file": "classroom/kit.png",
+    "width": 1004,
+    "height": 1024,
+    "style": "lineart",
+    "variantOf": "bag"
+  },
+  {
+    "id": "pen",
+    "name": "pen",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": {
+      "word": "pen"
+    },
+    "file": "classroom/pen.png",
+    "width": 798,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "pencil",
+    "name": "pencil",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/pencil.png",
+    "width": 589,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "scissors",
+    "name": "scissors",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/scissors.png",
+    "width": 856,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "table",
+    "name": "table",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/table.png",
+    "width": 1024,
+    "height": 727,
+    "style": "lineart"
+  },
+  {
+    "id": "yarn",
+    "name": "yarn",
+    "theme": "classroom",
+    "tags": [],
+    "cvc": false,
+    "file": "classroom/yarn.png",
+    "width": 984,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bib",
+    "name": "bib",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": {
+      "word": "bib"
+    },
+    "file": "clothes/bib.png",
+    "width": 1015,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "hat",
+    "name": "hat",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": {
+      "word": "hat"
+    },
+    "file": "clothes/hat.png",
+    "width": 1024,
+    "height": 755,
+    "style": "lineart"
+  },
+  {
+    "id": "quilt",
+    "name": "quilt",
+    "theme": "clothes",
+    "tags": [
+      "household"
+    ],
+    "cvc": false,
+    "file": "clothes/quilt.png",
+    "width": 1024,
+    "height": 831,
+    "style": "lineart"
+  },
+  {
+    "id": "wig",
+    "name": "wig",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": {
+      "word": "wig"
+    },
+    "file": "clothes/wig.png",
+    "width": 1024,
+    "height": 978,
+    "style": "lineart"
+  },
+  {
+    "id": "zipper",
+    "name": "zipper",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": false,
+    "file": "clothes/zipper.png",
+    "width": 314,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bat",
+    "name": "bat",
+    "theme": "household",
+    "tags": [
+      "toys",
+      "sports"
+    ],
+    "cvc": {
+      "word": "bat"
+    },
+    "file": "household/bat.png",
+    "width": 506,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bed",
+    "name": "bed",
+    "theme": "household",
+    "tags": [],
+    "cvc": {
+      "word": "bed"
+    },
+    "file": "household/bed.png",
+    "width": 1024,
+    "height": 808,
+    "style": "lineart"
+  },
+  {
+    "id": "bin",
+    "name": "bin",
+    "theme": "household",
+    "tags": [],
+    "cvc": {
+      "word": "bin"
+    },
+    "file": "household/bin.png",
+    "width": 809,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "home",
+    "name": "home",
+    "theme": "household",
+    "tags": [],
+    "cvc": false,
+    "file": "household/home.png",
+    "width": 993,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "mat",
+    "name": "mat",
+    "theme": "household",
+    "tags": [],
+    "cvc": {
+      "word": "mat"
+    },
+    "file": "household/mat.png",
+    "width": 1024,
+    "height": 623,
+    "style": "lineart"
+  },
+  {
+    "id": "mop",
+    "name": "mop",
+    "theme": "household",
+    "tags": [],
+    "cvc": {
+      "word": "mop"
+    },
+    "file": "household/mop.png",
+    "width": 893,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "net",
+    "name": "net",
+    "theme": "household",
+    "tags": [
+      "toys",
+      "summer"
+    ],
+    "cvc": {
+      "word": "net"
+    },
+    "file": "household/net.png",
+    "width": 1024,
+    "height": 1022,
+    "style": "lineart"
+  },
+  {
+    "id": "top",
+    "name": "top",
+    "theme": "household",
+    "tags": [
+      "toys"
+    ],
+    "cvc": {
+      "word": "top"
+    },
+    "file": "household/top.png",
+    "width": 1024,
+    "height": 978,
+    "style": "lineart"
+  },
+  {
+    "id": "body",
+    "name": "body",
+    "theme": "body",
+    "tags": [
+      "head"
+    ],
+    "cvc": false,
+    "file": "body/body.png",
+    "width": 941,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "ear",
+    "name": "ear",
+    "theme": "body",
+    "tags": [],
+    "cvc": false,
+    "file": "body/ear.png",
+    "width": 1024,
+    "height": 874,
+    "style": "lineart"
+  },
+  {
+    "id": "eye",
+    "name": "eye",
+    "theme": "body",
+    "tags": [],
+    "cvc": false,
+    "file": "body/eye.png",
+    "width": 1024,
+    "height": 518,
+    "style": "lineart"
+  },
+  {
+    "id": "foot",
+    "name": "foot",
+    "theme": "body",
+    "tags": [],
+    "cvc": false,
+    "file": "body/foot.png",
+    "width": 1024,
+    "height": 996,
+    "style": "lineart"
+  },
+  {
+    "id": "hand",
+    "name": "hand",
+    "theme": "body",
+    "tags": [],
+    "cvc": false,
+    "file": "body/hand.png",
+    "width": 1024,
+    "height": 688,
+    "style": "lineart"
+  },
+  {
+    "id": "mouth",
+    "name": "mouth",
+    "theme": "body",
+    "tags": [],
+    "cvc": false,
+    "file": "body/mouth.png",
+    "width": 1024,
+    "height": 722,
+    "style": "lineart"
+  },
+  {
+    "id": "x-ray",
+    "name": "x-ray",
+    "theme": "body",
+    "tags": [
+      "phonics"
+    ],
+    "cvc": false,
+    "file": "body/x-ray.png",
+    "width": 1023,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "angry",
+    "name": "angry",
+    "theme": "feelings",
+    "tags": [
+      "emotions",
+      "faces"
+    ],
+    "cvc": false,
+    "file": "feelings/angry.png",
+    "width": 966,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "calm",
+    "name": "calm",
+    "theme": "feelings",
+    "tags": [
+      "emotions",
+      "faces"
+    ],
+    "cvc": false,
+    "file": "feelings/calm.png",
+    "width": 964,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "happy",
+    "name": "happy",
+    "theme": "feelings",
+    "tags": [
+      "emotions",
+      "faces"
+    ],
+    "cvc": false,
+    "file": "feelings/happy.png",
+    "width": 967,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "sad",
+    "name": "sad",
+    "theme": "feelings",
+    "tags": [
+      "emotions",
+      "faces"
+    ],
+    "cvc": {
+      "word": "sad"
+    },
+    "file": "feelings/sad.png",
+    "width": 964,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "sleepy",
+    "name": "sleepy",
+    "theme": "feelings",
+    "tags": [
+      "emotions",
+      "faces"
+    ],
+    "cvc": false,
+    "file": "feelings/sleepy.png",
+    "width": 966,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "surprised",
+    "name": "surprised",
+    "theme": "feelings",
+    "tags": [
+      "emotions",
+      "faces"
+    ],
+    "cvc": false,
+    "file": "feelings/surprised.png",
+    "width": 969,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "chef",
+    "name": "chef",
+    "theme": "helpers",
+    "tags": [
+      "community",
+      "jobs"
+    ],
+    "cvc": false,
+    "file": "helpers/chef.png",
+    "width": 684,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "doctor",
+    "name": "doctor",
+    "theme": "helpers",
+    "tags": [
+      "community",
+      "jobs"
+    ],
+    "cvc": false,
+    "file": "helpers/doctor.png",
+    "width": 701,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "driver",
+    "name": "driver",
+    "theme": "helpers",
+    "tags": [
+      "community",
+      "jobs",
+      "transport"
+    ],
+    "cvc": false,
+    "file": "helpers/driver.png",
+    "width": 542,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "firefighter",
+    "name": "firefighter",
+    "theme": "helpers",
+    "tags": [
+      "community",
+      "jobs"
+    ],
+    "cvc": false,
+    "file": "helpers/firefighter.png",
+    "width": 678,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "police",
+    "name": "police",
+    "theme": "helpers",
+    "tags": [
+      "community",
+      "jobs"
+    ],
+    "cvc": false,
+    "file": "helpers/police.png",
+    "width": 653,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "teacher",
+    "name": "teacher",
+    "theme": "helpers",
+    "tags": [
+      "community",
+      "jobs",
+      "classroom"
+    ],
+    "cvc": false,
+    "file": "helpers/teacher.png",
+    "width": 696,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "arrive",
+    "name": "arrive",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom",
+      "schedule"
+    ],
+    "cvc": false,
+    "file": "routines/arrive.png",
+    "width": 971,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "circle-time",
+    "name": "circle time",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom",
+      "schedule"
+    ],
+    "cvc": false,
+    "file": "routines/circle-time.png",
+    "width": 1024,
+    "height": 865,
+    "style": "lineart"
+  },
+  {
+    "id": "clap",
+    "name": "clap",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom"
+    ],
+    "cvc": false,
+    "file": "routines/clap.png",
+    "width": 547,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "jump",
+    "name": "jump",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom"
+    ],
+    "cvc": false,
+    "file": "routines/jump.png",
+    "width": 785,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "listen",
+    "name": "listen",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom"
+    ],
+    "cvc": false,
+    "file": "routines/listen.png",
+    "width": 601,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "outdoor",
+    "name": "outdoor",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom",
+      "schedule"
+    ],
+    "cvc": false,
+    "file": "routines/outdoor.png",
+    "width": 1024,
+    "height": 974,
+    "style": "lineart"
+  },
+  {
+    "id": "raise-hand",
+    "name": "raise hand",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom"
+    ],
+    "cvc": false,
+    "file": "routines/raise-hand.png",
+    "width": 674,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "sit",
+    "name": "sit",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom"
+    ],
+    "cvc": {
+      "word": "sit"
+    },
+    "file": "routines/sit.png",
+    "width": 554,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "stand",
+    "name": "stand",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom"
+    ],
+    "cvc": false,
+    "file": "routines/stand.png",
+    "width": 566,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "story",
+    "name": "story",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom",
+      "schedule"
+    ],
+    "cvc": false,
+    "file": "routines/story.png",
+    "width": 1024,
+    "height": 834,
+    "style": "lineart"
+  },
+  {
+    "id": "table-work",
+    "name": "table work",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom",
+      "schedule"
+    ],
+    "cvc": false,
+    "file": "routines/table-work.png",
+    "width": 762,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "wash",
+    "name": "wash",
+    "theme": "routines",
+    "tags": [
+      "tpr",
+      "classroom",
+      "schedule"
+    ],
+    "cvc": false,
+    "file": "routines/wash.png",
+    "width": 738,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "tree",
+    "name": "tree",
+    "theme": "nature",
+    "tags": [
+      "summer"
+    ],
+    "cvc": false,
+    "file": "nature/tree.png",
+    "width": 957,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "heart",
+    "name": "heart",
+    "theme": "nature",
+    "tags": [
+      "valentine",
+      "shapes"
+    ],
+    "cvc": false,
+    "file": "nature/heart.png",
+    "width": 1024,
+    "height": 964,
+    "style": "lineart"
+  },
+  {
+    "id": "circle",
+    "name": "circle",
+    "theme": "shapes",
+    "tags": [],
+    "cvc": false,
+    "file": "shapes/circle.png",
+    "width": 1024,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "shapes/circle.svg"
+  },
+  {
+    "id": "square",
+    "name": "square",
+    "theme": "shapes",
+    "tags": [],
+    "cvc": false,
+    "file": "shapes/square.png",
+    "width": 1024,
+    "height": 1024,
+    "style": "lineart",
+    "svg": "shapes/square.svg"
+  },
+  {
+    "id": "triangle",
+    "name": "triangle",
+    "theme": "shapes",
+    "tags": [],
+    "cvc": false,
+    "file": "shapes/triangle.png",
+    "width": 1024,
+    "height": 960,
+    "style": "lineart",
+    "svg": "shapes/triangle.svg"
+  },
+  {
+    "id": "rectangle",
+    "name": "rectangle",
+    "theme": "shapes",
+    "tags": [],
+    "cvc": false,
+    "file": "shapes/rectangle.png",
+    "width": 1024,
+    "height": 685,
+    "style": "lineart",
+    "svg": "shapes/rectangle.svg"
+  }
+]
