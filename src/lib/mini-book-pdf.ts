@@ -172,7 +172,61 @@ export const MINI_BOOK_PRESETS: MiniBookPreset[] = [
   },
 ];
 
-const VOWEL_ARTICLE_EXCEPTIONS = new Set(['umbrella', 'unicorn']);
+const VOWEL_ARTICLE_EXCEPTIONS = new Set(['umbrella', 'unicorn', 'x-ray']);
+
+const CUSTOM_PHRASE_MAP: Record<string, string> = {
+  cocoa: 'a cup of cocoa',
+  police: 'a police officer',
+  sun: 'the sun',
+  wind: 'the wind',
+  'x-ray': 'an x-ray',
+  'christmas tree': 'a Christmas tree',
+  'easter egg': 'an Easter egg',
+};
+
+const UNCOUNTABLE_NOUNS = new Set([
+  'snow',
+  'rain',
+  'glue',
+  'yarn',
+  'candy',
+  'candy corn',
+  'ice cream',
+  'grass',
+]);
+
+const PLURAL_NOUNS = new Set([
+  'grapes',
+  'boots',
+  'sunglasses',
+  'scissors',
+  'chocolates',
+  'socks',
+]);
+
+const FEELING_WORDS = new Set([
+  'angry',
+  'calm',
+  'happy',
+  'sad',
+  'sleepy',
+  'surprised',
+]);
+
+const ROUTINE_SENTENCES: Record<string, { 'i-see': string; 'this-is': string }> = {
+  arrive: { 'i-see': 'I arrive at school.', 'this-is': 'Time to arrive.' },
+  'circle time': { 'i-see': 'It is circle time.', 'this-is': 'This is circle time.' },
+  clap: { 'i-see': 'I can clap.', 'this-is': "Let's clap!" },
+  jump: { 'i-see': 'I can jump.', 'this-is': "Let's jump!" },
+  listen: { 'i-see': 'I can listen.', 'this-is': "Let's listen!" },
+  outdoor: { 'i-see': 'I play outdoors.', 'this-is': 'Time to play outdoors.' },
+  'raise hand': { 'i-see': 'I raise my hand.', 'this-is': 'Raise your hand.' },
+  sit: { 'i-see': 'I can sit.', 'this-is': "Let's sit down." },
+  stand: { 'i-see': 'I can stand.', 'this-is': "Let's stand up." },
+  story: { 'i-see': 'It is story time.', 'this-is': 'This is a story.' },
+  'table work': { 'i-see': 'It is table work.', 'this-is': 'This is table work.' },
+  wash: { 'i-see': 'I wash my hands.', 'this-is': 'Time to wash hands.' },
+};
 
 export function formatMiniBookSentence(wordRaw: string, mode: MiniBookCaptionMode): string {
   const clean = toWinAnsiSafe(wordRaw);
@@ -181,11 +235,36 @@ export function formatMiniBookSentence(wordRaw: string, mode: MiniBookCaptionMod
     return clean;
   }
 
+  const routine = ROUTINE_SENTENCES[lower];
+  if (routine) {
+    return mode === 'this-is' ? routine['this-is'] : routine['i-see'];
+  }
+
+  if (FEELING_WORDS.has(lower)) {
+    if (mode === 'this-is') {
+      return `I feel ${lower}.`;
+    }
+    return `I see ${lower === 'angry' ? 'an' : 'a'} ${lower} face.`;
+  }
+
+  if (PLURAL_NOUNS.has(lower)) {
+    return mode === 'this-is' ? `These are ${lower}.` : `I see ${lower}.`;
+  }
+
+  if (UNCOUNTABLE_NOUNS.has(lower)) {
+    return mode === 'this-is' ? `This is ${lower}.` : `I see ${lower}.`;
+  }
+
+  const customPhrase = CUSTOM_PHRASE_MAP[lower];
+  if (customPhrase) {
+    return mode === 'this-is' ? `This is ${customPhrase}.` : `I see ${customPhrase}.`;
+  }
+
   const startsWithVowel = /^[aeiou]/i.test(lower) && lower !== 'unicorn';
   const article = VOWEL_ARTICLE_EXCEPTIONS.has(lower)
-    ? lower === 'umbrella'
-      ? 'an'
-      : 'a'
+    ? lower === 'unicorn'
+      ? 'a'
+      : 'an'
     : startsWithVowel
     ? 'an'
     : 'a';

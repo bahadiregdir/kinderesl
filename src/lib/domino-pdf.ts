@@ -213,6 +213,18 @@ export function formatDominoWord(raw: string, letterCase: DominoLetterCase): str
   return clean;
 }
 
+export function formatDeckTitleForMode(
+  rawTitle: string,
+  mode: DominoGameMode
+): string {
+  const fallback = mode === 'dominoes' ? 'ESL Picture Dominoes' : 'ESL Memory Match';
+  const clean = toWinAnsiSafe(rawTitle) || fallback;
+  if (mode === 'dominoes') {
+    return clean.replace(/\bMemory Match\b/gi, 'Picture Dominoes');
+  }
+  return clean.replace(/\bPicture Dominoes\b/gi, 'Memory Match');
+}
+
 export function buildDominoTiles(config: DominoConfig): DominoTile[] {
   const valid = Array.from(new Set(config.clipartIds))
     .filter((id) => Boolean(getClipart(id)))
@@ -293,8 +305,10 @@ export async function generateDominoPdf(
   const loadClipart =
     options.loadClipartBytes ?? ((item) => fetchClipartBytesCached(item));
 
+  const safeTitle = formatDeckTitleForMode(config.title, config.mode);
+
   const doc = await PDFDocument.create();
-  doc.setTitle(`${toWinAnsiSafe(config.title || 'Picture Dominoes & Memory')} - KinderESL`);
+  doc.setTitle(`${safeTitle} - KinderESL`);
   doc.setAuthor('KinderESL Educational Resources');
   doc.setCreator('KinderESL Dominoes & Memory Match Maker');
 
@@ -332,7 +346,6 @@ export async function generateDominoPdf(
   const usableW = pageW - marginX * 2;
   const gridTop = 90;
   const usableH = bottomFooterY - 18 - gridTop;
-  const safeTitle = toWinAnsiSafe(config.title) || 'ESL Picture Game';
 
   if (config.mode === 'dominoes') {
     const cols = 2;

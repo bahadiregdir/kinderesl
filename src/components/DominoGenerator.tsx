@@ -5,6 +5,7 @@ import {
   DOMINO_PRESETS,
   buildDominoTiles,
   buildMemoryCards,
+  formatDeckTitleForMode,
   generateDominoPdf,
   type DominoGameMode,
   type DominoLetterCase,
@@ -34,6 +35,7 @@ import {
 
 export function DominoGenerator() {
   const defaultPreset = DOMINO_PRESETS[0];
+  const [activePresetId, setActivePresetId] = useState(defaultPreset.id);
   const [title, setTitle] = useState(defaultPreset.title);
   const [selectedIds, setSelectedIds] = useState<string[]>(defaultPreset.clipartIds);
   const [mode, setMode] = useState<DominoGameMode>('dominoes');
@@ -52,6 +54,7 @@ export function DominoGenerator() {
     if (!param) return;
     const found = DOMINO_PRESETS.find((p) => p.id === param);
     if (found) {
+      setActivePresetId(found.id);
       setTitle(found.title);
       setSelectedIds(found.clipartIds);
       setPreviewPage(0);
@@ -108,7 +111,8 @@ export function DominoGenerator() {
   const paperLabel = getPaperLabel(paperSize);
 
   const applyPreset = (preset: DominoPreset) => {
-    setTitle(preset.title);
+    setActivePresetId(preset.id);
+    setTitle(formatDeckTitleForMode(preset.title, mode));
     setSelectedIds(preset.clipartIds);
     setPreviewPage(0);
     setSeed((s) => s + 1);
@@ -196,7 +200,7 @@ export function DominoGenerator() {
                 type="button"
                 onClick={() => applyPreset(p)}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                  title === p.title
+                  activePresetId === p.id
                     ? 'bg-[#2E6B6B] text-white border-[#2E6B6B]'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-[#2E6B6B] hover:text-[#2E6B6B]'
                 }`}
@@ -307,11 +311,7 @@ export function DominoGenerator() {
                 type="button"
                 onClick={() => {
                   setMode(opt.id);
-                  setTitle((prev) =>
-                    opt.id === 'dominoes'
-                      ? prev.replace(/Memory Match$/i, 'Picture Dominoes')
-                      : prev.replace(/Picture Dominoes$/i, 'Memory Match')
-                  );
+                  setTitle((prev) => formatDeckTitleForMode(prev, opt.id));
                   setPreviewPage(0);
                 }}
                 className={`py-2 px-1 rounded-lg font-bold transition-colors ${
@@ -499,7 +499,7 @@ export function DominoGenerator() {
             <div>
               <div className="flex items-baseline justify-between gap-2 border-b-2 border-[#2E6B6B] pb-2 mb-3">
                 <h2 className="text-sm sm:text-base font-extrabold text-slate-900 font-heading truncate">
-                  {title}
+                  {formatDeckTitleForMode(title, mode)}
                 </h2>
                 <span className="text-[10px] font-medium text-slate-500 shrink-0">
                   {paperLabel}
