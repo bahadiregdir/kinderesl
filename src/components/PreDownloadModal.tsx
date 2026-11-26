@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Worksheet } from '@/types/worksheet';
@@ -18,6 +18,7 @@ import {
   Check,
   Sparkles,
   ArrowRight,
+  Plus,
 } from 'lucide-react';
 
 interface PreDownloadModalProps {
@@ -47,6 +48,18 @@ export function PreDownloadModal({
     onPaperSizeChange?.(next);
   };
   const { hasItem, toggleItem } = useLessonPack();
+  const downloadRecordedRef = useRef(false);
+
+  const recordDownloadInDb = useCallback(() => {
+    if (downloadRecordedRef.current) return;
+    downloadRecordedRef.current = true;
+    fetch('/api/analytics/event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
+      keepalive: true,
+    }).catch(() => {});
+  }, [worksheet.slug]);
 
   const activePdfUrl =
     paperSize === 'a4' ? `/api/pdf/a4?slug=${worksheet.slug}` : worksheet.pdfPath;
@@ -58,11 +71,13 @@ export function PreDownloadModal({
     if (!isOpen) {
       setCountdown(initialSeconds);
       setDownloadStarted(false);
+      downloadRecordedRef.current = false;
       return;
     }
 
     setCountdown(initialSeconds);
     setDownloadStarted(false);
+    downloadRecordedRef.current = false;
 
     if (initialSeconds === 0) {
       return;
@@ -94,14 +109,18 @@ export function PreDownloadModal({
         fileName: `${worksheet.slug}${paperSize === 'a4' ? '-a4' : ''}.pdf`,
         source: 'modal',
       });
-      fetch('/api/analytics/event', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
-        keepalive: true,
-      }).catch(() => {});
+      recordDownloadInDb();
     }
-  }, [isOpen, countdown, downloadStarted, worksheet, activePdfUrl, activeDownloadTitle, paperSize]);
+  }, [
+    isOpen,
+    countdown,
+    downloadStarted,
+    worksheet,
+    activePdfUrl,
+    activeDownloadTitle,
+    paperSize,
+    recordDownloadInDb,
+  ]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -120,6 +139,7 @@ export function PreDownloadModal({
 
   const handlePrint = () => {
     trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject, paperSize });
+    recordDownloadInDb();
     const win = window.open(activePdfUrl, '_blank');
     if (win) win.focus();
   };
@@ -227,6 +247,7 @@ export function PreDownloadModal({
                       fileName: `${worksheet.slug}${paperSize === 'a4' ? '-a4' : ''}.pdf`,
                       source: 'modal_retry',
                     });
+                    recordDownloadInDb();
                   }}
                   className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline"
                 >
@@ -270,12 +291,12 @@ export function PreDownloadModal({
             </button>
           </div>
 
-          {/* Related Companion Printables */}
+          {/* Related Companion Printables (Next 3) */}
           {relatedWorksheets.length > 0 && (
             <div className="pt-4 border-t border-slate-100 space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                  Companion Printables for Your Lesson
+                  Keep Building Your Lesson · Next 3 Printables
                 </span>
                 <Link
                   href="/worksheets"
@@ -285,33 +306,64 @@ export function PreDownloadModal({
                   Browse all →
                 </Link>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {relatedWorksheets.slice(0, 2).map((rel) => (
-                  <Link
-                    key={rel.slug}
-                    href={`/worksheets/${rel.slug}`}
-                    onClick={onClose}
-                    className="flex items-center gap-2.5 p-2 rounded-xl border border-slate-200 hover:border-[#2E6B6B] bg-slate-50/70 transition-colors group"
-                  >
-                    <div className="relative w-10 h-12 rounded bg-white border border-slate-200 shrink-0 overflow-hidden">
-                      <Image
-                        src={rel.previewImages[0]}
-                        alt={rel.title}
-                        fill
-                        sizes="40px"
-                        className="object-contain p-0.5"
-                      />
+              <div className="space-y-2">
+                {relatedWorksheets.slice(0, 3).map((rel) => {
+                  const relInPack = hasItem(rel.slug);
+                  return (
+                    <div
+                      key={rel.slug}
+                      className="flex items-center gap-2.5 p-2 rounded-xl border border-slate-200 hover:border-[#2E6B6B] bg-slate-50/70 transition-colors"
+                    >
+                      <Link
+                        href={`/worksheets/${rel.slug}`}
+                        onClick={onClose}
+                        className="flex items-center gap-2.5 flex-1 min-w-0 group"
+                      >
+                        <div className="relative w-10 h-12 rounded bg-white border border-slate-200 shrink-0 overflow-hidden">
+                          <Image
+                            src={rel.previewImages[0]}
+                            alt={rel.title}
+                            fill
+                            sizes="40px"
+                            className="object-contain p-0.5"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-bold text-slate-800 group-hover:text-[#2E6B6B] truncate">
+                            {rel.title}
+                          </p>
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-500">
+                            <span>{rel.subjectName} · {rel.pages}p</span>
+                            <span className="text-[#2E6B6B] inline-flex items-center gap-0.5">
+                              Open <ArrowRight className="w-2.5 h-2.5" />
+                            </span>
+                          </span>
+                        </div>
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => toggleItem(rel)}
+                        className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold shrink-0 transition-colors ${
+                          relInPack
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-white text-[#2E6B6B] border border-slate-200 hover:border-[#2E6B6B]'
+                        }`}
+                      >
+                        {relInPack ? <Check className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+                        <span>{relInPack ? 'Saved' : 'Pack'}</span>
+                      </button>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[11px] font-bold text-slate-800 group-hover:text-[#2E6B6B] line-clamp-2 leading-snug">
-                        {rel.title}
-                      </p>
-                      <span className="inline-flex items-center gap-0.5 text-[10px] font-semibold text-[#2E6B6B] mt-0.5">
-                        View <ArrowRight className="w-2.5 h-2.5" />
-                      </span>
-                    </div>
-                  </Link>
-                ))}
+                  );
+                })}
+              </div>
+              <div className="pt-1 text-center">
+                <Link
+                  href="/tools/name-tracing"
+                  onClick={onClose}
+                  className="text-[11px] font-semibold text-[#2E6B6B] hover:underline"
+                >
+                  Need personalized sheets? Try our Free Name Tracing Generator →
+                </Link>
               </div>
             </div>
           )}

@@ -61,6 +61,15 @@ export default async function HomePage() {
     fetchAllWorksheets(),
     fetchSiteSettings(),
   ]);
+  const latestWorksheets = [...worksheets]
+    .sort((a, b) => {
+      const tA = new Date(a.updatedAt || a.dateModified || a.datePublished).getTime() || 0;
+      const tB = new Date(b.updatedAt || b.dateModified || b.datePublished).getTime() || 0;
+      return tB - tA;
+    })
+    .slice(0, 4);
+  const latestSet = new Set(latestWorksheets.map((w) => w.slug));
+
   const showcaseSlugs = [
     'letter-tracing-worksheets-a-to-z',
     'beginning-sounds-clip-cards',
@@ -74,11 +83,12 @@ export default async function HomePage() {
   const bySlug = new Map(worksheets.map((w) => [w.slug, w]));
   const picked = showcaseSlugs
     .map((slug) => bySlug.get(slug))
-    .filter((w): w is (typeof worksheets)[number] => Boolean(w));
+    .filter((w): w is (typeof worksheets)[number] => Boolean(w))
+    .filter((w) => !latestSet.has(w.slug));
   const pickedSet = new Set(picked.map((w) => w.slug));
   const featuredWorksheets = [
     ...picked,
-    ...worksheets.filter((w) => !pickedSet.has(w.slug)),
+    ...worksheets.filter((w) => !pickedSet.has(w.slug) && !latestSet.has(w.slug)),
   ].slice(0, 8);
   const popularTopics = topics.slice(0, 6);
 
@@ -323,6 +333,62 @@ export default async function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Free Educator Tool Spotlight + Just Added Latest Printables */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="rounded-2xl bg-linear-to-r from-[#2E6B6B] to-[#235353] text-white p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/15 text-[#FDE68A]">
+              <Sparkles className="w-3 h-3" />
+              <span>Free Classroom Tool</span>
+            </span>
+            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight font-heading">
+              Custom Name Tracing Worksheet Generator
+            </h2>
+            <p className="text-xs sm:text-sm text-teal-50/90 leading-relaxed">
+              Type one child&apos;s name or paste a whole class list (up to 30 names) to download US Letter or A4 dashed tracing PDFs in seconds—100% browser-private.
+            </p>
+          </div>
+          <Link
+            href="/tools/name-tracing"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-[#2E6B6B] hover:bg-teal-50 text-sm font-bold shadow-xs transition-colors shrink-0"
+          >
+            <span>Create Name Sheet</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#F0F7F7] text-[#2E6B6B] border border-[#d0e3e3]">
+                  New
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+                  Just Added · Latest Printables
+                </h2>
+              </div>
+              <p className="text-sm text-slate-600">
+                Freshly published classroom and homeschool worksheets ready to print in US Letter &amp; A4.
+              </p>
+            </div>
+            <Link
+              href="/worksheets"
+              className="text-xs font-bold text-[#2E6B6B] hover:underline inline-flex items-center gap-1"
+            >
+              <span>Browse all {worksheets.length} printables</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {latestWorksheets.map((ws) => (
+              <WorksheetCard key={ws.slug} worksheet={ws} />
+            ))}
+          </div>
         </div>
       </section>
 

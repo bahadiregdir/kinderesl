@@ -53,6 +53,12 @@ export async function GET() {
     lines.push('');
   }
 
+  lines.push('## Free Interactive Educator Tools');
+  lines.push(
+    `- [Custom Name Tracing Worksheet Generator](${baseUrl}/tools/name-tracing): Create personalized preschool and kindergarten ball-and-stick name tracing PDFs in US Letter or A4 (single student or whole class batch up to 30 names, 100% browser-private).`
+  );
+  lines.push('');
+
   lines.push('## Educator Teaching Guides');
   for (const guide of guides) {
     lines.push(

@@ -26,6 +26,7 @@ export function Footer() {
     { title: 'Food & Nutrition', href: '/topics/food' },
     { title: 'Monthly Themes', href: '/preschool-themes' },
     { title: 'Teaching Guides', href: '/guides' },
+    { title: 'Name Tracing Generator', href: '/tools/name-tracing' },
   ];
 
   const legalLinks = [

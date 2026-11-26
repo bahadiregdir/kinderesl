@@ -83,6 +83,12 @@ export function WorksheetDetailView({
 
   const handlePrint = () => {
     trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject, paperSize });
+    fetch('/api/analytics/event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
+      keepalive: true,
+    }).catch(() => {});
     const printWindow = window.open(activePdfUrl, '_blank');
     if (printWindow) {
       printWindow.focus();
