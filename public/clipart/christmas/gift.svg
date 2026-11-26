@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="87.520 155.520 848.960 807.960" width="1024" height="975" fill="none">
+<g transform="translate(72,952) scale(1,-1)" fill="none" stroke="#1F2933" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="114.4" y="44" width="651.2" height="422.4" stroke-width="18.216" rx="26.4"/>
+  <path d="M 440 589.6 C 352 800.8 140.8 765.6 211.2 642.4 C 264 580.8 369.6 589.6 440 589.6 Z" stroke-width="18.216"/>
+  <path d="M 440 589.6 C 528 800.8 739.2 765.6 668.8 642.4 C 616 580.8 510.4 589.6 440 589.6 Z" stroke-width="18.216"/>
+  <rect x="70.4" y="457.6" width="739.2" height="132" stroke-width="18.216" rx="26.4"/>
+  <rect x="387.2" y="44" width="105.6" height="413.6" stroke-width="18.216"/>
+  <rect x="387.2" y="457.6" width="105.6" height="132" stroke-width="18.216"/>
+  <rect x="387.2" y="572" width="105.6" height="70.4" stroke-width="18.216" rx="26.4"/>
+</g>
+</svg>
