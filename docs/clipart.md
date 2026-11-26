@@ -1,6 +1,6 @@
 # KinderESL clip-art library
 
-125 original KinderESL line drawings (cute, clean coloring-book style, Andy the Ant look): black ink (`#1F2933`) on a transparent background, longest side 1024px. Made for the picture flashcard maker, picture bingo, I Spy maker, and other tools.
+176 original KinderESL line drawings (cute, clean coloring-book style, Andy the Ant look): black ink (`#1F2933`) on a transparent background, longest side 1024px. Made for the picture flashcard maker, picture bingo, I Spy maker, and other tools.
 
 ## Layout
 
@@ -17,25 +17,29 @@ Each item lives in one primary theme folder. Secondary themes go in `tags` (for 
 | body | 7 |
 | christmas | 7 |
 | classroom | 12 |
-| clothes | 5 |
+| clothes | 8 |
+| fall | 8 |
 | farm | 9 |
 | feelings | 6 |
 | food | 11 |
+| halloween | 8 |
 | helpers | 6 |
 | household | 8 |
-| nature | 2 |
+| nature | 8 |
 | routines | 12 |
 | shapes | 4 |
-| summer | 4 |
-| transport | 5 |
-| weather | 5 |
+| spring | 8 |
+| summer | 8 |
+| transport | 8 |
+| valentines | 8 |
+| weather | 8 |
 | winter | 12 |
 
 ## Manifest fields
 
 `id`, `name` (English word to show on a card), `theme`, `tags`, `cvc` (`false` or `{ "word": "cat" }`), `file`, `svg` (optional), `width`, `height`, `style` (`lineart`), `variantOf` (optional).
 
-`variantOf` marks a near-duplicate of another item (`hen` of `chicken`, `kit` of `bag`, `boots` of `boot`). Don't put both in one bingo or I Spy set.
+`variantOf` marks a near-duplicate of another item (`hen` of `chicken`, `kit` of `bag`, `boots` of `boot`, `heart-arrow` of `heart`). Don't put both in one bingo or I Spy set.
 
 ## Helper API (`@/lib/clipart`)
 

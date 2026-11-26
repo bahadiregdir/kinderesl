@@ -1676,5 +1676,660 @@
     "height": 685,
     "style": "lineart",
     "svg": "shapes/rectangle.svg"
+  },
+  {
+    "id": "pumpkin",
+    "name": "pumpkin",
+    "theme": "fall",
+    "tags": [
+      "halloween",
+      "food"
+    ],
+    "cvc": false,
+    "file": "fall/pumpkin.png",
+    "width": 1024,
+    "height": 999,
+    "style": "lineart"
+  },
+  {
+    "id": "leaf",
+    "name": "leaf",
+    "theme": "fall",
+    "tags": [
+      "nature"
+    ],
+    "cvc": false,
+    "file": "fall/leaf.png",
+    "width": 977,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "acorn",
+    "name": "acorn",
+    "theme": "fall",
+    "tags": [
+      "nature"
+    ],
+    "cvc": false,
+    "file": "fall/acorn.png",
+    "width": 823,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "owl",
+    "name": "owl",
+    "theme": "fall",
+    "tags": [
+      "animals",
+      "birds",
+      "halloween"
+    ],
+    "cvc": false,
+    "file": "fall/owl.png",
+    "width": 1024,
+    "height": 947,
+    "style": "lineart"
+  },
+  {
+    "id": "squirrel",
+    "name": "squirrel",
+    "theme": "fall",
+    "tags": [
+      "animals"
+    ],
+    "cvc": false,
+    "file": "fall/squirrel.png",
+    "width": 1024,
+    "height": 949,
+    "style": "lineart"
+  },
+  {
+    "id": "apple-basket",
+    "name": "apple basket",
+    "theme": "fall",
+    "tags": [
+      "food",
+      "fruit"
+    ],
+    "cvc": false,
+    "file": "fall/apple-basket.png",
+    "width": 954,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "mushroom",
+    "name": "mushroom",
+    "theme": "fall",
+    "tags": [
+      "nature"
+    ],
+    "cvc": false,
+    "file": "fall/mushroom.png",
+    "width": 1008,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "scarecrow",
+    "name": "scarecrow",
+    "theme": "fall",
+    "tags": [
+      "farm"
+    ],
+    "cvc": false,
+    "file": "fall/scarecrow.png",
+    "width": 760,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "jack-o-lantern",
+    "name": "jack-o'-lantern",
+    "theme": "halloween",
+    "tags": [
+      "fall"
+    ],
+    "cvc": false,
+    "file": "halloween/jack-o-lantern.png",
+    "width": 1024,
+    "height": 974,
+    "style": "lineart"
+  },
+  {
+    "id": "ghost",
+    "name": "ghost",
+    "theme": "halloween",
+    "tags": [],
+    "cvc": false,
+    "file": "halloween/ghost.png",
+    "width": 1024,
+    "height": 1008,
+    "style": "lineart"
+  },
+  {
+    "id": "flying-bat",
+    "name": "bat",
+    "theme": "halloween",
+    "tags": [
+      "animals"
+    ],
+    "cvc": {
+      "word": "bat"
+    },
+    "file": "halloween/flying-bat.png",
+    "width": 1024,
+    "height": 697,
+    "style": "lineart"
+  },
+  {
+    "id": "witch-hat",
+    "name": "witch hat",
+    "theme": "halloween",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "halloween/witch-hat.png",
+    "width": 1024,
+    "height": 807,
+    "style": "lineart"
+  },
+  {
+    "id": "spider",
+    "name": "spider",
+    "theme": "halloween",
+    "tags": [
+      "animals",
+      "insects"
+    ],
+    "cvc": false,
+    "file": "halloween/spider.png",
+    "width": 831,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "candy",
+    "name": "candy",
+    "theme": "halloween",
+    "tags": [
+      "food"
+    ],
+    "cvc": false,
+    "file": "halloween/candy.png",
+    "width": 1024,
+    "height": 665,
+    "style": "lineart"
+  },
+  {
+    "id": "cauldron",
+    "name": "cauldron",
+    "theme": "halloween",
+    "tags": [],
+    "cvc": false,
+    "file": "halloween/cauldron.png",
+    "width": 875,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "candy-corn",
+    "name": "candy corn",
+    "theme": "halloween",
+    "tags": [
+      "food",
+      "fall"
+    ],
+    "cvc": false,
+    "file": "halloween/candy-corn.png",
+    "width": 924,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "bunny",
+    "name": "bunny",
+    "theme": "spring",
+    "tags": [
+      "animals",
+      "easter"
+    ],
+    "cvc": false,
+    "file": "spring/bunny.png",
+    "width": 613,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "easter-egg",
+    "name": "Easter egg",
+    "theme": "spring",
+    "tags": [
+      "easter"
+    ],
+    "cvc": false,
+    "file": "spring/easter-egg.png",
+    "width": 835,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "flower",
+    "name": "flower",
+    "theme": "spring",
+    "tags": [
+      "nature"
+    ],
+    "cvc": false,
+    "file": "spring/flower.png",
+    "width": 632,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "butterfly",
+    "name": "butterfly",
+    "theme": "spring",
+    "tags": [
+      "animals",
+      "insects",
+      "nature"
+    ],
+    "cvc": false,
+    "file": "spring/butterfly.png",
+    "width": 1024,
+    "height": 758,
+    "style": "lineart"
+  },
+  {
+    "id": "rainbow",
+    "name": "rainbow",
+    "theme": "spring",
+    "tags": [
+      "weather"
+    ],
+    "cvc": false,
+    "file": "spring/rainbow.png",
+    "width": 1024,
+    "height": 690,
+    "style": "lineart"
+  },
+  {
+    "id": "chick",
+    "name": "chick",
+    "theme": "spring",
+    "tags": [
+      "animals",
+      "farm",
+      "easter"
+    ],
+    "cvc": false,
+    "file": "spring/chick.png",
+    "width": 775,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "raindrop",
+    "name": "raindrop",
+    "theme": "spring",
+    "tags": [
+      "weather"
+    ],
+    "cvc": false,
+    "file": "spring/raindrop.png",
+    "width": 773,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "watering-can",
+    "name": "watering can",
+    "theme": "spring",
+    "tags": [
+      "nature",
+      "garden"
+    ],
+    "cvc": false,
+    "file": "spring/watering-can.png",
+    "width": 1024,
+    "height": 705,
+    "style": "lineart"
+  },
+  {
+    "id": "heart-arrow",
+    "name": "heart",
+    "theme": "valentines",
+    "tags": [
+      "shapes"
+    ],
+    "cvc": false,
+    "file": "valentines/heart-arrow.png",
+    "width": 1024,
+    "height": 819,
+    "style": "lineart",
+    "variantOf": "heart"
+  },
+  {
+    "id": "love-letter",
+    "name": "love letter",
+    "theme": "valentines",
+    "tags": [],
+    "cvc": false,
+    "file": "valentines/love-letter.png",
+    "width": 1024,
+    "height": 733,
+    "style": "lineart"
+  },
+  {
+    "id": "bouquet",
+    "name": "bouquet",
+    "theme": "valentines",
+    "tags": [
+      "nature",
+      "flowers"
+    ],
+    "cvc": false,
+    "file": "valentines/bouquet.png",
+    "width": 696,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "teddy-bear",
+    "name": "teddy bear",
+    "theme": "valentines",
+    "tags": [
+      "toys"
+    ],
+    "cvc": false,
+    "file": "valentines/teddy-bear.png",
+    "width": 789,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "cupcake",
+    "name": "cupcake",
+    "theme": "valentines",
+    "tags": [
+      "food"
+    ],
+    "cvc": false,
+    "file": "valentines/cupcake.png",
+    "width": 771,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "chocolate-box",
+    "name": "chocolates",
+    "theme": "valentines",
+    "tags": [
+      "food"
+    ],
+    "cvc": false,
+    "file": "valentines/chocolate-box.png",
+    "width": 1024,
+    "height": 803,
+    "style": "lineart"
+  },
+  {
+    "id": "lollipop",
+    "name": "lollipop",
+    "theme": "valentines",
+    "tags": [
+      "food"
+    ],
+    "cvc": false,
+    "file": "valentines/lollipop.png",
+    "width": 576,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "card",
+    "name": "card",
+    "theme": "valentines",
+    "tags": [],
+    "cvc": false,
+    "file": "valentines/card.png",
+    "width": 1024,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "ice-cream",
+    "name": "ice cream",
+    "theme": "summer",
+    "tags": [
+      "food"
+    ],
+    "cvc": false,
+    "file": "summer/ice-cream.png",
+    "width": 473,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "sandcastle",
+    "name": "sandcastle",
+    "theme": "summer",
+    "tags": [
+      "beach"
+    ],
+    "cvc": false,
+    "file": "summer/sandcastle.png",
+    "width": 1024,
+    "height": 912,
+    "style": "lineart"
+  },
+  {
+    "id": "sand-bucket",
+    "name": "bucket",
+    "theme": "summer",
+    "tags": [
+      "beach",
+      "toys"
+    ],
+    "cvc": false,
+    "file": "summer/sand-bucket.png",
+    "width": 841,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "seashell",
+    "name": "seashell",
+    "theme": "summer",
+    "tags": [
+      "beach",
+      "ocean",
+      "nature"
+    ],
+    "cvc": false,
+    "file": "summer/seashell.png",
+    "width": 1024,
+    "height": 909,
+    "style": "lineart"
+  },
+  {
+    "id": "storm",
+    "name": "storm",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/storm.png",
+    "width": 1024,
+    "height": 1003,
+    "style": "lineart"
+  },
+  {
+    "id": "thermometer",
+    "name": "thermometer",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/thermometer.png",
+    "width": 370,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "tornado",
+    "name": "tornado",
+    "theme": "weather",
+    "tags": [],
+    "cvc": false,
+    "file": "weather/tornado.png",
+    "width": 1024,
+    "height": 1004,
+    "style": "lineart"
+  },
+  {
+    "id": "airplane",
+    "name": "airplane",
+    "theme": "transport",
+    "tags": [],
+    "cvc": false,
+    "file": "transport/airplane.png",
+    "width": 1024,
+    "height": 550,
+    "style": "lineart"
+  },
+  {
+    "id": "train",
+    "name": "train",
+    "theme": "transport",
+    "tags": [],
+    "cvc": false,
+    "file": "transport/train.png",
+    "width": 1024,
+    "height": 953,
+    "style": "lineart"
+  },
+  {
+    "id": "car",
+    "name": "car",
+    "theme": "transport",
+    "tags": [],
+    "cvc": false,
+    "file": "transport/car.png",
+    "width": 1024,
+    "height": 705,
+    "style": "lineart"
+  },
+  {
+    "id": "dress",
+    "name": "dress",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": false,
+    "file": "clothes/dress.png",
+    "width": 1012,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "shirt",
+    "name": "shirt",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": false,
+    "file": "clothes/shirt.png",
+    "width": 1024,
+    "height": 872,
+    "style": "lineart"
+  },
+  {
+    "id": "socks",
+    "name": "socks",
+    "theme": "clothes",
+    "tags": [],
+    "cvc": false,
+    "file": "clothes/socks.png",
+    "width": 1024,
+    "height": 848,
+    "style": "lineart"
+  },
+  {
+    "id": "mountain",
+    "name": "mountain",
+    "theme": "nature",
+    "tags": [],
+    "cvc": false,
+    "file": "nature/mountain.png",
+    "width": 1024,
+    "height": 789,
+    "style": "lineart"
+  },
+  {
+    "id": "rock",
+    "name": "rock",
+    "theme": "nature",
+    "tags": [],
+    "cvc": false,
+    "file": "nature/rock.png",
+    "width": 1024,
+    "height": 777,
+    "style": "lineart"
+  },
+  {
+    "id": "grass",
+    "name": "grass",
+    "theme": "nature",
+    "tags": [
+      "garden"
+    ],
+    "cvc": false,
+    "file": "nature/grass.png",
+    "width": 1024,
+    "height": 664,
+    "style": "lineart"
+  },
+  {
+    "id": "cactus",
+    "name": "cactus",
+    "theme": "nature",
+    "tags": [
+      "plants"
+    ],
+    "cvc": false,
+    "file": "nature/cactus.png",
+    "width": 867,
+    "height": 1024,
+    "style": "lineart"
+  },
+  {
+    "id": "log",
+    "name": "log",
+    "theme": "nature",
+    "tags": [
+      "forest"
+    ],
+    "cvc": {
+      "word": "log"
+    },
+    "file": "nature/log.png",
+    "width": 1024,
+    "height": 703,
+    "style": "lineart"
+  },
+  {
+    "id": "sunflower",
+    "name": "sunflower",
+    "theme": "nature",
+    "tags": [
+      "summer",
+      "flowers"
+    ],
+    "cvc": false,
+    "file": "nature/sunflower.png",
+    "width": 716,
+    "height": 1024,
+    "style": "lineart"
   }
 ]
