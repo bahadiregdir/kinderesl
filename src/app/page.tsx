@@ -342,29 +342,47 @@ export default async function HomePage() {
           <div className="space-y-2 max-w-2xl">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/15 text-[#FDE68A]">
               <Sparkles className="w-3 h-3" />
-              <span>Free Classroom Tools · Browser-Private PDF</span>
+              <span>5 Free Classroom Tools · Browser-Private PDF</span>
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight font-heading">
-              Custom Name Tracing &amp; ESL Bingo Generators
+              Free Tracing, Sight Word &amp; ESL Bingo PDF Makers
             </h2>
             <p className="text-xs sm:text-sm text-teal-50/90 leading-relaxed">
-              Create personalized dashed name sheets (up to 30 students) or shuffled 3×3 / 4×4 ESL vocabulary bingo packets with a teacher caller sheet—US Letter &amp; A4 ready.
+              Create personalized name sheets, A–Z letter tracing, 0–20 Ten-Frame number pages, Dolch sight word sheets, or shuffled 3×3 / 4×4 ESL bingo packets—US Letter &amp; A4 ready.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <Link
               href="/tools/name-tracing"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white text-[#2E6B6B] hover:bg-teal-50 text-xs sm:text-sm font-bold shadow-xs transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white text-[#2E6B6B] hover:bg-teal-50 text-xs font-bold shadow-xs transition-colors"
             >
-              <span>Name Tracing Generator</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Name Tracing</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
             <Link
-              href="/tools/bingo-maker"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs sm:text-sm font-bold transition-colors"
+              href="/tools/letter-tracing"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
             >
-              <span>ESL Bingo Maker</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Letter Tracing</span>
+            </Link>
+            <Link
+              href="/tools/number-tracing"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
+            >
+              <span>Number Tracing</span>
+            </Link>
+            <Link
+              href="/tools/handwriting-maker"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
+            >
+              <span>Sight Words</span>
+            </Link>
+            <Link
+              href="/tools"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-[#F2B544] hover:bg-[#e5a633] text-slate-900 text-xs font-bold transition-colors"
+            >
+              <span>All 5 Tools</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

@@ -14,6 +14,7 @@ import { months } from '@/data/months';
 import { ageBandsData } from '@/data/ages';
 import { activitiesData } from '@/data/activities';
 import { guides } from '@/data/guides';
+import { TOOL_REGISTRY } from '@/data/tools';
 import { isIndexableCollection, type Worksheet } from '@/types/worksheet';
 import { getSiteUrl } from '@/config/site';
 
@@ -73,18 +74,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/tools/name-tracing`,
+    ...Object.values(TOOL_REGISTRY).map((tool) => ({
+      url: `${baseUrl}${tool.path}`,
       lastModified: latestModDate,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tools/bingo-maker`,
-      lastModified: latestModDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
+    })),
     {
       url: `${baseUrl}/about`,
       lastModified: latestModDate,

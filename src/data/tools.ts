@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import { getSiteUrl } from '@/config/site';
 import { buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 
-export type ToolPreviewKind = 'name-tracing' | 'bingo-maker' | 'generic';
+export type ToolPreviewKind =
+  | 'name-tracing'
+  | 'bingo-maker'
+  | 'letter-tracing'
+  | 'number-tracing'
+  | 'handwriting-maker'
+  | 'generic';
 
 export interface ToolRegistryItem {
   slug: string;
@@ -58,6 +64,63 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
       'Uniquely shuffled 3×3 or 4×4 student bingo boards paired with a printable teacher caller checklist.',
     schemaName: 'KinderESL Free ESL Bingo Card Generator',
     previewKind: 'bingo-maker',
+  },
+  'letter-tracing': {
+    slug: 'letter-tracing',
+    path: '/tools/letter-tracing',
+    seoTitle: 'Free Letter Tracing Worksheet Generator (A–Z)',
+    description:
+      'Generate custom printable A–Z alphabet letter tracing PDF worksheets for preschool and kindergarten. Choose single letters, SATPIN groups, or all 26 letters in US Letter or A4.',
+    ogTitle: 'Free Letter Tracing Worksheet Maker',
+    ogSubtitle: 'Preschool & Kindergarten · A–Z Free PDF',
+    ogBadges: ['Full A–Z or SATPIN', 'Uppercase & Lowercase'],
+    ogAlt:
+      'Free Letter Tracing Worksheet Maker — Printable dashed Aa and Bb alphabet handwriting sheets with starting dots',
+    pinDescription:
+      'Free Printable A–Z Letter Tracing Worksheet Generator! Create custom single-letter, SATPIN, or 26-page alphabet tracing PDFs with starting dots in US Letter or A4 at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Zaner-Bloser uppercase and lowercase dashed letters with phonics word cues.',
+    schemaName: 'KinderESL Free Letter Tracing Worksheet Generator',
+    previewKind: 'letter-tracing',
+  },
+  'number-tracing': {
+    slug: 'number-tracing',
+    path: '/tools/number-tracing',
+    seoTitle: 'Free Number Tracing Worksheet Generator (0–20)',
+    description:
+      'Create free printable number tracing PDF worksheets for numbers 0–10 or 0–20 with built-in Ten-Frame counting grids, dashed number words, and starting dots in US Letter or A4.',
+    ogTitle: 'Free Number Tracing Worksheet Maker',
+    ogSubtitle: 'Numbers 0–20 & Ten-Frames · Free PDF',
+    ogBadges: ['0–10 & 0–20 Packs', 'Ten-Frame Counting'],
+    ogAlt:
+      'Free Number Tracing Worksheet Maker — Printable dashed numbers 0-20 with Ten-Frame counting grid for preschool and kindergarten',
+    pinDescription:
+      'Free Printable Number Tracing Worksheet Generator (0–20)! Includes Ten-Frame counting boxes, dashed number words, and teal starting dots in US Letter or A4 PDF at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Numeral formation practice paired with Ten-Frames and traceable number words.',
+    schemaName: 'KinderESL Free Number Tracing Worksheet Generator',
+    previewKind: 'number-tracing',
+  },
+  'handwriting-maker': {
+    slug: 'handwriting-maker',
+    path: '/tools/handwriting-maker',
+    seoTitle: 'Free Sight Word & Handwriting Worksheet Maker',
+    description:
+      'Turn any sight word, Dolch, CVC phonics, or ESL vocabulary list into Read-Trace-Write or full-row handwriting practice PDFs in US Letter & A4.',
+    ogTitle: 'Free Sight Word Handwriting Maker',
+    ogSubtitle: 'Read · Trace · Write · Free PDF',
+    ogBadges: ['Dolch & CVC Presets', 'Custom Word Lists'],
+    ogAlt:
+      'Free Sight Word & Handwriting Worksheet Maker — Printable Read, Trace, and Write dashed word practice sheet',
+    pinDescription:
+      'Free Printable Sight Word & Handwriting Worksheet Maker! Paste up to 18 sight words or pick Dolch & CVC presets to create Read-Trace-Write PDFs in US Letter or A4 at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      '3-column Read, Trace & Write layout or full-row word tracing for weekly lists.',
+    schemaName: 'KinderESL Free Sight Word & Handwriting Worksheet Maker',
+    previewKind: 'handwriting-maker',
   },
 };
 

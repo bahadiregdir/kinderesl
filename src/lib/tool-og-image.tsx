@@ -350,6 +350,511 @@ function GenericToolPreviewCard({ title }: { title: string }) {
   );
 }
 
+function LetterTracingPreviewCard() {
+  const svgW = 416;
+  const svgH = 316;
+  const rows = [
+    { token: 'Aa  Aa  Aa', y: 26, rowH: 72, stroke: '#2E6B6B', dashed: false },
+    { token: 'Aa  Aa  Aa', y: 128, rowH: 72, stroke: '#334155', dashed: true },
+    { token: 'Bb  Bb  Bb', y: 230, rowH: 72, stroke: '#334155', dashed: true },
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 12,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          Letter Tracing A–Z
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          A–Z · 26 Pages
+        </div>
+      </div>
+
+      <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`}>
+        {rows.map((row, idx) => {
+          const midY = row.y + row.rowH * 0.48;
+          const baseY = row.y + row.rowH;
+          const layout = layoutNameStrokes(row.token, {
+            boxX: 12,
+            boxY: row.y,
+            boxWidth: svgW - 24,
+            rowHeight: row.rowH,
+            align: 'center',
+          });
+
+          return (
+            <g key={idx}>
+              <line x1={0} y1={row.y} x2={svgW} y2={row.y} stroke="#94A3B8" strokeWidth={1.5} />
+              <line
+                x1={0}
+                y1={midY}
+                x2={svgW}
+                y2={midY}
+                stroke="#CBD5E1"
+                strokeWidth={1.4}
+                strokeDasharray="7 6"
+              />
+              <line x1={0} y1={baseY} x2={svgW} y2={baseY} stroke="#64748B" strokeWidth={1.8} />
+
+              {layout.strokes.map((s, sIdx) => (
+                <path
+                  key={sIdx}
+                  d={strokeCommandsToSvgPath(s.commands)}
+                  fill="none"
+                  stroke={row.stroke}
+                  strokeWidth={3}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeDasharray={row.dashed ? '5 6' : undefined}
+                />
+              ))}
+
+              {layout.strokes.map((s, sIdx) =>
+                s.startDot ? (
+                  <circle
+                    key={`d-${sIdx}`}
+                    cx={s.startDot[0]}
+                    cy={s.startDot[1]}
+                    r={3.8}
+                    fill="#2E6B6B"
+                  />
+                ) : null
+              )}
+            </g>
+          );
+        })}
+      </svg>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 8,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Single Letters, SATPIN &amp; Full A–Z</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function NumberTracingPreviewCard() {
+  const svgW = 416;
+  const svgH = 200;
+  const rows = [
+    { token: '1   2   3', y: 16, rowH: 70 },
+    { token: '4   5   6', y: 112, rowH: 70 },
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 12,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          Number Tracing 0–20
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          + Ten-Frames
+        </div>
+      </div>
+
+      {/* Mini 2x5 Ten-Frame showing 5 */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          backgroundColor: '#F0F7F7',
+          border: '1.5px solid #D0E3E3',
+          borderRadius: 12,
+          padding: '10px 16px',
+          marginBottom: 12,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <div style={{ display: 'flex', fontSize: 18, fontWeight: 700, color: '#0F172A' }}>
+            Five (5)
+          </div>
+          <div style={{ display: 'flex', fontSize: 12, color: '#475569' }}>
+            Ten-Frame + Number Word
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            border: '2px solid #2E6B6B',
+            borderRadius: 6,
+            backgroundColor: '#FFFFFF',
+            overflow: 'hidden',
+          }}
+        >
+          {[0, 1].map((r) => (
+            <div key={r} style={{ display: 'flex', flexDirection: 'row' }}>
+              {[0, 1, 2, 3, 4].map((c) => {
+                const idx = r * 5 + c;
+                const filled = idx < 5;
+                return (
+                  <div
+                    key={c}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 32,
+                      height: 30,
+                      borderRight: c < 4 ? '1px solid #94A3B8' : 'none',
+                      borderBottom: r === 0 ? '1px solid #94A3B8' : 'none',
+                    }}
+                  >
+                    {filled && (
+                      <div
+                        style={{
+                          display: 'flex',
+                          width: 16,
+                          height: 16,
+                          borderRadius: 999,
+                          backgroundColor: '#2E6B6B',
+                        }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`}>
+        {rows.map((row, idx) => {
+          const midY = row.y + row.rowH * 0.48;
+          const baseY = row.y + row.rowH;
+          const layout = layoutNameStrokes(row.token, {
+            boxX: 16,
+            boxY: row.y,
+            boxWidth: svgW - 32,
+            rowHeight: row.rowH,
+            align: 'center',
+          });
+
+          return (
+            <g key={idx}>
+              <line x1={0} y1={row.y} x2={svgW} y2={row.y} stroke="#94A3B8" strokeWidth={1.5} />
+              <line
+                x1={0}
+                y1={midY}
+                x2={svgW}
+                y2={midY}
+                stroke="#CBD5E1"
+                strokeWidth={1.4}
+                strokeDasharray="7 6"
+              />
+              <line x1={0} y1={baseY} x2={svgW} y2={baseY} stroke="#64748B" strokeWidth={1.8} />
+
+              {layout.strokes.map((s, sIdx) => (
+                <path
+                  key={sIdx}
+                  d={strokeCommandsToSvgPath(s.commands)}
+                  fill="none"
+                  stroke="#334155"
+                  strokeWidth={3.2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeDasharray="5 6"
+                />
+              ))}
+
+              {layout.strokes.map((s, sIdx) =>
+                s.startDot ? (
+                  <circle
+                    key={`d-${sIdx}`}
+                    cx={s.startDot[0]}
+                    cy={s.startDot[1]}
+                    r={4}
+                    fill="#2E6B6B"
+                  />
+                ) : null
+              )}
+            </g>
+          );
+        })}
+      </svg>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 6,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>0–10 &amp; 0–20 Math Packets</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function HandwritingPreviewCard() {
+  const svgW = 416;
+  const svgH = 304;
+  const words = ['the', 'see', 'play'];
+  const colW = svgW / 3;
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 10,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          Sight Word Practice
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          Read · Trace · Write
+        </div>
+      </div>
+
+      <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`}>
+        {words.map((word, idx) => {
+          const y = 22 + idx * 96;
+          const rowH = 66;
+          const midY = y + rowH * 0.48;
+          const baseY = y + rowH;
+
+          const guide = layoutNameStrokes(word, {
+            boxX: 8,
+            boxY: y,
+            boxWidth: colW - 16,
+            rowHeight: rowH,
+            align: 'center',
+          });
+          const trace = layoutNameStrokes(word, {
+            boxX: colW + 8,
+            boxY: y,
+            boxWidth: colW - 16,
+            rowHeight: rowH,
+            align: 'center',
+          });
+
+          return (
+            <g key={word}>
+              <line x1={0} y1={y} x2={svgW} y2={y} stroke="#94A3B8" strokeWidth={1.4} />
+              <line
+                x1={0}
+                y1={midY}
+                x2={svgW}
+                y2={midY}
+                stroke="#CBD5E1"
+                strokeWidth={1.2}
+                strokeDasharray="6 5"
+              />
+              <line x1={0} y1={baseY} x2={svgW} y2={baseY} stroke="#64748B" strokeWidth={1.6} />
+
+              <line
+                x1={colW}
+                y1={y - 4}
+                x2={colW}
+                y2={baseY + 4}
+                stroke="#D1E3E3"
+                strokeWidth={1.2}
+                strokeDasharray="3 4"
+              />
+              <line
+                x1={colW * 2}
+                y1={y - 4}
+                x2={colW * 2}
+                y2={baseY + 4}
+                stroke="#D1E3E3"
+                strokeWidth={1.2}
+                strokeDasharray="3 4"
+              />
+
+              {guide.strokes.map((s, sIdx) => (
+                <path
+                  key={`g-${sIdx}`}
+                  d={strokeCommandsToSvgPath(s.commands)}
+                  fill="none"
+                  stroke="#B8D0D0"
+                  strokeWidth={2.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              ))}
+
+              {trace.strokes.map((s, sIdx) => (
+                <path
+                  key={`t-${sIdx}`}
+                  d={strokeCommandsToSvgPath(s.commands)}
+                  fill="none"
+                  stroke="#334155"
+                  strokeWidth={2.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeDasharray="4 5"
+                />
+              ))}
+
+              {trace.strokes.map((s, sIdx) =>
+                s.startDot ? (
+                  <circle
+                    key={`d-${sIdx}`}
+                    cx={s.startDot[0]}
+                    cy={s.startDot[1]}
+                    r={3.2}
+                    fill="#2E6B6B"
+                  />
+                ) : null
+              )}
+            </g>
+          );
+        })}
+      </svg>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 6,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Dolch Sight Words &amp; CVC Families</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
 export function renderToolOgImage(slug: string): ImageResponse {
   const tool = getToolConfig(slug);
 
@@ -522,6 +1027,12 @@ export function renderToolOgImage(slug: string): ImageResponse {
             <NameTracingPreviewCard />
           ) : tool.previewKind === 'bingo-maker' ? (
             <BingoMakerPreviewCard />
+          ) : tool.previewKind === 'letter-tracing' ? (
+            <LetterTracingPreviewCard />
+          ) : tool.previewKind === 'number-tracing' ? (
+            <NumberTracingPreviewCard />
+          ) : tool.previewKind === 'handwriting-maker' ? (
+            <HandwritingPreviewCard />
           ) : (
             <GenericToolPreviewCard title={tool.ogTitle} />
           )}

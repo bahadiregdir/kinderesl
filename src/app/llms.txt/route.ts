@@ -61,6 +61,15 @@ export async function GET() {
     `- [Custom Name Tracing Worksheet Generator](${baseUrl}/tools/name-tracing): Create personalized preschool and kindergarten ball-and-stick name tracing PDFs in US Letter or A4 (single student or whole class batch up to 30 names, 100% browser-private).`
   );
   lines.push(
+    `- [Free Letter Tracing Worksheet Generator (A–Z)](${baseUrl}/tools/letter-tracing): Generate printable Zaner-Bloser A–Z alphabet tracing PDFs for single letters, SATPIN phonics groups, or full 26-letter workbooks in US Letter or A4.`
+  );
+  lines.push(
+    `- [Free Number Tracing Worksheet Generator (0–20)](${baseUrl}/tools/number-tracing): Create printable 0–10 and 0–20 numeral tracing PDFs paired with visual Ten-Frame counting grids and dashed English number words.`
+  );
+  lines.push(
+    `- [Free Sight Word & Handwriting Worksheet Maker](${baseUrl}/tools/handwriting-maker): Turn Dolch sight word presets, CVC families, or custom spelling lists (up to 18 words) into Read-Trace-Write or full-row handwriting practice PDFs.`
+  );
+  lines.push(
     `- [Custom ESL Bingo Card Generator](${baseUrl}/tools/bingo-maker): Build up to 30 uniquely shuffled 3x3 or 4x4 ESL vocabulary bingo boards plus a Teacher Caller Checklist in US Letter or A4 PDF.`
   );
   lines.push('');

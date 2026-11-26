@@ -10,13 +10,22 @@ import {
   buildSeoDescription,
   buildSeoTitle,
 } from '@/lib/seo-meta';
-import { Sparkles, PenTool, Grid3X3, ArrowRight, ShieldCheck } from 'lucide-react';
+import {
+  Sparkles,
+  PenTool,
+  Grid3X3,
+  Type,
+  Hash,
+  BookOpenText,
+  ArrowRight,
+  ShieldCheck,
+} from 'lucide-react';
 
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/tools`;
 const pageTitle = buildSeoTitle('Free Printable Teacher Tools');
 const pageDescription = buildSeoDescription(
-  'Free browser-private PDF generators for preschool and ESL teachers: custom name tracing worksheets and shuffled ESL bingo cards in US Letter & A4.'
+  'Free browser-private PDF generators for preschool and ESL teachers: custom name tracing, A–Z letter tracing, 0–20 number tracing, sight word handwriting, and ESL bingo cards in US Letter & A4.'
 );
 
 export const metadata: Metadata = {
@@ -53,6 +62,36 @@ export default function ToolsHubPage() {
       features: ['US Letter & A4', 'Landscape & Portrait', 'Title / UPPER / lower'],
       cta: 'Create Name Tracing PDF',
       icon: PenTool,
+    },
+    {
+      href: '/tools/letter-tracing',
+      badge: 'Alphabet · Single or Full A–Z',
+      title: 'Letter Tracing Worksheet Generator',
+      description:
+        'Build Zaner-Bloser A–Z tracing sheets for single letters, SATPIN phonics groups, or a complete 26-page alphabet workbook with starting dots.',
+      features: ['Aa / AA / aa Formats', 'Phonics Anchor Words', 'Up to 26 Pages'],
+      cta: 'Create Letter Tracing PDF',
+      icon: Type,
+    },
+    {
+      href: '/tools/number-tracing',
+      badge: 'Early Math · 0–20 + Ten-Frames',
+      title: 'Number Tracing Worksheet Generator',
+      description:
+        'Create printable 0–10 and 0–20 numeral formation sheets paired with vector Ten-Frame counting grids and dashed English number words.',
+      features: ['0–10 & 0–20 Ranges', 'Visual Ten-Frames', 'Dashed Number Words'],
+      cta: 'Create Number Tracing PDF',
+      icon: Hash,
+    },
+    {
+      href: '/tools/handwriting-maker',
+      badge: 'Sight Words · Read · Trace · Write',
+      title: 'Sight Word & Handwriting Worksheet Maker',
+      description:
+        'Turn Dolch sight words, CVC word families, or your own weekly spelling list into structured 3-column Read, Trace & Write practice PDFs.',
+      features: ['6 Dolch & CVC Sets', 'Read · Trace · Write', 'Up to 18 Words'],
+      cta: 'Create Handwriting PDF',
+      icon: BookOpenText,
     },
     {
       href: '/tools/bingo-maker',
