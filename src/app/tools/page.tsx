@@ -17,6 +17,7 @@ import {
   Type,
   Hash,
   BookOpenText,
+  Images,
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react';
@@ -25,7 +26,7 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/tools`;
 const pageTitle = buildSeoTitle('Free Printable Teacher Tools');
 const pageDescription = buildSeoDescription(
-  'Free browser-private PDF generators for preschool and ESL teachers: custom name tracing, A–Z letter tracing, 0–20 number tracing, sight word handwriting, and ESL bingo cards in US Letter & A4.'
+  'Free browser-private PDF generators for preschool and ESL teachers: picture flashcards, picture & word ESL bingo, name tracing, A–Z letter tracing, 0–20 number tracing, and sight word handwriting in US Letter & A4.'
 );
 
 export const metadata: Metadata = {
@@ -94,12 +95,22 @@ export default function ToolsHubPage() {
       icon: BookOpenText,
     },
     {
-      href: '/tools/bingo-maker',
-      badge: 'ESL Speaking · Up to 30 Shuffled Cards',
-      title: 'Custom ESL Bingo Card Generator',
+      href: '/tools/flashcard-maker',
+      badge: 'Vocabulary · 125 Drawings + Upload',
+      title: 'ESL Picture Flashcard Maker',
       description:
-        'Pick a ready-made preschool vocabulary theme or enter custom words to build up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a caller sheet.',
-      features: ['6 Ready ESL Presets', '1 or 2 Cards / Sheet', 'Teacher Caller Sheet'],
+        'Mix and match 125 coloring-friendly KinderESL drawings or upload your own images to build 2×2, 2×3, or 3×3 picture and traceable flashcards.',
+      features: ['125 Built-In Drawings', 'Custom Image Upload', 'Picture + Trace Mode'],
+      cta: 'Create Flashcards PDF',
+      icon: Images,
+    },
+    {
+      href: '/tools/bingo-maker',
+      badge: 'ESL Speaking · Picture & Word Modes',
+      title: 'Custom ESL Picture & Word Bingo Maker',
+      description:
+        'Pick from 125 line-art drawings or custom vocabulary words to build up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a visual caller sheet.',
+      features: ['Picture & Word Bingo', '1 or 2 Cards / Sheet', 'Visual Caller Sheet'],
       cta: 'Create Bingo Cards PDF',
       icon: Grid3X3,
     },

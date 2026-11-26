@@ -8,6 +8,7 @@ export type ToolPreviewKind =
   | 'letter-tracing'
   | 'number-tracing'
   | 'handwriting-maker'
+  | 'flashcard-maker'
   | 'generic';
 
 export interface ToolRegistryItem {
@@ -49,21 +50,40 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
   'bingo-maker': {
     slug: 'bingo-maker',
     path: '/tools/bingo-maker',
-    seoTitle: 'Free ESL Bingo Card Generator',
+    seoTitle: 'Free ESL Picture & Word Bingo Card Generator',
     description:
-      'Create up to 30 unique shuffled printable ESL bingo cards in US Letter or A4 PDF with a teacher caller checklist. Ready-made word sets or custom lists.',
-    ogTitle: 'Free ESL Bingo Card Generator',
-    ogSubtitle: 'Preschool & Kindergarten · Free PDF',
-    ogBadges: ['3x3 & 4x4 Grids', 'Teacher Caller Sheet'],
+      'Create up to 30 unique shuffled printable ESL picture or word bingo cards in US Letter or A4 PDF with a teacher caller checklist. 125 illustrations built in.',
+    ogTitle: 'Free ESL Picture Bingo Maker',
+    ogSubtitle: 'Pictures & Words · 3×3 & 4×4 Free PDF',
+    ogBadges: ['Picture & Word Modes', 'Caller Checklist'],
     ogAlt:
-      'Free ESL Bingo Card Generator — Printable 3x3 ESL vocabulary bingo card with FREE center space for preschool and kindergarten',
+      'Free ESL Picture Bingo Card Generator — Printable 3x3 ESL vocabulary bingo card with FREE center space for preschool and kindergarten',
     pinDescription:
-      'Free Printable ESL Bingo Card Generator for Preschool & Kindergarten! Build up to 30 uniquely shuffled 3x3 or 4x4 vocabulary bingo cards plus a Teacher Caller Checklist in US Letter or A4 PDF at KinderESL.com.',
+      'Free Printable ESL Picture & Word Bingo Card Generator for Preschool & Kindergarten! Build up to 30 uniquely shuffled 3x3 or 4x4 picture bingo cards plus a Teacher Caller Checklist at KinderESL.com.',
     sampleHeading: 'Printable Output Preview',
     sampleCaption:
-      'Uniquely shuffled 3×3 or 4×4 student bingo boards paired with a printable teacher caller checklist.',
-    schemaName: 'KinderESL Free ESL Bingo Card Generator',
+      'Uniquely shuffled 3×3 or 4×4 student picture & word bingo boards paired with a printable caller sheet.',
+    schemaName: 'KinderESL Free ESL Picture & Word Bingo Card Generator',
     previewKind: 'bingo-maker',
+  },
+  'flashcard-maker': {
+    slug: 'flashcard-maker',
+    path: '/tools/flashcard-maker',
+    seoTitle: 'Free Printable ESL Picture Flashcard Maker',
+    description:
+      'Build custom printable ESL picture flashcards in US Letter or A4 PDF from 125 coloring-friendly drawings or your own uploaded images. Supports 2×2, 2×3, and 3×3 cards.',
+    ogTitle: 'Free ESL Picture Flashcard Maker',
+    ogSubtitle: '125 Drawings + Custom Upload · Free PDF',
+    ogBadges: ['2×2, 2×3 & 3×3 Cards', 'Picture + Trace Mode'],
+    ogAlt:
+      'Free Printable ESL Picture Flashcard Maker — Printable 2x2 ESL vocabulary flashcards with coloring-friendly line art',
+    pinDescription:
+      'Free Printable ESL Picture Flashcard Maker! Pick from 125 coloring-friendly drawings or upload your own images to create 2x2, 2x3, or 3x3 PDF flashcard decks at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Clean 2×2, 2×3, and 3×3 printable flashcards with optional traceable words.',
+    schemaName: 'KinderESL Free ESL Picture Flashcard Maker',
+    previewKind: 'flashcard-maker',
   },
   'letter-tracing': {
     slug: 'letter-tracing',

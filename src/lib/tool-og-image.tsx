@@ -308,6 +308,164 @@ function BingoMakerPreviewCard() {
   );
 }
 
+function FlashcardMakerPreviewCard() {
+  const cards = [
+    { word: 'Cow', sub: 'Farm Animals' },
+    { word: 'Snowman', sub: 'Winter' },
+    { word: 'Cat', sub: 'CVC Phonics' },
+    { word: 'Bell', sub: 'Christmas' },
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 16,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          ESL Picture Flashcards
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          2×2 · 2×3 · 3×3
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+          width: '100%',
+          flex: 1,
+        }}
+      >
+        {[0, 1].map((rowIdx) => (
+          <div
+            key={rowIdx}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 14,
+              flex: 1,
+            }}
+          >
+            {cards.slice(rowIdx * 2, rowIdx * 2 + 2).map((card) => (
+              <div
+                key={card.word}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  flex: 1,
+                  border: '2px solid #2E6B6B',
+                  borderRadius: 14,
+                  backgroundColor: '#FFFFFF',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    height: 10,
+                    width: '100%',
+                    backgroundColor: '#F0F7F7',
+                  }}
+                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '6px 10px',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: '#2E6B6B',
+                      backgroundColor: '#F0F7F7',
+                      padding: '3px 10px',
+                      borderRadius: 999,
+                    }}
+                  >
+                    {card.sub}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderTop: '1.5px solid #D0E3E3',
+                    padding: '8px 10px',
+                    fontSize: 22,
+                    fontWeight: 700,
+                    color: '#0F172A',
+                  }}
+                >
+                  {card.word}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 12,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>125 Line-Art Drawings + Tracing</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
 function GenericToolPreviewCard({ title }: { title: string }) {
   return (
     <div
@@ -1033,6 +1191,8 @@ export function renderToolOgImage(slug: string): ImageResponse {
             <NumberTracingPreviewCard />
           ) : tool.previewKind === 'handwriting-maker' ? (
             <HandwritingPreviewCard />
+          ) : tool.previewKind === 'flashcard-maker' ? (
+            <FlashcardMakerPreviewCard />
           ) : (
             <GenericToolPreviewCard title={tool.ogTitle} />
           )}

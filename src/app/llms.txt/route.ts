@@ -70,7 +70,10 @@ export async function GET() {
     `- [Free Sight Word & Handwriting Worksheet Maker](${baseUrl}/tools/handwriting-maker): Turn Dolch sight word presets, CVC families, or custom spelling lists (up to 18 words) into Read-Trace-Write or full-row handwriting practice PDFs.`
   );
   lines.push(
-    `- [Custom ESL Bingo Card Generator](${baseUrl}/tools/bingo-maker): Build up to 30 uniquely shuffled 3x3 or 4x4 ESL vocabulary bingo boards plus a Teacher Caller Checklist in US Letter or A4 PDF.`
+    `- [Free Printable ESL Picture Flashcard Maker](${baseUrl}/tools/flashcard-maker): Build 2x2, 2x3, or 3x3 classroom flashcard PDFs in US Letter or A4 from 125 built-in KinderESL line-art drawings or custom uploaded images, with optional traceable words and matching word decks.`
+  );
+  lines.push(
+    `- [Custom ESL Picture & Word Bingo Card Generator](${baseUrl}/tools/bingo-maker): Build up to 30 uniquely shuffled 3x3 or 4x4 ESL picture or word bingo boards plus a visual Teacher Caller Checklist in US Letter or A4 PDF.`
   );
   lines.push('');
 
