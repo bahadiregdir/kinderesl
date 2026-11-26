@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Worksheet } from '@/types/worksheet';
 import { AdUnit } from '@/components/AdUnit';
 import { triggerPdfFileDownload } from '@/lib/download-helper';
-import { trackEvent, trackPdfDownload } from '@/lib/analytics';
+import { trackEvent, trackPdfDownload, recordWorksheetDownloadInDb } from '@/lib/analytics';
 import { siteConfig } from '@/config/site';
 import { useLessonPack } from '@/context/LessonPackContext';
 import {
@@ -53,12 +53,7 @@ export function PreDownloadModal({
   const recordDownloadInDb = useCallback(() => {
     if (downloadRecordedRef.current) return;
     downloadRecordedRef.current = true;
-    fetch('/api/analytics/event', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
-      keepalive: true,
-    }).catch(() => {});
+    recordWorksheetDownloadInDb(worksheet.slug);
   }, [worksheet.slug]);
 
   const activePdfUrl =

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import {
   dbIncrementDownload,
+  dbIncrementToolDownload,
   dbRecordPageExit,
   dbRecordPageView,
   dbRecordSearch,
@@ -43,6 +44,14 @@ export async function POST(request: Request) {
       const cleanSlug = body.slug.trim().toLowerCase().slice(0, 120);
       if (/^[a-z0-9-]+$/.test(cleanSlug)) {
         await dbIncrementDownload(cleanSlug);
+      }
+      return NextResponse.json({ ok: true, persisted: true });
+    }
+
+    if (body.type === 'tool_download' && typeof body.slug === 'string') {
+      const cleanSlug = body.slug.trim().toLowerCase().slice(0, 120);
+      if (/^[a-z0-9-]+$/.test(cleanSlug)) {
+        await dbIncrementToolDownload(cleanSlug);
       }
       return NextResponse.json({ ok: true, persisted: true });
     }

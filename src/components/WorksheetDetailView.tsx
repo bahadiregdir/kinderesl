@@ -12,7 +12,7 @@ import { WorksheetCard } from '@/components/WorksheetCard';
 import { PreDownloadModal } from '@/components/PreDownloadModal';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { useLessonPack } from '@/context/LessonPackContext';
-import { trackEvent } from '@/lib/analytics';
+import { recordWorksheetDownloadInDb, trackEvent } from '@/lib/analytics';
 import { getRelatedToolsForWorksheet } from '@/lib/related-tools';
 import { TOOL_COUNT } from '@/data/tools';
 import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
@@ -132,12 +132,7 @@ export function WorksheetDetailView({
 
   const handlePrint = () => {
     trackEvent('worksheet_print', { slug: worksheet.slug, subject: worksheet.subject, paperSize });
-    fetch('/api/analytics/event', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'download', slug: worksheet.slug }),
-      keepalive: true,
-    }).catch(() => {});
+    recordWorksheetDownloadInDb(worksheet.slug);
     const printWindow = window.open(activePdfUrl, '_blank');
     if (printWindow) {
       printWindow.focus();

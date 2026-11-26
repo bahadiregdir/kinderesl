@@ -42,10 +42,16 @@ export interface CollectionStats {
 
 export interface AdminAnalyticsSummary {
   totalDownloads: number;
+  worksheetDownloads?: number;
+  toolDownloads?: number;
   topDownloaded: Array<{
     slug: string;
     title: string;
     subject: string;
+    downloads: number;
+  }>;
+  topToolDownloads?: Array<{
+    slug: string;
     downloads: number;
   }>;
   topSearches: Array<{

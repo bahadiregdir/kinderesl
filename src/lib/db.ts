@@ -98,6 +98,13 @@ export async function ensureDatabaseSchema(): Promise<void> {
           created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
+      await sql`
+        CREATE TABLE IF NOT EXISTS tool_downloads (
+          slug TEXT PRIMARY KEY,
+          download_count INTEGER NOT NULL DEFAULT 0,
+          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `;
     })().catch((err) => {
       schemaReadyPromise = null;
       throw err;
@@ -106,17 +113,30 @@ export async function ensureDatabaseSchema(): Promise<void> {
   return schemaReadyPromise;
 }
 
-export async function dbListWorksheets(): Promise<Array<Worksheet & { downloadCount?: number }>> {
+export async function dbListWorksheets(): Promise<
+  Array<Worksheet & { downloadCount?: number; viewCount?: number }>
+> {
   await ensureDatabaseSchema();
   const sql = getSql();
   const rows = await sql`
-    SELECT data, download_count, updated_at
-    FROM worksheets
-    ORDER BY sort_order ASC, created_at DESC
+    SELECT
+      w.data,
+      w.download_count,
+      w.updated_at,
+      COALESCE(pv.views, 0)::int AS view_count
+    FROM worksheets w
+    LEFT JOIN (
+      SELECT path, COUNT(*)::int AS views
+      FROM page_views
+      WHERE path LIKE '/worksheets/%'
+      GROUP BY path
+    ) pv ON pv.path = '/worksheets/' || w.slug
+    ORDER BY w.sort_order ASC, w.created_at DESC
   `;
   return rows.map((row) => ({
     ...(row.data as Worksheet),
     downloadCount: Number(row.download_count || 0),
+    viewCount: Number(row.view_count || 0),
     updatedAt: row.updated_at ? new Date(row.updated_at as string | Date).toISOString() : undefined,
   }));
 }
@@ -296,6 +316,18 @@ export async function dbIncrementDownload(slug: string): Promise<void> {
   `;
 }
 
+export async function dbIncrementToolDownload(slug: string): Promise<void> {
+  await ensureDatabaseSchema();
+  const sql = getSql();
+  await sql`
+    INSERT INTO tool_downloads (slug, download_count, updated_at)
+    VALUES (${slug}, 1, NOW())
+    ON CONFLICT (slug) DO UPDATE SET
+      download_count = tool_downloads.download_count + 1,
+      updated_at = NOW()
+  `;
+}
+
 export async function dbRecordSearch(query: string, resultCount: number): Promise<void> {
   const clean = query.trim().toLowerCase().slice(0, 120);
   if (clean.length < 2) return;
@@ -365,7 +397,10 @@ export async function dbRecordPageExit(input: {
 
 export async function dbGetAnalyticsSummary(): Promise<{
   totalDownloads: number;
+  worksheetDownloads: number;
+  toolDownloads: number;
   topDownloaded: Array<{ slug: string; title: string; subject: string; downloads: number }>;
+  topToolDownloads: Array<{ slug: string; downloads: number }>;
   topSearches: Array<{ query: string; count: number; zeroResults: number }>;
   traffic: {
     totalPageViews: number;
@@ -383,6 +418,8 @@ export async function dbGetAnalyticsSummary(): Promise<{
   const [
     sumRows,
     topWsRows,
+    toolSumRows,
+    toolTopRows,
     searchRows,
     trafficAggRows,
     dailyRows,
@@ -396,6 +433,14 @@ export async function dbGetAnalyticsSummary(): Promise<{
       WHERE download_count > 0
       ORDER BY download_count DESC, updated_at DESC
       LIMIT 6
+    `,
+    sql`SELECT COALESCE(SUM(download_count), 0)::int AS tool_downloads FROM tool_downloads`,
+    sql`
+      SELECT slug, download_count
+      FROM tool_downloads
+      WHERE download_count > 0
+      ORDER BY download_count DESC, updated_at DESC
+      LIMIT 13
     `,
     sql`
       SELECT query, search_count, zero_result_count
@@ -447,13 +492,21 @@ export async function dbGetAnalyticsSummary(): Promise<{
   ]);
 
   const tAgg = trafficAggRows[0] || {};
+  const worksheetDownloads = Number(sumRows[0]?.total_downloads ?? 0);
+  const toolDownloads = Number(toolSumRows[0]?.tool_downloads ?? 0);
 
   return {
-    totalDownloads: Number(sumRows[0]?.total_downloads ?? 0),
+    totalDownloads: worksheetDownloads + toolDownloads,
+    worksheetDownloads,
+    toolDownloads,
     topDownloaded: topWsRows.map((r) => ({
       slug: String(r.slug),
       title: String(r.title),
       subject: String(r.subject),
+      downloads: Number(r.download_count || 0),
+    })),
+    topToolDownloads: toolTopRows.map((r) => ({
+      slug: String(r.slug),
       downloads: Number(r.download_count || 0),
     })),
     topSearches: searchRows.map((r) => ({

@@ -72,6 +72,8 @@ export interface Worksheet {
   datePublished: string;
   dateModified: string;
   updatedAt?: string;
+  downloadCount?: number;
+  viewCount?: number;
   seoTitle?: string;
   published?: boolean;
   pinterest?: {

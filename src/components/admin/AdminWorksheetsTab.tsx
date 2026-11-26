@@ -10,6 +10,7 @@ import {
   Trash2,
   ExternalLink,
   Download,
+  Eye,
   Plus,
   Layers,
   CheckCircle2,
@@ -58,6 +59,7 @@ export function AdminWorksheetsTab({
   const [query, setQuery] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('');
   const [pinterestFilter, setPinterestFilter] = useState<'all' | 'rss' | 'none'>('all');
+  const [sortBy, setSortBy] = useState<'default' | 'downloads' | 'views'>('default');
   const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
   const [togglingSlug, setTogglingSlug] = useState<string | null>(null);
   const [copiedRss, setCopiedRss] = useState(false);
@@ -68,10 +70,18 @@ export function AdminWorksheetsTab({
     () => worksheets.filter((w) => w.pinterest?.autoPublish !== false).length,
     [worksheets]
   );
+  const totalViews = useMemo(
+    () => worksheets.reduce((sum, w) => sum + (w.viewCount ?? 0), 0),
+    [worksheets]
+  );
+  const totalDownloads = useMemo(
+    () => worksheets.reduce((sum, w) => sum + (w.downloadCount ?? 0), 0),
+    [worksheets]
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return worksheets.filter((w) => {
+    const list = worksheets.filter((w) => {
       if (subjectFilter && w.subject !== subjectFilter) return false;
       const inRss = w.pinterest?.autoPublish !== false;
       if (pinterestFilter === 'rss' && !inRss) return false;
@@ -85,7 +95,18 @@ export function AdminWorksheetsTab({
       }
       return true;
     });
-  }, [worksheets, query, subjectFilter, pinterestFilter]);
+    if (sortBy === 'downloads') {
+      return [...list].sort(
+        (a, b) => (b.downloadCount ?? 0) - (a.downloadCount ?? 0) || (b.viewCount ?? 0) - (a.viewCount ?? 0)
+      );
+    }
+    if (sortBy === 'views') {
+      return [...list].sort(
+        (a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0) || (b.downloadCount ?? 0) - (a.downloadCount ?? 0)
+      );
+    }
+    return list;
+  }, [worksheets, query, subjectFilter, pinterestFilter, sortBy]);
 
   const handleCopyRss = async () => {
     try {
@@ -164,9 +185,17 @@ export function AdminWorksheetsTab({
           <h1 className="text-2xl font-extrabold text-slate-900 font-heading">
             Çalışma Kağıdı Kütüphanesi ({worksheets.length})
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
-            SEO durumunu inceleyin, Pinterest RSS beslemesini yönetin, Pin indirin veya içerikleri düzenleyin.
-          </p>
+          <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-slate-500">
+            <span>
+              SEO durumunu inceleyin, görüntülenme ve indirmeleri takip edin, Pin indirin veya düzenleyin.
+            </span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-bold border border-indigo-200/80 text-[11px]">
+              <Eye className="w-3 h-3" /> {totalViews} görüntülenme
+            </span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold border border-sky-200/80 text-[11px]">
+              <Download className="w-3 h-3" /> {totalDownloads} indirme
+            </span>
+          </div>
         </div>
         <button
           type="button"
@@ -260,6 +289,18 @@ export function AdminWorksheetsTab({
           <option value="rss">RSS&apos;te (Gönderildi)</option>
           <option value="none">Gönderilmedi</option>
         </select>
+        <select
+          value={sortBy}
+          onChange={(e) =>
+            setSortBy(e.target.value as 'default' | 'downloads' | 'views')
+          }
+          aria-label="Çalışma kağıtlarını sırala"
+          className="px-3 py-2 text-xs font-semibold rounded-xl bg-slate-50 border border-slate-200 focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B]"
+        >
+          <option value="default">Varsayılan Sıra</option>
+          <option value="downloads">En Çok İndirilen</option>
+          <option value="views">En Çok Görüntülenen</option>
+        </select>
       </div>
 
       {/* Tablo / Kartlar */}
@@ -305,6 +346,14 @@ export function AdminWorksheetsTab({
                     >
                       <Rss className="w-3 h-3" />
                       {inRss ? "Pinterest RSS'te ✓" : "Pinterest'e Gönderilmedi"}
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/80">
+                      <Eye className="w-3 h-3" />
+                      {ws.viewCount ?? 0} görüntülenme
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200/80">
+                      <Download className="w-3 h-3" />
+                      {ws.downloadCount ?? 0} indirme
                     </span>
                   </div>
 

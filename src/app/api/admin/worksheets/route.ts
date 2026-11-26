@@ -45,7 +45,10 @@ export async function GET(request: Request) {
       ? await dbGetAnalyticsSummary()
       : {
           totalDownloads: 0,
+          worksheetDownloads: 0,
+          toolDownloads: 0,
           topDownloaded: [],
+          topToolDownloads: [],
           topSearches: [],
           traffic: {
             totalPageViews: 0,

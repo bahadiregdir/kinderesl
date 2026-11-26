@@ -3,6 +3,7 @@
 import React from 'react';
 import type { SiteSettings, Worksheet, WorksheetRequest } from '@/types/worksheet';
 import type { StorageInfo } from '@/lib/cms-storage';
+import { TOOL_REGISTRY } from '@/data/tools';
 import type {
   AdminAnalyticsSummary,
   AdminTabId,
@@ -224,7 +225,7 @@ export function AdminDashboardTab({
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{analytics?.totalDownloads ?? 0}</p>
           <p className="text-[11px] text-slate-500">
-            Neon veritabanında anonim sayaç
+            {analytics?.worksheetDownloads ?? 0} çalışma kağıdı · {analytics?.toolDownloads ?? 0} araç PDF&apos;i
           </p>
         </div>
 
@@ -389,22 +390,62 @@ export function AdminDashboardTab({
             <Download className="w-4 h-4 text-sky-600" />
           </div>
 
-          {analytics && analytics.topDownloaded.length > 0 ? (
-            <div className="space-y-2.5">
-              {analytics.topDownloaded.map((item) => (
-                <div
-                  key={item.slug}
-                  className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs"
-                >
-                  <div className="min-w-0">
-                    <p className="font-bold text-slate-800 truncate">{item.title}</p>
-                    <p className="text-[11px] text-slate-500">{SUBJECT_TR[item.subject] || item.subject}</p>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 font-extrabold shrink-0">
-                    {item.downloads}
-                  </span>
+          {analytics &&
+          (analytics.topDownloaded.length > 0 ||
+            (analytics.topToolDownloads && analytics.topToolDownloads.length > 0)) ? (
+            <div className="space-y-4">
+              {analytics.topDownloaded.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    Çalışma Kağıtları
+                  </p>
+                  {analytics.topDownloaded.map((item) => (
+                    <div
+                      key={item.slug}
+                      className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs"
+                    >
+                      <div className="min-w-0">
+                        <p className="font-bold text-slate-800 truncate">{item.title}</p>
+                        <p className="text-[11px] text-slate-500">
+                          {SUBJECT_TR[item.subject] || item.subject}
+                        </p>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 font-extrabold shrink-0">
+                        {item.downloads}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
+
+              {analytics.topToolDownloads && analytics.topToolDownloads.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    Araç PDF İndirmeleri
+                  </p>
+                  {analytics.topToolDownloads.map((item) => {
+                    const tool = TOOL_REGISTRY[item.slug];
+                    return (
+                      <div
+                        key={item.slug}
+                        className="flex items-center justify-between gap-3 p-3 rounded-xl bg-[#F0F7F7]/60 border border-[#d0e3e3] text-xs"
+                      >
+                        <div className="min-w-0">
+                          <p className="font-bold text-slate-800 truncate">
+                            {tool?.ogTitle || tool?.seoTitle || item.slug}
+                          </p>
+                          <p className="text-[11px] font-mono text-slate-500 truncate">
+                            /tools/{item.slug}
+                          </p>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-lg bg-[#2E6B6B] text-white font-extrabold shrink-0">
+                          {item.downloads}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           ) : (
             <p className="text-xs text-slate-500 py-6 text-center">

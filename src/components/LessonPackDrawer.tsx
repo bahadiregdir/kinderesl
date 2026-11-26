@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLessonPack } from '@/context/LessonPackContext';
 import { triggerPdfFileDownload } from '@/lib/download-helper';
-import { trackEvent, trackPdfDownload } from '@/lib/analytics';
+import { recordWorksheetDownloadInDb, trackEvent, trackPdfDownload } from '@/lib/analytics';
 import {
   X,
   FileDown,
@@ -58,12 +58,7 @@ export function LessonPackDrawer() {
         fileName: `${items[i].slug}.pdf`,
         source: 'lesson_pack_all',
       });
-      fetch('/api/analytics/event', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'download', slug: items[i].slug }),
-        keepalive: true,
-      }).catch(() => {});
+      recordWorksheetDownloadInDb(items[i].slug);
       if (i < items.length - 1) {
         await new Promise((resolve) => setTimeout(resolve, 600));
       }
@@ -214,12 +209,7 @@ export function LessonPackDrawer() {
                           fileName: `${item.slug}.pdf`,
                           source: 'lesson_pack',
                         });
-                        fetch('/api/analytics/event', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ type: 'download', slug: item.slug }),
-                          keepalive: true,
-                        }).catch(() => {});
+                        recordWorksheetDownloadInDb(item.slug);
                       }}
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F0F7F7] hover:bg-[#dcedec] text-[#2E6B6B] text-[11px] font-bold transition-colors"
                     >
