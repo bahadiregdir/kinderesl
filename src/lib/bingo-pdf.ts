@@ -1,4 +1,111 @@
-import { PDFDocument, StandardFonts, rgb, type PDFFont } from 'pdf-lib';
+import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFImage } from 'pdf-lib';
+import {
+  fetchClipartBytesCached,
+  formatClipartLabel,
+  getClipart,
+  getClipartByThemeOrTag,
+  listCvcClipart,
+  type ClipartItem,
+} from '@/lib/clipart';
+
+export type BingoCardMode = 'picture-word' | 'picture-only' | 'word-only';
+
+export interface BingoItem {
+  label: string;
+  clipartId?: string;
+}
+
+export interface PictureBingoPreset {
+  id: string;
+  label: string;
+  title: string;
+  items: BingoItem[];
+}
+
+function toBingoItems(list: ClipartItem[]): BingoItem[] {
+  return list.map((item) => ({
+    label: formatClipartLabel(item),
+    clipartId: item.id,
+  }));
+}
+
+function mergeClipartSets(...lists: ClipartItem[][]): ClipartItem[] {
+  const seen = new Set<string>();
+  const merged: ClipartItem[] = [];
+  for (const list of lists) {
+    for (const item of list) {
+      if (!seen.has(item.id)) {
+        seen.add(item.id);
+        merged.push(item);
+      }
+    }
+  }
+  return merged;
+}
+
+export const PICTURE_BINGO_PRESETS: PictureBingoPreset[] = [
+  {
+    id: 'pic-farm',
+    label: 'Farm Animals (8)',
+    title: 'Farm Animals Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('farm')),
+  },
+  {
+    id: 'pic-winter',
+    label: 'Winter Words (11)',
+    title: 'Winter Vocabulary Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('winter').filter((i) => i.theme === 'winter')),
+  },
+  {
+    id: 'pic-classroom',
+    label: 'Classroom (11)',
+    title: 'Classroom Objects Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('classroom')),
+  },
+  {
+    id: 'pic-animals',
+    label: 'Animals & Bugs (10)',
+    title: 'Animals & Bugs Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('animals')),
+  },
+  {
+    id: 'pic-food',
+    label: 'Food & Snacks (11)',
+    title: 'Food & Snacks Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('food')),
+  },
+  {
+    id: 'pic-routines',
+    label: 'Routines (12)',
+    title: 'Classroom Routines Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('routines')),
+  },
+  {
+    id: 'pic-winter-christmas',
+    label: 'Winter + Christmas (18)',
+    title: 'Winter & Christmas Picture Bingo',
+    items: toBingoItems(
+      mergeClipartSets(
+        getClipartByThemeOrTag('winter').filter((i) => i.theme === 'winter'),
+        getClipartByThemeOrTag('christmas')
+      )
+    ),
+  },
+  {
+    id: 'pic-animals-farm',
+    label: 'Animals + Farm (18)',
+    title: 'Animals & Farm Picture Bingo',
+    items: toBingoItems(
+      mergeClipartSets(getClipartByThemeOrTag('animals'), getClipartByThemeOrTag('farm'))
+    ),
+  },
+  {
+    id: 'pic-cvc',
+    label: 'CVC Phonics (16+)',
+    title: 'CVC Phonics Picture Bingo',
+    items: toBingoItems(listCvcClipart().slice(0, 20)),
+  },
+];
 
 export interface BingoPreset {
   id: string;
@@ -79,6 +186,8 @@ export const BINGO_PRESETS: BingoPreset[] = [
 export interface BingoConfig {
   title: string;
   words: string[];
+  mode?: BingoCardMode;
+  items?: BingoItem[];
   gridSize: 3 | 4;
   freeCenter: boolean;
   cardCount: number;
@@ -91,6 +200,11 @@ export interface BingoConfig {
 export interface GeneratedBingoBoard {
   cardNumber: number;
   cells: string[]; // row-major length gridSize * gridSize
+}
+
+export interface GeneratedBingoItemBoard {
+  cardNumber: number;
+  cells: BingoItem[]; // row-major length gridSize * gridSize
 }
 
 export function toWinAnsiSafe(raw: string): string {
@@ -126,20 +240,20 @@ function shuffleWithPrng<T>(arr: T[], rand: () => number): T[] {
   return copy;
 }
 
-export function buildShuffledBoards(
-  rawWords: string[],
+export function buildShuffledItemBoards(
+  rawItems: BingoItem[],
   gridSize: 3 | 4,
   freeCenter: boolean,
   cardCount: number,
   seed = 1
-): GeneratedBingoBoard[] {
-  const cleanWords = rawWords.map((w) => w.trim()).filter(Boolean);
+): GeneratedBingoItemBoard[] {
+  const cleanItems = rawItems.filter((it) => it.label.trim() || it.clipartId);
   const useFree = gridSize === 3 && freeCenter;
   const totalCells = gridSize * gridSize;
   const slotsNeeded = useFree ? totalCells - 1 : totalCells;
 
-  // Pad safely if caller passes slightly fewer words than slots
-  const poolSource = cleanWords.length > 0 ? cleanWords : BINGO_PRESETS[0].words;
+  const poolSource =
+    cleanItems.length > 0 ? cleanItems : PICTURE_BINGO_PRESETS[0].items;
   const paddedPool = [...poolSource];
   let padIdx = 0;
   while (paddedPool.length < slotsNeeded) {
@@ -149,26 +263,26 @@ export function buildShuffledBoards(
 
   const rand = createPrng(seed * 9973 + cardCount * 31 + gridSize * 7);
   const seenSignatures = new Set<string>();
-  const boards: GeneratedBingoBoard[] = [];
+  const boards: GeneratedBingoItemBoard[] = [];
 
   for (let c = 0; c < cardCount; c++) {
-    let picked: string[] = [];
+    let picked: BingoItem[] = [];
     for (let attempt = 0; attempt < 25; attempt++) {
       picked = shuffleWithPrng(paddedPool, rand).slice(0, slotsNeeded);
-      const sig = picked.join('|');
+      const sig = picked.map((it) => it.clipartId || it.label).join('|');
       if (!seenSignatures.has(sig) || attempt === 24) {
         seenSignatures.add(sig);
         break;
       }
     }
 
-    const cells: string[] = [];
+    const cells: BingoItem[] = [];
     let wordCursor = 0;
     for (let cellIdx = 0; cellIdx < totalCells; cellIdx++) {
       if (useFree && cellIdx === 4) {
-        cells.push('FREE');
+        cells.push({ label: 'FREE' });
       } else {
-        cells.push(picked[wordCursor++] || '');
+        cells.push(picked[wordCursor++] || { label: '' });
       }
     }
 
@@ -179,6 +293,27 @@ export function buildShuffledBoards(
   }
 
   return boards;
+}
+
+export function buildShuffledBoards(
+  rawWords: string[],
+  gridSize: 3 | 4,
+  freeCenter: boolean,
+  cardCount: number,
+  seed = 1
+): GeneratedBingoBoard[] {
+  const cleanWords = rawWords.map((w) => w.trim()).filter(Boolean);
+  const pool =
+    cleanWords.length > 0
+      ? cleanWords.map((w) => ({ label: w }))
+      : BINGO_PRESETS[0].words.map((w) => ({ label: w }));
+
+  return buildShuffledItemBoards(pool, gridSize, freeCenter, cardCount, seed).map(
+    (board) => ({
+      cardNumber: board.cardNumber,
+      cells: board.cells.map((c) => c.label),
+    })
+  );
 }
 
 function wrapTextToLines(
@@ -229,10 +364,22 @@ function fitCellText(
   };
 }
 
-export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array> {
+export async function generateBingoPdf(
+  config: BingoConfig,
+  options: {
+    loadClipartBytes?: (item: ClipartItem) => Promise<Uint8Array>;
+  } = {}
+): Promise<Uint8Array> {
+  const effectiveMode: BingoCardMode =
+    config.mode ?? (config.items && config.items.length > 0 ? 'picture-word' : 'word-only');
+  const sourceItems: BingoItem[] =
+    effectiveMode !== 'word-only' && config.items && config.items.length > 0
+      ? config.items
+      : config.words.map((w) => ({ label: w }));
+
   const safeCount = Math.max(1, Math.min(30, Math.round(config.cardCount || 1)));
-  const boards = buildShuffledBoards(
-    config.words,
+  const boards = buildShuffledItemBoards(
+    sourceItems,
     config.gridSize,
     config.freeCenter,
     safeCount,
@@ -246,6 +393,29 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
 
   const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
   const fontRegular = await doc.embedFont(StandardFonts.Helvetica);
+
+  // Pre-embed unique clipart PNGs once per PDF
+  const clipartImageMap = new Map<string, PDFImage>();
+  if (effectiveMode !== 'word-only') {
+    const loadClipart =
+      options.loadClipartBytes ?? ((item) => fetchClipartBytesCached(item));
+    const uniqueIds = Array.from(
+      new Set(
+        sourceItems
+          .map((it) => it.clipartId)
+          .filter((v): v is string => Boolean(v))
+      )
+    );
+    await Promise.all(
+      uniqueIds.map(async (id) => {
+        const item = getClipart(id);
+        if (!item) return;
+        const bytes = await loadClipart(item);
+        const img = await doc.embedPng(bytes);
+        clipartImageMap.set(id, img);
+      })
+    );
+  }
 
   const pageW = config.paperSize === 'a4' ? 595.28 : 612;
   const pageH = config.paperSize === 'a4' ? 841.89 : 792;
@@ -339,7 +509,12 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
       for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
           const idx = row * gridSize + col;
-          const label = board.cells[idx] || '';
+          const cellItem = board.cells[idx] || { label: '' };
+          const label = cellItem.label || '';
+          const cellImg =
+            effectiveMode !== 'word-only' && cellItem.clipartId
+              ? clipartImageMap.get(cellItem.clipartId)
+              : undefined;
           const isFree = gridSize === 3 && config.freeCenter && idx === 4;
           const cellX = gridLeft + col * cellSize;
           const cellTop = gridTop + row * cellSize;
@@ -379,6 +554,55 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
               font: fontRegular,
               color: tealColor,
             });
+          } else if (cellImg) {
+            const cellPad = slotsPerPage === 1 ? 8 : 5;
+            if (effectiveMode === 'picture-only') {
+              const boxW = cellSize - cellPad * 2;
+              const boxH = cellSize - cellPad * 2;
+              const scale = Math.min(boxW / cellImg.width, boxH / cellImg.height);
+              const drawW = cellImg.width * scale;
+              const drawH = cellImg.height * scale;
+              page.drawImage(cellImg, {
+                x: cellX + (cellSize - drawW) / 2,
+                y: toY(cellTop + (cellSize + drawH) / 2),
+                width: drawW,
+                height: drawH,
+              });
+            } else {
+              // picture-word: top ~70% illustration, bottom ~24% crisp label
+              const labelBandH = Math.max(18, cellSize * 0.24);
+              const boxW = cellSize - cellPad * 2;
+              const boxH = cellSize - cellPad * 1.5 - labelBandH;
+              const scale = Math.min(boxW / cellImg.width, boxH / cellImg.height);
+              const drawW = cellImg.width * scale;
+              const drawH = cellImg.height * scale;
+              const imgTop = cellTop + cellPad * 0.75 + (boxH - drawH) / 2;
+              page.drawImage(cellImg, {
+                x: cellX + (cellSize - drawW) / 2,
+                y: toY(imgTop + drawH),
+                width: drawW,
+                height: drawH,
+              });
+
+              const maxLabelFont =
+                slotsPerPage === 1 ? (gridSize === 3 ? 13 : 10.5) : 9;
+              const { lines, fontSize } = fitCellText(
+                label,
+                fontBold,
+                cellSize - 10,
+                labelBandH,
+                maxLabelFont
+              );
+              const singleLine = lines[0] || '';
+              const lw = fontBold.widthOfTextAtSize(singleLine, fontSize);
+              page.drawText(singleLine, {
+                x: cellX + (cellSize - lw) / 2,
+                y: toY(cellTop + cellSize - Math.max(6, (labelBandH - fontSize) / 2)),
+                size: fontSize,
+                font: fontBold,
+                color: inkDark,
+              });
+            }
           } else {
             const { lines, fontSize } = fitCellText(
               label,
@@ -434,13 +658,16 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
     const page = doc.addPage([pageW, pageH]);
     const toY = (yTop: number) => pageH - yTop;
     const marginX = 44;
-    const uniqueWords = Array.from(
-      new Set(
-        config.words
-          .map((w) => toWinAnsiSafe(w))
-          .filter(Boolean)
-      )
-    );
+
+    const seenCaller = new Set<string>();
+    const callerItems: BingoItem[] = [];
+    for (const item of sourceItems) {
+      const cleanLabel = toWinAnsiSafe(item.label);
+      const key = item.clipartId || cleanLabel.toLowerCase();
+      if (!key || seenCaller.has(key)) continue;
+      seenCaller.add(key);
+      callerItems.push({ label: cleanLabel || item.label, clipartId: item.clipartId });
+    }
 
     page.drawText(`Teacher Caller Sheet: ${safeTitle}`, {
       x: marginX,
@@ -450,7 +677,7 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
       color: inkDark,
     });
     page.drawText(
-      `Check off each word as you call it aloud (${uniqueWords.length} vocabulary items · ${safeCount} student cards).`,
+      `Check off each item as you call it aloud (${callerItems.length} vocabulary items · ${safeCount} student cards).`,
       {
         x: marginX,
         y: toY(68),
@@ -468,10 +695,10 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
 
     const cols = 2;
     const colW = (pageW - marginX * 2 - 20) / cols;
-    const rowH = 30;
+    const rowH = 32;
     const startY = 104;
 
-    uniqueWords.slice(0, 40).forEach((word, idx) => {
+    callerItems.slice(0, 40).forEach((item, idx) => {
       const col = Math.floor(idx / 20);
       const row = idx % 20;
       const x = marginX + col * (colW + 20);
@@ -479,9 +706,9 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
 
       page.drawRectangle({
         x,
-        y: toY(yTop + 20),
+        y: toY(yTop + 22),
         width: colW,
-        height: 24,
+        height: 26,
         color: row % 2 === 0 ? tealSoftFill : rgb(1, 1, 1),
         borderColor: rgb(0.84, 0.89, 0.89),
         borderWidth: 0.75,
@@ -490,7 +717,7 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
       // Checkbox
       page.drawRectangle({
         x: x + 10,
-        y: toY(yTop + 14),
+        y: toY(yTop + 15),
         width: 11,
         height: 11,
         color: rgb(1, 1, 1),
@@ -498,9 +725,28 @@ export async function generateBingoPdf(config: BingoConfig): Promise<Uint8Array>
         borderWidth: 1.1,
       });
 
-      page.drawText(`${idx + 1}. ${word}`, {
-        x: x + 28,
-        y: toY(yTop + 12),
+      const miniImg =
+        effectiveMode !== 'word-only' && item.clipartId
+          ? clipartImageMap.get(item.clipartId)
+          : undefined;
+      let textX = x + 28;
+      if (miniImg) {
+        const iconMax = 18;
+        const scale = Math.min(iconMax / miniImg.width, iconMax / miniImg.height);
+        const iw = miniImg.width * scale;
+        const ih = miniImg.height * scale;
+        page.drawImage(miniImg, {
+          x: x + 26 + (iconMax - iw) / 2,
+          y: toY(yTop + 18 - (iconMax - ih) / 2),
+          width: iw,
+          height: ih,
+        });
+        textX = x + 50;
+      }
+
+      page.drawText(`${idx + 1}. ${item.label}`, {
+        x: textX,
+        y: toY(yTop + 13),
         size: 11,
         font: fontBold,
         color: inkDark,

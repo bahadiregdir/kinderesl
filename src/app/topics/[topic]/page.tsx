@@ -68,6 +68,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const TOPIC_TO_TOOL_THEME: Record<string, string> = {
+  'farm-animals': 'farm',
+  winter: 'winter',
+  insects: 'animals',
+  food: 'food',
+  body: 'body',
+  clothes: 'winter',
+  weather: 'winter',
+  family: 'routines',
+};
+
 export default async function TopicDetailPage({ params }: Props) {
   const { topic } = await params;
   const t = getTopicBySlug(topic);
@@ -81,6 +92,9 @@ export default async function TopicDetailPage({ params }: Props) {
   const otherWorksheets = allWorksheets
     .filter((w) => !w.topics.includes(t.slug))
     .slice(0, 4);
+
+  const presetTheme = TOPIC_TO_TOOL_THEME[t.slug];
+  const themeQuery = presetTheme ? `?theme=${presetTheme}` : '';
 
   return (
     <div>
@@ -180,6 +194,46 @@ export default async function TopicDetailPage({ params }: Props) {
             )}
           </div>
         )}
+
+        {/* Contextual Teacher Tools Strip */}
+        <div className="p-6 rounded-2xl bg-[#F0F7F7] border border-[#d0e3e3] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h2 className="text-base sm:text-lg font-extrabold text-slate-900 font-heading">
+                Create Custom {t.title} PDFs Free
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Build personalized {t.title.toLowerCase()} flashcards, bingo boards, I Spy sheets, or matching activities in seconds.
+              </p>
+            </div>
+            <Link
+              href="/tools"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline shrink-0"
+            >
+              <span>All 10 PDF Makers</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { href: `/tools/flashcard-maker${themeQuery}`, label: 'Picture Flashcards' },
+              { href: `/tools/bingo-maker${themeQuery}`, label: 'Picture Bingo' },
+              { href: `/tools/i-spy-maker${themeQuery}`, label: 'I Spy & Count' },
+              { href: `/tools/matching-maker${themeQuery}`, label: 'Picture Matching' },
+              { href: `/tools/word-search-maker${themeQuery}`, label: 'Word Search' },
+              { href: `/tools/clip-cards-maker${themeQuery}`, label: 'Clip Cards' },
+            ].map((toolLink) => (
+              <Link
+                key={toolLink.href}
+                href={toolLink.href}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-[#2E6B6B] text-[#2E6B6B] hover:text-white border border-[#d0e3e3] text-xs font-bold transition-colors shadow-2xs"
+              >
+                <span>{toolLink.label}</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            ))}
+          </div>
+        </div>
 
         {/* Ad Slot above Topic FAQ */}
         <AdUnit slotType="in-content" />

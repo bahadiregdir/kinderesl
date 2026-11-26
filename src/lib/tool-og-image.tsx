@@ -308,6 +308,712 @@ function BingoMakerPreviewCard() {
   );
 }
 
+function FlashcardMakerPreviewCard() {
+  const cards = [
+    { word: 'Cow', sub: 'Farm Animals' },
+    { word: 'Snowman', sub: 'Winter' },
+    { word: 'Cat', sub: 'CVC Phonics' },
+    { word: 'Bell', sub: 'Christmas' },
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 16,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          ESL Picture Flashcards
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          2×2 · 2×3 · 3×3
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+          width: '100%',
+          flex: 1,
+        }}
+      >
+        {[0, 1].map((rowIdx) => (
+          <div
+            key={rowIdx}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 14,
+              flex: 1,
+            }}
+          >
+            {cards.slice(rowIdx * 2, rowIdx * 2 + 2).map((card) => (
+              <div
+                key={card.word}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  flex: 1,
+                  border: '2px solid #2E6B6B',
+                  borderRadius: 14,
+                  backgroundColor: '#FFFFFF',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    height: 10,
+                    width: '100%',
+                    backgroundColor: '#F0F7F7',
+                  }}
+                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '6px 10px',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: '#2E6B6B',
+                      backgroundColor: '#F0F7F7',
+                      padding: '3px 10px',
+                      borderRadius: 999,
+                    }}
+                  >
+                    {card.sub}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderTop: '1.5px solid #D0E3E3',
+                    padding: '8px 10px',
+                    fontSize: 22,
+                    fontWeight: 700,
+                    color: '#0F172A',
+                  }}
+                >
+                  {card.word}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 12,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>125 Line-Art Drawings + Tracing</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function ISpyPreviewCard() {
+  const spots = [
+    { word: 'Snowman', x: 24, y: 18, bg: '#E6F4F2' },
+    { word: 'Mitten', x: 220, y: 24, bg: '#FEF3C7' },
+    { word: 'Igloo', x: 112, y: 88, bg: '#F1F5F9' },
+    { word: 'Sled', x: 256, y: 98, bg: '#E6F4F2' },
+    { word: 'Hat', x: 28, y: 152, bg: '#FEF3C7' },
+    { word: 'Coat', x: 162, y: 160, bg: '#F1F5F9' },
+  ];
+
+  const counts = ['Snowman [ ]', 'Mitten [ ]', 'Igloo [ ]', 'Sled [ ]'];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 14,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          Winter I Spy &amp; Count
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          + Answer Key
+        </div>
+      </div>
+
+      {/* Scattered Search Box */}
+      <div
+        style={{
+          display: 'flex',
+          position: 'relative',
+          width: '100%',
+          height: 214,
+          border: '2px solid #2E6B6B',
+          borderRadius: 12,
+          backgroundColor: '#FAFCFC',
+          marginBottom: 12,
+        }}
+      >
+        {spots.map((s) => (
+          <div
+            key={s.word}
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              left: s.x,
+              top: s.y,
+              backgroundColor: s.bg,
+              border: '1.5px solid #2E6B6B',
+              borderRadius: 999,
+              padding: '6px 14px',
+              fontSize: 15,
+              fontWeight: 700,
+              color: '#0F172A',
+            }}
+          >
+            {s.word}
+          </div>
+        ))}
+      </div>
+
+      {/* Count Checklist Row */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 8,
+          backgroundColor: '#F0F7F7',
+          border: '1px solid #D0E3E3',
+          borderRadius: 10,
+          padding: '10px',
+        }}
+      >
+        {counts.map((c) => (
+          <div
+            key={c}
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #93B5B5',
+              borderRadius: 6,
+              padding: '6px 4px',
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#1E293B',
+            }}
+          >
+            {c}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 8,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Easy, Medium &amp; Busy Levels</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function MatchingPreviewCard() {
+  const pairs = [
+    { left: 'Cow', right: 'Duck' },
+    { left: 'Duck', right: 'Pig' },
+    { left: 'Pig', right: 'Cow' },
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 16,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 22, fontWeight: 700, color: '#0F172A' }}>
+          Picture Matching
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          Word &amp; Letter
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 18,
+          flex: 1,
+          justifyContent: 'center',
+        }}
+      >
+        {pairs.map((row) => (
+          <div
+            key={row.left}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                width: 146,
+                height: 68,
+                borderRadius: 12,
+                border: '2px solid #2E6B6B',
+                backgroundColor: '#FFFFFF',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 18,
+                fontWeight: 700,
+                color: '#2E6B6B',
+              }}
+            >
+              [ {row.left} ]
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                width: 14,
+                height: 14,
+                borderRadius: 999,
+                backgroundColor: '#2E6B6B',
+              }}
+            />
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                height: 2,
+                backgroundColor: '#CBD5E1',
+                margin: '0 8px',
+              }}
+            />
+            <div
+              style={{
+                display: 'flex',
+                width: 14,
+                height: 14,
+                borderRadius: 999,
+                backgroundColor: '#2E6B6B',
+              }}
+            />
+            <div
+              style={{
+                display: 'flex',
+                width: 146,
+                height: 68,
+                borderRadius: 12,
+                border: '2px solid #2E6B6B',
+                backgroundColor: '#F0F7F7',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 21,
+                fontWeight: 700,
+                color: '#0F172A',
+              }}
+            >
+              {row.right}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 10,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Draws Lines + Answer Key Page</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function WordSearchPreviewCard() {
+  const rows = [
+    ['S', 'N', 'O', 'W', 'Q', 'M'],
+    ['C', 'O', 'A', 'T', 'B', 'I'],
+    ['A', 'H', 'A', 'T', 'E', 'T'],
+    ['R', 'L', 'B', 'O', 'O', 'T'],
+    ['F', 'S', 'L', 'E', 'D', 'E'],
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 14,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 22, fontWeight: 700, color: '#0F172A' }}>
+          Picture Word Search
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          6×6 &amp; 8×8
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'center',
+          border: '2.5px solid #2E6B6B',
+          borderRadius: 10,
+          overflow: 'hidden',
+          marginBottom: 12,
+        }}
+      >
+        {rows.map((r, rIdx) => (
+          <div key={rIdx} style={{ display: 'flex', flexDirection: 'row' }}>
+            {r.map((ch, cIdx) => {
+              const hit = (rIdx === 0 && cIdx < 4) || (rIdx === 1 && cIdx < 4);
+              return (
+                <div
+                  key={cIdx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 48,
+                    height: 44,
+                    backgroundColor: hit ? '#DFF2EF' : '#FFFFFF',
+                    borderRight: cIdx < 5 ? '1px solid #CBD5E1' : 'none',
+                    borderBottom: rIdx < 4 ? '1px solid #CBD5E1' : 'none',
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: hit ? '#2E6B6B' : '#0F172A',
+                  }}
+                >
+                  {ch}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          backgroundColor: '#F0F7F7',
+          borderRadius: 10,
+          padding: '8px 12px',
+          fontSize: 13,
+          fontWeight: 700,
+          color: '#0F172A',
+        }}
+      >
+        <span>SNOW</span>
+        <span>COAT</span>
+        <span>HAT</span>
+        <span>BOOT</span>
+        <span>SLED</span>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 8,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Across &amp; Down Only + Answer Key</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function ClipCardsPreviewCard() {
+  const sampleCards = [
+    { word: 'Cat', choices: ['C', 'M', 'S'], ans: 'C' },
+    { word: 'Dog', choices: ['B', 'D', 'T'], ans: 'D' },
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 16,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 22, fontWeight: 700, color: '#0F172A' }}>
+          Beginning Sounds Clips
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          2×2 &amp; 2×3
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 16, flex: 1 }}>
+        {sampleCards.map((c) => (
+          <div
+            key={c.word}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              flex: 1,
+              border: '2.5px solid #2E6B6B',
+              borderRadius: 16,
+              padding: 14,
+              backgroundColor: '#FFFFFF',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 28,
+                fontWeight: 700,
+                color: '#2E6B6B',
+                backgroundColor: '#F8FAFC',
+                borderRadius: 10,
+                marginBottom: 12,
+              }}
+            >
+              {c.word}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+              {c.choices.map((ch) => (
+                <div
+                  key={ch}
+                  style={{
+                    display: 'flex',
+                    flex: 1,
+                    height: 52,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 8,
+                    border: '2px solid #2E6B6B',
+                    backgroundColor: ch === c.ans ? '#DFF2EF' : '#F0F7F7',
+                    fontSize: 22,
+                    fontWeight: 700,
+                    color: '#0F172A',
+                  }}
+                >
+                  {ch}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 14,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>125 Drawings · Upper, lower &amp; Aa</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
 function GenericToolPreviewCard({ title }: { title: string }) {
   return (
     <div
@@ -1033,6 +1739,16 @@ export function renderToolOgImage(slug: string): ImageResponse {
             <NumberTracingPreviewCard />
           ) : tool.previewKind === 'handwriting-maker' ? (
             <HandwritingPreviewCard />
+          ) : tool.previewKind === 'flashcard-maker' ? (
+            <FlashcardMakerPreviewCard />
+          ) : tool.previewKind === 'i-spy-maker' ? (
+            <ISpyPreviewCard />
+          ) : tool.previewKind === 'matching-maker' ? (
+            <MatchingPreviewCard />
+          ) : tool.previewKind === 'word-search-maker' ? (
+            <WordSearchPreviewCard />
+          ) : tool.previewKind === 'clip-cards-maker' ? (
+            <ClipCardsPreviewCard />
           ) : (
             <GenericToolPreviewCard title={tool.ogTitle} />
           )}

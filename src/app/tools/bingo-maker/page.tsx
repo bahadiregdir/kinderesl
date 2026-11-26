@@ -67,13 +67,13 @@ export default async function BingoMakerToolPage() {
         <header className="max-w-3xl space-y-3">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0F7F7] text-[#2E6B6B] border border-[#d0e3e3]">
             <Sparkles className="w-3.5 h-3.5 text-[#F2B544]" />
-            <span>Free ESL Classroom Tool · Instant Vector PDF</span>
+            <span>Free ESL Classroom Tool · Picture &amp; Word Bingo PDF</span>
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
-            Free Printable ESL Bingo Card Generator
+            Free Printable ESL Picture &amp; Word Bingo Card Generator
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Pick a preset early-childhood topic or type your own vocabulary words to create up to 30 uniquely shuffled bingo boards plus a Teacher Caller Checklist in US Letter or A4.
+            Pick from 125 coloring-friendly drawings or enter your own vocabulary words to create up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a visual Teacher Caller Checklist in US Letter or A4.
           </p>
         </header>
 

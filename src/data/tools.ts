@@ -8,6 +8,11 @@ export type ToolPreviewKind =
   | 'letter-tracing'
   | 'number-tracing'
   | 'handwriting-maker'
+  | 'flashcard-maker'
+  | 'i-spy-maker'
+  | 'matching-maker'
+  | 'word-search-maker'
+  | 'clip-cards-maker'
   | 'generic';
 
 export interface ToolRegistryItem {
@@ -49,21 +54,116 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
   'bingo-maker': {
     slug: 'bingo-maker',
     path: '/tools/bingo-maker',
-    seoTitle: 'Free ESL Bingo Card Generator',
+    seoTitle: 'Free ESL Picture & Word Bingo Card Generator',
     description:
-      'Create up to 30 unique shuffled printable ESL bingo cards in US Letter or A4 PDF with a teacher caller checklist. Ready-made word sets or custom lists.',
-    ogTitle: 'Free ESL Bingo Card Generator',
-    ogSubtitle: 'Preschool & Kindergarten · Free PDF',
-    ogBadges: ['3x3 & 4x4 Grids', 'Teacher Caller Sheet'],
+      'Create up to 30 unique shuffled printable ESL picture or word bingo cards in US Letter or A4 PDF with a teacher caller checklist. 125 illustrations built in.',
+    ogTitle: 'Free ESL Picture Bingo Maker',
+    ogSubtitle: 'Pictures & Words · 3×3 & 4×4 Free PDF',
+    ogBadges: ['Picture & Word Modes', 'Caller Checklist'],
     ogAlt:
-      'Free ESL Bingo Card Generator — Printable 3x3 ESL vocabulary bingo card with FREE center space for preschool and kindergarten',
+      'Free ESL Picture Bingo Card Generator — Printable 3x3 ESL vocabulary bingo card with FREE center space for preschool and kindergarten',
     pinDescription:
-      'Free Printable ESL Bingo Card Generator for Preschool & Kindergarten! Build up to 30 uniquely shuffled 3x3 or 4x4 vocabulary bingo cards plus a Teacher Caller Checklist in US Letter or A4 PDF at KinderESL.com.',
+      'Free Printable ESL Picture & Word Bingo Card Generator for Preschool & Kindergarten! Build up to 30 uniquely shuffled 3x3 or 4x4 picture bingo cards plus a Teacher Caller Checklist at KinderESL.com.',
     sampleHeading: 'Printable Output Preview',
     sampleCaption:
-      'Uniquely shuffled 3×3 or 4×4 student bingo boards paired with a printable teacher caller checklist.',
-    schemaName: 'KinderESL Free ESL Bingo Card Generator',
+      'Uniquely shuffled 3×3 or 4×4 student picture & word bingo boards paired with a printable caller sheet.',
+    schemaName: 'KinderESL Free ESL Picture & Word Bingo Card Generator',
     previewKind: 'bingo-maker',
+  },
+  'flashcard-maker': {
+    slug: 'flashcard-maker',
+    path: '/tools/flashcard-maker',
+    seoTitle: 'Free Printable ESL Picture Flashcard Maker',
+    description:
+      'Build custom printable ESL picture flashcards in US Letter or A4 PDF from 125 coloring-friendly drawings or your own uploaded images. Supports 2×2, 2×3, and 3×3 cards.',
+    ogTitle: 'Free ESL Picture Flashcard Maker',
+    ogSubtitle: '125 Drawings + Custom Upload · Free PDF',
+    ogBadges: ['2×2, 2×3 & 3×3 Cards', 'Picture + Trace Mode'],
+    ogAlt:
+      'Free Printable ESL Picture Flashcard Maker — Printable 2x2 ESL vocabulary flashcards with coloring-friendly line art',
+    pinDescription:
+      'Free Printable ESL Picture Flashcard Maker! Pick from 125 coloring-friendly drawings or upload your own images to create 2x2, 2x3, or 3x3 PDF flashcard decks at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Clean 2×2, 2×3, and 3×3 printable flashcards with optional traceable words.',
+    schemaName: 'KinderESL Free ESL Picture Flashcard Maker',
+    previewKind: 'flashcard-maker',
+  },
+  'i-spy-maker': {
+    slug: 'i-spy-maker',
+    path: '/tools/i-spy-maker',
+    seoTitle: 'Free Printable I Spy Worksheet Maker',
+    description:
+      'Create custom find-and-count printable I Spy PDF worksheets in US Letter or A4 from 125 coloring-friendly drawings, complete with counting boxes and a verified Page 2 Answer Key.',
+    ogTitle: 'Free I Spy Worksheet Maker',
+    ogSubtitle: 'Find, Color & Count · + Answer Key PDF',
+    ogBadges: ['11 Seasonal & CVC Themes', 'Auto Answer Key'],
+    ogAlt:
+      'Free Printable I Spy Worksheet Maker — Custom find-and-count ESL and preschool I Spy worksheet preview with counting checklist',
+    pinDescription:
+      'Free Printable I Spy Worksheet Maker for Preschool & Kindergarten! Pick Winter, Christmas, Farm, or CVC Phonics themes, choose difficulty, and print US Letter or A4 PDFs + Answer Key at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Non-overlapping coloring-book search field with write-in counting boxes and answer key.',
+    schemaName: 'KinderESL Free Printable I Spy Worksheet Maker',
+    previewKind: 'i-spy-maker',
+  },
+  'matching-maker': {
+    slug: 'matching-maker',
+    path: '/tools/matching-maker',
+    seoTitle: 'Free Beginning Sounds & Picture Matching Maker',
+    description:
+      'Create printable draw-a-line matching PDF worksheets in US Letter or A4 from 125 preschool drawings. Supports Picture-Word and Picture-Beginning Letter modes + Answer Key.',
+    ogTitle: 'Free Picture Matching Maker',
+    ogSubtitle: 'Pictures ↔ Words & Letters · Free PDF',
+    ogBadges: ['Picture & Phonics Modes', 'Auto Answer Key'],
+    ogAlt:
+      'Free Beginning Sounds and Picture Matching Maker — Printable draw-a-line matching worksheet with ESL illustrations',
+    pinDescription:
+      'Free Beginning Sounds & Picture Matching Worksheet Maker! Connect preschool illustrations to English words or beginning letters with automatic Answer Key in US Letter or A4 at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Clean draw-a-line matching columns with picture cards and beginning letters.',
+    schemaName: 'KinderESL Free Beginning Sounds & Picture Matching Maker',
+    previewKind: 'matching-maker',
+  },
+  'word-search-maker': {
+    slug: 'word-search-maker',
+    path: '/tools/word-search-maker',
+    seoTitle: 'Free Easy Picture Word Search Maker (Pre-K & K)',
+    description:
+      'Generate beginner-friendly 6×6 and 8×8 picture word search PDF puzzles for preschool and kindergarten with strictly across/down words, Picture Word Bank, and Answer Key.',
+    ogTitle: 'Free Picture Word Search Maker',
+    ogSubtitle: 'Kid-Friendly 6×6 & 8×8 · + Word Bank',
+    ogBadges: ['No Backwards Words', 'Picture Word Bank'],
+    ogAlt:
+      'Free Easy Picture Word Search Maker — Kid-friendly 8x8 word search grid paired with illustrated Picture Word Bank',
+    pinDescription:
+      'Free Easy Picture Word Search Maker for Preschool & Kindergarten! Build 6x6 or 8x8 across-and-down puzzles with Picture Word Banks and Answer Keys at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Strictly left-to-right and top-to-bottom word puzzles paired with coloring icons.',
+    schemaName: 'KinderESL Free Easy Picture Word Search Maker',
+    previewKind: 'word-search-maker',
+  },
+  'clip-cards-maker': {
+    slug: 'clip-cards-maker',
+    path: '/tools/clip-cards-maker',
+    seoTitle: 'Free Beginning Sounds Clip Cards Maker',
+    description:
+      'Create printable 2×2 and 2×3 beginning-sound phonics clip cards in US Letter or A4 PDF from 125 drawings, complete with dashed cut guides and Teacher Answer Key.',
+    ogTitle: 'Free Beginning Sounds Clip Cards',
+    ogSubtitle: '2×2 & 2×3 Phonics Cards · Free PDF',
+    ogBadges: ['125 Line-Art Drawings', 'Dashed Cut Guides'],
+    ogAlt:
+      'Free Beginning Sounds Clip Cards Maker — Printable clothespin phonics cards with illustrations and 3 letter choices',
+    pinDescription:
+      'Free Beginning Sounds Clip Cards Maker! Print 2x2 or 2x3 clothespin phonics cards from 125 preschool drawings with UPPER, lower, or Aa letter choices at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Printable phonics clip cards built for wooden clothespins and literacy centers.',
+    schemaName: 'KinderESL Free Beginning Sounds Clip Cards Maker',
+    previewKind: 'clip-cards-maker',
   },
   'letter-tracing': {
     slug: 'letter-tracing',
