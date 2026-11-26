@@ -14,6 +14,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
+import { TOOL_COUNT } from '@/data/tools';
 import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Sparkles, ArrowRight, Clock, Calendar, Wand2 } from 'lucide-react';
 import { getRelatedToolsForMonth } from '@/lib/related-tools';
@@ -219,7 +220,7 @@ export default async function MonthDetailPage({ params }: Props) {
               href="/tools"
               className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline shrink-0"
             >
-              <span>All 10 PDF Makers</span>
+              <span>All {TOOL_COUNT} PDF Makers</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

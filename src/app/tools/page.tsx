@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
+import { TOOL_COUNT } from '@/data/tools';
 import { CLIPART_COUNT, CLIPART_THEME_COUNT } from '@/lib/clipart';
 import {
   DEFAULT_OG_IMAGE,
@@ -18,11 +19,14 @@ import {
   Type,
   Hash,
   BookOpenText,
+  BookOpen,
   Images,
   Search,
   GitCompareArrows,
   Grid2X2Check,
   Scissors,
+  Repeat,
+  RectangleHorizontal,
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react';
@@ -31,7 +35,7 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/tools`;
 const pageTitle = buildSeoTitle('Free Printable Teacher Tools');
 const pageDescription = buildSeoDescription(
-  '10 free browser-private PDF generators for preschool and ESL teachers: I Spy, picture flashcards, picture bingo, matching, word search, clip cards, name tracing, A–Z letters, 0–20 numbers, and sight words.'
+  `${TOOL_COUNT} free browser-private PDF generators for preschool and ESL teachers: patterns, mini-books, picture dominoes, I Spy, flashcards, bingo, matching, word search, clip cards, tracing, and sight words.`
 );
 
 export const metadata: Metadata = {
@@ -158,6 +162,36 @@ export default function ToolsHubPage() {
       features: ['Picture & Word Bingo', '1 or 2 Cards / Sheet', 'Visual Caller Sheet'],
       cta: 'Create Bingo Cards PDF',
       icon: Grid3X3,
+    },
+    {
+      href: '/tools/pattern-maker',
+      badge: `Early Math · AB, AAB, ABB & ABC`,
+      title: 'Cut & Paste Pattern Worksheet Maker',
+      description:
+        `Build printable AB, AAB, ABB, ABC, or mixed cut-and-paste pattern sheets from ${CLIPART_COUNT} drawings complete with bottom scissor tiles, optional distractors, and Answer Key.`,
+      features: ['4 Pattern Rows', 'Optional Distractors', 'Auto Answer Key'],
+      cta: 'Create Pattern PDF',
+      icon: Repeat,
+    },
+    {
+      href: '/tools/mini-book-maker',
+      badge: 'Emergent Readers · Booklet & 8p Zine',
+      title: 'Foldable ESL Mini-Book Maker',
+      description:
+        `Turn ${CLIPART_COUNT} black-ink drawings into Half-Page staple booklets or single-sheet 8-panel foldable mini-books with "I see a...", "This is a...", or traceable words.`,
+      features: ['Half-Page Booklet', '1-Sheet 8-Panel Zine', 'Traceable Word Option'],
+      cta: 'Create Mini-Book PDF',
+      icon: BookOpen,
+    },
+    {
+      href: '/tools/domino-maker',
+      badge: 'Speaking Centers · Loop & Memory',
+      title: 'Picture Dominoes & Memory Match Maker',
+      description:
+        `Create closed-loop Picture↔Word Domino chains or 3×4 Memory Match decks from ${CLIPART_COUNT} illustrations—complete with cut guides, card backs, and a Loop Key.`,
+      features: ['Closed-Loop Dominoes', 'Memory Pic↔Word', 'Patterned Card Backs'],
+      cta: 'Create Dominoes PDF',
+      icon: RectangleHorizontal,
     },
   ];
 

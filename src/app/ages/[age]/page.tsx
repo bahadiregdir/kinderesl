@@ -7,6 +7,7 @@ import {
   fetchWorksheetsByAgeBand,
 } from '@/lib/worksheets-store';
 import { isIndexableCollection } from '@/types/worksheet';
+import { getRelatedToolsForAgeBand } from '@/lib/related-tools';
 import { CollectionLandingView } from '@/components/CollectionLandingView';
 import { getSiteUrl } from '@/config/site';
 import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
@@ -76,6 +77,9 @@ export default async function AgeBandPage({ params }: Props) {
       classroomTip={meta.classroomTip}
       worksheets={worksheets}
       relatedFallback={allWorksheets.slice(0, 4)}
+      relatedTools={getRelatedToolsForAgeBand(meta.slug)}
+      relatedToolsHeading={`Best Custom PDF Makers for ${meta.shortTitle}`}
+      relatedToolsSubtitle={`Build developmentally matched classroom PDFs for ${meta.shortTitle.toLowerCase()} in US Letter or A4.`}
       siblingHeading="Browse Worksheets by Age Group"
       siblingLinks={ageBandsData.map((a) => ({
         slug: a.slug,

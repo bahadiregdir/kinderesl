@@ -14,6 +14,7 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { useLessonPack } from '@/context/LessonPackContext';
 import { trackEvent } from '@/lib/analytics';
 import { getRelatedToolsForWorksheet } from '@/lib/related-tools';
+import { TOOL_COUNT } from '@/data/tools';
 import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
 import {
   FileDown,
@@ -675,7 +676,7 @@ export function WorksheetDetailView({
                   href="/tools"
                   className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline shrink-0"
                 >
-                  <span>All 10 Tools</span>
+                  <span>All {TOOL_COUNT} Tools</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

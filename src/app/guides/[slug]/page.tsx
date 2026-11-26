@@ -11,6 +11,7 @@ import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl, siteConfig, toAbsoluteAssetUrl } from '@/config/site';
+import { TOOL_COUNT } from '@/data/tools';
 import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
 import { Clock, BookOpen, CheckCircle2, Sparkles, ArrowLeft, ArrowRight, Wand2 } from 'lucide-react';
 
@@ -210,7 +211,7 @@ export default async function GuideDetailPage({ params }: Props) {
                 href="/tools"
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline shrink-0"
               >
-                <span>All 10 PDF Makers</span>
+                <span>All {TOOL_COUNT} PDF Makers</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

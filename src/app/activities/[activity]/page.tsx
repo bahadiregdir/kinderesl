@@ -7,6 +7,7 @@ import {
   fetchWorksheetsByActivityType,
 } from '@/lib/worksheets-store';
 import { isIndexableCollection } from '@/types/worksheet';
+import { getRelatedToolsForActivity } from '@/lib/related-tools';
 import { CollectionLandingView } from '@/components/CollectionLandingView';
 import { getSiteUrl } from '@/config/site';
 import { DEFAULT_OG_IMAGE, buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
@@ -76,6 +77,9 @@ export default async function ActivityTypePage({ params }: Props) {
       classroomTip={meta.classroomTip}
       worksheets={worksheets}
       relatedFallback={allWorksheets.slice(0, 4)}
+      relatedTools={getRelatedToolsForActivity(meta.slug)}
+      relatedToolsHeading={`Build Custom ${meta.shortTitle} PDFs Free`}
+      relatedToolsSubtitle={`Generate unlimited personalized ${meta.shortTitle.toLowerCase()} sheets in US Letter or A4 right in your browser.`}
       siblingHeading="Browse Worksheets by Activity Type"
       siblingLinks={activitiesData.map((a) => ({
         slug: a.slug,

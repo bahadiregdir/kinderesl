@@ -1,12 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import type { FAQItem, Worksheet } from '@/types/worksheet';
+import type { RelatedToolLink } from '@/lib/related-tools';
+import { TOOL_COUNT } from '@/data/tools';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
-import { Sparkles, CheckCircle2, Lightbulb, ArrowRight } from 'lucide-react';
+import { Sparkles, CheckCircle2, Lightbulb, ArrowRight, Wand2 } from 'lucide-react';
 
 interface SiblingLink {
   slug: string;
@@ -23,6 +25,9 @@ interface CollectionLandingViewProps {
   classroomTip: string;
   worksheets: Worksheet[];
   relatedFallback: Worksheet[];
+  relatedTools?: RelatedToolLink[];
+  relatedToolsHeading?: string;
+  relatedToolsSubtitle?: string;
   siblingHeading: string;
   siblingLinks: SiblingLink[];
   activeSlug: string;
@@ -40,6 +45,9 @@ export function CollectionLandingView({
   classroomTip,
   worksheets,
   relatedFallback,
+  relatedTools,
+  relatedToolsHeading,
+  relatedToolsSubtitle,
   siblingHeading,
   siblingLinks,
   activeSlug,
@@ -128,6 +136,61 @@ export function CollectionLandingView({
             </p>
           </div>
         </div>
+
+        {/* Context-Matched Free PDF Maker Tools */}
+        {relatedTools && relatedTools.length > 0 && (
+          <section className="p-6 rounded-2xl bg-[#F0F7F7] border border-[#d0e3e3] space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="space-y-0.5">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#2E6B6B]">
+                  <Wand2 className="w-3.5 h-3.5 text-[#F2B544]" />
+                  <span>Free Interactive PDF Makers</span>
+                </span>
+                <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 font-heading">
+                  {relatedToolsHeading || `Create Custom ${breadcrumbLabel} PDFs Free`}
+                </h2>
+                {relatedToolsSubtitle && (
+                  <p className="text-xs sm:text-sm text-slate-600">
+                    {relatedToolsSubtitle}
+                  </p>
+                )}
+              </div>
+              <Link
+                href="/tools"
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline shrink-0"
+              >
+                <span>All {TOOL_COUNT} PDF Makers</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {relatedTools.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="group p-4 rounded-xl bg-white border border-[#d0e3e3] hover:border-[#2E6B6B] hover:shadow-sm transition-all flex flex-col justify-between gap-3"
+                >
+                  <div className="space-y-1.5">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#F0F7F7] text-[#2E6B6B]">
+                      {tool.badge}
+                    </span>
+                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors">
+                      {tool.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {tool.subtitle}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B]">
+                    <span>Open Tool</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Cross-navigation to sibling collections */}
         {siblingLinks.length > 0 && (

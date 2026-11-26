@@ -1562,6 +1562,360 @@ function HandwritingPreviewCard() {
   );
 }
 
+function PatternMakerPreviewCard() {
+  const rows = [
+    ['Cow', 'Pig', 'Cow', 'Pig', '?'],
+    ['Sun', 'Sun', 'Hat', 'Sun', '?'],
+    ['Bee', 'Bug', 'Bat', 'Bee', '?'],
+  ];
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 18,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 21, fontWeight: 700, color: '#0F172A' }}>
+          Cut &amp; Paste Patterns
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          AB · AAB · ABC
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {rows.map((row, rIdx) => (
+          <div key={rIdx} style={{ display: 'flex', flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+            {row.map((cell, cIdx) => {
+              const isBlank = cell === '?';
+              return (
+                <div
+                  key={cIdx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 74,
+                    height: 68,
+                    borderRadius: 10,
+                    backgroundColor: isBlank ? '#F0F7F7' : '#FFFFFF',
+                    border: isBlank ? '2px dashed #2E6B6B' : '1.5px solid #CBD5E1',
+                    fontSize: isBlank ? 24 : 15,
+                    fontWeight: 700,
+                    color: isBlank ? '#2E6B6B' : '#0F172A',
+                  }}
+                >
+                  {cell}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 10,
+          borderTop: '2px dashed #93B5B5',
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Cut &amp; Glue Bottom Tiles + Key</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function MiniBookPreviewCard() {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 16,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 21, fontWeight: 700, color: '#0F172A' }}>
+          Foldable Mini-Book
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          1-Sheet &amp; Booklet
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 14, flex: 1 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            flex: 1,
+            borderRadius: 12,
+            border: '2px solid #2E6B6B',
+            padding: 14,
+            backgroundColor: '#FFFFFF',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              backgroundColor: '#F0F7F7',
+              borderRadius: 8,
+              padding: '8px 6px',
+              fontSize: 15,
+              fontWeight: 700,
+              color: '#0F172A',
+            }}
+          >
+            My Farm Book
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#2E6B6B',
+            }}
+          >
+            Cow · Pig · Hen
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', fontSize: 12, color: '#64748B' }}>
+            By: ____________
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            flex: 1,
+            borderRadius: 12,
+            border: '2px solid #2E6B6B',
+            padding: 14,
+            backgroundColor: '#FFFFFF',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'flex-end', fontSize: 12, color: '#64748B' }}>
+            Page 1
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#0F172A',
+            }}
+          >
+            I see a cow.
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#2E6B6B',
+            }}
+          >
+            Color &amp; Read
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 14,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>{CLIPART_COUNT} Line-Art Drawings</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
+function DominoMakerPreviewCard() {
+  const tiles = [
+    ['[Pic: Cow]', 'Pig'],
+    ['[Pic: Pig]', 'Sheep'],
+    ['[Pic: Sheep]', 'Duck'],
+  ];
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 16,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 21, fontWeight: 700, color: '#0F172A' }}>
+          Dominoes &amp; Memory
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          Closed Loop
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {tiles.map((t, idx) => (
+          <div
+            key={idx}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              height: 76,
+              borderRadius: 12,
+              border: '2px solid #2E6B6B',
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flex: 1,
+                backgroundColor: '#FFFFFF',
+                borderRight: '2px solid #2E6B6B',
+                fontSize: 16,
+                fontWeight: 700,
+                color: '#2E6B6B',
+              }}
+            >
+              {t[0]}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flex: 1,
+                backgroundColor: '#F0F7F7',
+                fontSize: 20,
+                fontWeight: 700,
+                color: '#0F172A',
+              }}
+            >
+              {t[1]}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 8,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Domino Loop + 3×4 Memory Backs</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
 export function renderToolOgImage(slug: string): ImageResponse {
   const tool = getToolConfig(slug);
 
@@ -1750,6 +2104,12 @@ export function renderToolOgImage(slug: string): ImageResponse {
             <WordSearchPreviewCard />
           ) : tool.previewKind === 'clip-cards-maker' ? (
             <ClipCardsPreviewCard />
+          ) : tool.previewKind === 'pattern-maker' ? (
+            <PatternMakerPreviewCard />
+          ) : tool.previewKind === 'mini-book-maker' ? (
+            <MiniBookPreviewCard />
+          ) : tool.previewKind === 'domino-maker' ? (
+            <DominoMakerPreviewCard />
           ) : (
             <GenericToolPreviewCard title={tool.ogTitle} />
           )}

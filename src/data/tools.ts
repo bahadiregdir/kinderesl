@@ -14,6 +14,9 @@ export type ToolPreviewKind =
   | 'matching-maker'
   | 'word-search-maker'
   | 'clip-cards-maker'
+  | 'pattern-maker'
+  | 'mini-book-maker'
+  | 'domino-maker'
   | 'generic';
 
 export interface ToolRegistryItem {
@@ -223,7 +226,66 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
     schemaName: 'KinderESL Free Sight Word & Handwriting Worksheet Maker',
     previewKind: 'handwriting-maker',
   },
+  'pattern-maker': {
+    slug: 'pattern-maker',
+    path: '/tools/pattern-maker',
+    seoTitle: 'Free Cut & Paste Pattern Worksheet Maker',
+    description:
+      `Create printable AB, AAB, ABB, ABC, and mixed cut-and-paste pattern PDF worksheets from ${CLIPART_COUNT} KinderESL drawings in US Letter or A4, with optional distractors and Answer Key.`,
+    ogTitle: 'Free Cut & Paste Pattern Maker',
+    ogSubtitle: 'AB · AAB · ABB · ABC · Free PDF',
+    ogBadges: ['4 Pattern Rows', 'Cut & Glue Tiles'],
+    ogAlt:
+      'Free Cut & Paste Pattern Worksheet Maker — Printable AB, AAB, ABB, and ABC preschool math sequencing worksheet',
+    pinDescription:
+      'Free Printable Cut & Paste Pattern Worksheet Maker for Preschool & Kindergarten! Generate AB, AAB, ABB, ABC, or Mixed sequencing sheets in US Letter or A4 at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Four sequence rows paired with dashed bottom scissor tiles and Page 2 Answer Key.',
+    schemaName: 'KinderESL Free Cut & Paste Pattern Worksheet Maker',
+    previewKind: 'pattern-maker',
+  },
+  'mini-book-maker': {
+    slug: 'mini-book-maker',
+    path: '/tools/mini-book-maker',
+    seoTitle: 'Free Foldable ESL Mini-Book Maker (1-Sheet & Half-Page)',
+    description:
+      `Turn ${CLIPART_COUNT} coloring-friendly illustrations into printable half-page booklets or 1-sheet 8-panel foldable mini-books with "I see a...", "This is a...", or traceable words.`,
+    ogTitle: 'Free Foldable Mini-Book Maker',
+    ogSubtitle: 'Half-Page & 1-Sheet Zine · Free PDF',
+    ogBadges: ['I See / This Is', 'Traceable Word Mode'],
+    ogAlt:
+      'Free Foldable ESL Mini-Book Maker — Printable half-page and 1-sheet 8-panel emergent reader booklet for preschool and kindergarten',
+    pinDescription:
+      'Free Foldable ESL Mini-Book Maker for Preschool & Kindergarten! Create Half-Page staple booklets or single-sheet 8-panel foldable books in US Letter or A4 at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Colorable emergent reader booklets with predictable English sentence frames.',
+    schemaName: 'KinderESL Free Foldable ESL Mini-Book Maker',
+    previewKind: 'mini-book-maker',
+  },
+  'domino-maker': {
+    slug: 'domino-maker',
+    path: '/tools/domino-maker',
+    seoTitle: 'Free Picture Dominoes & Memory Match Maker',
+    description:
+      `Generate closed-loop printable ESL Picture Dominoes or 3×4 Memory Match card decks from ${CLIPART_COUNT} drawings with cut lines, patterned backs, and Loop Key in US Letter or A4.`,
+    ogTitle: 'Free Dominoes & Memory Maker',
+    ogSubtitle: 'Closed-Loop Dominoes & Pairs · Free PDF',
+    ogBadges: ['Picture ↔ Word', 'Card Backs Included'],
+    ogAlt:
+      'Free Picture Dominoes & Memory Match Maker — Printable ESL picture-word domino tiles and memory match card deck',
+    pinDescription:
+      'Free Printable ESL Picture Dominoes & Memory Match Maker! Print closed-loop 2x4 picture-word dominoes or 3x4 memory cards + patterned backs at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Guaranteed closed-loop domino chains and double-sided memory matching cards.',
+    schemaName: 'KinderESL Free Picture Dominoes & Memory Match Maker',
+    previewKind: 'domino-maker',
+  },
 };
+
+export const TOOL_COUNT = Object.keys(TOOL_REGISTRY).length;
 
 export function getToolConfig(slug: string): ToolRegistryItem {
   const existing = TOOL_REGISTRY[slug];

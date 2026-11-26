@@ -551,6 +551,12 @@ export function getRelatedToolsForWorksheet(worksheet: Worksheet): RelatedToolLi
     if (theme) {
       return [
         {
+          href: `/tools/pattern-maker?theme=${theme.id}`,
+          title: `${theme.label} Cut & Paste Patterns`,
+          subtitle: 'Build AB, AAB, or ABC cut-and-paste sequencing rows with themed drawings.',
+          badge: 'Patterns',
+        },
+        {
           href: `/tools/i-spy-maker?theme=${theme.id}`,
           title: `${theme.label} I Spy & Count`,
           subtitle: 'Build visual scanning and counting accuracy with themed line art.',
@@ -569,40 +575,27 @@ export function getRelatedToolsForWorksheet(worksheet: Worksheet): RelatedToolLi
               subtitle: 'Print sorting and odd-one-out discussion cards for centers.',
               badge: 'Flashcards',
             },
-        WORD_SEARCH_THEMES.has(theme.id)
-          ? {
-              href: `/tools/word-search-maker?theme=${theme.id}`,
-              title: `${theme.label} Word Search`,
-              subtitle: 'Kid-friendly across/down word hunt with Picture Word Bank.',
-              badge: 'Word Search',
-            }
-          : {
-              href: `/tools/bingo-maker?theme=${BINGO_THEMES.has(theme.id) ? theme.id : 'winter'}`,
-              title: `${theme.label} Picture Bingo`,
-              subtitle: 'Reinforce sorting categories through calm listening bingo.',
-              badge: 'Bingo',
-            },
       ];
     }
 
     return [
       {
+        href: '/tools/pattern-maker',
+        title: 'Cut & Paste Pattern Maker',
+        subtitle: 'Follow scissor strips with AB, AAB, ABB, and ABC cut-and-glue patterns.',
+        badge: 'Cut & Paste',
+      },
+      {
+        href: '/tools/mini-book-maker',
+        title: 'Foldable Mini-Book Maker',
+        subtitle: 'Cut and fold a personal coloring and early reading mini-booklet.',
+        badge: 'Mini-Books',
+      },
+      {
         href: '/tools/name-tracing',
         title: 'Custom Name Tracing Maker',
         subtitle: 'Extend fine-motor pencil control to every child’s own printed name.',
         badge: 'Fine Motor',
-      },
-      {
-        href: '/tools/letter-tracing',
-        title: 'A–Z Letter Tracing Generator',
-        subtitle: 'Follow scissor warm-ups with guided vertical and curved letter strokes.',
-        badge: 'Tracing',
-      },
-      {
-        href: '/tools/clip-cards-maker',
-        title: 'Beginning Sounds Clip Cards',
-        subtitle: 'Build finger pinch strength with wooden clothespin phonics cards.',
-        badge: 'Clip Cards',
       },
     ];
   }
@@ -785,4 +778,312 @@ export function getRelatedToolsForWorksheet(worksheet: Worksheet): RelatedToolLi
       badge: 'Matching',
     },
   ];
+}
+
+export function getRelatedToolsForActivity(activitySlug: string): RelatedToolLink[] {
+  switch (activitySlug.toLowerCase()) {
+    case 'tracing':
+      return [
+        {
+          href: '/tools/letter-tracing',
+          title: 'A–Z Letter Tracing Generator',
+          subtitle: 'Single letters, SATPIN groups, or all 26 pages with directional starting dots.',
+          badge: 'Letters',
+        },
+        {
+          href: '/tools/name-tracing',
+          title: 'Custom Name Tracing Maker',
+          subtitle: 'Batch up to 30 student names with Title Case, UPPER, and starting dots.',
+          badge: 'Names',
+        },
+        {
+          href: '/tools/number-tracing',
+          title: 'Number Tracing 0–20 & Ten-Frames',
+          subtitle: 'Practice 0–10 or 0–20 numerals paired with Ten-Frames and number words.',
+          badge: 'Numbers',
+        },
+        {
+          href: '/tools/handwriting-maker',
+          title: 'Sight Word & Handwriting Maker',
+          subtitle: 'Create Read-Trace-Write practice rows for Dolch words and CVC lists.',
+          badge: 'Sight Words',
+        },
+      ];
+    case 'coloring':
+      return [
+        {
+          href: '/tools/mini-book-maker',
+          title: 'Foldable Mini-Book Maker',
+          subtitle: 'Create colorable Half-Page or 1-Sheet 8-Panel emergent ESL readers.',
+          badge: 'Mini-Book',
+        },
+        {
+          href: '/tools/i-spy-maker',
+          title: 'I Spy & Count Worksheet Maker',
+          subtitle: 'Find, color, and count black-ink illustrations with an included Answer Key.',
+          badge: 'I Spy',
+        },
+        {
+          href: '/tools/flashcard-maker',
+          title: 'ESL Picture Flashcard Maker',
+          subtitle: 'Print coloring-friendly vocabulary decks from 176 original drawings.',
+          badge: 'Flashcards',
+        },
+        {
+          href: '/tools/pattern-maker',
+          title: 'Cut & Paste Pattern Maker',
+          subtitle: 'Color, cut, and glue AB, AAB, ABB, and ABC math pattern sequences.',
+          badge: 'Patterns',
+        },
+      ];
+    case 'cut-and-paste':
+      return [
+        {
+          href: '/tools/pattern-maker',
+          title: 'Cut & Paste Pattern Maker',
+          subtitle: 'Generate AB, AAB, ABB, and ABC sequencing sheets with scissor cut tiles.',
+          badge: 'Patterns',
+        },
+        {
+          href: '/tools/mini-book-maker',
+          title: 'Foldable Mini-Book Maker',
+          subtitle: 'Cut along center guides to build Half-Page booklets or 8-panel zines.',
+          badge: 'Mini-Books',
+        },
+        {
+          href: '/tools/clip-cards-maker',
+          title: 'Beginning Sounds Clip Cards',
+          subtitle: 'Print and cut 2×2 or 2×3 clothespin phonics cards with dashed guides.',
+          badge: 'Clip Cards',
+        },
+        {
+          href: '/tools/domino-maker',
+          title: 'Picture Dominoes & Memory Maker',
+          subtitle: 'Cut apart closed-loop domino chains or 3×4 Memory Match card decks.',
+          badge: 'Dominoes',
+        },
+      ];
+    case 'matching':
+      return [
+        {
+          href: '/tools/matching-maker',
+          title: 'Picture & Phonics Matching Maker',
+          subtitle: 'Build draw-a-line Picture↔Word and Picture↔Letter sheets + Answer Key.',
+          badge: 'Matching',
+        },
+        {
+          href: '/tools/domino-maker',
+          title: 'Picture Dominoes & Memory Maker',
+          subtitle: 'Turn vocabulary into closed-loop Picture↔Word dominoes or Memory pairs.',
+          badge: 'Dominoes',
+        },
+        {
+          href: '/tools/clip-cards-maker',
+          title: 'Beginning Sounds Clip Cards',
+          subtitle: 'Match clear illustrations to beginning letter sounds with clothespins.',
+          badge: 'Clip Cards',
+        },
+        {
+          href: '/tools/flashcard-maker',
+          title: 'ESL Picture Flashcard Maker',
+          subtitle: 'Print matching picture and word sets for tabletop memory and sorting.',
+          badge: 'Flashcards',
+        },
+      ];
+    case 'counting':
+      return [
+        {
+          href: '/tools/number-tracing',
+          title: 'Number Tracing 0–20 & Ten-Frames',
+          subtitle: 'Pair guided numeral formation with visual Ten-Frame counting grids.',
+          badge: 'Ten-Frames',
+        },
+        {
+          href: '/tools/i-spy-maker',
+          title: 'I Spy & Count Worksheet Maker',
+          subtitle: 'Practice 1-to-1 counting on scattered picture sheets + Answer Key.',
+          badge: 'I Spy',
+        },
+        {
+          href: '/tools/pattern-maker',
+          title: 'Cut & Paste Pattern Maker',
+          subtitle: 'Develop early algebraic sequence reasoning with AB and ABC patterns.',
+          badge: 'Patterns',
+        },
+        {
+          href: '/tools/bingo-maker',
+          title: 'ESL Picture & Word Bingo Maker',
+          subtitle: 'Build visual recognition in small groups up to 30 unique boards.',
+          badge: 'Bingo',
+        },
+      ];
+    case 'odd-one-out':
+      return [
+        {
+          href: '/tools/pattern-maker',
+          title: 'Cut & Paste Pattern Maker',
+          subtitle: 'Spot repeating visual rules (AB, AAB, ABB, ABC) and glue what comes next.',
+          badge: 'Logic',
+        },
+        {
+          href: '/tools/i-spy-maker',
+          title: 'I Spy & Count Worksheet Maker',
+          subtitle: 'Sharpen visual discrimination in busy themed picture search fields.',
+          badge: 'Visual Scan',
+        },
+        {
+          href: '/tools/matching-maker',
+          title: 'Picture & Phonics Matching Maker',
+          subtitle: 'Compare features across columns to match pictures to words or sounds.',
+          badge: 'Matching',
+        },
+        {
+          href: '/tools/word-search-maker',
+          title: 'Easy Picture Word Search Maker',
+          subtitle: 'Scan 6×6 and 8×8 letter grids paired with an illustrated Word Bank.',
+          badge: 'Word Search',
+        },
+      ];
+    case 'flashcards':
+      return [
+        {
+          href: '/tools/flashcard-maker',
+          title: 'ESL Picture Flashcard Maker',
+          subtitle: 'Create 2×2, 2×3, or 3×3 decks from 176 drawings or your own images.',
+          badge: 'Flashcards',
+        },
+        {
+          href: '/tools/domino-maker',
+          title: 'Picture Dominoes & Memory Maker',
+          subtitle: 'Turn the same flashcards into Memory Match pairs and Picture Dominoes.',
+          badge: 'Games',
+        },
+        {
+          href: '/tools/bingo-maker',
+          title: 'ESL Picture & Word Bingo Maker',
+          subtitle: 'Practice listening comprehension with up to 30 shuffled picture boards.',
+          badge: 'Bingo',
+        },
+        {
+          href: '/tools/mini-book-maker',
+          title: 'Foldable Mini-Book Maker',
+          subtitle: 'Put your target flashcards into a take-home "I see a..." reading booklet.',
+          badge: 'Mini-Book',
+        },
+      ];
+    default:
+      return [
+        {
+          href: '/tools/flashcard-maker',
+          title: 'ESL Picture Flashcard Maker',
+          subtitle: 'Create custom 2×2 or 3×3 classroom picture flashcards in seconds.',
+          badge: 'Flashcards',
+        },
+        {
+          href: '/tools/pattern-maker',
+          title: 'Cut & Paste Pattern Maker',
+          subtitle: 'Generate AB, AAB, ABB, and ABC scissor pattern worksheets.',
+          badge: 'Patterns',
+        },
+        {
+          href: '/tools/mini-book-maker',
+          title: 'Foldable Mini-Book Maker',
+          subtitle: 'Build Half-Page or 1-Sheet 8-Panel emergent ESL reading books.',
+          badge: 'Mini-Book',
+        },
+        {
+          href: '/tools/i-spy-maker',
+          title: 'I Spy & Count Worksheet Maker',
+          subtitle: 'Print custom find-and-count worksheets complete with Answer Key.',
+          badge: 'I Spy',
+        },
+      ];
+  }
+}
+
+export function getRelatedToolsForAgeBand(ageSlug: string): RelatedToolLink[] {
+  switch (ageSlug.toLowerCase()) {
+    case '3-4':
+      return [
+        {
+          href: '/tools/name-tracing',
+          title: 'Custom Name Tracing Maker',
+          subtitle: 'Print personalized ALL CAPS or Title Case name sheets with starting dots.',
+          badge: 'Names',
+        },
+        {
+          href: '/tools/pattern-maker',
+          title: 'Cut & Paste AB Patterns',
+          subtitle: 'Simple 2-part AB picture sequencing with large dashed scissor tiles.',
+          badge: 'Patterns',
+        },
+        {
+          href: '/tools/flashcard-maker',
+          title: 'ESL Picture Flashcards',
+          subtitle: 'Print big 2×2 picture cards for gentle carpet pointing and chants.',
+          badge: 'Flashcards',
+        },
+        {
+          href: '/tools/mini-book-maker',
+          title: 'Foldable Picture Mini-Books',
+          subtitle: 'Colorable 1-sentence "I see a..." booklets for early preschool readers.',
+          badge: 'Mini-Books',
+        },
+      ];
+    case '4-5':
+      return [
+        {
+          href: '/tools/letter-tracing',
+          title: 'A–Z Letter Tracing Generator',
+          subtitle: 'Uppercase & lowercase guided strokes with SATPIN or full A–Z packs.',
+          badge: 'Alphabet',
+        },
+        {
+          href: '/tools/number-tracing',
+          title: 'Number Tracing 0–20 & Ten-Frames',
+          subtitle: 'Build one-to-one counting sense with visual Ten-Frames and numerals.',
+          badge: 'Math',
+        },
+        {
+          href: '/tools/clip-cards-maker',
+          title: 'Beginning Sounds Clip Cards',
+          subtitle: 'Strengthen pincer grip while clipping initial consonant sounds.',
+          badge: 'Phonics',
+        },
+        {
+          href: '/tools/i-spy-maker',
+          title: 'I Spy & Count Worksheet Maker',
+          subtitle: 'Engaging find-and-count puzzles across 20 seasonal and ESL themes.',
+          badge: 'I Spy',
+        },
+      ];
+    case '5-6':
+    default:
+      return [
+        {
+          href: '/tools/handwriting-maker',
+          title: 'Sight Word & CVC Handwriting',
+          subtitle: 'Create Read-Trace-Write practice rows for Dolch words and phonics lists.',
+          badge: 'Sight Words',
+        },
+        {
+          href: '/tools/word-search-maker',
+          title: 'Easy Picture Word Search',
+          subtitle: 'Gentle 6×6 and 8×8 across/down puzzles paired with a Picture Word Bank.',
+          badge: 'Word Search',
+        },
+        {
+          href: '/tools/domino-maker',
+          title: 'Picture Dominoes & Memory',
+          subtitle: 'Play closed-loop Picture↔Word dominoes and 3×4 Memory Match pairs.',
+          badge: 'Games',
+        },
+        {
+          href: '/tools/matching-maker',
+          title: 'Picture & Letter Matching',
+          subtitle: 'Connect illustrations to full English words or beginning consonants.',
+          badge: 'Matching',
+        },
+      ];
+  }
 }
