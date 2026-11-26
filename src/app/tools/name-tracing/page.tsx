@@ -3,49 +3,17 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { NameTracingGenerator } from '@/components/NameTracingGenerator';
+import { ToolSamplePreview } from '@/components/ToolSamplePreview';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsByActivityType } from '@/lib/worksheets-store';
-import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
-import {
-  DEFAULT_OG_IMAGE,
-  buildSeoDescription,
-  buildSeoTitle,
-} from '@/lib/seo-meta';
+import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
-const siteUrl = getSiteUrl();
-const pageUrl = `${siteUrl}/tools/name-tracing`;
-const pageTitle = buildSeoTitle('Free Name Tracing Worksheet Generator');
-const pageDescription = buildSeoDescription(
-  'Create custom printable name tracing PDF worksheets for preschool and kindergarten in seconds. Supports US Letter & A4, batch class lists up to 30 names.'
-);
-
-export const metadata: Metadata = {
-  title: pageTitle,
-  description: pageDescription,
-  alternates: { canonical: pageUrl },
-  openGraph: {
-    title: pageTitle,
-    description: pageDescription,
-    url: pageUrl,
-    type: 'website',
-    images: [DEFAULT_OG_IMAGE],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pageTitle,
-    description: pageDescription,
-    images: [DEFAULT_OG_IMAGE.url],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildToolMetadata('name-tracing');
 
 const toolFaqs: FAQItem[] = [
   {
@@ -76,23 +44,7 @@ export default async function NameTracingToolPage() {
     4
   );
 
-  const webAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: 'KinderESL Free Name Tracing Worksheet Generator',
-    url: pageUrl,
-    description: pageDescription,
-    applicationCategory: 'EducationalApplication',
-    operatingSystem: 'Any',
-    isAccessibleForFree: true,
-    inLanguage: 'en-US',
-    image: toAbsoluteAssetUrl(DEFAULT_OG_IMAGE.url, siteUrl),
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-  };
+  const webAppSchema = buildToolWebAppSchema('name-tracing');
 
   return (
     <div>
@@ -129,6 +81,9 @@ export default async function NameTracingToolPage() {
 
         {/* Interactive Generator */}
         <NameTracingGenerator />
+
+        {/* Printable Sample Preview for Educators & Pinterest */}
+        <ToolSamplePreview slug="name-tracing" />
 
         {/* 3-Step Classroom Usage Tips */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-5">

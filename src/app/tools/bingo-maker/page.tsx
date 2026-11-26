@@ -3,49 +3,17 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BingoGenerator } from '@/components/BingoGenerator';
+import { ToolSamplePreview } from '@/components/ToolSamplePreview';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsBySubject } from '@/lib/worksheets-store';
-import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
-import {
-  DEFAULT_OG_IMAGE,
-  buildSeoDescription,
-  buildSeoTitle,
-} from '@/lib/seo-meta';
+import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
-const siteUrl = getSiteUrl();
-const pageUrl = `${siteUrl}/tools/bingo-maker`;
-const pageTitle = buildSeoTitle('Free ESL Bingo Card Generator');
-const pageDescription = buildSeoDescription(
-  'Create up to 30 unique shuffled printable ESL bingo cards in US Letter or A4 PDF with a teacher caller checklist. Ready-made word sets or custom lists.'
-);
-
-export const metadata: Metadata = {
-  title: pageTitle,
-  description: pageDescription,
-  alternates: { canonical: pageUrl },
-  openGraph: {
-    title: pageTitle,
-    description: pageDescription,
-    url: pageUrl,
-    type: 'website',
-    images: [DEFAULT_OG_IMAGE],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pageTitle,
-    description: pageDescription,
-    images: [DEFAULT_OG_IMAGE.url],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildToolMetadata('bingo-maker');
 
 const bingoFaqs: FAQItem[] = [
   {
@@ -76,23 +44,7 @@ export default async function BingoMakerToolPage() {
     4
   );
 
-  const webAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: 'KinderESL Free ESL Bingo Card Generator',
-    url: pageUrl,
-    description: pageDescription,
-    applicationCategory: 'EducationalApplication',
-    operatingSystem: 'Any',
-    isAccessibleForFree: true,
-    inLanguage: 'en-US',
-    image: toAbsoluteAssetUrl(DEFAULT_OG_IMAGE.url, siteUrl),
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-  };
+  const webAppSchema = buildToolWebAppSchema('bingo-maker');
 
   return (
     <div>
@@ -127,6 +79,8 @@ export default async function BingoMakerToolPage() {
         </header>
 
         <BingoGenerator />
+
+        <ToolSamplePreview slug="bingo-maker" />
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[
