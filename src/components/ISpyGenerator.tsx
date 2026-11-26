@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   I_SPY_PRESETS,
   buildISpyLayout,
@@ -44,6 +44,16 @@ export function ISpyGenerator() {
   const [themeFilter, setThemeFilter] = useState('all');
   const [previewTab, setPreviewTab] = useState<'student' | 'answer'>('student');
   const [generating, setGenerating] = useState(false);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('theme');
+    if (!param) return;
+    const found = I_SPY_PRESETS.find((p) => p.id === param);
+    if (found) {
+      setTitle(found.title);
+      setSelectedIds(found.clipartIds);
+    }
+  }, []);
 
   const themes = useMemo(() => listThemes(), []);
 

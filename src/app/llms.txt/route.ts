@@ -76,6 +76,15 @@ export async function GET() {
     `- [Free Printable I Spy Worksheet Maker](${baseUrl}/tools/i-spy-maker): Create non-overlapping find, color, and count I Spy PDFs across 11 themes and 125 drawings with counting checklist boxes and an automatic Page 2 Teacher Answer Key.`
   );
   lines.push(
+    `- [Free Beginning Sounds & Picture Matching Maker](${baseUrl}/tools/matching-maker): Generate printable draw-a-line matching worksheets in US Letter or A4 connecting 125 illustrations to English words or beginning letters with a Page 2 Answer Key.`
+  );
+  lines.push(
+    `- [Free Easy Picture Word Search Maker](${baseUrl}/tools/word-search-maker): Create beginner-friendly 6x6 and 8x8 across/down word search PDFs paired with an illustrated Picture Word Bank and highlighted Answer Key.`
+  );
+  lines.push(
+    `- [Free Beginning Sounds Clip Cards Maker](${baseUrl}/tools/clip-cards-maker): Print cut-out 2x2 or 2x3 clothespin phonics clip cards from 125 preschool drawings with randomized letter choices and an Answer Key.`
+  );
+  lines.push(
     `- [Custom ESL Picture & Word Bingo Card Generator](${baseUrl}/tools/bingo-maker): Build up to 30 uniquely shuffled 3x3 or 4x4 ESL picture or word bingo boards plus a visual Teacher Caller Checklist in US Letter or A4 PDF.`
   );
   lines.push('');

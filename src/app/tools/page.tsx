@@ -19,6 +19,9 @@ import {
   BookOpenText,
   Images,
   Search,
+  GitCompareArrows,
+  Grid2X2Check,
+  Scissors,
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react';
@@ -27,7 +30,7 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/tools`;
 const pageTitle = buildSeoTitle('Free Printable Teacher Tools');
 const pageDescription = buildSeoDescription(
-  'Free browser-private PDF generators for preschool and ESL teachers: I Spy find-and-count sheets, picture flashcards, picture ESL bingo, name tracing, A–Z letter tracing, 0–20 number tracing, and sight word handwriting in US Letter & A4.'
+  '10 free browser-private PDF generators for preschool and ESL teachers: I Spy, picture flashcards, picture bingo, matching, word search, clip cards, name tracing, A–Z letters, 0–20 numbers, and sight words.'
 );
 
 export const metadata: Metadata = {
@@ -114,6 +117,36 @@ export default function ToolsHubPage() {
       features: ['Easy, Medium & Busy', 'Auto Answer Key', 'Color-Friendly Line Art'],
       cta: 'Create I Spy PDF',
       icon: Search,
+    },
+    {
+      href: '/tools/matching-maker',
+      badge: 'Phonics & Vocab · Draw-a-Line Pairs',
+      title: 'Beginning Sounds & Picture Matching Maker',
+      description:
+        'Create draw-a-line printable worksheets pairing 125 illustrations with English vocabulary words or beginning letters plus a Page 2 Answer Key.',
+      features: ['Picture ↔ Word', 'Picture ↔ Letter', 'Auto Answer Key'],
+      cta: 'Create Matching PDF',
+      icon: GitCompareArrows,
+    },
+    {
+      href: '/tools/word-search-maker',
+      badge: 'Early Readers · Picture Word Bank',
+      title: 'Easy Picture Word Search Maker',
+      description:
+        'Build preschool-friendly 6×6 and 8×8 word search PDFs where words run strictly across or down, paired with an illustrated Word Bank and Answer Key.',
+      features: ['No Backwards Words', 'Picture Word Bank', '6×6 & 8×8 Grids'],
+      cta: 'Create Word Search PDF',
+      icon: Grid2X2Check,
+    },
+    {
+      href: '/tools/clip-cards-maker',
+      badge: 'Phonics Centers · 2×2 & 2×3 Cards',
+      title: 'Beginning Sounds Clip Cards Maker',
+      description:
+        'Print cut-out 2×2 or 2×3 clothespin phonics cards from 125 illustrations with randomized letter boxes and a quick Teacher Answer Key.',
+      features: ['125 Built-In Drawings', 'UPPER / lower / Aa', 'Dashed Cut Guides'],
+      cta: 'Create Clip Cards PDF',
+      icon: Scissors,
     },
     {
       href: '/tools/bingo-maker',

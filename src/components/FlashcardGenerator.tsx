@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   FLASHCARD_PRESETS,
   buildEntriesFromClipartIds,
@@ -141,6 +141,18 @@ export function FlashcardGenerator() {
   const [themeFilter, setThemeFilter] = useState('all');
   const [previewPage, setPreviewPage] = useState(0);
   const [generating, setGenerating] = useState(false);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('theme');
+    if (!param) return;
+    const found = FLASHCARD_PRESETS.find((p) => p.id === param);
+    if (found) {
+      setSelectedPresetId(found.id);
+      setTitle(found.title);
+      setEntries(buildEntriesFromClipartIds(found.clipartIds));
+      setPreviewPage(0);
+    }
+  }, []);
 
   const themes = useMemo(() => listThemes(), []);
 

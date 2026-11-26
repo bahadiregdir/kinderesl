@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   BINGO_PRESETS,
   PICTURE_BINGO_PRESETS,
@@ -53,6 +53,21 @@ export function BingoGenerator() {
   const [previewIdx, setPreviewIdx] = useState(0);
   const [previewMode, setPreviewMode] = useState<'card' | 'caller'>('card');
   const [generating, setGenerating] = useState(false);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('theme');
+    if (!param) return;
+    const found = PICTURE_BINGO_PRESETS.find(
+      (p) => p.id === param || p.id === `pic-${param}`
+    );
+    if (found) {
+      setCardMode('picture-word');
+      setTitle(found.title);
+      setSelectedItems(found.items);
+      if (found.items.length < 16) setGridSize(3);
+      setPreviewIdx(0);
+    }
+  }, []);
 
   const themes = useMemo(() => listThemes(), []);
 
