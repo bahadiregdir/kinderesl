@@ -44,7 +44,7 @@ export function Navbar() {
 
   const navItems = [
     { title: 'Worksheets', href: '/worksheets', isMega: true },
-    { title: 'Name Tracing', href: '/tools/name-tracing' },
+    { title: 'Teacher Tools', href: '/tools' },
     { title: 'Topics', href: '/topics' },
     { title: 'Guides', href: '/guides' },
     { title: 'Monthly Themes', href: '/preschool-themes' },

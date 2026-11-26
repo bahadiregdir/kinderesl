@@ -27,6 +27,7 @@ export function Footer() {
     { title: 'Monthly Themes', href: '/preschool-themes' },
     { title: 'Teaching Guides', href: '/guides' },
     { title: 'Name Tracing Generator', href: '/tools/name-tracing' },
+    { title: 'ESL Bingo Generator', href: '/tools/bingo-maker' },
   ];
 
   const legalLinks = [

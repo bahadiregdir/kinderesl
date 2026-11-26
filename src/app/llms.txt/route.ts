@@ -55,7 +55,13 @@ export async function GET() {
 
   lines.push('## Free Interactive Educator Tools');
   lines.push(
+    `- [Free Printable Teacher Tools Hub](${baseUrl}/tools): Overview of all browser-private preschool and ESL PDF generators.`
+  );
+  lines.push(
     `- [Custom Name Tracing Worksheet Generator](${baseUrl}/tools/name-tracing): Create personalized preschool and kindergarten ball-and-stick name tracing PDFs in US Letter or A4 (single student or whole class batch up to 30 names, 100% browser-private).`
+  );
+  lines.push(
+    `- [Custom ESL Bingo Card Generator](${baseUrl}/tools/bingo-maker): Build up to 30 uniquely shuffled 3x3 or 4x4 ESL vocabulary bingo boards plus a Teacher Caller Checklist in US Letter or A4 PDF.`
   );
   lines.push('');
 

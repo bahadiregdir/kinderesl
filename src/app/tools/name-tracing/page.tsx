@@ -105,7 +105,7 @@ export default async function NameTracingToolPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[
-              { label: 'Worksheets', href: '/worksheets' },
+              { label: 'Teacher Tools', href: '/tools' },
               { label: 'Name Tracing Generator' },
             ]}
           />

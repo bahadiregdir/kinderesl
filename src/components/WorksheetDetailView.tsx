@@ -27,6 +27,12 @@ import {
   FolderHeart,
   Check,
   Search,
+  ZoomIn,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Link2,
+  MessageCircle,
 } from 'lucide-react';
 
 interface WorksheetDetailViewProps {
@@ -45,6 +51,8 @@ export function WorksheetDetailView({
   const [selectedImage, setSelectedImage] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [paperSize, setPaperSize] = useState<'letter' | 'a4'>('letter');
   const { hasItem, toggleItem } = useLessonPack();
   const inPack = hasItem(worksheet.slug);
@@ -67,6 +75,43 @@ export function WorksheetDetailView({
   const pinUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
     currentUrl
   )}&media=${encodeURIComponent(pinMediaUrl)}&description=${pinDescription}`;
+
+  const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(
+    `Free printable preschool worksheet: ${title} (${currentUrl})`
+  )}`;
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(currentUrl);
+    } catch {
+      const input = document.createElement('input');
+      input.value = currentUrl;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    setCopied(true);
+    trackEvent('worksheet_share', { method: 'copy_link', slug: worksheet.slug });
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setLightboxOpen(false);
+      } else if (e.key === 'ArrowRight' && worksheet.previewImages.length > 1) {
+        setSelectedImage((i) => (i + 1) % worksheet.previewImages.length);
+      } else if (e.key === 'ArrowLeft' && worksheet.previewImages.length > 1) {
+        setSelectedImage((i) =>
+          (i - 1 + worksheet.previewImages.length) % worksheet.previewImages.length
+        );
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [lightboxOpen, worksheet.previewImages.length]);
 
   // Scroll detection for mobile sticky download bar
   useEffect(() => {
@@ -201,7 +246,19 @@ export function WorksheetDetailView({
           {/* Left Column: 58% (7 cols) - Preview & Page Thumbnails */}
           <div className="lg:col-span-7 space-y-4">
             {/* Primary Large Preview Card */}
-            <div className="relative group bg-slate-50/80 rounded-2xl border border-slate-200 overflow-hidden shadow-xs flex items-center justify-center p-3 sm:p-8">
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => setLightboxOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setLightboxOpen(true);
+                }
+              }}
+              aria-label={`Enlarge preview of ${title}`}
+              className="relative group bg-slate-50/80 rounded-2xl border border-slate-200 hover:border-[#2E6B6B] overflow-hidden shadow-xs flex items-center justify-center p-3 sm:p-8 cursor-zoom-in transition-colors"
+            >
               <div className="relative w-full aspect-[1224/1584] max-w-[560px] mx-auto shadow-md rounded-lg overflow-hidden bg-white">
                 <Image
                   src={worksheet.previewImages[selectedImage] || worksheet.previewImages[0]}
@@ -217,12 +274,19 @@ export function WorksheetDetailView({
                   href={pinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="absolute top-4 right-4 z-20 hidden group-hover:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#E60023] hover:bg-[#b8001c] text-white text-xs font-bold rounded-full shadow-lg transition-transform hover:scale-105"
                   title="Save to Pinterest"
                 >
                   <Share2 className="w-3.5 h-3.5" />
                   <span>Pin</span>
                 </a>
+
+                {/* Bottom-right click to enlarge pill */}
+                <span className="absolute bottom-3 right-3 z-20 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-900/75 text-white text-[11px] font-semibold backdrop-blur-xs shadow-sm group-hover:bg-[#2E6B6B] transition-colors">
+                  <ZoomIn className="w-3 h-3" />
+                  <span>Click to enlarge</span>
+                </span>
               </div>
             </div>
 
@@ -390,6 +454,43 @@ export function WorksheetDetailView({
                 {inPack ? <Check className="w-4 h-4" /> : <FolderHeart className="w-4 h-4" />}
                 <span>{inPack ? 'Saved in My Lesson Pack' : 'Add to My Lesson Pack'}</span>
               </button>
+
+              {/* Quick Share: Copy Link & WhatsApp */}
+              <div className="grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-700">Link Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Link2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>Copy Link</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href={whatsappShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent('worksheet_share', {
+                      method: 'whatsapp',
+                      slug: worksheet.slug,
+                    })
+                  }
+                  className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
 
               {/* Trust line */}
               <div className="pt-2 border-t border-slate-100 flex items-center justify-center gap-1.5 text-xs text-slate-500 font-medium">
@@ -652,6 +753,91 @@ export function WorksheetDetailView({
         paperSize={paperSize}
         onPaperSizeChange={setPaperSize}
       />
+
+      {/* Fullscreen Preview Zoom Lightbox */}
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-xs flex flex-col items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${title} full-size preview`}
+          onClick={() => setLightboxOpen(false)}
+        >
+          <div
+            className="w-full max-w-4xl flex items-center justify-between text-white pb-3 px-1 gap-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="min-w-0">
+              <p className="text-sm font-bold truncate">{title}</p>
+              <p className="text-xs text-slate-300">
+                Page {selectedImage + 1} of {worksheet.previewImages.length} · US Letter &amp; A4 PDF
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  setLightboxOpen(false);
+                  setDownloadModalOpen(true);
+                }}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#2E6B6B] hover:bg-[#235353] text-white text-xs font-bold transition-colors"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                <span>Download PDF</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(false)}
+                aria-label="Close preview"
+                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="relative flex items-center justify-center w-full max-w-4xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {worksheet.previewImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedImage(
+                    (i) =>
+                      (i - 1 + worksheet.previewImages.length) %
+                      worksheet.previewImages.length
+                  )
+                }
+                aria-label="Previous preview page"
+                className="absolute left-2 sm:left-4 z-10 p-2.5 rounded-full bg-slate-900/80 hover:bg-[#2E6B6B] text-white border border-white/20 shadow-lg transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+            )}
+
+            <img
+              src={worksheet.previewImages[selectedImage] || worksheet.previewImages[0]}
+              alt={`${title} - Full Size Page ${selectedImage + 1}`}
+              className="max-h-[82vh] w-auto max-w-full rounded-xl bg-white shadow-2xl object-contain"
+            />
+
+            {worksheet.previewImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedImage((i) => (i + 1) % worksheet.previewImages.length)
+                }
+                aria-label="Next preview page"
+                className="absolute right-2 sm:right-4 z-10 p-2.5 rounded-full bg-slate-900/80 hover:bg-[#2E6B6B] text-white border border-white/20 shadow-lg transition-colors"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
