@@ -1,6 +1,7 @@
 import React from 'react';
 import { ImageResponse } from 'next/og';
 import { getToolConfig } from '@/data/tools';
+import { CLIPART_COUNT } from '@/lib/clipart';
 import {
   layoutNameStrokes,
   strokeCommandsToSvgPath,
@@ -459,7 +460,7 @@ function FlashcardMakerPreviewCard() {
           color: '#64748B',
         }}
       >
-        <span>125 Line-Art Drawings + Tracing</span>
+        <span>{CLIPART_COUNT} Line-Art Drawings + Tracing</span>
         <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
       </div>
     </div>
@@ -1007,7 +1008,7 @@ function ClipCardsPreviewCard() {
           color: '#64748B',
         }}
       >
-        <span>125 Drawings · Upper, lower &amp; Aa</span>
+        <span>{CLIPART_COUNT} Drawings · Upper, lower &amp; Aa</span>
         <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
       </div>
     </div>

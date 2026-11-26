@@ -8,6 +8,7 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsBySubject } from '@/lib/worksheets-store';
 import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
+import { CLIPART_COUNT } from '@/lib/clipart';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -68,7 +69,7 @@ export default async function ClipCardsMakerToolPage() {
             Free Beginning Sounds Clip Cards Maker
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Build 2×2 or 2×3 beginning-sound phonics clip cards from 125 coloring-friendly drawings in US Letter or A4—complete with dashed cut lines, randomized letter choices, and a Teacher Answer Key.
+            Build 2×2 or 2×3 beginning-sound phonics clip cards from {CLIPART_COUNT} coloring-friendly drawings in US Letter or A4—complete with dashed cut lines, randomized letter choices, and a Teacher Answer Key.
           </p>
         </header>
 

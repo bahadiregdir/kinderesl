@@ -8,6 +8,7 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsBySubject } from '@/lib/worksheets-store';
 import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
+import { CLIPART_COUNT } from '@/lib/clipart';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -27,7 +28,7 @@ const matchingFaqs: FAQItem[] = [
   {
     question: 'Can preschoolers color the matching pictures too?',
     answer:
-      'Yes. All 125 illustrations use crisp black-ink coloring-book outlines that save printer ink and let students color each object after drawing their matching lines.',
+      `Yes. All ${CLIPART_COUNT} illustrations use crisp black-ink coloring-book outlines that save printer ink and let students color each object after drawing their matching lines.`,
   },
   {
     question: 'Are both US Letter and A4 paper sizes supported?',
@@ -68,7 +69,7 @@ export default async function MatchingMakerToolPage() {
             Free Beginning Sounds &amp; Picture Matching Worksheet Maker
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Create clean draw-a-line matching worksheets in US Letter or A4 from 125 preschool drawings—switch between Picture ↔ Word vocabulary matching and Picture ↔ Beginning Letter phonics with an automatic Answer Key.
+            Create clean draw-a-line matching worksheets in US Letter or A4 from {CLIPART_COUNT} preschool drawings—switch between Picture ↔ Word vocabulary matching and Picture ↔ Beginning Letter phonics with an automatic Answer Key.
           </p>
         </header>
 

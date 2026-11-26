@@ -9,6 +9,7 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsBySubject } from '@/lib/worksheets-store';
 import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
+import { CLIPART_COUNT } from '@/lib/clipart';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -73,7 +74,7 @@ export default async function BingoMakerToolPage() {
             Free Printable ESL Picture &amp; Word Bingo Card Generator
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Pick from 125 coloring-friendly drawings or enter your own vocabulary words to create up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a visual Teacher Caller Checklist in US Letter or A4.
+            Pick from {CLIPART_COUNT} coloring-friendly drawings or enter your own vocabulary words to create up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a visual Teacher Caller Checklist in US Letter or A4.
           </p>
         </header>
 

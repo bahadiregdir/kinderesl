@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { getSiteUrl } from '@/config/site';
+import { CLIPART_COUNT, CLIPART_THEME_COUNT } from '@/lib/clipart';
 import {
   DEFAULT_OG_IMAGE,
   buildSeoDescription,
@@ -100,20 +101,20 @@ export default function ToolsHubPage() {
     },
     {
       href: '/tools/flashcard-maker',
-      badge: 'Vocabulary · 125 Drawings + Upload',
+      badge: `Vocabulary · ${CLIPART_COUNT} Drawings + Upload`,
       title: 'ESL Picture Flashcard Maker',
       description:
-        'Mix and match 125 coloring-friendly KinderESL drawings or upload your own images to build 2×2, 2×3, or 3×3 picture and traceable flashcards.',
-      features: ['125 Built-In Drawings', 'Custom Image Upload', 'Picture + Trace Mode'],
+        `Mix and match ${CLIPART_COUNT} coloring-friendly KinderESL drawings or upload your own images to build 2×2, 2×3, or 3×3 picture and traceable flashcards.`,
+      features: [`${CLIPART_COUNT} Built-In Drawings`, 'Custom Image Upload', 'Picture + Trace Mode'],
       cta: 'Create Flashcards PDF',
       icon: Images,
     },
     {
       href: '/tools/i-spy-maker',
-      badge: 'Visual Counting · 11 Themes + Answer Key',
+      badge: `Visual Counting · ${CLIPART_THEME_COUNT} Themes + Answer Key`,
       title: 'Printable I Spy & Count Worksheet Maker',
       description:
-        'Generate non-overlapping find, color, and count I Spy PDFs from 125 coloring-friendly drawings across 11 seasonal & CVC themes plus a verified Page 2 Answer Key.',
+        `Generate non-overlapping find, color, and count I Spy PDFs from ${CLIPART_COUNT} coloring-friendly drawings across seasonal & CVC themes plus a verified Page 2 Answer Key.`,
       features: ['Easy, Medium & Busy', 'Auto Answer Key', 'Color-Friendly Line Art'],
       cta: 'Create I Spy PDF',
       icon: Search,
@@ -123,7 +124,7 @@ export default function ToolsHubPage() {
       badge: 'Phonics & Vocab · Draw-a-Line Pairs',
       title: 'Beginning Sounds & Picture Matching Maker',
       description:
-        'Create draw-a-line printable worksheets pairing 125 illustrations with English vocabulary words or beginning letters plus a Page 2 Answer Key.',
+        `Create draw-a-line printable worksheets pairing ${CLIPART_COUNT} illustrations with English vocabulary words or beginning letters plus a Page 2 Answer Key.`,
       features: ['Picture ↔ Word', 'Picture ↔ Letter', 'Auto Answer Key'],
       cta: 'Create Matching PDF',
       icon: GitCompareArrows,
@@ -143,8 +144,8 @@ export default function ToolsHubPage() {
       badge: 'Phonics Centers · 2×2 & 2×3 Cards',
       title: 'Beginning Sounds Clip Cards Maker',
       description:
-        'Print cut-out 2×2 or 2×3 clothespin phonics cards from 125 illustrations with randomized letter boxes and a quick Teacher Answer Key.',
-      features: ['125 Built-In Drawings', 'UPPER / lower / Aa', 'Dashed Cut Guides'],
+        `Print cut-out 2×2 or 2×3 clothespin phonics cards from ${CLIPART_COUNT} illustrations with randomized letter boxes and a quick Teacher Answer Key.`,
+      features: [`${CLIPART_COUNT} Built-In Drawings`, 'UPPER / lower / Aa', 'Dashed Cut Guides'],
       cta: 'Create Clip Cards PDF',
       icon: Scissors,
     },
@@ -153,7 +154,7 @@ export default function ToolsHubPage() {
       badge: 'ESL Speaking · Picture & Word Modes',
       title: 'Custom ESL Picture & Word Bingo Maker',
       description:
-        'Pick from 125 line-art drawings or custom vocabulary words to build up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a visual caller sheet.',
+        `Pick from ${CLIPART_COUNT} line-art drawings or custom vocabulary words to build up to 30 uniquely shuffled 3×3 or 4×4 bingo boards plus a visual caller sheet.`,
       features: ['Picture & Word Bingo', '1 or 2 Cards / Sheet', 'Visual Caller Sheet'],
       cta: 'Create Bingo Cards PDF',
       icon: Grid3X3,

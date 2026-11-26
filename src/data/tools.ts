@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getSiteUrl } from '@/config/site';
 import { buildSeoDescription, buildSeoTitle } from '@/lib/seo-meta';
+import { CLIPART_COUNT } from '@/lib/clipart';
 
 export type ToolPreviewKind =
   | 'name-tracing'
@@ -56,7 +57,7 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
     path: '/tools/bingo-maker',
     seoTitle: 'Free ESL Picture & Word Bingo Card Generator',
     description:
-      'Create up to 30 unique shuffled printable ESL picture or word bingo cards in US Letter or A4 PDF with a teacher caller checklist. 125 illustrations built in.',
+      `Create up to 30 unique shuffled printable ESL picture or word bingo cards in US Letter or A4 PDF with a teacher caller checklist. ${CLIPART_COUNT} illustrations built in.`,
     ogTitle: 'Free ESL Picture Bingo Maker',
     ogSubtitle: 'Pictures & Words · 3×3 & 4×4 Free PDF',
     ogBadges: ['Picture & Word Modes', 'Caller Checklist'],
@@ -75,14 +76,14 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
     path: '/tools/flashcard-maker',
     seoTitle: 'Free Printable ESL Picture Flashcard Maker',
     description:
-      'Build custom printable ESL picture flashcards in US Letter or A4 PDF from 125 coloring-friendly drawings or your own uploaded images. Supports 2×2, 2×3, and 3×3 cards.',
+      `Build custom printable ESL picture flashcards in US Letter or A4 PDF from ${CLIPART_COUNT} coloring-friendly drawings or your own uploaded images. Supports 2×2, 2×3, and 3×3 cards.`,
     ogTitle: 'Free ESL Picture Flashcard Maker',
-    ogSubtitle: '125 Drawings + Custom Upload · Free PDF',
+    ogSubtitle: `${CLIPART_COUNT} Drawings + Custom Upload · Free PDF`,
     ogBadges: ['2×2, 2×3 & 3×3 Cards', 'Picture + Trace Mode'],
     ogAlt:
       'Free Printable ESL Picture Flashcard Maker — Printable 2x2 ESL vocabulary flashcards with coloring-friendly line art',
     pinDescription:
-      'Free Printable ESL Picture Flashcard Maker! Pick from 125 coloring-friendly drawings or upload your own images to create 2x2, 2x3, or 3x3 PDF flashcard decks at KinderESL.com.',
+      `Free Printable ESL Picture Flashcard Maker! Pick from ${CLIPART_COUNT} coloring-friendly drawings or upload your own images to create 2x2, 2x3, or 3x3 PDF flashcard decks at KinderESL.com.`,
     sampleHeading: 'Printable Output Preview',
     sampleCaption:
       'Clean 2×2, 2×3, and 3×3 printable flashcards with optional traceable words.',
@@ -94,7 +95,7 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
     path: '/tools/i-spy-maker',
     seoTitle: 'Free Printable I Spy Worksheet Maker',
     description:
-      'Create custom find-and-count printable I Spy PDF worksheets in US Letter or A4 from 125 coloring-friendly drawings, complete with counting boxes and a verified Page 2 Answer Key.',
+      `Create custom find-and-count printable I Spy PDF worksheets in US Letter or A4 from ${CLIPART_COUNT} coloring-friendly drawings, complete with counting boxes and a verified Page 2 Answer Key.`,
     ogTitle: 'Free I Spy Worksheet Maker',
     ogSubtitle: 'Find, Color & Count · + Answer Key PDF',
     ogBadges: ['11 Seasonal & CVC Themes', 'Auto Answer Key'],
@@ -113,7 +114,7 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
     path: '/tools/matching-maker',
     seoTitle: 'Free Beginning Sounds & Picture Matching Maker',
     description:
-      'Create printable draw-a-line matching PDF worksheets in US Letter or A4 from 125 preschool drawings. Supports Picture-Word and Picture-Beginning Letter modes + Answer Key.',
+      `Create printable draw-a-line matching PDF worksheets in US Letter or A4 from ${CLIPART_COUNT} preschool drawings. Supports Picture-Word and Picture-Beginning Letter modes + Answer Key.`,
     ogTitle: 'Free Picture Matching Maker',
     ogSubtitle: 'Pictures ↔ Words & Letters · Free PDF',
     ogBadges: ['Picture & Phonics Modes', 'Auto Answer Key'],
@@ -151,14 +152,14 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
     path: '/tools/clip-cards-maker',
     seoTitle: 'Free Beginning Sounds Clip Cards Maker',
     description:
-      'Create printable 2×2 and 2×3 beginning-sound phonics clip cards in US Letter or A4 PDF from 125 drawings, complete with dashed cut guides and Teacher Answer Key.',
+      `Create printable 2×2 and 2×3 beginning-sound phonics clip cards in US Letter or A4 PDF from ${CLIPART_COUNT} drawings, complete with dashed cut guides and Teacher Answer Key.`,
     ogTitle: 'Free Beginning Sounds Clip Cards',
     ogSubtitle: '2×2 & 2×3 Phonics Cards · Free PDF',
-    ogBadges: ['125 Line-Art Drawings', 'Dashed Cut Guides'],
+    ogBadges: [`${CLIPART_COUNT} Line-Art Drawings`, 'Dashed Cut Guides'],
     ogAlt:
       'Free Beginning Sounds Clip Cards Maker — Printable clothespin phonics cards with illustrations and 3 letter choices',
     pinDescription:
-      'Free Beginning Sounds Clip Cards Maker! Print 2x2 or 2x3 clothespin phonics cards from 125 preschool drawings with UPPER, lower, or Aa letter choices at KinderESL.com.',
+      `Free Beginning Sounds Clip Cards Maker! Print 2x2 or 2x3 clothespin phonics cards from ${CLIPART_COUNT} preschool drawings with UPPER, lower, or Aa letter choices at KinderESL.com.`,
     sampleHeading: 'Printable Output Preview',
     sampleCaption:
       'Printable phonics clip cards built for wooden clothespins and literacy centers.',

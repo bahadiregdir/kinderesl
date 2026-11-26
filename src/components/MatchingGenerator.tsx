@@ -11,6 +11,7 @@ import {
   type MatchingPreset,
 } from '@/lib/matching-pdf';
 import {
+  CLIPART_COUNT,
   clipartUrl,
   formatClipartLabel,
   getClipart,
@@ -254,7 +255,7 @@ export function MatchingGenerator() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search 125 drawings..."
+                placeholder={`Search ${CLIPART_COUNT} drawings...`}
                 className="w-full pl-8 pr-3 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-[#2E6B6B]"
               />
             </div>

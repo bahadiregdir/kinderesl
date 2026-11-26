@@ -81,6 +81,65 @@ export const PICTURE_BINGO_PRESETS: PictureBingoPreset[] = [
     items: toBingoItems(getClipartByThemeOrTag('routines')),
   },
   {
+    id: 'pic-fall',
+    label: 'Fall (8)',
+    title: 'Fall & Autumn Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('fall')),
+  },
+  {
+    id: 'pic-halloween',
+    label: 'Halloween (8)',
+    title: 'Halloween Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('halloween')),
+  },
+  {
+    id: 'pic-spring',
+    label: 'Spring (8)',
+    title: 'Spring Vocabulary Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('spring')),
+  },
+  {
+    id: 'pic-valentines',
+    label: "Valentine's (8)",
+    title: "Valentine's Day Picture Bingo",
+    items: toBingoItems(
+      mergeClipartSets(
+        [getClipart('heart')].filter((i): i is ClipartItem => Boolean(i)),
+        getClipartByThemeOrTag('valentines')
+      )
+    ),
+  },
+  {
+    id: 'pic-summer',
+    label: 'Summer (8)',
+    title: 'Summer Fun Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('summer')),
+  },
+  {
+    id: 'pic-weather',
+    label: 'Weather (8)',
+    title: 'Weather & Sky Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('weather')),
+  },
+  {
+    id: 'pic-transport',
+    label: 'Transport (8)',
+    title: 'Transportation Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('transport')),
+  },
+  {
+    id: 'pic-clothes',
+    label: 'Clothes (8)',
+    title: 'Clothes & Dressing Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('clothes')),
+  },
+  {
+    id: 'pic-nature',
+    label: 'Nature (8)',
+    title: 'Nature & Outdoors Picture Bingo',
+    items: toBingoItems(getClipartByThemeOrTag('nature')),
+  },
+  {
     id: 'pic-winter-christmas',
     label: 'Winter + Christmas (18)',
     title: 'Winter & Christmas Picture Bingo',

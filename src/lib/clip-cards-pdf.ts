@@ -117,6 +117,60 @@ export const CLIP_CARD_PRESETS: ClipCardPreset[] = [
     title: 'Community Helpers Beginning Sounds Clip Cards',
     clipartIds: idsFromTheme('helpers', 6),
   },
+  {
+    id: 'fall',
+    label: 'Fall (8)',
+    title: 'Fall & Autumn Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('fall', 8),
+  },
+  {
+    id: 'halloween',
+    label: 'Halloween (8)',
+    title: 'Halloween Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('halloween', 8),
+  },
+  {
+    id: 'spring',
+    label: 'Spring (8)',
+    title: 'Spring Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('spring', 8),
+  },
+  {
+    id: 'valentines',
+    label: "Valentine's (8)",
+    title: "Valentine's Day Beginning Sounds Clip Cards",
+    clipartIds: Array.from(new Set(['heart', ...idsFromTheme('valentines', 8)])).slice(0, 8),
+  },
+  {
+    id: 'summer',
+    label: 'Summer (8)',
+    title: 'Summer Fun Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('summer', 8),
+  },
+  {
+    id: 'weather',
+    label: 'Weather (8)',
+    title: 'Weather Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('weather', 8),
+  },
+  {
+    id: 'transport',
+    label: 'Transport (8)',
+    title: 'Transportation Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('transport', 8),
+  },
+  {
+    id: 'clothes',
+    label: 'Clothes (8)',
+    title: 'Clothes Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('clothes', 8),
+  },
+  {
+    id: 'nature',
+    label: 'Nature (8)',
+    title: 'Nature Beginning Sounds Clip Cards',
+    clipartIds: idsFromTheme('nature', 8),
+  },
 ];
 
 const DISTRACTOR_POOL = 'ABCDEFGHKLMNOPRSTW'.split('');

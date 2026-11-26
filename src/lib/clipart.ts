@@ -56,6 +56,9 @@ export const CLIPART_BASE_PATH = '/clipart';
 const items = manifestJson as ClipartItem[];
 const byId = new Map(items.map((item) => [item.id, item]));
 
+export const CLIPART_COUNT = items.length;
+export const CLIPART_THEME_COUNT = new Set(items.map((item) => item.theme)).size;
+
 export function getClipart(id: string): ClipartItem | undefined {
   return byId.get(id);
 }

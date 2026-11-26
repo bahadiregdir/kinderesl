@@ -8,6 +8,7 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsBySubject } from '@/lib/worksheets-store';
 import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
+import { CLIPART_COUNT } from '@/lib/clipart';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -17,7 +18,7 @@ const flashcardFaqs: FAQItem[] = [
   {
     question: 'What drawings are included in the ESL Flashcard Maker?',
     answer:
-      'All 125 original black-and-white KinderESL line-art illustrations are built in—including farm animals, winter clothes, classroom objects, food, daily routines, body parts, feelings, community helpers, and 31 CVC phonics words.',
+      `All ${CLIPART_COUNT} original black-and-white KinderESL line-art illustrations are built in—including farm animals, fall, Halloween, spring, winter, classroom objects, food, daily routines, body parts, feelings, helpers, and CVC phonics words.`,
   },
   {
     question: 'Can I upload my own pictures or edit the English card labels?',
@@ -65,13 +66,13 @@ export default async function FlashcardMakerToolPage() {
         <header className="max-w-3xl space-y-3">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0F7F7] text-[#2E6B6B] border border-[#d0e3e3]">
             <Sparkles className="w-3.5 h-3.5 text-[#F2B544]" />
-            <span>Free ESL Flashcards · 125 Illustrated Drawings</span>
+            <span>Free ESL Flashcards · {CLIPART_COUNT} Illustrated Drawings</span>
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
             Free Printable ESL Picture Flashcard Maker
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Mix and match 125 crisp, coloring-friendly KinderESL line drawings—or upload your own pictures—to print 2×2, 2×3, or 3×3 classroom flashcards with optional traceable words and matching word decks in US Letter or A4.
+            Mix and match {CLIPART_COUNT} crisp, coloring-friendly KinderESL line drawings—or upload your own pictures—to print 2×2, 2×3, or 3×3 classroom flashcards with optional traceable words and matching word decks in US Letter or A4.
           </p>
         </header>
 

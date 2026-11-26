@@ -8,6 +8,7 @@ import { NewsletterBox } from '@/components/NewsletterBox';
 import { AdUnit } from '@/components/AdUnit';
 import { fetchWorksheetsBySubject } from '@/lib/worksheets-store';
 import { buildToolMetadata, buildToolWebAppSchema } from '@/data/tools';
+import { CLIPART_COUNT, CLIPART_THEME_COUNT } from '@/lib/clipart';
 import type { FAQItem } from '@/types/worksheet';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -64,13 +65,13 @@ export default async function ISpyMakerToolPage() {
         <header className="max-w-3xl space-y-3">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0F7F7] text-[#2E6B6B] border border-[#d0e3e3]">
             <Sparkles className="w-3.5 h-3.5 text-[#F2B544]" />
-            <span>Free Visual Discrimination Tool · 125 Drawings</span>
+            <span>Free Visual Discrimination Tool · {CLIPART_COUNT} Drawings</span>
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
             Free Printable I Spy Worksheet Maker
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
-            Create custom find-and-count I Spy PDF worksheets in US Letter or A4 from 11 preschool themes and 125 coloring-friendly drawings—complete with write-in counting boxes and a verified Page 2 Teacher Answer Key.
+            Create custom find-and-count I Spy PDF worksheets in US Letter or A4 from {CLIPART_THEME_COUNT} preschool themes and {CLIPART_COUNT} coloring-friendly drawings—complete with write-in counting boxes and a verified Page 2 Teacher Answer Key.
           </p>
         </header>
 

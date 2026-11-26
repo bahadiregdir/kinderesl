@@ -74,9 +74,17 @@ const TOPIC_TO_TOOL_THEME: Record<string, string> = {
   insects: 'animals',
   food: 'food',
   body: 'body',
-  clothes: 'winter',
-  weather: 'winter',
+  clothes: 'clothes',
+  weather: 'weather',
+  transportation: 'transport',
+  fall: 'fall',
+  spring: 'spring',
+  summer: 'summer',
   family: 'routines',
+  halloween: 'halloween',
+  valentines: 'valentines',
+  christmas: 'christmas',
+  nature: 'nature',
 };
 
 export default async function TopicDetailPage({ params }: Props) {
