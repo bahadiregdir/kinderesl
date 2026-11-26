@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BingoGenerator } from '@/components/BingoGenerator';
-import { ToolSamplePreview } from '@/components/ToolSamplePreview';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
@@ -79,8 +78,6 @@ export default async function BingoMakerToolPage() {
         </header>
 
         <BingoGenerator />
-
-        <ToolSamplePreview slug="bingo-maker" />
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[

@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { NameTracingGenerator } from '@/components/NameTracingGenerator';
-import { ToolSamplePreview } from '@/components/ToolSamplePreview';
 import { WorksheetCard } from '@/components/WorksheetCard';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { NewsletterBox } from '@/components/NewsletterBox';
@@ -81,9 +80,6 @@ export default async function NameTracingToolPage() {
 
         {/* Interactive Generator */}
         <NameTracingGenerator />
-
-        {/* Printable Sample Preview for Educators & Pinterest */}
-        <ToolSamplePreview slug="name-tracing" />
 
         {/* 3-Step Classroom Usage Tips */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
