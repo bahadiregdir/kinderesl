@@ -13,6 +13,7 @@ import { PreDownloadModal } from '@/components/PreDownloadModal';
 import { NewsletterBox } from '@/components/NewsletterBox';
 import { useLessonPack } from '@/context/LessonPackContext';
 import { trackEvent } from '@/lib/analytics';
+import { getRelatedToolsForWorksheet } from '@/lib/related-tools';
 import { getSiteUrl, toAbsoluteAssetUrl } from '@/config/site';
 import {
   FileDown,
@@ -33,6 +34,7 @@ import {
   ChevronRight,
   Link2,
   MessageCircle,
+  Wand2,
 } from 'lucide-react';
 
 interface WorksheetDetailViewProps {
@@ -56,6 +58,7 @@ export function WorksheetDetailView({
   const [paperSize, setPaperSize] = useState<'letter' | 'a4'>('letter');
   const { hasItem, toggleItem } = useLessonPack();
   const inPack = hasItem(worksheet.slug);
+  const relatedTools = getRelatedToolsForWorksheet(worksheet);
 
   const siteUrl = getSiteUrl();
   const currentUrl = `${siteUrl}/worksheets/${worksheet.slug}`;
@@ -650,6 +653,59 @@ export function WorksheetDetailView({
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
+          )}
+
+          {/* Context-Matched Free PDF Makers */}
+          {relatedTools.length > 0 && (
+            <section className="p-5 sm:p-6 rounded-2xl bg-[#F0F7F7]/80 border border-[#d0e3e3] space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="space-y-0.5">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#2E6B6B]">
+                    <Wand2 className="w-3.5 h-3.5 text-[#F2B544]" />
+                    <span>Companion PDF Makers</span>
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
+                    Make Matching Custom PDFs Free
+                  </h3>
+                  <p className="text-xs text-slate-600">
+                    Turn this topic into custom flashcards, bingo boards, or extra tracing sheets.
+                  </p>
+                </div>
+                <Link
+                  href="/tools"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B] hover:underline shrink-0"
+                >
+                  <span>All 10 Tools</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {relatedTools.map((tool) => (
+                  <Link
+                    key={tool.href}
+                    href={tool.href}
+                    className="group p-4 rounded-xl bg-white border border-[#d0e3e3] hover:border-[#2E6B6B] hover:shadow-sm transition-all flex flex-col justify-between gap-2.5"
+                  >
+                    <div className="space-y-1">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#F0F7F7] text-[#2E6B6B]">
+                        {tool.badge}
+                      </span>
+                      <h4 className="text-sm font-bold text-slate-900 group-hover:text-[#2E6B6B] transition-colors">
+                        {tool.title}
+                      </h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        {tool.subtitle}
+                      </p>
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-[#2E6B6B]">
+                      <span>Create PDF</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </section>
           )}
 
           {/* Frequently Asked Questions */}

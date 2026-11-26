@@ -12,7 +12,7 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/guides`;
 const pageTitle = buildSeoTitle('Preschool & ESL Teaching Guides');
 const pageDescription = buildSeoDescription(
-  'Practical classroom guides for preschool and ESL teachers covering alphabet tracing routines, 15-minute circle time, farm units, and seasonal math.'
+  'Practical classroom guides for preschool and ESL teachers covering alphabet tracing, Dolch sight words, CVC phonics, name writing, ten-frame counting, circle time games, and seasonal plans.'
 );
 
 export const metadata: Metadata = {
@@ -85,7 +85,10 @@ export default function GuidesIndexPage() {
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2E6B6B]">
                 <span className="inline-flex items-center gap-1.5 text-slate-500 font-medium">
                   <BookOpen className="w-3.5 h-3.5 text-[#2E6B6B]" />
-                  <span>{guide.targetAges} · {guide.relatedWorksheetSlugs.length} free printables</span>
+                  <span>
+                    {guide.targetAges} · {guide.relatedTools.length} free tools ·{' '}
+                    {guide.relatedWorksheetSlugs.length} printables
+                  </span>
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <span>Read guide</span>
