@@ -342,13 +342,13 @@ export default async function HomePage() {
           <div className="space-y-2 max-w-2xl">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/15 text-[#FDE68A]">
               <Sparkles className="w-3 h-3" />
-              <span>6 Free Classroom Tools · Browser-Private PDF</span>
+              <span>7 Free Classroom Tools · Browser-Private PDF</span>
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight font-heading">
-              Free Picture Flashcards, Bingo &amp; Tracing PDF Makers
+              Free Picture Flashcards, I Spy, Bingo &amp; Tracing PDF Makers
             </h2>
             <p className="text-xs sm:text-sm text-teal-50/90 leading-relaxed">
-              Create personalized name sheets, A–Z letter &amp; 0–20 Ten-Frame tracing, sight words, picture flashcards from 125 drawings, or shuffled 3×3 / 4×4 picture bingo—US Letter &amp; A4 ready.
+              Create personalized name sheets, A–Z letter &amp; 0–20 Ten-Frame tracing, sight words, picture flashcards, find-and-count I Spy sheets, or shuffled picture bingo—US Letter &amp; A4 ready.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2.5 shrink-0">
@@ -358,6 +358,12 @@ export default async function HomePage() {
             >
               <span>Picture Flashcards</span>
               <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              href="/tools/i-spy-maker"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
+            >
+              <span>I Spy Maker</span>
             </Link>
             <Link
               href="/tools/bingo-maker"
@@ -372,16 +378,10 @@ export default async function HomePage() {
               <span>Name Tracing</span>
             </Link>
             <Link
-              href="/tools/letter-tracing"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
-            >
-              <span>Letters A–Z</span>
-            </Link>
-            <Link
               href="/tools"
               className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-[#F2B544] hover:bg-[#e5a633] text-slate-900 text-xs font-bold transition-colors"
             >
-              <span>All 6 Tools</span>
+              <span>All 7 Tools</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

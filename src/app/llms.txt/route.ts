@@ -73,6 +73,9 @@ export async function GET() {
     `- [Free Printable ESL Picture Flashcard Maker](${baseUrl}/tools/flashcard-maker): Build 2x2, 2x3, or 3x3 classroom flashcard PDFs in US Letter or A4 from 125 built-in KinderESL line-art drawings or custom uploaded images, with optional traceable words and matching word decks.`
   );
   lines.push(
+    `- [Free Printable I Spy Worksheet Maker](${baseUrl}/tools/i-spy-maker): Create non-overlapping find, color, and count I Spy PDFs across 11 themes and 125 drawings with counting checklist boxes and an automatic Page 2 Teacher Answer Key.`
+  );
+  lines.push(
     `- [Custom ESL Picture & Word Bingo Card Generator](${baseUrl}/tools/bingo-maker): Build up to 30 uniquely shuffled 3x3 or 4x4 ESL picture or word bingo boards plus a visual Teacher Caller Checklist in US Letter or A4 PDF.`
   );
   lines.push('');

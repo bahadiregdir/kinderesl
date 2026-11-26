@@ -466,6 +466,153 @@ function FlashcardMakerPreviewCard() {
   );
 }
 
+function ISpyPreviewCard() {
+  const spots = [
+    { word: 'Snowman', x: 24, y: 18, bg: '#E6F4F2' },
+    { word: 'Mitten', x: 220, y: 24, bg: '#FEF3C7' },
+    { word: 'Igloo', x: 112, y: 88, bg: '#F1F5F9' },
+    { word: 'Sled', x: 256, y: 98, bg: '#E6F4F2' },
+    { word: 'Hat', x: 28, y: 152, bg: '#FEF3C7' },
+    { word: 'Coat', x: 162, y: 160, bg: '#F1F5F9' },
+  ];
+
+  const counts = ['Snowman [ ]', 'Mitten [ ]', 'Igloo [ ]', 'Sled [ ]'];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        padding: '24px 28px',
+        boxShadow: '0 24px 48px rgba(10, 32, 32, 0.35)',
+        border: '2px solid #D0E3E3',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '2px solid #2E6B6B',
+          paddingBottom: 10,
+          marginBottom: 14,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#0F172A',
+          }}
+        >
+          Winter I Spy &amp; Count
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#2E6B6B',
+            backgroundColor: '#F0F7F7',
+            padding: '4px 10px',
+            borderRadius: 999,
+          }}
+        >
+          + Answer Key
+        </div>
+      </div>
+
+      {/* Scattered Search Box */}
+      <div
+        style={{
+          display: 'flex',
+          position: 'relative',
+          width: '100%',
+          height: 214,
+          border: '2px solid #2E6B6B',
+          borderRadius: 12,
+          backgroundColor: '#FAFCFC',
+          marginBottom: 12,
+        }}
+      >
+        {spots.map((s) => (
+          <div
+            key={s.word}
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              left: s.x,
+              top: s.y,
+              backgroundColor: s.bg,
+              border: '1.5px solid #2E6B6B',
+              borderRadius: 999,
+              padding: '6px 14px',
+              fontSize: 15,
+              fontWeight: 700,
+              color: '#0F172A',
+            }}
+          >
+            {s.word}
+          </div>
+        ))}
+      </div>
+
+      {/* Count Checklist Row */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 8,
+          backgroundColor: '#F0F7F7',
+          border: '1px solid #D0E3E3',
+          borderRadius: 10,
+          padding: '10px',
+        }}
+      >
+        {counts.map((c) => (
+          <div
+            key={c}
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #93B5B5',
+              borderRadius: 6,
+              padding: '6px 4px',
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#1E293B',
+            }}
+          >
+            {c}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 'auto',
+          paddingTop: 8,
+          fontSize: 13,
+          color: '#64748B',
+        }}
+      >
+        <span>Easy, Medium &amp; Busy Levels</span>
+        <span style={{ color: '#2E6B6B', fontWeight: 700 }}>kinderesl.com</span>
+      </div>
+    </div>
+  );
+}
+
 function GenericToolPreviewCard({ title }: { title: string }) {
   return (
     <div
@@ -1193,6 +1340,8 @@ export function renderToolOgImage(slug: string): ImageResponse {
             <HandwritingPreviewCard />
           ) : tool.previewKind === 'flashcard-maker' ? (
             <FlashcardMakerPreviewCard />
+          ) : tool.previewKind === 'i-spy-maker' ? (
+            <ISpyPreviewCard />
           ) : (
             <GenericToolPreviewCard title={tool.ogTitle} />
           )}

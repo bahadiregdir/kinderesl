@@ -18,6 +18,7 @@ import {
   Hash,
   BookOpenText,
   Images,
+  Search,
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react';
@@ -26,7 +27,7 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/tools`;
 const pageTitle = buildSeoTitle('Free Printable Teacher Tools');
 const pageDescription = buildSeoDescription(
-  'Free browser-private PDF generators for preschool and ESL teachers: picture flashcards, picture & word ESL bingo, name tracing, A–Z letter tracing, 0–20 number tracing, and sight word handwriting in US Letter & A4.'
+  'Free browser-private PDF generators for preschool and ESL teachers: I Spy find-and-count sheets, picture flashcards, picture ESL bingo, name tracing, A–Z letter tracing, 0–20 number tracing, and sight word handwriting in US Letter & A4.'
 );
 
 export const metadata: Metadata = {
@@ -103,6 +104,16 @@ export default function ToolsHubPage() {
       features: ['125 Built-In Drawings', 'Custom Image Upload', 'Picture + Trace Mode'],
       cta: 'Create Flashcards PDF',
       icon: Images,
+    },
+    {
+      href: '/tools/i-spy-maker',
+      badge: 'Visual Counting · 11 Themes + Answer Key',
+      title: 'Printable I Spy & Count Worksheet Maker',
+      description:
+        'Generate non-overlapping find, color, and count I Spy PDFs from 125 coloring-friendly drawings across 11 seasonal & CVC themes plus a verified Page 2 Answer Key.',
+      features: ['Easy, Medium & Busy', 'Auto Answer Key', 'Color-Friendly Line Art'],
+      cta: 'Create I Spy PDF',
+      icon: Search,
     },
     {
       href: '/tools/bingo-maker',

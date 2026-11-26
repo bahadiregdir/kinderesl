@@ -9,6 +9,7 @@ export type ToolPreviewKind =
   | 'number-tracing'
   | 'handwriting-maker'
   | 'flashcard-maker'
+  | 'i-spy-maker'
   | 'generic';
 
 export interface ToolRegistryItem {
@@ -84,6 +85,25 @@ export const TOOL_REGISTRY: Record<string, ToolRegistryItem> = {
       'Clean 2×2, 2×3, and 3×3 printable flashcards with optional traceable words.',
     schemaName: 'KinderESL Free ESL Picture Flashcard Maker',
     previewKind: 'flashcard-maker',
+  },
+  'i-spy-maker': {
+    slug: 'i-spy-maker',
+    path: '/tools/i-spy-maker',
+    seoTitle: 'Free Printable I Spy Worksheet Maker',
+    description:
+      'Create custom find-and-count printable I Spy PDF worksheets in US Letter or A4 from 125 coloring-friendly drawings, complete with counting boxes and a verified Page 2 Answer Key.',
+    ogTitle: 'Free I Spy Worksheet Maker',
+    ogSubtitle: 'Find, Color & Count · + Answer Key PDF',
+    ogBadges: ['11 Seasonal & CVC Themes', 'Auto Answer Key'],
+    ogAlt:
+      'Free Printable I Spy Worksheet Maker — Custom find-and-count ESL and preschool I Spy worksheet preview with counting checklist',
+    pinDescription:
+      'Free Printable I Spy Worksheet Maker for Preschool & Kindergarten! Pick Winter, Christmas, Farm, or CVC Phonics themes, choose difficulty, and print US Letter or A4 PDFs + Answer Key at KinderESL.com.',
+    sampleHeading: 'Printable Output Preview',
+    sampleCaption:
+      'Non-overlapping coloring-book search field with write-in counting boxes and answer key.',
+    schemaName: 'KinderESL Free Printable I Spy Worksheet Maker',
+    previewKind: 'i-spy-maker',
   },
   'letter-tracing': {
     slug: 'letter-tracing',
