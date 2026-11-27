@@ -2331,5 +2331,72 @@
     "width": 716,
     "height": 1024,
     "style": "lineart"
+  },
+  {
+    "id": "deer",
+    "name": "deer",
+    "theme": "animals",
+    "tags": [
+      "winter"
+    ],
+    "cvc": false,
+    "file": "animals/deer.png",
+    "style": "lineart",
+    "width": 851,
+    "height": 1024
+  },
+  {
+    "id": "earmuffs",
+    "name": "earmuffs",
+    "theme": "winter",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "winter/earmuffs.png",
+    "style": "lineart",
+    "width": 1024,
+    "height": 925
+  },
+  {
+    "id": "fireplace",
+    "name": "fireplace",
+    "theme": "winter",
+    "tags": [
+      "household"
+    ],
+    "cvc": false,
+    "file": "winter/fireplace.png",
+    "style": "lineart",
+    "width": 1024,
+    "height": 793
+  },
+  {
+    "id": "gloves",
+    "name": "gloves",
+    "theme": "winter",
+    "tags": [
+      "clothes"
+    ],
+    "cvc": false,
+    "file": "winter/gloves.png",
+    "style": "lineart",
+    "width": 1024,
+    "height": 835
+  },
+  {
+    "id": "winter-owl",
+    "name": "owl",
+    "theme": "winter",
+    "tags": [
+      "animals",
+      "birds"
+    ],
+    "cvc": false,
+    "file": "winter/winter-owl.png",
+    "style": "lineart",
+    "variantOf": "owl",
+    "width": 802,
+    "height": 1024
   }
 ]

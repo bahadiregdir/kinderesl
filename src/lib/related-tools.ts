@@ -1,4 +1,5 @@
 import type { Worksheet } from '@/types/worksheet';
+import { CLIPART_COUNT } from '@/lib/clipart';
 
 export interface RelatedToolLink {
   href: string;
@@ -762,7 +763,7 @@ export function getRelatedToolsForWorksheet(worksheet: Worksheet): RelatedToolLi
     {
       href: '/tools/flashcard-maker',
       title: 'ESL Picture Flashcard Maker',
-      subtitle: 'Pick from 176 line-art drawings or upload custom photos in 2×2 to 3×3 cards.',
+      subtitle: `Pick from ${CLIPART_COUNT} line-art drawings or upload custom photos in 2×2 to 3×3 cards.`,
       badge: 'Flashcards',
     },
     {
@@ -826,7 +827,7 @@ export function getRelatedToolsForActivity(activitySlug: string): RelatedToolLin
         {
           href: '/tools/flashcard-maker',
           title: 'ESL Picture Flashcard Maker',
-          subtitle: 'Print coloring-friendly vocabulary decks from 176 original drawings.',
+          subtitle: `Print coloring-friendly vocabulary decks from ${CLIPART_COUNT} original drawings.`,
           badge: 'Flashcards',
         },
         {
@@ -949,7 +950,7 @@ export function getRelatedToolsForActivity(activitySlug: string): RelatedToolLin
         {
           href: '/tools/flashcard-maker',
           title: 'ESL Picture Flashcard Maker',
-          subtitle: 'Create 2×2, 2×3, or 3×3 decks from 176 drawings or your own images.',
+          subtitle: `Create 2×2, 2×3, or 3×3 decks from ${CLIPART_COUNT} drawings or your own images.`,
           badge: 'Flashcards',
         },
         {
